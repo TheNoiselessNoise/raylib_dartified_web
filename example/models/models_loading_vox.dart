@@ -1,7 +1,6 @@
 // Example dartified, see original for reference:
 // https://github.com/raysan5/raylib/blob/master/examples/models/models_loading_vox.c
 // WARNING: expects resources from the raylib source
-// TODO: fix this example
 import 'package:raylib_dartified_web/raylib_dartified_web.dart';
 
 const int GLSL_VERSION = 100;

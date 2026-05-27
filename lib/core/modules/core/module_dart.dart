@@ -3982,7 +3982,6 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     },
   );
   
-  // TODO: needs testing
   @override
   List<ColorD> LoadImagePalette(
     ImageD image,
