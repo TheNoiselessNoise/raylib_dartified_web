@@ -1,6 +1,6 @@
 name: raylib_dartified_web
 description: Web (WASM) backend for raylib_dartified.
-version: 5.5.0
+version: 5.5.1
 repository: https://github.com/TheNoiselessNoise/raylib_dartified_web
 
 environment:
