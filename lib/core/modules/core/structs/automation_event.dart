@@ -27,14 +27,14 @@ class AutomationEventD extends StructDWeb<AutomationEventD> with AutomationEvent
     structOnOp((p) => p.writerAt(_o[.frame]).Uint32(value));
   }
 
-  int _type;
+  AutomationEventType _type;
   @override get type {
-    structOnOp((p) => _type = p.readerAt(_o[.type]).Uint32());
+    structOnOp((p) => _type = .fromValue(p.readerAt(_o[.type]).Uint32()));
     return _type;
   }
-  @override set type(int value) {
+  @override set type(AutomationEventType value) {
     _type = value;
-    structOnOp((p) => p.writerAt(_o[.type]).Uint32(value));
+    structOnOp((p) => p.writerAt(_o[.type]).Uint32(value.value));
   }
 
   late WasmLiveListArrayInt32 _params;
@@ -54,7 +54,7 @@ class AutomationEventD extends StructDWeb<AutomationEventD> with AutomationEvent
   AutomationEventD({
     super.originalPointer,
     int frame = 0,
-    int type = 0,
+    AutomationEventType type = .EVENT_NONE,
     List<int>? params,
   }) :
     _frame = frame,
@@ -79,14 +79,14 @@ class AutomationEventD extends StructDWeb<AutomationEventD> with AutomationEvent
   @override
   void wasmWriteInto(WasmWriter writer) {
     writer.Uint32(frame);
-    writer.Uint32(type);
+    writer.Uint32(type.value);
     writer.Int32Array(_params.inner);
   }
 
   @override
   void wasmReadFrom(WasmReader reader) {
     frame = reader.Uint32();
-    type = reader.Uint32();
+    type = .fromValue(reader.Uint32());
     params = reader.Int32Array(paramsCount);
   }
 

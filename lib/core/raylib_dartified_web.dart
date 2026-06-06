@@ -1,7 +1,6 @@
 library;
 
 import 'dart:convert';
-import 'dart:math' as math;
 import 'dart:js_interop';
 import 'dart:js_interop_unsafe';
 import 'dart:typed_data';

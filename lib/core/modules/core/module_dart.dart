@@ -1018,20 +1018,6 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   );
   
   @override
-  List<int> LoadRandomSequence(
-    int count,
-    int min,
-    int max,
-    [int? seed]
-  ) => run(
-    () => RaylibDebugLabels.LoadRandomSequence(count, min, max, seed),
-    () {
-      final random = math.Random(seed);
-      return .generate(count, (_) => min + random.nextInt(max - min + 1));
-    },
-  );
-    
-  @override
   void TakeScreenshot(
     String fileName,
   ) => run(
@@ -1389,6 +1375,16 @@ class RaylibCoreD extends RaylibCoreModuleBase<
       ),
     ),
   );
+
+  @override
+  void UnloadDirectoryFiles(
+    FilePathListD files,
+  ) => run(
+    () => RaylibDebugLabels.UnloadDirectoryFiles(files),
+    () => rl.Core.UnloadDirectoryFiles.run1(
+      files.getOriginalPointerAndDispose().toJS,
+    ),
+  );
     
   @override
   bool IsFileDropped() => run(
@@ -1439,7 +1435,9 @@ class RaylibCoreD extends RaylibCoreModuleBase<
         data.length.toJS,
         compDataSizePtr.toJS,
       ).toInt();
-      return .fromList(WasmUint8Pointer(compDataPtr).readArray(compDataSizePtr.value));
+      final newData = WasmUint8Pointer(compDataPtr).readTypedArray(compDataSizePtr.value);
+      WasmMemory.free(compDataPtr);
+      return newData;
     },
   );
 
@@ -1455,7 +1453,9 @@ class RaylibCoreD extends RaylibCoreModuleBase<
         compData.length.toJS,
         dataSizePtr.toJS,
       ).toInt();
-      return .fromList(WasmUint8Pointer(dataPtr).readArray(dataSizePtr.value));
+      final newData = WasmUint8Pointer(dataPtr).readTypedArray(dataSizePtr.value);
+      WasmMemory.free(dataPtr);
+      return newData;
     },
   );
 
@@ -1471,7 +1471,9 @@ class RaylibCoreD extends RaylibCoreModuleBase<
         data.length.toJS,
         outputSizePtr.toJS,
       ).toInt();
-      return .fromList(WasmUint8Pointer(outputDataPtr).readArray(outputSizePtr.value));
+      final newData = WasmInt8Pointer(outputDataPtr).readTypedArray(outputSizePtr.value);
+      WasmMemory.free(outputDataPtr);
+      return .fromList(newData);
     },
   );
 
@@ -1486,7 +1488,9 @@ class RaylibCoreD extends RaylibCoreModuleBase<
         rl.Temp.Uint8$.Array(data).toJS,
         outputSizePtr.toJS,
       ).toInt();
-      return .fromList(WasmUint8Pointer(outputDataPtr).readArray(outputSizePtr.value));
+      final newData = WasmUint8Pointer(outputDataPtr).readTypedArray(outputSizePtr.value);
+      WasmMemory.free(outputDataPtr);
+      return newData;
     },
   );
 

@@ -684,7 +684,7 @@ class RaylibGuiD extends RaylibGuiModuleBase<
   );
 
   @override
-  (int result, int scrollIndex, int active) GuiListView(
+  (int result, int? scrollIndex, int? active) GuiListView(
     RectangleD bounds,
     String? text, {
       int? scrollIndex,
@@ -701,14 +701,18 @@ class RaylibGuiD extends RaylibGuiModuleBase<
         scrollIndexPtr.toJS,
         activePtr.toJS,
       ).toInt();
-      return (result, scrollIndexPtr.value, activePtr.value);
+      return (
+        result,
+        scrollIndex == null ? null : scrollIndexPtr.value,
+        active == null ? null : activePtr.value,
+      );
     },
   );
 
   @override
-  (int result, int scrollIndex, int active, int focus) GuiListViewEx(
+  (int result, int? scrollIndex, int? active, int? focus) GuiListViewEx(
     RectangleD bounds,
-    List<String> text, {
+    List<String>? text, {
       int? scrollIndex,
       int? active,
       int? focus,
@@ -721,13 +725,18 @@ class RaylibGuiD extends RaylibGuiModuleBase<
       final focusPtr = rl.Temp.Int32$.RefOrNull3(focus);
       final result = rl.Gui.GuiListViewEx.run6(
         rl.Temp.Rectangle$.Ref1(bounds).toJS,
-        rl.Temp.String$.Array(text).toJS,
-        text.length.toJS,
+        (text == null ? 0 : rl.Temp.String$.Array(text).address).toJS,
+        (text?.length ?? 0).toJS,
         scrollIndexPtr.toJS,
         activePtr.toJS,
         focusPtr.toJS,
       ).toInt();
-      return (result, scrollIndexPtr.value, activePtr.value, focusPtr.value);
+      return (
+        result,
+        scrollIndex == null ? null : scrollIndexPtr.value,
+        active == null ? null : activePtr.value,
+        focus == null ? null : focusPtr.value,
+      );
     },
   );
 

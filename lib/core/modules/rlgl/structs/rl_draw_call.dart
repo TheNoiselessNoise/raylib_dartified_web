@@ -19,14 +19,14 @@ class RlDrawCallD extends StructDWeb<RlDrawCallD> with RlDrawCallBase<RlDrawCall
   static WasmStructPointer<RlDrawCallD> wasmPointer(int ptr) => .new(ptr, RlDrawCallD.new, byteSize);
   static WasmStructPointerPointer<RlDrawCallD> wasmPointerPointer(int ptr) => .new(ptr, wasmPointer);
 
-  int _mode;
+  RlDrawMode _mode;
   @override get mode {
-    structOnOp((p) => _mode = p.readerAt(_o[.mode]).Int32());
+    structOnOp((p) => _mode = .fromValue(p.readerAt(_o[.mode]).Int32()));
     return _mode;
   }
-  @override set mode(int value) {
+  @override set mode(RlDrawMode value) {
     _mode = value;
-    structOnOp((p) => p.writerAt(_o[.mode]).Int32(value));
+    structOnOp((p) => p.writerAt(_o[.mode]).Int32(value.value));
   }
   
   int _vertexCount;
@@ -64,7 +64,7 @@ class RlDrawCallD extends StructDWeb<RlDrawCallD> with RlDrawCallBase<RlDrawCall
 
   RlDrawCallD({
     super.originalPointer,
-    int mode = 0,
+    RlDrawMode mode = .RL_NONE,
     int vertexCount = 0,
     int vertexAlignment = 0,
     int textureId = 0,
@@ -87,7 +87,7 @@ class RlDrawCallD extends StructDWeb<RlDrawCallD> with RlDrawCallBase<RlDrawCall
 
   @override
   void wasmWriteInto(WasmWriter writer) {
-    writer.Int32(mode);
+    writer.Int32(mode.value);
     writer.Int32(vertexCount);
     writer.Int32(vertexAlignment);
     writer.Uint32(textureId);
@@ -95,7 +95,7 @@ class RlDrawCallD extends StructDWeb<RlDrawCallD> with RlDrawCallBase<RlDrawCall
 
   @override
   void wasmReadFrom(WasmReader reader) {
-    mode = reader.Int32();
+    mode = .fromValue(reader.Int32());
     vertexCount = reader.Int32();
     vertexAlignment = reader.Int32();
     textureId = reader.Uint32();

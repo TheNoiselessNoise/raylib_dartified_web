@@ -503,7 +503,10 @@ class WasmLitTypedListAlloc<
 > {
 
   @override
-  late List<D> Function(int ptr, int length) asDartList;
+  late final List<D> Function(int ptr, int length) asDartList;
+
+  @override
+  late final L Function(int ptr, int length) asTypedList;
 
   @override
   final L Function(Iterable<D> list) fromList;
@@ -524,6 +527,7 @@ class WasmLitTypedListAlloc<
     printerFunc: (ptr) => ptr.value.toString(),
   ) {
     asDartList = (ptr, length) => asView(ptr, length).toList().cast();
+    asTypedList = (ptr, length) => fromList(asDartList(ptr, length));
   }
 }
 
@@ -570,7 +574,7 @@ class WasmLitPtrAlloc<
   final WasmSizedPointer<X> Function(List<X> array) rawArrayFunc;
 
   @override
-  late Function(PP ptrptr, int i, WasmSizedPointer<X> ptr) indexSetterFunc;
+  late final Function(PP ptrptr, int i, WasmSizedPointer<X> ptr) indexSetterFunc;
 
   WasmLitPtrAlloc(super.temp, super.name, {
     required super.pointerFactory,

@@ -1,16 +1,16 @@
 name: raylib_dartified_web
-description: Web (WASM) backend for raylib_dartified.
-version: 5.5.1
+description: Raylib for the web. WASM backend powered by Emscripten.
+version: 5.5.2
 repository: https://github.com/TheNoiselessNoise/raylib_dartified_web
 
 environment:
   sdk: ^3.10.7
 
 dependencies:
-  raylib_dartified_base: '>=5.5.0 <6.0.0'
   args: ^2.7.0
   path: ^1.9.1
   meta: ^1.18.2
+  raylib_dartified_base: '>=5.5.0 <6.0.0'
 
 dev_dependencies:
   lints: ^6.0.0

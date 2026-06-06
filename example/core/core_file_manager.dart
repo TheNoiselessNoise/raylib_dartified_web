@@ -1,6 +1,6 @@
 // Custom example, there's no original equivalent
 import 'package:raylib_dartified_web/raylib_dartified_web.dart';
-import 'package:path/path.dart';
+import 'package:path/path.dart' as path;
 
 const int screenWidth = 900;
 const int screenHeight = 600;
@@ -134,7 +134,7 @@ class FileEntry {
     required this.modified,
   });
 
-  String get ext => isDir ? '' : extension(name).toLowerCase();
+  String get ext => isDir ? '' : path.extension(name).toLowerCase();
 
   bool get isImage => IMAGE_EXTS.contains(ext);
 
@@ -169,21 +169,23 @@ class FileEntry {
   }
 }
 
-List<FileEntry> loadDirectory(Raylib rl, String path) {
+List<FileEntry> loadDirectory(Raylib rl, String dirPath) {
   try {
-    final files = rl.CoreD.LoadDirectoryFiles(path).paths;
-    return files
+    final files = rl.CoreD.LoadDirectoryFiles(dirPath);
+    final fileEntries = files.paths
       .map((e) {
-        final path = normalize(e);
+        final filePath = path.normalize(e);
         return FileEntry(
-          fullPath: path,
-          name:     basename(path),
-          isDir:    rl.CoreD.DirectoryExists(path),
-          size:     rl.CoreD.GetFileLength(path),
-          modified: .fromMillisecondsSinceEpoch(rl.CoreD.GetFileModTime(path)),
+          fullPath: filePath,
+          name:     path.basename(filePath),
+          isDir:    rl.CoreD.DirectoryExists(filePath),
+          size:     rl.CoreD.GetFileLength(filePath),
+          modified: .fromMillisecondsSinceEpoch(rl.CoreD.GetFileModTime(filePath)),
         );
       })
       .toList();
+    rl.CoreD.UnloadDirectoryFiles(files);
+    return fileEntries;
   } catch (_) {
     return [];
   }
@@ -208,11 +210,11 @@ List<FileEntry> sortEntries(
   return [...dirs, ...files]; // dirs always first
 }
 
-List<String> breadcrumbs(String path) {
-  final parts = split(normalize(path));
+List<String> breadcrumbs(String filePath) {
+  final parts = path.split(path.normalize(filePath));
   final result = <String>[];
   for (int i = 0; i < parts.length; i++) {
-    result.add(joinAll(parts.sublist(0, i + 1)));
+    result.add(path.joinAll(parts.sublist(0, i + 1)));
   }
   return result;
 }
@@ -301,7 +303,7 @@ void main() => Raylib((rl) {
       }
 
       if (rl.CoreD.IsKeyPressed(.KEY_BACKSPACE) && searchBox.text.isEmpty) {
-        final parent = dirname(pathBox.text);
+        final parent = path.dirname(pathBox.text);
         if (parent != pathBox.text) { navigate(parent); rebuildVisible(); }
       }
     }
@@ -323,7 +325,7 @@ void main() => Raylib((rl) {
 
       final upPressed = rl.GuiD.GuiButton(.rect(4, y + 5, 60, TOOLBAR_HEIGHT - 10), 'Up').toBool();
       if (upPressed) {
-        final parent = dirname(pathBox.text);
+        final parent = path.dirname(pathBox.text);
         if (parent != pathBox.text) { navigate(parent); rebuildVisible(); }
       }
 
@@ -344,7 +346,7 @@ void main() => Raylib((rl) {
       int bx = 6;
       final crumbs = breadcrumbs(pathBox.text);
       for (int i = 0; i < crumbs.length; i++) {
-        final label = i == 0 ? '/' : basename(crumbs[i]);
+        final label = i == 0 ? '/' : path.basename(crumbs[i]);
 
         final tw = rl.GuiD.GuiGetTextWidth(label) + 12;
         final pressed = rl.GuiD.GuiButton(.rect(bx, y + 4, tw, BREADCRUMB_HEIGHT - 8), label).toBool();
