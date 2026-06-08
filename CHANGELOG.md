@@ -1,3 +1,7 @@
+## 5.5.3
+
+- Relax meta package version constraint to be compatible with Flutter SDK
+
 ## 5.5.2
 
 - Support for `raylib_dartified_base` >= 5.5.2
