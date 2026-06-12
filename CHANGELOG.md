@@ -1,3 +1,7 @@
+## 5.5.4
+
+- Do not call Raylib's `WindowShouldClose` and explicitly return `false`
+
 ## 5.5.3
 
 - Relax meta package version constraint to be compatible with Flutter SDK

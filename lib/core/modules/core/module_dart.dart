@@ -81,7 +81,8 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   @override
   bool WindowShouldClose() => run(
     () => RaylibDebugLabels.WindowShouldClose(),
-    () => rl.Core.WindowShouldClose.run.toBool(),
+    // () => rl.Core.WindowShouldClose.run.toBool(),
+    () => false, // NOTE: we should not call WindowShouldClose on web
   );
 
   @override

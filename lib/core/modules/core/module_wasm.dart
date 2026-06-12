@@ -516,7 +516,7 @@ class RaylibCore extends RaylibModuleWasm {
   RaylibCore(super.rl) {
     InitWindow = _module.dwrap('InitWindow', [n, n, s]);
     CloseWindow = _module.dwrap('CloseWindow', []);
-    WindowShouldClose = _module.dwrap('WindowShouldClose', [], n);
+    /*UNUSED*/WindowShouldClose = _module.dwrap('WindowShouldClose', [], n);
     IsWindowReady = _module.dwrap('IsWindowReady', [], n);
     IsWindowFullscreen = _module.dwrap('IsWindowFullscreen', [], n);
     IsWindowHidden = _module.dwrap('IsWindowHidden', [], n);
