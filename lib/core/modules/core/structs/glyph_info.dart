@@ -74,9 +74,6 @@ class GlyphInfoD extends StructDWeb<GlyphInfoD> with GlyphInfoBase<
     structOnOp((p) => value.wasmWriteInto(p.writerAt(_o[.image])));
   }
 
-  @override
-  int get wasmByteSize => byteSize;
-
   GlyphInfoD({
     super.originalPointer,
     int value = 0,

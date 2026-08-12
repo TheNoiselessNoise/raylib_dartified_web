@@ -1,39 +1,38 @@
 // Example dartified, see original for reference:
 // https://github.com/raysan5/raylib/blob/master/examples/audio/audio_sound_loading.c
 // WARNING: expects resources from the raylib source
-import 'package:raylib_dartified_web/raylib_dartified_web.dart';
+import '../base_dart.dart';
 
 void main() => Raylib((rl) {
-  rl.CoreD.InitWindow(800, 450, "audio_sound_loading");
-  rl.CoreD.SetWindowMonitor(0);
-  rl.CoreD.SetTargetFPS(60);
+  InitWindow(800, 450, "audio_sound_loading");
+  SetTargetFPS(60);
 
-  rl.AudioD.InitAudioDevice();
+  InitAudioDevice();
 
-  final fxWav = rl.AudioD.LoadSound("./resources/sound.wav");
-  final fxOgg = rl.AudioD.LoadSound("./resources/target.ogg");
+  final fxWav = LoadSound("../resources/sound.wav");
+  final fxOgg = LoadSound("../resources/target.ogg");
 
   rl.setMainLoop(() {
-    if (rl.CoreD.IsKeyPressed(.KEY_SPACE)) {
-      rl.AudioD.PlaySound(fxWav);
+    if (IsKeyPressed(.KEY_SPACE)) {
+      PlaySound(fxWav);
     }
 
-    if (rl.CoreD.IsKeyPressed(.KEY_ENTER)) {
-      rl.AudioD.PlaySound(fxOgg);
+    if (IsKeyPressed(.KEY_ENTER)) {
+      PlaySound(fxOgg);
     }
 
-    rl.CoreD.BeginDrawing();
+    BeginDrawing();
 
-      rl.CoreD.ClearBackground(.RAYWHITE);
-      rl.CoreD.DrawText(
+      ClearBackground(.RAYWHITE);
+      DrawText(
         "Press SPACE to PLAY the WAV sound!",
         200, 180, 20, .LIGHTGRAY
       );
-      rl.CoreD.DrawText(
+      DrawText(
         "Press ENTER to PLAY the OGG sound!",
         200, 220, 20, .LIGHTGRAY
       );
 
-    rl.CoreD.EndDrawing();
+    EndDrawing();
   });
 });

@@ -1,7 +1,7 @@
 // Example dartified, see original for reference:
 // https://github.com/raysan5/raylib/blob/master/examples/textures/textures_image_processing.c
 // WARNING: expects resources from the raylib source
-import 'package:raylib_dartified_web/raylib_dartified_web.dart';
+import '../base_dart.dart';
 
 const int screenWidth = 800;
 const int screenHeight = 450;
@@ -24,15 +24,14 @@ enum ImageProcess {
 }
 
 void main() => Raylib((rl) {
-  rl.CoreD.InitWindow(screenWidth, screenHeight, "textures_image_processing");
-  rl.CoreD.SetWindowMonitor(0);
-  rl.CoreD.SetTargetFPS(60);
+  InitWindow(screenWidth, screenHeight, "textures_image_processing");
+  SetTargetFPS(60);
 
-  final imOrigin = rl.CoreD.LoadImage("./resources/parrots.png");
-  rl.CoreD.ImageFormat(imOrigin, .PIXELFORMAT_UNCOMPRESSED_R8G8B8A8);
-  final texture = rl.CoreD.LoadTextureFromImage(imOrigin);
+  final imOrigin = LoadImage("../resources/parrots.png");
+  ImageFormat(imOrigin, .PIXELFORMAT_UNCOMPRESSED_R8G8B8A8);
+  final texture = LoadTextureFromImage(imOrigin);
 
-  var imCopy = rl.CoreD.ImageCopy(imOrigin);
+  var imCopy = ImageCopy(imOrigin);
 
   ImageProcess currentProcess = .NONE;
   bool textureReload = false;
@@ -45,11 +44,11 @@ void main() => Raylib((rl) {
   rl.setMainLoop(() {
     for (final (i, process) in ImageProcess.values.indexed)
     {
-      if (rl.CoreD.CheckCollisionPointRec(rl.CoreD.GetMousePosition(), toggleRecs[i]))
+      if (CheckCollisionPointRec(GetMousePosition(), toggleRecs[i]))
       {
         mouseHoverRec = i;
 
-        if (rl.CoreD.IsMouseButtonReleased(.MOUSE_BUTTON_LEFT))
+        if (IsMouseButtonReleased(.MOUSE_BUTTON_LEFT))
         {
           currentProcess = process;
           textureReload = true;
@@ -59,12 +58,12 @@ void main() => Raylib((rl) {
       else mouseHoverRec = -1;
     }
 
-    if (rl.CoreD.IsKeyPressed(.KEY_DOWN))
+    if (IsKeyPressed(.KEY_DOWN))
     {
       currentProcess = currentProcess.next;
       textureReload = true;
     }
-    else if (rl.CoreD.IsKeyPressed(.KEY_UP))
+    else if (IsKeyPressed(.KEY_UP))
     {
       currentProcess = currentProcess.prev;
       textureReload = true;
@@ -72,47 +71,47 @@ void main() => Raylib((rl) {
 
     if (textureReload)
     {
-      rl.CoreD.UnloadImage(imCopy);
-      imCopy = rl.CoreD.ImageCopy(imOrigin);
+      UnloadImage(imCopy);
+      imCopy = ImageCopy(imOrigin);
 
       switch (currentProcess)
       {
-        case .COLOR_GRAYSCALE: rl.CoreD.ImageColorGrayscale(imCopy); break;
-        case .COLOR_TINT: rl.CoreD.ImageColorTint(imCopy, .GREEN); break;
-        case .COLOR_INVERT: rl.CoreD.ImageColorInvert(imCopy); break;
-        case .COLOR_CONTRAST: rl.CoreD.ImageColorContrast(imCopy, -40); break;
-        case .COLOR_BRIGHTNESS: rl.CoreD.ImageColorBrightness(imCopy, -80); break;
-        case .GAUSSIAN_BLUR: rl.CoreD.ImageBlurGaussian(imCopy, 10); break;
-        case .FLIP_VERTICAL: rl.CoreD.ImageFlipVertical(imCopy); break;
-        case .FLIP_HORIZONTAL: rl.CoreD.ImageFlipHorizontal(imCopy); break;
+        case .COLOR_GRAYSCALE: ImageColorGrayscale(imCopy); break;
+        case .COLOR_TINT: ImageColorTint(imCopy, .GREEN); break;
+        case .COLOR_INVERT: ImageColorInvert(imCopy); break;
+        case .COLOR_CONTRAST: ImageColorContrast(imCopy, -40); break;
+        case .COLOR_BRIGHTNESS: ImageColorBrightness(imCopy, -80); break;
+        case .GAUSSIAN_BLUR: ImageBlurGaussian(imCopy, 10); break;
+        case .FLIP_VERTICAL: ImageFlipVertical(imCopy); break;
+        case .FLIP_HORIZONTAL: ImageFlipHorizontal(imCopy); break;
         default: break;
       }
 
-      final colors = rl.CoreD.LoadImageColors(imCopy);
+      final colors = LoadImageColors(imCopy);
       // NOTE: Color -> r,g,b,a
       final pixels = colors.expand((c) => c.toArray()).toList();
-      rl.CoreD.UpdateTexture(texture, .fromList(pixels));
+      UpdateTexture(texture, .fromList(pixels));
 
       textureReload = false;
     }
 
-    rl.CoreD.BeginDrawing();
+    BeginDrawing();
 
-      rl.CoreD.ClearBackground(.RAYWHITE);
+      ClearBackground(.RAYWHITE);
 
-      rl.CoreD.DrawText(
+      DrawText(
         "IMAGE PROCESSING:",
         40, 30, 10, .DARKGRAY
       );
 
       for (final (i, process) in ImageProcess.values.indexed)
       {
-        rl.CoreD.DrawRectangleRec(
+        DrawRectangleRec(
           toggleRecs[i],
           ((process == currentProcess) || (i == mouseHoverRec)) ? .SKYBLUE : .LIGHTGRAY
         );
         
-        rl.CoreD.DrawRectangleLines(
+        DrawRectangleLines(
           toggleRecs[i].x,
           toggleRecs[i].y,
           toggleRecs[i].width,
@@ -121,23 +120,23 @@ void main() => Raylib((rl) {
         );
 
         final processText = ImageProcess.values[i].name;
-        rl.CoreD.DrawText(
+        DrawText(
           processText,
-          toggleRecs[i].x + toggleRecs[i].width/2 - rl.CoreD.MeasureText(processText, 10)/2,
+          toggleRecs[i].x + toggleRecs[i].width/2 - MeasureText(processText, 10)/2,
           toggleRecs[i].y + 11,
           10,
           ((process == currentProcess) || (i == mouseHoverRec)) ? .DARKBLUE : .DARKGRAY
         );
       }
 
-      rl.CoreD.DrawTexture(
+      DrawTexture(
         texture,
         screenWidth - texture.width - 60,
         screenHeight/2 - texture.height/2,
         .WHITE
       );
       
-      rl.CoreD.DrawRectangleLines(
+      DrawRectangleLines(
         screenWidth - texture.width - 60,
         screenHeight/2 - texture.height/2,
         texture.width,
@@ -145,6 +144,6 @@ void main() => Raylib((rl) {
         .BLACK
       );
 
-    rl.CoreD.EndDrawing();
+    EndDrawing();
   });
 });

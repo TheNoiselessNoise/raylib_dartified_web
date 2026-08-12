@@ -1,7 +1,7 @@
 // Example dartified, see original for reference:
 // https://github.com/raysan5/raylib/blob/master/examples/core/core_2d_camera_platformer.c
 import 'dart:math' as math;
-import 'package:raylib_dartified_web/raylib_dartified_web.dart';
+import '../base_dart.dart';
 
 class Player {
   Vector2D position;
@@ -37,9 +37,8 @@ Vector2D minVec = .zero();
 Vector2D maxVec = .zero();
 
 void main() => Raylib((rl) {
-  rl.CoreD.InitWindow(screenWidth, screenHeight, 'core_2d_camera_platformer');
-  rl.CoreD.SetWindowMonitor(0);
-  rl.CoreD.SetTargetFPS(60);
+  InitWindow(screenWidth, screenHeight, "core_2d_camera_platformer");
+  SetTargetFPS(60);
 
   final player = Player(
     position: .vec2(400, 280),
@@ -83,40 +82,40 @@ void main() => Raylib((rl) {
   int cameraOption = 1;
 
   rl.setMainLoop(() {
-    final deltaTime = rl.CoreD.GetFrameTime();
+    final deltaTime = GetFrameTime();
 
-    UpdatePlayer(rl, player, envItems, deltaTime);
+    UpdatePlayer(player, envItems, deltaTime);
 
-    camera.zoom += (rl.CoreD.GetMouseWheelMove()*0.05);
+    camera.zoom += (GetMouseWheelMove()*0.05);
 
     if (camera.zoom > 3.0) camera.zoom = 3.0;
     else if (camera.zoom < 0.25) camera.zoom = 0.25;
 
-    if (rl.CoreD.IsKeyPressed(.KEY_R)) {
+    if (IsKeyPressed(.KEY_R)) {
       camera.zoom = 1;
       player.position = .vec2(400, 280);
     }
 
-    if (rl.CoreD.IsKeyPressed(.KEY_C)) {
+    if (IsKeyPressed(.KEY_C)) {
       cameraOption = (cameraOption + 1) % cameraUpdaters.length;
     }
 
-    cameraUpdaters[cameraOption](rl, camera, player, envItems, deltaTime);
+    cameraUpdaters[cameraOption](camera, player, envItems, deltaTime);
 
-    rl.CoreD.BeginDrawing();
+    BeginDrawing();
 
-      rl.CoreD.ClearBackground(.RAYWHITE);
+      ClearBackground(.RAYWHITE);
 
-      rl.CoreD.BeginMode2D(camera);
+      BeginMode2D(camera);
 
         for (int i = 0; i < envItems.length; i++) {
-          rl.CoreD.DrawRectangleRec(
+          DrawRectangleRec(
             envItems[i].rect,
             envItems[i].color,
           );
         }
 
-        rl.CoreD.DrawRectangleRec(
+        DrawRectangleRec(
           .rect(
             player.position.x - 20, player.position.y - 40,
             40, 40
@@ -124,32 +123,32 @@ void main() => Raylib((rl) {
           .RED
         );
 
-        rl.CoreD.DrawCircleV(player.position, 5, .GOLD);
+        DrawCircleV(player.position, 5, .GOLD);
 
-      rl.CoreD.EndMode2D();
+      EndMode2D();
 
-      rl.CoreD.DrawText("Controls:", 20, 20, 10, .BLACK);
-      rl.CoreD.DrawText("- Right/Left to move", 40, 40, 10, .DARKGRAY);
-      rl.CoreD.DrawText("- Space to jump", 40, 60, 10, .DARKGRAY);
-      rl.CoreD.DrawText("- Mouse Wheel to Zoom in-out, R to reset zoom", 40, 80, 10, .DARKGRAY);
-      rl.CoreD.DrawText("- C to change camera mode", 40, 100, 10, .DARKGRAY);
-      rl.CoreD.DrawText("Current camera mode:", 20, 120, 10, .BLACK);
-      rl.CoreD.DrawText(cameraDescriptions[cameraOption], 40, 140, 10, .DARKGRAY);
-      rl.CoreD.DrawText("Player Position: ${player.position.format(1)}", 20, 160, 10, .BLACK);
+      DrawText("Controls:", 20, 20, 10, .BLACK);
+      DrawText("- Right/Left to move", 40, 40, 10, .DARKGRAY);
+      DrawText("- Space to jump", 40, 60, 10, .DARKGRAY);
+      DrawText("- Mouse Wheel to Zoom in-out, R to reset zoom", 40, 80, 10, .DARKGRAY);
+      DrawText("- C to change camera mode", 40, 100, 10, .DARKGRAY);
+      DrawText("Current camera mode:", 20, 120, 10, .BLACK);
+      DrawText(cameraDescriptions[cameraOption], 40, 140, 10, .DARKGRAY);
+      DrawText("Player Position: ${player.position.format(1)}", 20, 160, 10, .BLACK);
 
-    rl.CoreD.EndDrawing();
+    EndDrawing();
   });
 });
 
-void UpdatePlayer(Raylib rl, Player player, List<EnvItem> envItems, double delta)
+void UpdatePlayer(Player player, List<EnvItem> envItems, double delta)
 {
-  if (rl.CoreD.IsKeyDown(.KEY_LEFT)) {
+  if (IsKeyDown(.KEY_LEFT)) {
     player.position.x -= PLAYER_HOR_SPD*delta;
   }
-  if (rl.CoreD.IsKeyDown(.KEY_RIGHT)) {
+  if (IsKeyDown(.KEY_RIGHT)) {
     player.position.x += PLAYER_HOR_SPD*delta;
   }
-  if (rl.CoreD.IsKeyDown(.KEY_SPACE) && player.canJump)
+  if (IsKeyDown(.KEY_SPACE) && player.canJump)
   {
     player.speed = -PLAYER_JUMP_SPD;
     player.canJump = false;
@@ -184,12 +183,12 @@ void UpdatePlayer(Raylib rl, Player player, List<EnvItem> envItems, double delta
   }
 }
 
-void UpdateCameraCenter(Raylib rl, Camera2DD camera, Player player, List<EnvItem> envItems, double deltaTime) {
+void UpdateCameraCenter(Camera2DD camera, Player player, List<EnvItem> envItems, double deltaTime) {
   camera.offset.set(screenWidth/2, screenHeight/2);
   camera.target.setD(player.position);
 }
 
-void UpdateCameraCenterInsideMap(Raylib rl, Camera2DD camera, Player player, List<EnvItem> envItems, double deltaTime) {
+void UpdateCameraCenterInsideMap(Camera2DD camera, Player player, List<EnvItem> envItems, double deltaTime) {
   camera.target.setD(player.position);
   camera.offset.set(screenWidth/2, screenHeight/2);
   double minX = 1000, minY = 1000, maxX = -1000, maxY = -1000;
@@ -204,15 +203,15 @@ void UpdateCameraCenterInsideMap(Raylib rl, Camera2DD camera, Player player, Lis
 
   maxVec.set(maxX, maxY);
   minVec.set(minX, minY);
-  final max = rl.CoreD.GetWorldToScreen2D(maxVec, camera);
-  final min = rl.CoreD.GetWorldToScreen2D(minVec, camera);
+  final max = GetWorldToScreen2D(maxVec, camera);
+  final min = GetWorldToScreen2D(minVec, camera);
   if (max.x < screenWidth) camera.offset.x = screenWidth - (max.x - screenWidth/2);
   if (max.y < screenHeight) camera.offset.y = screenHeight - (max.y - screenHeight/2);
   if (min.x > 0) camera.offset.x = screenWidth/2 - min.x;
   if (min.y > 0) camera.offset.y = screenHeight/2 - min.y;
 }
 
-void UpdateCameraCenterSmoothFollow(Raylib rl, Camera2DD camera, Player player, List<EnvItem> envItems, double deltaTime) {
+void UpdateCameraCenterSmoothFollow(Camera2DD camera, Player player, List<EnvItem> envItems, double deltaTime) {
   final minSpeed = 30;
   final minEffectLength = 10;
   final fractionSpeed = 0.8;
@@ -231,7 +230,7 @@ void UpdateCameraCenterSmoothFollow(Raylib rl, Camera2DD camera, Player player, 
 
 bool eveningOut = false;
 double evenOutTarget = 0;
-void UpdateCameraEvenOutOnLanding(Raylib rl, Camera2DD camera, Player player, List<EnvItem> envItems, double deltaTime) {
+void UpdateCameraEvenOutOnLanding(Camera2DD camera, Player player, List<EnvItem> envItems, double deltaTime) {
   double evenOutSpeed = 700;
 
   camera.offset.set(screenWidth/2.0, screenHeight/2.0);
@@ -270,7 +269,7 @@ void UpdateCameraEvenOutOnLanding(Raylib rl, Camera2DD camera, Player player, Li
   }
 }
 
-void UpdateCameraPlayerBoundsPush(Raylib rl, Camera2DD camera, Player player, List<EnvItem> envItems, double deltaTime) {
+void UpdateCameraPlayerBoundsPush(Camera2DD camera, Player player, List<EnvItem> envItems, double deltaTime) {
   final Vector2D bbox = .vec2(0.2, 0.2);
 
   minVec.set(
@@ -283,8 +282,8 @@ void UpdateCameraPlayerBoundsPush(Raylib rl, Camera2DD camera, Player player, Li
     (1 + bbox.y)*0.5*screenHeight,
   );
 
-  final bboxWorldMin = rl.CoreD.GetWorldToScreen2D(minVec, camera);
-  final bboxWorldMax = rl.CoreD.GetWorldToScreen2D(maxVec, camera);
+  final bboxWorldMin = GetWorldToScreen2D(minVec, camera);
+  final bboxWorldMax = GetWorldToScreen2D(maxVec, camera);
 
   camera.offset.set(
     (1 - bbox.x)*0.5*screenWidth,

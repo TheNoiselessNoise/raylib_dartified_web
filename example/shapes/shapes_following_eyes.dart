@@ -1,33 +1,32 @@
 // Example dartified, see original for reference:
 // https://github.com/raysan5/raylib/blob/master/examples/shapes/shapes_following_eyes.c
 import 'dart:math' as math;
-import 'package:raylib_dartified_web/raylib_dartified_web.dart';
+import '../base_dart.dart';
 
 const int screenWidth = 800;
 const int screenHeight = 450;
 
 void main() => Raylib((rl) {
-  rl.CoreD.InitWindow(screenWidth, screenHeight, "shapes_following_eyes");
-  rl.CoreD.SetWindowMonitor(0);
-  rl.CoreD.SetTargetFPS(60);
+  InitWindow(screenWidth, screenHeight, "shapes_following_eyes");
+  SetTargetFPS(60);
 
   final Vector2D scleraLeftPosition = .vec2(
-    rl.CoreD.GetScreenWidth()/2.0 - 100.0,
-    rl.CoreD.GetScreenHeight()/2.0
+    GetScreenWidth()/2.0 - 100.0,
+    GetScreenHeight()/2.0
   );
   final Vector2D scleraRightPosition = .vec2(
-    rl.CoreD.GetScreenWidth()/2.0 + 100.0,
-    rl.CoreD.GetScreenHeight()/2.0
+    GetScreenWidth()/2.0 + 100.0,
+    GetScreenHeight()/2.0
   );
   double scleraRadius = 80;
 
   final Vector2D irisLeftPosition = .vec2(
-    rl.CoreD.GetScreenWidth()/2.0 - 100.0,
-    rl.CoreD.GetScreenHeight()/2.0
+    GetScreenWidth()/2.0 - 100.0,
+    GetScreenHeight()/2.0
   );
   final Vector2D irisRightPosition = .vec2(
-    rl.CoreD.GetScreenWidth()/2.0 + 100.0,
-    rl.CoreD.GetScreenHeight()/2.0
+    GetScreenWidth()/2.0 + 100.0,
+    GetScreenHeight()/2.0
   );
   double irisRadius = 24;
 
@@ -35,10 +34,10 @@ void main() => Raylib((rl) {
   double dx = 0.0, dy = 0.0, dxx = 0.0, dyy = 0.0;
 
   rl.setMainLoop(() {
-    irisLeftPosition.setD(rl.CoreD.GetMousePosition());
-    irisRightPosition.setD(rl.CoreD.GetMousePosition());
+    irisLeftPosition.setD(GetMousePosition());
+    irisRightPosition.setD(GetMousePosition());
 
-    if (!rl.CoreD.CheckCollisionPointCircle(irisLeftPosition, scleraLeftPosition, scleraRadius - irisRadius))
+    if (!CheckCollisionPointCircle(irisLeftPosition, scleraLeftPosition, scleraRadius - irisRadius))
     {
       dx = irisLeftPosition.x - scleraLeftPosition.x;
       dy = irisLeftPosition.y - scleraLeftPosition.y;
@@ -52,7 +51,7 @@ void main() => Raylib((rl) {
       irisLeftPosition.y = scleraLeftPosition.y + dyy;
     }
 
-    if (!rl.CoreD.CheckCollisionPointCircle(irisRightPosition, scleraRightPosition, scleraRadius - irisRadius))
+    if (!CheckCollisionPointCircle(irisRightPosition, scleraRightPosition, scleraRadius - irisRadius))
     {
       dx = irisRightPosition.x - scleraRightPosition.x;
       dy = irisRightPosition.y - scleraRightPosition.y;
@@ -66,20 +65,20 @@ void main() => Raylib((rl) {
       irisRightPosition.y = scleraRightPosition.y + dyy;
     }
 
-    rl.CoreD.BeginDrawing();
+    BeginDrawing();
 
-      rl.CoreD.ClearBackground(.RAYWHITE);
+      ClearBackground(.RAYWHITE);
 
-      rl.CoreD.DrawCircleV(scleraLeftPosition, scleraRadius, .LIGHTGRAY);
-      rl.CoreD.DrawCircleV(irisLeftPosition, irisRadius, .BROWN);
-      rl.CoreD.DrawCircleV(irisLeftPosition, 10, .BLACK);
+      DrawCircleV(scleraLeftPosition, scleraRadius, .LIGHTGRAY);
+      DrawCircleV(irisLeftPosition, irisRadius, .BROWN);
+      DrawCircleV(irisLeftPosition, 10, .BLACK);
 
-      rl.CoreD.DrawCircleV(scleraRightPosition, scleraRadius, .LIGHTGRAY);
-      rl.CoreD.DrawCircleV(irisRightPosition, irisRadius, .DARKGREEN);
-      rl.CoreD.DrawCircleV(irisRightPosition, 10, .BLACK);
+      DrawCircleV(scleraRightPosition, scleraRadius, .LIGHTGRAY);
+      DrawCircleV(irisRightPosition, irisRadius, .DARKGREEN);
+      DrawCircleV(irisRightPosition, 10, .BLACK);
 
-      rl.CoreD.DrawFPS(10, 10);
+      DrawFPS(10, 10);
 
-    rl.CoreD.EndDrawing();
+    EndDrawing();
   });
 });

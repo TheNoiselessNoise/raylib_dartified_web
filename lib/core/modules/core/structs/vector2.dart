@@ -24,9 +24,6 @@ class Vector2D extends StructDLiteralWeb<Vector2D> with Vector2Base<
   @override
   double x, y;
 
-  @override
-  int get wasmByteSize => byteSize;
-
   Vector2D({
     super.originalPointer,
     this.x = 0,

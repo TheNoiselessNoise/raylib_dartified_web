@@ -1,6 +1,6 @@
 // Example dartified, see original for reference:
 // https://github.com/raysan5/raylib/blob/master/examples/shapes/shapes_splines_drawing.c
-import 'package:raylib_dartified_web/raylib_dartified_web.dart';
+import '../base_dart.dart';
 
 const int screenWidth = 800;
 const int screenHeight = 450;
@@ -24,10 +24,9 @@ enum SplineType {
 }
 
 void main() => Raylib((rl) {
-  rl.CoreD.SetConfigFlags([.FLAG_MSAA_4X_HINT]);
-  rl.CoreD.InitWindow(screenWidth, screenHeight, "shapes_splines_drawing");
-  rl.CoreD.SetWindowMonitor(0);
-  rl.CoreD.SetTargetFPS(60);
+  SetConfigFlags([.FLAG_MSAA_4X_HINT]);
+  InitWindow(screenWidth, screenHeight, "shapes_splines_drawing");
+  SetTargetFPS(60);
 
   final List<Vector2D> points = .generate(MAX_SPLINE_POINTS, (i) => switch(i) {
     0 => .vec2( 50.0, 400.0),
@@ -59,9 +58,9 @@ void main() => Raylib((rl) {
   bool splineHelpersActive = true;
 
   rl.setMainLoop(() {
-    final mousePos = rl.CoreD.GetMousePosition();
+    final mousePos = GetMousePosition();
 
-    if (rl.CoreD.IsMouseButtonPressed(.MOUSE_BUTTON_RIGHT) && (pointCount < MAX_SPLINE_POINTS))
+    if (IsMouseButtonPressed(.MOUSE_BUTTON_RIGHT) && (pointCount < MAX_SPLINE_POINTS))
     {
       points[pointCount] = mousePos;
       int i = pointCount - 1;
@@ -72,10 +71,10 @@ void main() => Raylib((rl) {
 
     for (int i = 0; i < pointCount; i++)
     {
-      if (rl.CoreD.CheckCollisionPointCircle(mousePos, points[i], 8.0))
+      if (CheckCollisionPointCircle(mousePos, points[i], 8.0))
       {
         focusedPoint = i;
-        if (rl.CoreD.IsMouseButtonDown(.MOUSE_BUTTON_LEFT)) selectedPoint = i; 
+        if (IsMouseButtonDown(.MOUSE_BUTTON_LEFT)) selectedPoint = i; 
         break;
       }
       else focusedPoint = -1;
@@ -84,23 +83,23 @@ void main() => Raylib((rl) {
     if (selectedPoint >= 0)
     {
       points[selectedPoint] = mousePos;
-      if (rl.CoreD.IsMouseButtonReleased(.MOUSE_BUTTON_LEFT)) selectedPoint = -1;
+      if (IsMouseButtonReleased(.MOUSE_BUTTON_LEFT)) selectedPoint = -1;
     }
     
     if ((splineTypeActive == .SPLINE_BEZIER) && (focusedPoint == -1))
     {
       for (int i = 0; i < pointCount - 1; i++)
       {
-        if (rl.CoreD.CheckCollisionPointCircle(mousePos, control[i].start, 6.0))
+        if (CheckCollisionPointCircle(mousePos, control[i].start, 6.0))
         {
           focusedControlPoint = control[i].start;
-          if (rl.CoreD.IsMouseButtonDown(.MOUSE_BUTTON_LEFT)) selectedControlPoint = control[i].start; 
+          if (IsMouseButtonDown(.MOUSE_BUTTON_LEFT)) selectedControlPoint = control[i].start; 
           break;
         }
-        else if (rl.CoreD.CheckCollisionPointCircle(mousePos, control[i].end, 6.0))
+        else if (CheckCollisionPointCircle(mousePos, control[i].end, 6.0))
         {
           focusedControlPoint = control[i].end;
-          if (rl.CoreD.IsMouseButtonDown(.MOUSE_BUTTON_LEFT)) selectedControlPoint = control[i].end; 
+          if (IsMouseButtonDown(.MOUSE_BUTTON_LEFT)) selectedControlPoint = control[i].end; 
           break;
         }
         else focusedControlPoint = null;
@@ -109,33 +108,33 @@ void main() => Raylib((rl) {
       if (selectedControlPoint != null)
       {
         selectedControlPoint!.setD(mousePos);
-        if (rl.CoreD.IsMouseButtonReleased(.MOUSE_BUTTON_LEFT)) selectedControlPoint = null;
+        if (IsMouseButtonReleased(.MOUSE_BUTTON_LEFT)) selectedControlPoint = null;
       }
     }
     
-    if (rl.CoreD.IsKeyPressed(.KEY_ONE)) splineTypeActive = .SPLINE_LINEAR;
-    else if (rl.CoreD.IsKeyPressed(.KEY_TWO)) splineTypeActive = .SPLINE_BASIS;
-    else if (rl.CoreD.IsKeyPressed(.KEY_THREE)) splineTypeActive = .SPLINE_CATMULLROM;
-    else if (rl.CoreD.IsKeyPressed(.KEY_FOUR)) splineTypeActive = .SPLINE_BEZIER;
+    if (IsKeyPressed(.KEY_ONE)) splineTypeActive = .SPLINE_LINEAR;
+    else if (IsKeyPressed(.KEY_TWO)) splineTypeActive = .SPLINE_BASIS;
+    else if (IsKeyPressed(.KEY_THREE)) splineTypeActive = .SPLINE_CATMULLROM;
+    else if (IsKeyPressed(.KEY_FOUR)) splineTypeActive = .SPLINE_BEZIER;
 
-    rl.CoreD.BeginDrawing();
+    BeginDrawing();
 
-      rl.CoreD.ClearBackground(.RAYWHITE);
+      ClearBackground(.RAYWHITE);
 
       final currentPoints = points.take(pointCount).toList();
 
       if (splineTypeActive == .SPLINE_LINEAR)
       {
-        rl.CoreD.DrawSplineLinear(currentPoints, splineThickness, .RED);
+        DrawSplineLinear(currentPoints, splineThickness, .RED);
       }
       else if (splineTypeActive == .SPLINE_BASIS)
       {
-        rl.CoreD.DrawSplineBasis(currentPoints, splineThickness, .RED);
+        DrawSplineBasis(currentPoints, splineThickness, .RED);
 
         /*
         for (int i = 0; i < (pointCount - 3); i++)
         {
-          rl.CoreD.DrawSplineSegmentBasis(
+          DrawSplineSegmentBasis(
             points[i], points[i + 1],
             points[i + 2], points[i + 3],
             splineThickness, .MAROON
@@ -145,12 +144,12 @@ void main() => Raylib((rl) {
       }
       else if (splineTypeActive == .SPLINE_CATMULLROM)
       {
-        rl.CoreD.DrawSplineCatmullRom(currentPoints, splineThickness, .RED);
+        DrawSplineCatmullRom(currentPoints, splineThickness, .RED);
         
         /*
         for (int i = 0; i < (pointCount - 3); i++)
         {
-          rl.CoreD.DrawSplineSegmentCatmullRom(
+          DrawSplineSegmentCatmullRom(
             points[i], points[i + 1],
             points[i + 2], points[i + 3],
             splineThickness, .MAROON
@@ -171,12 +170,12 @@ void main() => Raylib((rl) {
 
         final currentPointsInterleaved = pointsInterleaved.take(3*pointCount).toList();
 
-        rl.CoreD.DrawSplineBezierCubic(currentPointsInterleaved, splineThickness, .RED);
+        DrawSplineBezierCubic(currentPointsInterleaved, splineThickness, .RED);
         
         /*
         for (int i = 0; i < 3*(pointCount - 1); i += 3)
         {
-          rl.CoreD.DrawSplineSegmentBezierCubic(
+          DrawSplineSegmentBezierCubic(
             pointsInterleaved[i], pointsInterleaved[i + 1],
             pointsInterleaved[i + 2], pointsInterleaved[i + 3],
             splineThickness, .MAROON
@@ -188,16 +187,16 @@ void main() => Raylib((rl) {
         {
           final p = control[i];
 
-          rl.CoreD.DrawCircleV(p.start, 6, .GOLD);
-          rl.CoreD.DrawCircleV(p.end, 6, .GOLD);
-          if (focusedControlPoint == p.start) rl.CoreD.DrawCircleV(p.start, 8, .GREEN);
-          else if (focusedControlPoint == p.end) rl.CoreD.DrawCircleV(p.end, 8, .GREEN);
-          rl.CoreD.DrawLineEx(points[i], p.start, 1.0, .LIGHTGRAY);
-          rl.CoreD.DrawLineEx(points[i + 1], p.end, 1.0, .LIGHTGRAY);
+          DrawCircleV(p.start, 6, .GOLD);
+          DrawCircleV(p.end, 6, .GOLD);
+          if (focusedControlPoint == p.start) DrawCircleV(p.start, 8, .GREEN);
+          else if (focusedControlPoint == p.end) DrawCircleV(p.end, 8, .GREEN);
+          DrawLineEx(points[i], p.start, 1.0, .LIGHTGRAY);
+          DrawLineEx(points[i + 1], p.end, 1.0, .LIGHTGRAY);
       
-          rl.CoreD.DrawLineV(points[i], p.start, .GRAY);
-          // rl.CoreD.DrawLineV(p.start, p.end, .LIGHTGRAY);
-          rl.CoreD.DrawLineV(p.end, points[i + 1], .GRAY);
+          DrawLineV(points[i], p.start, .GRAY);
+          // DrawLineV(p.start, p.end, .LIGHTGRAY);
+          DrawLineV(p.end, points[i + 1], .GRAY);
         }
       }
 
@@ -205,55 +204,49 @@ void main() => Raylib((rl) {
       {
         for (int i = 0; i < pointCount; i++)
         {
-          rl.CoreD.DrawCircleLinesV(points[i], (focusedPoint == i) ? 12.0 : 8.0, (focusedPoint == i) ? .BLUE : .DARKBLUE);
+          DrawCircleLinesV(points[i], (focusedPoint == i) ? 12.0 : 8.0, (focusedPoint == i) ? .BLUE : .DARKBLUE);
           if (
             (splineTypeActive != .SPLINE_LINEAR) &&
             (splineTypeActive != .SPLINE_BEZIER) &&
             (i < pointCount - 1)
-          ) rl.CoreD.DrawLineV(points[i], points[i + 1], .GRAY);
+          ) DrawLineV(points[i], points[i + 1], .GRAY);
 
-          rl.CoreD.DrawText(
+          DrawText(
             "[${points[i].x.toInt()}, ${points[i].y.toInt()}]",
             points[i].x.toInt(), (points[i].y + 10).toInt(), 10, .BLACK
           );
         }
       }
 
-      if (splineTypeEditMode) rl.GuiD.GuiLock();
+      if (splineTypeEditMode) GuiLock();
       
-      rl.GuiD.GuiLabel(
+      GuiLabel(
         .rect(12, 62, 140, 24),
         "Spline thickness: $splineThickness"
       );
       
-      {
-        final (result, newValue) = rl.GuiD.GuiSliderBar(
-          .rect(12, 60 + 24, 140, 16),
-          null,
-          null,
-          splineThickness, 1.0, 40.0
-        );
-        splineThickness = newValue;
-      }
+      (_, splineThickness) = GuiSliderBar(
+        .rect(12, 60 + 24, 140, 16),
+        null,
+        null,
+        splineThickness, 1.0, 40.0
+      );
 
-      {
-        final (result, newValue) = rl.GuiD.GuiCheckBox(
-          .rect(12, 110, 20, 20),
-          "Show point helpers",
-          splineHelpersActive
-        );
-        splineHelpersActive = newValue;
-      }
+      (_, splineHelpersActive) = GuiCheckBox(
+        .rect(12, 110, 20, 20),
+        "Show point helpers",
+        splineHelpersActive
+      );
 
-      rl.GuiD.GuiUnlock();
+      GuiUnlock();
 
-      rl.GuiD.GuiLabel(
+      GuiLabel(
         .rect(12, 10, 140, 24),
         "Spline type:"
       );
       
       {
-        final (result, splineTypeIndex) = rl.GuiD.GuiDropdownBox(
+        final (result, splineTypeIndex) = GuiDropdownBox(
           .rect(12, 8 + 24, 140, 28),
           SplineType.values.map((e) => e.name).join(';'),
           splineTypeActive.index,
@@ -266,6 +259,6 @@ void main() => Raylib((rl) {
         }
       }
 
-    rl.CoreD.EndDrawing();
+    EndDrawing();
   });
 });

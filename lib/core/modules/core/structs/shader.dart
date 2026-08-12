@@ -35,9 +35,6 @@ class ShaderD extends StructDWeb<ShaderD> with ShaderBase<ShaderD> {
     _locs.inner = value;
   }
 
-  @override
-  int get wasmByteSize => byteSize;
-
   ShaderD({
     super.originalPointer,
     int id = 0,
@@ -62,7 +59,7 @@ class ShaderD extends StructDWeb<ShaderD> with ShaderBase<ShaderD> {
 
   @override
   void wasmWriteInto(WasmWriter writer) {
-    writer.Uint32(id);
+    writer.Uint32(_id);
     writer.wasmptr(_locs.ptr);
 
     _locs.onPointer((p) => p.writeArray(_locs.inner));
@@ -70,7 +67,7 @@ class ShaderD extends StructDWeb<ShaderD> with ShaderBase<ShaderD> {
 
   @override
   void wasmReadFrom(WasmReader reader) {
-    id = reader.Uint32();
+    _id = reader.Uint32();
     _locs.ptr = .new(reader.pointer());
 
     _locs.onPointer((p) => locs = p.readArray(shaderLocsCount));

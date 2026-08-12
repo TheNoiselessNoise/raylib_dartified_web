@@ -1,15 +1,13 @@
 // Example dartified, see original for reference:
 // https://github.com/raysan5/raylib/blob/master/examples/core/core_clipboard_text.c
-// WARNING: GetClipboardText does not work on Web
-import 'package:raylib_dartified_web/raylib_dartified_web.dart';
+import '../base_dart.dart';
 
 const int screenWidth = 800;
 const int screenHeight = 450;
 
 void main() => Raylib((rl) {
-  rl.CoreD.InitWindow(screenWidth, screenHeight, 'core_clipboard_text');
-  rl.CoreD.SetWindowMonitor(0);
-  rl.CoreD.SetTargetFPS(60);
+  InitWindow(screenWidth, screenHeight, "core_clipboard_text");
+  SetTargetFPS(60);
 
   final sampleTexts = [
     "Hello from raylib!",
@@ -30,32 +28,29 @@ void main() => Raylib((rl) {
   bool btnClearPressed = false;
   bool btnRandomPressed = false;
 
-  rl.GuiD.GuiSetStyle(.DEFAULT, GuiDefaultProperty.TEXT_SIZE, 20);
-  rl.GuiD.GuiSetIconScale(2);
+  GuiSetStyle(.DEFAULT, GuiDefaultProperty.TEXT_SIZE, 20);
+  GuiSetIconScale(2);
 
   void doCut() {
-    rl.CoreD.SetClipboardText(input);
-    // ignore: deprecated_member_use_from_same_package
-    clipboardText = rl.CoreD.GetClipboardText();
+    SetClipboardText(input);
+    clipboardText = GetClipboardText();
     input = '';
   }
 
   void doCopy() {
-    rl.CoreD.SetClipboardText(input);
-    // ignore: deprecated_member_use_from_same_package
-    clipboardText = rl.CoreD.GetClipboardText();
+    SetClipboardText(input);
+    clipboardText = GetClipboardText();
   }
 
   void doPaste() {
-    // ignore: deprecated_member_use_from_same_package
-    clipboardText = rl.CoreD.GetClipboardText();
+    clipboardText = GetClipboardText();
     input = clipboardText;
   }
 
   void doClear() => input = '';
 
   void doRandom() {
-    input = sampleTexts[rl.CoreD.GetRandomValue(0, sampleTexts.length - 1)];
+    input = sampleTexts[GetRandomValue(0, sampleTexts.length - 1)];
   }
 
   rl.setMainLoop(() {
@@ -66,89 +61,89 @@ void main() => Raylib((rl) {
     if (btnRandomPressed) doRandom();
 
     if (
-      rl.CoreD.IsKeyDown(.KEY_LEFT_CONTROL) ||
-      rl.CoreD.IsKeyDown(.KEY_RIGHT_CONTROL)
+      IsKeyDown(.KEY_LEFT_CONTROL) ||
+      IsKeyDown(.KEY_RIGHT_CONTROL)
     ) {
-      if (rl.CoreD.IsKeyPressed(.KEY_X))
+      if (IsKeyPressed(.KEY_X))
       {
-        rl.CoreD.SetClipboardText(input);
+        SetClipboardText(input);
         input = '';
       }
 
-      if (rl.CoreD.IsKeyPressed(.KEY_C))
-        rl.CoreD.SetClipboardText(input);
+      if (IsKeyPressed(.KEY_C))
+        SetClipboardText(input);
 
-      if (rl.CoreD.IsKeyPressed(.KEY_V))
+      if (IsKeyPressed(.KEY_V))
         doPaste();
     }
 
-    rl.CoreD.BeginDrawing();
+    BeginDrawing();
 
-    rl.CoreD.ClearBackground(.RAYWHITE);
+    ClearBackground(.RAYWHITE);
 
-    rl.GuiD.GuiLabel(
+    GuiLabel(
       .rect(50, 20, 700, 36),
       "Use the BUTTONS or KEY SHORTCUTS:",
     );
 
-    rl.CoreD.DrawText(
+    DrawText(
       "[CTRL+X] - CUT | [CTRL+C] COPY | [CTRL+V] | PASTE",
       50, 60, 20, .MAROON,
     );
 
     {
-      final (result, newValue) = rl.GuiD.GuiTextBox(
+      final (result, newValue) = GuiTextBox(
         .rect(50, 120, 652, 40),
         input,
         256,
         textBoxEditMode
       );
-      if (result != 0) textBoxEditMode = !textBoxEditMode;
       input = newValue;
+      if (result != 0) textBoxEditMode = !textBoxEditMode;
     }
 
-    btnRandomPressed = rl.GuiD.GuiButton(
+    btnRandomPressed = GuiButton(
       .rect(50 + 652 + 8, 120, 40, 40),
       "#77#",
     ) != 0;
 
-    btnCutPressed = rl.GuiD.GuiButton(
+    btnCutPressed = GuiButton(
       .rect(50, 180, 158, 40),
       "#17#CUT",
     ) != 0;
     
-    btnCopyPressed = rl.GuiD.GuiButton(
+    btnCopyPressed = GuiButton(
       .rect(50 + 165, 180, 158, 40),
       "#16#COPY",
     ) != 0;
     
-    btnPastePressed = rl.GuiD.GuiButton(
+    btnPastePressed = GuiButton(
       .rect(50 + 165*2, 180, 158, 40),
       "#18#PASTE",
     ) != 0;
     
-    btnClearPressed = rl.GuiD.GuiButton(
+    btnClearPressed = GuiButton(
       .rect(50 + 165*3, 180, 158, 40),
       "#143#CLEAR",
     ) != 0;
 
-    rl.GuiD.GuiSetState(.STATE_DISABLED);
-    rl.GuiD.GuiLabel(
+    GuiSetState(.STATE_DISABLED);
+    GuiLabel(
       .rect(50, 260, 700, 40),
       "Clipboard current text data:",
     );
-    rl.GuiD.GuiSetStyle(.TEXTBOX, GuiTextBoxProperty.TEXT_READONLY, 1);
-    rl.GuiD.GuiTextBox(
+    GuiSetStyle(.TEXTBOX, GuiTextBoxProperty.TEXT_READONLY, 1);
+    GuiTextBox(
       .rect(50, 300, 700, 40),
       clipboardText, 256, false
     );
-    rl.GuiD.GuiSetStyle(.TEXTBOX, GuiTextBoxProperty.TEXT_READONLY, 0);
-    rl.GuiD.GuiLabel(
+    GuiSetStyle(.TEXTBOX, GuiTextBoxProperty.TEXT_READONLY, 0);
+    GuiLabel(
       .rect(50, 360, 700, 40),
       "Try copying text from other applications and pasting here!",
     );
-    rl.GuiD.GuiSetState(.STATE_NORMAL);
+    GuiSetState(.STATE_NORMAL);
 
-    rl.CoreD.EndDrawing();
+    EndDrawing();
   });
 });

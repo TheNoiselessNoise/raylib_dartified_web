@@ -78,9 +78,6 @@ class LightD extends StructDWeb<LightD> with LightBase<
   @override
   int attenuationLoc;
 
-  @override
-  int get wasmByteSize => byteSize;
-
   LightD({
     super.originalPointer,
     this.type = .LIGHT_POINT,

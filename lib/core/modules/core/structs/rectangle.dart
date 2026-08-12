@@ -22,9 +22,6 @@ class RectangleD extends StructDLiteralWeb<RectangleD> with RectangleBase<Rectan
   @override
   double x, y, width, height;
 
-  @override
-  int get wasmByteSize => byteSize;
-
   RectangleD({
     super.originalPointer,
     this.x = 0,

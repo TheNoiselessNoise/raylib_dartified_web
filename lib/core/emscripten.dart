@@ -111,16 +111,7 @@ extension type _EmscriptenModule._(JSObject _) implements JSObject {
 extension JSFunctionUtilExtension on JSFunction {
   @JS('call')
   external JSAny? callAsFunction([
-    JSAny? thisArg,
-    JSAny? arg1,
-    JSAny? arg2,
-    JSAny? arg3,
-    JSAny? arg4,
-    JSAny? arg5,
-    JSAny? arg6,
-    JSAny? arg7,
-    JSAny? arg8,
-    JSAny? arg9,
+    JSAny? thisArg, JSAny? arg1, JSAny? arg2, JSAny? arg3, JSAny? arg4, JSAny? arg5, JSAny? arg6, JSAny? arg7, JSAny? arg8, JSAny? arg9,
   ]);
 
   JSAny? get run => callAsFunction(null);

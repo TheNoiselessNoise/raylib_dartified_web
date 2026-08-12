@@ -37,9 +37,6 @@ class RayCollisionD extends StructDLiteralWeb<RayCollisionD> with RayCollisionBa
   @override
   Vector3D normal;
 
-  @override
-  int get wasmByteSize => byteSize;
-
   RayCollisionD({
     super.originalPointer,
     this.hit = false,

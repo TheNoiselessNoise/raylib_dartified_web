@@ -42,9 +42,6 @@ class Camera3DD extends StructDLiteralWeb<Camera3DD> with Camera3DBase<
   @override
   CameraProjection projection;
 
-  @override
-  int get wasmByteSize => byteSize;
-
   Camera3DD({
     super.originalPointer,
     Vector3D? position,

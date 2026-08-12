@@ -1,14 +1,13 @@
 // Example dartified, see original for reference:
 // https://github.com/raysan5/raylib/blob/master/examples/shapes/shapes_colors_palette.c
-import 'package:raylib_dartified_web/raylib_dartified_web.dart';
+import '../base_dart.dart';
 
 const int screenWidth = 800;
 const int screenHeight = 450;
 
 void main() => Raylib((rl) {
-  rl.CoreD.InitWindow(screenWidth, screenHeight, "shapes_colors_palette");
-  rl.CoreD.SetWindowMonitor(0);
-  rl.CoreD.SetTargetFPS(60);
+  InitWindow(screenWidth, screenHeight, "shapes_colors_palette");
+  SetTargetFPS(60);
   
   final colors = <String, ColorD>{
     'DARKGRAY': .DARKGRAY, 'MAROON': .MAROON, 'ORANGE': .ORANGE,
@@ -31,26 +30,26 @@ void main() => Raylib((rl) {
   Vector2D mousePoint = .zero();
 
   rl.setMainLoop(() {
-    mousePoint = rl.CoreD.GetMousePosition();
+    mousePoint = GetMousePosition();
 
     for (int i = 0; i < colors.length; i++)
     {
-      if (rl.CoreD.CheckCollisionPointRec(mousePoint, colorsRecs[i])) colorState[i] = true;
+      if (CheckCollisionPointRec(mousePoint, colorsRecs[i])) colorState[i] = true;
       else colorState[i] = false;
     }
 
-    rl.CoreD.BeginDrawing();
+    BeginDrawing();
 
-      rl.CoreD.ClearBackground(.RAYWHITE);
+      ClearBackground(.RAYWHITE);
 
-      rl.CoreD.DrawText(
+      DrawText(
         "raylib colors palette",
         28, 42, 20, .BLACK
       );
 
-      rl.CoreD.DrawText(
+      DrawText(
         "press SPACE to see all colors",
-        rl.CoreD.GetScreenWidth() - 180, rl.CoreD.GetScreenHeight() - 40, 10, .GRAY
+        GetScreenWidth() - 180, GetScreenHeight() - 40, 10, .GRAY
       );
 
       for (int i = 0; i < colors.length; i++)
@@ -58,21 +57,21 @@ void main() => Raylib((rl) {
         final (name, color) = (colors.keys.elementAt(i), colors.values.elementAt(i));
         final (rect, state) = (colorsRecs[i], colorState[i]);
 
-        rl.CoreD.DrawRectangleRec(rect, rl.CoreD.Fade(color, state ? 0.6 : 1.0));
+        DrawRectangleRec(rect, Fade(color, state ? 0.6 : 1.0));
 
-        if (rl.CoreD.IsKeyDown(.KEY_SPACE) || state)
+        if (IsKeyDown(.KEY_SPACE) || state)
         {
-          rl.CoreD.DrawRectangle(rect.x, rect.y + rect.height - 26, rect.width, 20, .BLACK);
-          rl.CoreD.DrawRectangleLinesEx(rect, 6, rl.CoreD.Fade(.BLACK, 0.3));
-          rl.CoreD.DrawText(
+          DrawRectangle(rect.x, rect.y + rect.height - 26, rect.width, 20, .BLACK);
+          DrawRectangleLinesEx(rect, 6, Fade(.BLACK, 0.3));
+          DrawText(
             name,
-            rect.x + rect.width - rl.CoreD.MeasureText(name, 10) - 12,
+            rect.x + rect.width - MeasureText(name, 10) - 12,
             rect.y + rect.height - 20,
             10, color
           );
         }
       }
 
-    rl.CoreD.EndDrawing();
+    EndDrawing();
   });
 });

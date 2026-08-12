@@ -59,9 +59,6 @@ class RlDrawCallD extends StructDWeb<RlDrawCallD> with RlDrawCallBase<RlDrawCall
     structOnOp((p) => p.writerAt(_o[.textureId]).Uint32(value));
   }
 
-  @override
-  int get wasmByteSize => byteSize;
-
   RlDrawCallD({
     super.originalPointer,
     RlDrawMode mode = .RL_NONE,

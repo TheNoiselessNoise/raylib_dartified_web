@@ -1,20 +1,20 @@
 // Example dartified, see original for reference:
 // https://github.com/raysan5/raylib/blob/master/examples/text/text_sprite_fonts.c
 // WARNING: expects resources from the raylib source
-import 'package:raylib_dartified_web/raylib_dartified_web.dart';
+import '../base_dart.dart';
 
 const int screenWidth = 800;
 const int screenHeight = 450;
 
 final List<String> fontPaths = [
-  "./resources/sprite_fonts/alagard.png",
-  "./resources/sprite_fonts/pixelplay.png",
-  "./resources/sprite_fonts/mecha.png",
-  "./resources/sprite_fonts/setback.png",
-  "./resources/sprite_fonts/romulus.png",
-  "./resources/sprite_fonts/pixantiqua.png",
-  "./resources/sprite_fonts/alpha_beta.png",
-  "./resources/sprite_fonts/jupiter_crash.png",
+  "../resources/sprite_fonts/alagard.png",
+  "../resources/sprite_fonts/pixelplay.png",
+  "../resources/sprite_fonts/mecha.png",
+  "../resources/sprite_fonts/setback.png",
+  "../resources/sprite_fonts/romulus.png",
+  "../resources/sprite_fonts/pixantiqua.png",
+  "../resources/sprite_fonts/alpha_beta.png",
+  "../resources/sprite_fonts/jupiter_crash.png",
 ];
 
 final List<String> messages = [
@@ -40,15 +40,14 @@ void main() => Raylib((rl) {
   ];
   assert(fontPaths.length == colors.length);
 
-  rl.CoreD.InitWindow(screenWidth, screenHeight, "text_sprite_fonts");
-  rl.CoreD.SetWindowMonitor(0);
-  rl.CoreD.SetTargetFPS(60);
+  InitWindow(screenWidth, screenHeight, "text_sprite_fonts");
+  SetTargetFPS(60);
   
-  final fonts = fontPaths.map((path) => rl.CoreD.LoadFont(path)).toList();
+  final fonts = fontPaths.map((path) => LoadFont(path)).toList();
 
   final positions = <Vector2D>[];
   for (int i = 0; i < fontPaths.length; i++) {
-    final fontSize = rl.CoreD.MeasureTextEx(
+    final fontSize = MeasureTextEx(
       fonts[i],
       messages[i],
       fonts[i].baseSize*2,
@@ -65,19 +64,19 @@ void main() => Raylib((rl) {
   positions[7].y -= 8;
 
   rl.setMainLoop(() {
-    rl.CoreD.BeginDrawing();
+    BeginDrawing();
 
-      rl.CoreD.ClearBackground(.RAYWHITE);
+      ClearBackground(.RAYWHITE);
 
-      rl.CoreD.DrawText(
+      DrawText(
         "free sprite fonts included with raylib",
         220, 20, 20, .DARKGRAY
       );
-      rl.CoreD.DrawLine(220, 50, 600, 50, .DARKGRAY);
+      DrawLine(220, 50, 600, 50, .DARKGRAY);
 
       for (int i = 0; i < fontPaths.length; i++)
       {
-        rl.CoreD.DrawTextEx(
+        DrawTextEx(
           fonts[i],
           messages[i],
           positions[i], 
@@ -87,6 +86,6 @@ void main() => Raylib((rl) {
         );
       }
 
-    rl.CoreD.EndDrawing();
+    EndDrawing();
   });
 });

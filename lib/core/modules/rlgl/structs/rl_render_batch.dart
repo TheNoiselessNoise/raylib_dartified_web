@@ -87,9 +87,6 @@ class RlRenderBatchD extends StructDWeb<RlRenderBatchD> with RlRenderBatchBase<
     structOnOp((p) => p.writerAt(_o[.currentDepth]).Float32(value));
   }
 
-  @override
-  int get wasmByteSize => byteSize;
-
   RlRenderBatchD({
     super.originalPointer,
     int bufferCount = 0,

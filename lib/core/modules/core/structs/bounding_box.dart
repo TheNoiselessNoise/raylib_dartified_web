@@ -27,9 +27,6 @@ class BoundingBoxD extends StructDLiteralWeb<BoundingBoxD> with BoundingBoxBase<
   @override
   Vector3D max;
 
-  @override
-  int get wasmByteSize => byteSize;
-
   BoundingBoxD({
     super.originalPointer,
     Vector3D? min,

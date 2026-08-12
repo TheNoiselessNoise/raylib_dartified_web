@@ -27,9 +27,6 @@ class RayD extends StructDLiteralWeb<RayD> with RayBase<
   @override
   Vector3D direction;
 
-  @override
-  int get wasmByteSize => byteSize;
-
   RayD({
     super.originalPointer,
     Vector3D? position,

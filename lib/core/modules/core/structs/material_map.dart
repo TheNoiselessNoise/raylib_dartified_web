@@ -6,7 +6,7 @@ enum _MaterialMapOffsets with _WasmOffsets {
   value,
 }
 
-class MaterialMapD extends StructDLiteralWeb<MaterialMapD> with MaterialMapBase<
+class MaterialMapD extends StructDWeb<MaterialMapD> with MaterialMapBase<
   MaterialMapD,
   TextureD,
   ColorD
@@ -21,26 +21,45 @@ class MaterialMapD extends StructDLiteralWeb<MaterialMapD> with MaterialMapBase<
   static WasmStructPointer<MaterialMapD> wasmPointer(int ptr) => .new(ptr, MaterialMapD.new, byteSize);
   static WasmStructPointerPointer<MaterialMapD> wasmPointerPointer(int ptr) => .new(ptr, wasmPointer);
 
-  @override
-  TextureD texture;
-  
-  @override
-  ColorD color;
-  
-  @override
-  double value;
+  TextureD _texture;
+  @override get texture {
+    structOnOp((p) => _texture.wasmReadFrom(p.readerAt(_o[.texture])));
+    return _texture;
+  }
+  @override set texture(TextureD value) {
+    _texture = value;
+    structOnOp((p) => value.wasmWriteInto(p.writerAt(_o[.texture])));
+  }
 
-  @override
-  int get wasmByteSize => byteSize;
+  ColorD _color;
+  @override get color {
+    structOnOp((p) => _color.wasmReadFrom(p.readerAt(_o[.color])));
+    return _color;
+  }
+  @override set color(ColorD value) {
+    _color = value;
+    structOnOp((p) => value.wasmWriteInto(p.writerAt(_o[.color])));
+  }
 
+  double _value;
+  @override get value {
+    structOnOp((p) => _value = p.readerAt(_o[.value]).Float32());
+    return _value;
+  }
+  @override set value(double value) {
+    _value = value;
+    structOnOp((p) => p.writerAt(_o[.value]).Float32(value));
+  }
+  
   MaterialMapD({
     super.originalPointer,
     TextureD? texture,
     ColorD? color,
-    this.value = 0,
+    double value = 0,
   }) :
-    texture = texture ?? .zero(),
-    color = color ?? .zero();
+    _texture = texture ?? .zero(),
+    _color = color ?? .zero(),
+    _value = value;
 
   factory MaterialMapD.zero() => .new();
 

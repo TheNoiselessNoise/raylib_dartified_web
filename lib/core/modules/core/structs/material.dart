@@ -34,7 +34,7 @@ class MaterialD extends StructDWeb<MaterialD> with MaterialBase<
   }
   
   late WasmLiveListPointerStruct<MaterialMapD> _maps;
-  @override get maps {
+  @override WasmLiveListPointerStruct<MaterialMapD> get maps {
     structOnOp((p) => _maps.ptr = MaterialMapD.wasmPointer(p.readerAt(_o[.maps]).pointer()));
     return _maps;
   }
@@ -55,9 +55,6 @@ class MaterialD extends StructDWeb<MaterialD> with MaterialBase<
     _params.inner = value;
   }
 
-  @override
-  int get wasmByteSize => byteSize;
-
   MaterialD({
     super.originalPointer,
     ShaderD? shader,
@@ -72,7 +69,7 @@ class MaterialD extends StructDWeb<MaterialD> with MaterialBase<
     );
 
     _params = .new(
-      params ?? .filled(paramsCount, 0),
+      params ?? [],
       originalPointer == null ? null : .new(wasmReader(_o[.params]).pointer())
     );
   }
@@ -87,9 +84,19 @@ class MaterialD extends StructDWeb<MaterialD> with MaterialBase<
     return this;
   }
 
+  void doDevDebug() {
+    print('mapsCount: $mapsCount');
+    print('_maps.inner.length: ${_maps.inner.length}');
+  }
+
+  @override
+  void structAllocateInto(RaylibTemp temp, WasmStructPointer<MaterialD> p, String key) {
+    if (_maps.isNotEmpty) _maps.ptr = temp.MaterialMap$.Array(maps, key: '${key}_maps');
+  }
+
   @override
   void wasmWriteInto(WasmWriter writer) {
-    writer.struct(shader);
+    writer.struct(_shader);
     writer.wasmptr(_maps.ptr);
     writer.Float32Array(_params.inner);
 
@@ -98,11 +105,11 @@ class MaterialD extends StructDWeb<MaterialD> with MaterialBase<
 
   @override
   void wasmReadFrom(WasmReader reader) {
-    reader.struct(shader);
+    reader.struct(_shader);
     _maps.ptr = MaterialMapD.wasmPointer(reader.pointer());
-    params = reader.Float32Array(paramsCount);
+    _params.inner = reader.Float32Array(paramsCount);
 
-    _maps.onPointer((p) => maps = p.readArray(mapsCount));
+    _maps.onPointer((p) => _maps.inner = p.readArray(mapsCount, owned: true));
   }
 
   @override

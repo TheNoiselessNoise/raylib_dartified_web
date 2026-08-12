@@ -1,34 +1,33 @@
 // Example dartified, see original for reference:
 // https://github.com/raysan5/raylib/blob/master/examples/core/core_input_mouse_wheel.c
-import 'package:raylib_dartified_web/raylib_dartified_web.dart';
+import '../base_dart.dart';
 
 const int screenWidth = 800;
 const int screenHeight = 450;
 
 void main() => Raylib((rl) {
-  rl.CoreD.InitWindow(screenWidth, screenHeight, 'core_input_mouse_wheel');
-  rl.CoreD.SetWindowMonitor(0);
-  rl.CoreD.SetTargetFPS(60);
+  InitWindow(screenWidth, screenHeight, "core_input_mouse_wheel");
+  SetTargetFPS(60);
 
   int boxPositionY = screenHeight~/2 - 40;
   int scrollSpeed = 4;
 
   rl.setMainLoop(() {
-    boxPositionY -= (rl.CoreD.GetMouseWheelMove()*scrollSpeed).toInt();
+    boxPositionY -= (GetMouseWheelMove()*scrollSpeed).toInt();
 
-    rl.CoreD.BeginDrawing();
-      rl.CoreD.ClearBackground(.RAYWHITE);
+    BeginDrawing();
+      ClearBackground(.RAYWHITE);
 
-      rl.CoreD.DrawRectangle(screenWidth~/2 - 40, boxPositionY, 80, 80, .MAROON);
+      DrawRectangle(screenWidth~/2 - 40, boxPositionY, 80, 80, .MAROON);
 
-      rl.CoreD.DrawText(
+      DrawText(
         "Use mouse wheel to move the cube up and down!",
         10, 10, 20, .GRAY
       );
-      rl.CoreD.DrawText(
+      DrawText(
         "Box position Y: ${boxPositionY.pad(3)}",
         10, 40, 20, .LIGHTGRAY
       );
-    rl.CoreD.EndDrawing();
+    EndDrawing();
   });
 });

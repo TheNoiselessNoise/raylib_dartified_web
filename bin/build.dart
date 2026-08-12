@@ -1,5 +1,6 @@
 import 'dart:io';
 import '_log.dart';
+import '_paths.dart';
 import 'package:args/args.dart';
 import 'package:path/path.dart' as p;
 import 'assets/html_index.dart' as html_index show template;
@@ -8,8 +9,6 @@ import 'assets/raylib_c.dart' as raylib_c show template;
 
 final cwd = Directory.current;
 final buildDir = Directory(p.join(cwd.path, 'build'));
-final packageRoot = File(Platform.script.toFilePath()).parent.parent;
-final sourceDir = Directory(p.join(packageRoot.path, 'source'));
 
 final _builtinRaylibC = File(p.join(packageRoot.path, 'raylib.c'));
 final _builtinFuncList = File(p.join(packageRoot.path, 'raylib_func_list.txt'));
@@ -19,6 +18,11 @@ const String OPT_ENTRY = 'entry';
 const String OPT_RAYLIB_C = 'raylib-c';
 const String OPT_RAYLIB_FUNC_LIST = 'raylib-func-list';
 const String OPT_RESOURCES = 'raylib-resources';
+const String OPT_STACK_SIZE = 'stack-size';
+const String OPT_EMCC_SETTING = 'emcc-setting';
+const String OPT_EMCC_ARG = 'emcc-arg';
+
+const _defaultStackSize = '1048576';
 
 ArgParser setupParser(List<String> args) {
   final parser = ArgParser(allowTrailingOptions: true);
@@ -31,6 +35,22 @@ ArgParser setupParser(List<String> args) {
   parser.addOption(OPT_RAYLIB_C, valueHelp: 'path', help: 'Path to custom raylib.c (default: package builtin)');
   parser.addOption(OPT_RAYLIB_FUNC_LIST, valueHelp: 'path', help: 'Path to custom raylib function list file (default: package builtin)');
   parser.addOption(OPT_RESOURCES, valueHelp: 'path', help: 'Path to resources/ directory (default: ./resources)');
+  parser.addOption(OPT_STACK_SIZE, valueHelp: 'bytes', help: 'emcc STACK_SIZE in bytes', defaultsTo: _defaultStackSize);
+
+  parser.addSeparator('ADVANCED');
+
+  parser.addMultiOption(
+    OPT_EMCC_SETTING,
+    valueHelp: 'KEY=VALUE',
+    help: 'Extra emcc -s KEY=VALUE setting (repeatable). Overrides a built-in\n'
+        'default of the same KEY, e.g. --emcc-setting=INITIAL_MEMORY=64MB',
+  );
+  parser.addMultiOption(
+    OPT_EMCC_ARG,
+    valueHelp: 'arg',
+    help: 'Extra raw emcc argument (repeatable), appended just before -o,\n'
+        'e.g. --emcc-arg=-O3 --emcc-arg=-g3',
+  );
 
   return parser;
 }
@@ -74,6 +94,14 @@ Future<void> main(List<String> args) async {
     if (!resourcesDir.existsSync()) logDie('$resourcesDirPath is not a valid resources/ path');
   }
 
+  final stackSize = parsedArgs.option(OPT_STACK_SIZE)!;
+  if (int.tryParse(stackSize) == null) {
+    logDie('--$OPT_STACK_SIZE must be an integer number of bytes, got "$stackSize"');
+  }
+
+  final emccSettings = _parseEmccSettings(parsedArgs.multiOption(OPT_EMCC_SETTING));
+  final emccExtraArgs = parsedArgs.multiOption(OPT_EMCC_ARG);
+
   if (raylibC == null) _builtinRaylibC.writeAsStringSync(raylib_c.template);
   if (raylibFuncList == null) _builtinFuncList.writeAsStringSync(raylib_func_list.template);
 
@@ -86,6 +114,9 @@ Future<void> main(List<String> args) async {
     raylibFuncList: raylibFuncList ?? _builtinFuncList,
     resourcesDir: resourcesDir ?? Directory(p.join(cwd.path, 'resources')),
     buildDir: buildDir,
+    stackSize: stackSize,
+    extraSettings: emccSettings,
+    extraArgs: emccExtraArgs,
   );
 
   if (raylibC == null) _builtinRaylibC.deleteSync();
@@ -101,6 +132,20 @@ Future<void> main(List<String> args) async {
   }
 
   logOk('Build complete: ${buildDir.path}${p.separator}');
+}
+
+/// Parses repeated --emcc-setting KEY=VALUE args into a map. Later
+/// duplicates of the same KEY win, same as command-line order would suggest.
+Map<String, String> _parseEmccSettings(List<String> raw) {
+  final settings = <String, String>{};
+  for (final entry in raw) {
+    final idx = entry.indexOf('=');
+    if (idx <= 0) {
+      logDie('--$OPT_EMCC_SETTING expects KEY=VALUE, got "$entry"');
+    }
+    settings[entry.substring(0, idx)] = entry.substring(idx + 1);
+  }
+  return settings;
 }
 
 void _checkEnv() {
@@ -126,18 +171,14 @@ String _emsdkSourceHint() {
 void _checkSetupDone() {
   logStep('Checking raylib build');
 
-  final raylibLib = Directory(
-    p.join(sourceDir.path, 'raylib', 'build', 'build', 'raylib'),
-  );
-
-  if (!raylibLib.existsSync()) {
+  if (!raylibLibDir.existsSync()) {
     logDie(
       'raylib does not appear to be built yet.\n'
       '  Run setup first:  dart run raylib_dartified_web:setup',
     );
   }
 
-  logOk(raylibLib.path);
+  logOk(raylibLibDir.path);
 }
 
 Future<void> _prepareBuildDir() async {
@@ -151,12 +192,14 @@ Future<void> _emccLink({
   required Directory resourcesDir,
   File? raylibFuncList,
   required Directory buildDir,
+  required String stackSize,
+  required Map<String, String> extraSettings,
+  required List<String> extraArgs,
 }) async {
   logStep('Linking with emcc');
 
-  final raylibInclude = p.join(sourceDir.path, 'raylib', 'src');
-  final raylibLibDir = p.join(sourceDir.path, 'raylib', 'build', 'build', 'raylib');
-  final rayguiInclude = p.join(sourceDir.path, 'raygui', 'src');
+  final raylibInclude = p.join(raylibSrc.path, 'src');
+  final rayguiInclude = p.join(rayguiSrc.path, 'src');
 
   final hasResources = resourcesDir.existsSync();
   if (!hasResources) {
@@ -172,18 +215,34 @@ Future<void> _emccLink({
   // emcc expects forward slashes on all platforms
   String toEmccPath(String path) => path.replaceAll(r'\', '/');
 
+  // Defaults required to make raylib run on WASM at all, in the order emcc
+  // will see them. --emcc-setting=KEY=VALUE (extraSettings) can override any
+  // of these, or add settings this file has never heard of.
+  final settings = <String, String>{
+    'STACK_SIZE': stackSize,
+    'USE_GLFW': '3',
+    'ALLOW_MEMORY_GROWTH': '1',
+    'ALLOW_TABLE_GROWTH': '1',
+    'FULL_ES3': '1',
+    'MAX_WEBGL_VERSION': '2',
+    'MIN_WEBGL_VERSION': '2',
+    ...extraSettings,
+  };
+
+  if (extraSettings.isNotEmpty) {
+    final pretty = extraSettings.entries.map((e) => '${e.key}=${e.value}').join(', ');
+    logInfo('emcc setting overrides: $pretty');
+  }
+
+  final settingArgs = settings.entries.expand((e) => ['-s', '${e.key}=${e.value}']);
+
   final emccArgs = [
     raylibC.path,
     '-I${toEmccPath(raylibInclude)}',
-    '-L${toEmccPath(raylibLibDir)}', '-lraylib',
+    '-I${toEmccPath(extraHeadersDir.path)}',
+    '-L${toEmccPath(raylibLibDir.path)}', '-lraylib',
     '-I${toEmccPath(rayguiInclude)}',
-    '-s', 'STACK_SIZE=1048576',
-    '-s', 'USE_GLFW=3',
-    '-s', 'ALLOW_MEMORY_GROWTH=1',
-    '-s', 'ALLOW_TABLE_GROWTH=1',
-    '-s', 'FULL_ES3=1',
-    '-s', 'MAX_WEBGL_VERSION=2',
-    '-s', 'MIN_WEBGL_VERSION=2',
+    ...settingArgs,
     if (raylibFuncList != null) ...['-s', 'EXPORTED_FUNCTIONS=@${toEmccPath(raylibFuncList.path)}'],
     if (hasResources) ...['--preload-file', '${toEmccPath(resourcesDir.path)}@/resources'],
     '-s', "EXPORTED_RUNTIME_METHODS=["
@@ -194,6 +253,7 @@ Future<void> _emccLink({
       '"HEAP32","HEAPU32","HEAP64","HEAPU64",'
       '"HEAPF32","HEAPF64"'
     ']',
+    ...extraArgs,
     '-o', outputHtml,
   ];
 

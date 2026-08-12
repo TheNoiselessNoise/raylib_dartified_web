@@ -1,16 +1,14 @@
 part of '../../../raylib_dartified_web.dart';
 
 enum _ModelAnimationOffsets with _WasmOffsets {
-  boneCount,
-  frameCount,
-  bones,
-  framePoses,
   name,
+  boneCount,
+  keyframeCount,
+  keyframePoses,
 }
 
 class ModelAnimationD extends StructDWeb<ModelAnimationD> with ModelAnimationBase<
   ModelAnimationD,
-  BoneInfoD,
   TransformD,
   Vector3D,
   MatrixD,
@@ -19,44 +17,14 @@ class ModelAnimationD extends StructDWeb<ModelAnimationD> with ModelAnimationBas
 > {
   static final byteSize = _o.byteSize;
   static final _Offsets<_ModelAnimationOffsets> _o = .fromMap({
-    .boneCount:  WasmSize.Int32,
-    .frameCount: WasmSize.Int32,
-    .bones:      WasmSize.StructPointer,
-    .framePoses: WasmSize.AnyPointer,
-    .name:       WasmSize.Char * ModelAnimationBase.BASE_nameLength,
+    .name:          WasmSize.Char * ModelAnimationBase.BASE_nameLength,
+    .boneCount:     WasmSize.Int32,
+    .keyframeCount: WasmSize.Int32,
+    .keyframePoses: WasmSize.AnyPointer,
   });
 
   static WasmStructPointer<ModelAnimationD> wasmPointer(int ptr) => .new(ptr, ModelAnimationD.new, byteSize);
   static WasmStructPointerPointer<ModelAnimationD> wasmPointerPointer(int ptr) => .new(ptr, wasmPointer);
-
-  late WasmLiveListPointerStruct<BoneInfoD> _bones;
-  @override get bones {
-    structOnOp((p) => _bones.ptr = BoneInfoD.wasmPointer(p.readerAt(_o[.bones]).pointer()));
-    return _bones;
-  }
-  @override set bones(List<BoneInfoD> value) {
-    structOnOp((p) {
-      _bones.ptr = BoneInfoD.wasmPointer(p.readerAt(_o[.bones]).pointer());
-      p.writerAt(_o[.boneCount]).Int32(value.length);
-    });
-    _bones.inner = value;
-  }
-  
-  late WasmLiveListPointerPointerStruct<TransformD> _framePoses;
-  @override get framePoses {
-    structOnOp((p) => _framePoses.ptr = TransformD.wasmPointerPointer(p.readerAt(_o[.framePoses]).pointer()));
-    return _framePoses;
-  }
-  @override set framePoses(List<List<TransformD>> value) {
-    structOnOp((p) {
-      _framePoses.ptr = TransformD.wasmPointerPointer(p.readerAt(_o[.framePoses]).pointer());
-      p.writerAt(_o[.frameCount]).Int32(value.length);
-    });
-
-    _framePoses.inner = .generate(value.length, (i) {
-      return .new(value[i], _framePoses.innerPointer(i));
-    });
-  }
 
   String _name;
   @override get name {
@@ -69,25 +37,43 @@ class ModelAnimationD extends StructDWeb<ModelAnimationD> with ModelAnimationBas
     structOnOp((p) => p.writerAt(_o[.name]).charArray(value, nameLength));
   }
 
-  @override
-  int get wasmByteSize => byteSize;
+  int _boneCount;
+  @override get boneCount {
+    structOnOp((p) => _boneCount = p.readerAt(_o[.boneCount]).Int32());
+    return _boneCount;
+  }
+  @override set boneCount(int value) {
+    _boneCount = value;
+    structOnOp((p) => p.writerAt(_o[.boneCount]).Int32(_boneCount));
+  }
+
+  late WasmLiveListPointerPointerStruct<TransformD> _keyframePoses;
+  @override get keyframePoses {
+    structOnOp((p) => _keyframePoses.ptr = TransformD.wasmPointerPointer(p.readerAt(_o[.keyframePoses]).pointer()));
+    return _keyframePoses;
+  }
+  @override set keyframePoses(List<List<TransformD>> value) {
+    structOnOp((p) {
+      _keyframePoses.ptr = TransformD.wasmPointerPointer(p.readerAt(_o[.keyframePoses]).pointer());
+      p.writerAt(_o[.keyframeCount]).Int32(value.length);
+    });
+
+    _keyframePoses.inner = .generate(value.length, (i) {
+      return .new(value[i], _keyframePoses.innerPointer(i));
+    });
+  }
 
   ModelAnimationD({
     super.originalPointer,
-    List<BoneInfoD>? bones,
-    List<List<TransformD>>? framePoses,
+    List<List<TransformD>>? keyframePoses,
     String name = '',
   }) :
-    _name = name
+    _name = name,
+    _boneCount = keyframePoses?.firstOrNull?.length ?? 0
   {
-    _framePoses = .fromList(
-      framePoses ?? [],
-      originalPointer == null ? null : TransformD.wasmPointerPointer(wasmReader(_o[.framePoses]).pointer())
-    );
-
-    _bones = .new(
-      bones ?? [],
-      originalPointer == null ? null : BoneInfoD.wasmPointer(wasmReader(_o[.bones]).pointer())
+    _keyframePoses = .fromList(
+      keyframePoses ?? [],
+      originalPointer == null ? null : TransformD.wasmPointerPointer(wasmReader(_o[.keyframePoses]).pointer())
     );
   }
 
@@ -95,41 +81,35 @@ class ModelAnimationD extends StructDWeb<ModelAnimationD> with ModelAnimationBas
 
   @override
   ModelAnimationD setD(ModelAnimationD o) {
-    bones = .from(o.bones); 
-    framePoses = .from(o.framePoses); 
+    keyframePoses = .from(o.keyframePoses); 
     name = o.name;
     return this;
   }
 
   @override
   void wasmWriteInto(WasmWriter writer) {
-    writer.Int32(bones.length);
-    writer.Int32(frameCount);
-    writer.wasmptr(_bones.ptr);
-    writer.wasmptr(_framePoses.ptr);
     writer.charArray(name, nameLength);
+    writer.Int32(_boneCount);
+    writer.Int32(keyframeCount);
+    writer.wasmptr(_keyframePoses.ptr);
 
-    _bones.onPointer((p) => p.writeArray(_bones.inner));
-    _framePoses.onPointer((p) => p.writeMatrix(_framePoses.inner));
+    _keyframePoses.onPointer((p) => p.writeMatrix(_keyframePoses.inner));
   }
 
   @override
   void wasmReadFrom(WasmReader reader) {
-    final boneCount = reader.Int32();
-    final frameCount = reader.Int32();
-    _bones.ptr = BoneInfoD.wasmPointer(reader.pointer());
-    _framePoses.ptr = TransformD.wasmPointerPointer(reader.pointer());
     name = reader.charArray(nameLength);
+    boneCount = reader.Int32();
+    final frameCount = reader.Int32();
+    _keyframePoses.ptr = TransformD.wasmPointerPointer(reader.pointer());
     
-    _bones.onPointer((p) => bones = p.readArray(boneCount));
-    _framePoses.onPointer((p) => framePoses = p.readMatrix(frameCount, boneCount));
+    _keyframePoses.onPointer((p) => keyframePoses = p.readMatrix(frameCount, boneCount));
   }
 
   @override
   ModelAnimationD clone() => .new(
     originalPointer: originalPointer,
-    bones: bones.map((x) => x.clone()).toList(),
-    framePoses: framePoses.map((frame) => 
+    keyframePoses: keyframePoses.map((frame) => 
       frame.map((transform) => transform.clone()).toList()
     ).toList(),
     name: name,

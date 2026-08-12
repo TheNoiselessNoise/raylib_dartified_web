@@ -1,6 +1,6 @@
 // Example dartified, see original for reference:
 // https://github.com/raysan5/raylib/blob/master/examples/shapes/shapes_double_pendulum.c
-import 'package:raylib_dartified_web/raylib_dartified_web.dart';
+import '../base_dart.dart';
 import 'dart:math' as math;
 
 const int screenWidth = 800;
@@ -9,10 +9,9 @@ const int SIMULATION_STEPS = 30;
 const double G = 9.81;
 
 void main() => Raylib((rl) {
-  rl.CoreD.SetConfigFlags([.FLAG_WINDOW_HIGHDPI]);
-  rl.CoreD.InitWindow(screenWidth, screenHeight, "shapes_double_pendulum");
-  rl.CoreD.SetWindowMonitor(0);
-  rl.CoreD.SetTargetFPS(60);
+  SetConfigFlags([.FLAG_WINDOW_HIGHDPI]);
+  InitWindow(screenWidth, screenHeight, "shapes_double_pendulum");
+  SetTargetFPS(60);
 
   double l1 = 15.0, m1 = 0.2, theta1 = rl.DEG2RAD*170, w1 = 0;
   double l2 = 15.0, m2 = 0.1, theta2 = rl.DEG2RAD*0, w2 = 0;
@@ -29,11 +28,11 @@ void main() => Raylib((rl) {
   double lineThick = 20, trailThick = 2;
   double fateAlpha = 0.01;
 
-  final target = rl.CoreD.LoadRenderTexture(screenWidth, screenHeight);
-  rl.CoreD.SetTextureFilter(target.texture, .TEXTURE_FILTER_BILINEAR);
+  final target = LoadRenderTexture(screenWidth, screenHeight);
+  SetTextureFilter(target.texture, .TEXTURE_FILTER_BILINEAR);
 
   rl.setMainLoop(() {
-    final dt = rl.CoreD.GetFrameTime();
+    final dt = GetFrameTime();
     final step = dt/SIMULATION_STEPS, step2 = step*step;
 
     for (int i = 0; i < SIMULATION_STEPS; i++)
@@ -67,21 +66,21 @@ void main() => Raylib((rl) {
     currentPosition.x += screenWidth/2;
     currentPosition.y += screenHeight/2 - 100;
 
-    rl.CoreD.BeginTextureMode(target);
-      rl.CoreD.DrawRectangle(0, 0, screenWidth, screenHeight, rl.CoreD.Fade(.BLACK, fateAlpha));
-      rl.CoreD.DrawCircleV(previousPosition, trailThick, .RED);
-      rl.CoreD.DrawLineEx(previousPosition, currentPosition, trailThick*2, .RED);
-    rl.CoreD.EndTextureMode();
+    BeginTextureMode(target);
+      DrawRectangle(0, 0, screenWidth, screenHeight, Fade(.BLACK, fateAlpha));
+      DrawCircleV(previousPosition, trailThick, .RED);
+      DrawLineEx(previousPosition, currentPosition, trailThick*2, .RED);
+    EndTextureMode();
 
     // NOTE: see that we don't use:
     // previousPosition = currentPosition;
     previousPosition.setD(currentPosition);
 
-    rl.CoreD.BeginDrawing();
+    BeginDrawing();
 
-      rl.CoreD.ClearBackground(.BLACK);
+      ClearBackground(.BLACK);
 
-      rl.CoreD.DrawTextureRec(
+      DrawTextureRec(
         target.texture,
         .rect(
           0, 0,
@@ -91,7 +90,7 @@ void main() => Raylib((rl) {
         .WHITE
       );
 
-      rl.CoreD.DrawRectanglePro(
+      DrawRectanglePro(
         .rect(
           screenWidth/2.0, screenHeight/2.0 - 100,
           10*l1, lineThick
@@ -102,7 +101,7 @@ void main() => Raylib((rl) {
       );
 
       final endpoint1 = CalculatePendulumEndPoint(l1, theta1);
-      rl.CoreD.DrawRectanglePro(
+      DrawRectanglePro(
         .rect(
           screenWidth/2.0 + endpoint1.x, screenHeight/2.0 - 100 + endpoint1.y,
           10*l2, lineThick
@@ -112,7 +111,7 @@ void main() => Raylib((rl) {
         .RAYWHITE
       );
 
-    rl.CoreD.EndDrawing();
+    EndDrawing();
   });
 });
 

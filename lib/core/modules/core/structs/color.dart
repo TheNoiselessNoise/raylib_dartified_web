@@ -22,9 +22,6 @@ class ColorD extends StructDLiteralWeb<ColorD> with ColorBase<ColorD> {
   @override
   int r, g, b, a;
 
-  @override
-  int get wasmByteSize => byteSize;
-
   ColorD({
     super.originalPointer,
     this.r = 0,

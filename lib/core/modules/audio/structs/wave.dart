@@ -63,9 +63,6 @@ class WaveD extends StructDWeb<WaveD> with WaveBase<WaveD> {
 
   int _dataPtr = 0;
 
-  @override
-  int get wasmByteSize => byteSize;
-
   WaveD({
     super.originalPointer,
     this.frameCount = 0,

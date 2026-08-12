@@ -25,9 +25,6 @@ class Vector3D extends StructDLiteralWeb<Vector3D> with Vector3Base<
   @override
   double x, y, z;
 
-  @override
-  int get wasmByteSize => byteSize;
-
   Vector3D({
     super.originalPointer,
     this.x = 0,

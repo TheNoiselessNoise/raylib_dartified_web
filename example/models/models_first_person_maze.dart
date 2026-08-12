@@ -1,16 +1,15 @@
 // Example dartified, see original for reference:
-// https://github.com/raysan5/raylib/blob/c1ab645ca298a2801097931d1079b10ff7eb9df8/examples/models/models_first_person_maze.c
+// https://github.com/raysan5/raylib/blob/master/examples/models/models_first_person_maze.c
 // WARNING: expects resources from the raylib source
-import 'package:raylib_dartified_web/raylib_dartified_web.dart';
+import '../base_dart.dart';
 
 const int screenWidth = 800;
 const int screenHeight = 450;
 
 void main() => Raylib((rl) {
-  rl.CoreD.InitWindow(screenWidth, screenHeight, "models_first_person_maze");
-  rl.CoreD.SetWindowMonitor(0);
-  rl.CoreD.SetTargetFPS(60);
-  rl.CoreD.DisableCursor();
+  InitWindow(screenWidth, screenHeight, "models_first_person_maze");
+  SetTargetFPS(60);
+  DisableCursor();
 
   final Vector3D mapPosition = .vec3(-16.0, 0.0, -8.0);
   final Vector3D oldCamPos = .zero();
@@ -23,22 +22,22 @@ void main() => Raylib((rl) {
     projection: .CAMERA_PERSPECTIVE,
   );
 
-  final imMap = rl.CoreD.LoadImage("./resources/cubicmap.png");
-  final cubicmap = rl.CoreD.LoadTextureFromImage(imMap);
+  final imMap = LoadImage("../resources/cubicmap.png");
+  final cubicmap = LoadTextureFromImage(imMap);
 
-  final mesh = rl.CoreD.GenMeshCubicmap(imMap, .vec3(1.0, 1.0, 1.0));
-  final model = rl.CoreD.LoadModelFromMesh(mesh); 
+  final mesh = GenMeshCubicmap(imMap, .vec3(1.0, 1.0, 1.0));
+  final model = LoadModelFromMesh(mesh); 
 
-  final texture = rl.CoreD.LoadTexture("./resources/cubicmap_atlas.png");
+  final texture = LoadTexture("../resources/cubicmap_atlas.png");
   model.materials[0].maps[rl.MATERIAL_MAP_DIFFUSE.value].texture = texture;
 
-  final mapPixels = rl.CoreD.LoadImageColors(imMap);
-  rl.CoreD.UnloadImage(imMap);
+  final mapPixels = LoadImageColors(imMap);
+  UnloadImage(imMap);
 
   rl.setMainLoop(() {
     oldCamPos.setD(camera.position);
 
-    rl.CoreD.UpdateCamera(camera, .CAMERA_FIRST_PERSON);
+    UpdateCamera(camera, .CAMERA_FIRST_PERSON);
 
     final Vector2D playerPos = .vec2(camera.position.x, camera.position.z);
     double playerRadius = 0.1;
@@ -61,7 +60,7 @@ void main() => Raylib((rl) {
           if (
             ((x >= 0) && (x < cubicmap.width)) &&
             (mapPixels[y*cubicmap.width + x].r == 255) &&
-            (rl.CoreD.CheckCollisionCircleRec(
+            (CheckCollisionCircleRec(
               playerPos,
               playerRadius,
               .rect(
@@ -76,33 +75,33 @@ void main() => Raylib((rl) {
       }
     }
 
-    rl.CoreD.BeginDrawing();
+    BeginDrawing();
 
-      rl.CoreD.ClearBackground(.RAYWHITE);
+      ClearBackground(.RAYWHITE);
 
-      rl.CoreD.BeginMode3D(camera);
-        rl.CoreD.DrawModel(model, mapPosition, 1.0, .WHITE);
-      rl.CoreD.EndMode3D();
+      BeginMode3D(camera);
+        DrawModel(model, mapPosition, 1.0, .WHITE);
+      EndMode3D();
 
-      rl.CoreD.DrawTextureEx(
+      DrawTextureEx(
         cubicmap,
-        .vec2(rl.CoreD.GetScreenWidth() - cubicmap.width*4.0 - 20, 20.0),
+        .vec2(GetScreenWidth() - cubicmap.width*4.0 - 20, 20.0),
         0.0, 4.0, .WHITE
       );
-      rl.CoreD.DrawRectangleLines(
-        rl.CoreD.GetScreenWidth() - cubicmap.width*4 - 20, 20, cubicmap.width*4,
+      DrawRectangleLines(
+        GetScreenWidth() - cubicmap.width*4 - 20, 20, cubicmap.width*4,
         cubicmap.height*4,
         .GREEN
       );
 
-      rl.CoreD.DrawRectangle(
-        rl.CoreD.GetScreenWidth() - cubicmap.width*4 - 20 + playerCellX*4,
+      DrawRectangle(
+        GetScreenWidth() - cubicmap.width*4 - 20 + playerCellX*4,
         20 + playerCellY*4, 4, 4,
         .RED
       );
 
-      rl.CoreD.DrawFPS(10, 10);
+      DrawFPS(10, 10);
 
-    rl.CoreD.EndDrawing();
+    EndDrawing();
   });
 });

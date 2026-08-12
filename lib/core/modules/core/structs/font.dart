@@ -91,9 +91,6 @@ class FontD extends StructDWeb<FontD> with FontBase<
     _glyphs.inner = value;
   }
 
-  @override
-  int get wasmByteSize => byteSize;
-
   FontD({
     super.originalPointer,
     int baseSize = 0,

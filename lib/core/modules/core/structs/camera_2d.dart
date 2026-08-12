@@ -38,9 +38,6 @@ class Camera2DD extends StructDLiteralWeb<Camera2DD> with Camera2DBase<
   @override
   double zoom;
 
-  @override
-  int get wasmByteSize => byteSize;
-
   Camera2DD({
     super.originalPointer,
     Vector2D? offset,

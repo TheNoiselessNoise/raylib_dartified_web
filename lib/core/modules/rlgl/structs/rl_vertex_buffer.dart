@@ -113,9 +113,6 @@ class RlVertexBufferD extends StructDWeb<RlVertexBufferD> with RlVertexBufferBas
     _vboId.inner = value;
   }
 
-  @override
-  int get wasmByteSize => byteSize;
-
   RlVertexBufferD({
     super.originalPointer,
     int elementCount = 0,

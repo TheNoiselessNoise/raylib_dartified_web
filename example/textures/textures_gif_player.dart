@@ -1,7 +1,7 @@
 // Example dartified, see original for reference:
 // https://github.com/raysan5/raylib/blob/master/examples/textures/textures_gif_player.c
 // WARNING: expects resources from the raylib source
-import 'package:raylib_dartified_web/raylib_dartified_web.dart';
+import '../base_dart.dart';
 
 const int screenWidth = 800;
 const int screenHeight = 450;
@@ -9,12 +9,11 @@ const int MAX_FRAME_DELAY = 20;
 const int MIN_FRAME_DELAY = 1;
 
 void main() => Raylib((rl) {
-  rl.CoreD.InitWindow(screenWidth, screenHeight, "textures_gif_player");
-  rl.CoreD.SetWindowMonitor(0);
-  rl.CoreD.SetTargetFPS(60);
+  InitWindow(screenWidth, screenHeight, "textures_gif_player");
+  SetTargetFPS(60);
 
-  final imScarfyAnim = rl.CoreD.LoadImageAnim("./resources/scarfy_run.gif");
-  final texScarfyAnim = rl.CoreD.LoadTextureFromImage(imScarfyAnim);
+  final imScarfyAnim = LoadImageAnim("../resources/scarfy_run.gif");
+  final texScarfyAnim = LoadTextureFromImage(imScarfyAnim);
 
   int nextFrameDataOffset = 0;
 
@@ -32,7 +31,7 @@ void main() => Raylib((rl) {
       final frameSize = imScarfyAnim.frameSize;
       final nextFrameDataOffset = frameSize * currentAnimFrame;
 
-      rl.CoreD.UpdateTexture(
+      UpdateTexture(
         texScarfyAnim,
         imScarfyAnim.data.sublist(nextFrameDataOffset, nextFrameDataOffset + frameSize),
       );
@@ -40,60 +39,60 @@ void main() => Raylib((rl) {
       frameCounter = 0;
     }
 
-    if (rl.CoreD.IsKeyPressed(.KEY_RIGHT)) frameDelay++;
-    else if (rl.CoreD.IsKeyPressed(.KEY_LEFT)) frameDelay--;
+    if (IsKeyPressed(.KEY_RIGHT)) frameDelay++;
+    else if (IsKeyPressed(.KEY_LEFT)) frameDelay--;
 
     if (frameDelay > MAX_FRAME_DELAY) frameDelay = MAX_FRAME_DELAY;
     else if (frameDelay < MIN_FRAME_DELAY) frameDelay = MIN_FRAME_DELAY;
 
-    rl.CoreD.BeginDrawing();
+    BeginDrawing();
 
-      rl.CoreD.ClearBackground(.RAYWHITE);
+      ClearBackground(.RAYWHITE);
 
-      rl.CoreD.DrawText(
+      DrawText(
         "TOTAL GIF FRAMES: ${imScarfyAnim.frameCount}",
         50, 30, 20, .LIGHTGRAY
       );
-      rl.CoreD.DrawText(
+      DrawText(
         "CURRENT FRAME: $currentAnimFrame",
         50, 60, 20, .GRAY
       );
-      rl.CoreD.DrawText(
+      DrawText(
         "CURRENT FRAME IMAGE.DATA OFFSET: $nextFrameDataOffset",
         50, 90, 20, .GRAY
       );
 
-      rl.CoreD.DrawText(
+      DrawText(
         "FRAMES DELAY: ",
         100, 305, 10, .DARKGRAY
       );
-      rl.CoreD.DrawText(
+      DrawText(
         "$frameDelay frames",
         620, 305, 10, .DARKGRAY
       );
-      rl.CoreD.DrawText(
+      DrawText(
         "PRESS RIGHT/LEFT KEYS to CHANGE SPEED!",
         290, 350, 10, .DARKGRAY
       );
 
       for (int i = 0; i < MAX_FRAME_DELAY; i++)
       {
-        if (i < frameDelay) rl.CoreD.DrawRectangle(190 + 21*i, 300, 20, 20, .RED);
-        rl.CoreD.DrawRectangleLines(190 + 21*i, 300, 20, 20, .MAROON);
+        if (i < frameDelay) DrawRectangle(190 + 21*i, 300, 20, 20, .RED);
+        DrawRectangleLines(190 + 21*i, 300, 20, 20, .MAROON);
       }
 
-      rl.CoreD.DrawTexture(
+      DrawTexture(
         texScarfyAnim,
-        rl.CoreD.GetScreenWidth()/2 - texScarfyAnim.width/2,
+        GetScreenWidth()/2 - texScarfyAnim.width/2,
         140,
         .WHITE
       );
 
-      rl.CoreD.DrawText(
+      DrawText(
         "(c) Scarfy sprite by Eiden Marsal",
         screenWidth - 200, screenHeight - 20, 10, .GRAY
       );
 
-    rl.CoreD.EndDrawing();
+    EndDrawing();
   });
 });

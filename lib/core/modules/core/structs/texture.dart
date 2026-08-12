@@ -71,9 +71,6 @@ class TextureD extends StructDWeb<TextureD> with TextureBase<TextureD> {
     structOnOp((p) => p.writerAt(_o[.format]).Int32(value.value));
   }
 
-  @override
-  int get wasmByteSize => byteSize;
-
   TextureD({
     super.originalPointer,
     int id = 0,

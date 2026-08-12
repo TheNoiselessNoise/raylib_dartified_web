@@ -21,9 +21,6 @@ class BoneInfoD extends StructDLiteralWeb<BoneInfoD> with BoneInfoBase<BoneInfoD
   @override
   int parent;
 
-  @override
-  int get wasmByteSize => byteSize;
-
   BoneInfoD({
     super.originalPointer,
     this.name = '',

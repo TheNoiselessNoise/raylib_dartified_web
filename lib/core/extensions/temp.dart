@@ -360,7 +360,7 @@ class WasmStructPointer<T extends StructDWeb<T>> extends WasmSizedPointer<T> {
   @override
   T get ref {
     final item = factory();
-    item.originalPointer = .new(address, factory, byteSize);
+    item.originalPointer ??= .new(address, factory, byteSize);
     item.wasmReadFrom(WasmReader(address));
     return item;
   }
@@ -640,6 +640,64 @@ class WasmStructAlloc<
     pointerToStruct = (ptr) => ptr.ref;
     updateFunc = (ptr, source) => source.wasmReadFrom(WasmReader(ptr.address));
   }
+
+  /// Fixed scratch slot holding a zero-initialized [T] struct, by pointer.
+  ///
+  /// The native-memory equivalent of a Dart-layer `.zero()` constructor,
+  /// a cheap, shared buffer for call sites that just need to pass a zero
+  /// value without allocating. **Read-only by convention**: this slot is
+  /// shared (via [At]) across every call site that touches it, so writing
+  /// through it permanently corrupts the "zero" invariant for everyone else,
+  /// there is no reset. Use [$1Ptr]..[$4Ptr] or [$newPtr] for a mutable slot.
+  WasmStructPointer<T> get $zeroPtr => At('__reusable__zero');
+
+  /// [T] view of [$zeroPtr]. Same read-only convention applies: do not
+  /// mutate fields on this reference.
+  T get $zero => refFunc($zeroPtr);
+
+  /// Reusable single-element scratch slot, by pointer. Unlike [$zeroPtr],
+  /// this is expected to be written through, it's a fixed shared buffer,
+  /// not a zero-invariant one, so callers may freely overwrite its contents
+  /// between uses.
+  WasmStructPointer<T> get $1Ptr => At('__reusable__1');
+
+  /// [T] view of [$1Ptr].
+  T get $1 => refFunc($1Ptr);
+
+  /// Reusable single-element scratch slot, parallel to [$1Ptr] under a
+  /// distinct key. Use when a call needs a second independent scratch
+  /// struct alongside [$1]/[$1Ptr] (e.g. two out-parameters in one call).
+  WasmStructPointer<T> get $2Ptr => At('__reusable__2');
+
+  /// [T] view of [$2Ptr].
+  T get $2 => refFunc($2Ptr);
+
+  /// Reusable single-element scratch slot, parallel to [$1Ptr]/[$2Ptr].
+  WasmStructPointer<T> get $3Ptr => At('__reusable__3');
+
+  /// [T] view of [$3Ptr].
+  T get $3 => refFunc($3Ptr);
+
+  /// Reusable single-element scratch slot, parallel to [$1Ptr]..[$3Ptr].
+  ///
+  /// With [$1Ptr] through [$4Ptr] this gives up to four fixed scratch slots
+  /// (plus the read-only [$zeroPtr]) for call sites that need several
+  /// simultaneous native struct out-parameters without allocating a fresh
+  /// buffer each time.
+  WasmStructPointer<T> get $4Ptr => At('__reusable__4');
+
+  /// [T] view of [$4Ptr].
+  T get $4 => refFunc($4Ptr);
+
+  /// Fresh, independently-owned scratch pointer, unlike [$zeroPtr]/[$1Ptr]..[$4Ptr].
+  ///
+  /// Each access gets its own slot via [AtUnique], keyed with a monotonic id,
+  /// so it is safe even when the same call site may be active multiple times
+  /// at once (recursion, re-entrant calls).
+  WasmStructPointer<T> get $newPtr => AtUnique(key: '__reusable__newptr');
+
+  /// [T] view of [$newPtr].
+  T get $new => refFunc($newPtr);
 }
 
 class WasmStructPtrAlloc<
@@ -685,6 +743,9 @@ class WasmStringAlloc extends WasmAlloc<
   late final void Function(WasmStringPointerPointer ptr) freePPFunc;
 
   @override
+  late final WasmStringPointer Function(String text, [int? bufferSize]) strAllocatorFunc;
+
+  @override
   late final WasmStringPointerPointer Function(int count) ptrAllocatorFunc;
 
   @override
@@ -700,6 +761,13 @@ class WasmStringAlloc extends WasmAlloc<
     reset();
     freePPFunc = (ptr) => WasmMemory.free(ptr.address);
     ptrAllocatorFunc = (count) => .new(WasmMemory.malloc(ptrByteSize*count));
+    strAllocatorFunc = (text, [bufferSize]) {
+      final len = _module.lengthBytesUTF8(text.toJS) + 1; // +1 for NUL
+      final bufSize = bufferSize != null && bufferSize > len ? bufferSize : len;
+      final ptr = WasmMemory.malloc(bufSize);
+      _module.stringToUTF8(text.toJS, ptr, bufSize);
+      return .new(ptr);
+    };
     indexSetterFunc = (ptrptr, i, ptr) => ptrptr[i] = ptr;
   }
 
@@ -835,9 +903,9 @@ class WasmReader {
 
   void struct<T extends StructDWeb<T>>(T v) => v.wasmReadFrom(this);
 
-  List<T> structArray<T extends StructDWeb<T>>(int count, WasmStructPointer<T> Function(int ptr) pointerFactory, {bool owned = false}) {
+  List<T> structArray<T extends StructDWeb<T>>(int count, int size, WasmStructPointer<T> Function(int ptr) pointerFactory, {bool owned = false}) {
     final result = pointerFactory(_cur).readArray(count, owned: owned);
-    if (result.isNotEmpty) _cur += count * result.first.wasmByteSize;
+    if (result.isNotEmpty) _cur += count * size;
     return result;
   }
 
@@ -994,8 +1062,143 @@ class WasmTypedDataListAlloc extends RaylibTempTypedDataListAllocator<
   WasmTypedDataListAlloc(super.temp);
 }
 
+class WasmRaylibTempUtils extends RaylibTempUtilsBase<RaylibTemp, int> {
+  WasmRaylibTempUtils(super.temp);
+
+  static const int nullptr = 0;
+
+  @override
+  int realloc(int oldPtr, int oldSize, int newSize) {
+    if (newSize == 0) {
+      if (oldPtr != nullptr) WasmMemory.free(oldPtr);
+      return nullptr;
+    }
+
+    final newPtr = WasmMemory.malloc(newSize);
+
+    if (oldPtr != nullptr) {
+      final copySize = oldSize < newSize ? oldSize : newSize;
+      if (copySize > 0) {
+        WasmMemory.heapU8.setRange(newPtr, newPtr + copySize, WasmMemory.heapU8, oldPtr);
+      }
+      WasmMemory.free(oldPtr);
+    }
+
+    return newPtr;
+  }
+
+  @override
+  void memset(int ptr, int value, int size)
+    => WasmMemory.heapU8.fillRange(ptr, ptr + size, value);
+
+  @override
+  void memcpy(int dest, int src, int n) {
+    WasmMemory.heapU8.setRange(dest, dest + n, WasmMemory.heapU8, src);
+  }
+
+  @override
+  int memcmp(int a, int b, int n) {
+    final heap = WasmMemory.heapU8;
+
+    for (int i = 0; i < n; i++) {
+      final diff = heap[a + i] - heap[b + i];
+      if (diff != 0) return diff;
+    }
+
+    return 0;
+  }
+
+  @override
+  int strlen(int ptr) {
+    final heap = WasmMemory.heapU8;
+
+    int i = 0;
+    for (; heap[ptr + i] != 0; i++) {}
+
+    return i;
+  }
+
+  @override
+  int strcmp(int a, int b) {
+    final heap = WasmMemory.heapU8;
+
+    int i = 0;
+    for (; heap[a + i] != 0 && heap[a + i] == heap[b + i]; i++) {}
+
+    return heap[a + i] - heap[b + i];
+  }
+
+  @override
+  void strcpy(int dest, int src) {
+    final heap = WasmMemory.heapU8;
+
+    int i = 0;
+    for (; heap[src + i] != 0; i++) {
+      heap[dest + i] = heap[src + i];
+    }
+    heap[dest + i] = 0;
+  }
+
+  @override
+  void strncpy(int dest, int src, int n) {
+    final heap = WasmMemory.heapU8;
+
+    int i = 0;
+    for (; i < n && heap[src + i] != 0; i++) {
+      heap[dest + i] = heap[src + i];
+    }
+    for (; i < n; i++) {
+      heap[dest + i] = 0;
+    }
+  }
+
+  @override
+  int strnlen(int ptr, int maxLen) {
+    final heap = WasmMemory.heapU8;
+
+    int i = 0;
+    for (; i < maxLen && heap[ptr + i] != 0; i++) {}
+
+    return i;
+  }
+
+  @override
+  void strncat(int dest, int src, int n) {
+    final heap = WasmMemory.heapU8;
+
+    int destEnd = 0;
+    while (heap[dest + destEnd] != 0) {
+      destEnd++;
+    }
+
+    int i = 0;
+    for (; i < n && heap[src + i] != 0; i++) {
+      heap[dest + destEnd + i] = heap[src + i];
+    }
+    heap[dest + destEnd + i] = 0;
+  }
+
+  @override
+  int strstr(int haystack, int needle) {
+    final heap = WasmMemory.heapU8;
+
+    // empty needle matches at the start of haystack
+    if (heap[needle] == 0) return haystack;
+
+    for (int i = 0; heap[haystack + i] != 0; i++) {
+      int j = 0;
+      for (; heap[needle + j] != 0 && heap[haystack + i + j] == heap[needle + j]; j++) {}
+      if (heap[needle + j] == 0) return haystack + i;
+    }
+
+    return nullptr; // not found
+  }
+}
+
 class RaylibTemp extends RaylibTempBase<Raylib> {
   RaylibTemp(super.rl, { super.options });
+
+  @override late WasmRaylibTempUtils Utils;
 
   @override late WasmTypedDataListAlloc TypedDataList$;
 
@@ -1036,7 +1239,7 @@ class RaylibTemp extends RaylibTempBase<Raylib> {
   @override late WasmLitIntAlloc<Int16List, WasmInt16Pointer> Short$;
   @override late WasmLitPtrAlloc<int, WasmSizedPointerPointer<int, WasmInt16Pointer>> Ptr$Short$;
   @override late WasmLitIntAlloc<Uint16List, WasmUint16Pointer> UnsignedShort$;
-  @override late WasmLitPtrAlloc<int, WasmSizedPointerPointer<int, WasmUint32Pointer>> Ptr$UnsignedShort$;
+  @override late WasmLitPtrAlloc<int, WasmSizedPointerPointer<int, WasmUint16Pointer>> Ptr$UnsignedShort$;
 
   @override late WasmStructAlloc<AutomationEventListD> AutomationEventList$;
   @override late WasmStructPtrAlloc<AutomationEventListD> Ptr$AutomationEventList$;
@@ -1058,6 +1261,8 @@ class RaylibTemp extends RaylibTempBase<Raylib> {
   @override late WasmStructPtrAlloc<FilePathListD> Ptr$FilePathList$;
   @override late WasmStructAlloc<FontD> Font$;
   @override late WasmStructPtrAlloc<FontD> Ptr$Font$;
+  @override late WasmStructAlloc<GestureEventD> GestureEvent$;
+  @override late WasmStructPtrAlloc<GestureEventD> Ptr$GestureEvent$;
   @override late WasmStructAlloc<GlyphInfoD> GlyphInfo$;
   @override late WasmStructPtrAlloc<GlyphInfoD> Ptr$GlyphInfo$;
   @override late WasmStructAlloc<ImageD> Image$;
@@ -1076,6 +1281,8 @@ class RaylibTemp extends RaylibTempBase<Raylib> {
   @override late WasmStructPtrAlloc<ModelD> Ptr$Model$;
   @override late WasmStructAlloc<ModelAnimationD> ModelAnimation$;
   @override late WasmStructPtrAlloc<ModelAnimationD> Ptr$ModelAnimation$;
+  @override late WasmStructAlloc<ModelSkeletonD> ModelSkeleton$;
+  @override late WasmStructPtrAlloc<ModelSkeletonD> Ptr$ModelSkeleton$;
   @override late WasmStructAlloc<MusicD> Music$;
   @override late WasmStructPtrAlloc<MusicD> Ptr$Music$;
   @override late WasmStructAlloc<NPatchInfoD> NPatchInfo$;
@@ -1268,6 +1475,84 @@ class RaylibTemp extends RaylibTempBase<Raylib> {
       rawArrayFunc: Float64$.RawArray,
     );
 
+    Int$ = .new(this, 'Int\$',
+      byteSize: WasmSize.Int32,
+      pointerFactory: WasmInt32Pointer.new,
+      fromList: (list) => .fromList(list.cast<int>().toList()),
+      asView: (ptr, len) => WasmMemory.heapI32.buffer.asInt32List(ptr, len),
+      fromBuffer: (buf, offset, len) => buf.asInt32List(offset, len),
+    );
+
+    Ptr$Int$ = .new(this, 'Ptr\$Int\$',
+      pointerFactory: (ptr) => .new(ptr, Int$.pointerFactory),
+      rawArrayFunc: Int$.RawArray,
+    );
+
+    UnsignedInt$ = .new(this, 'UnsignedInt\$',
+      byteSize: WasmSize.Uint32,
+      pointerFactory: WasmUint32Pointer.new,
+      fromList: (list) => .fromList(list.cast<int>().toList()),
+      asView: (ptr, len) => WasmMemory.heapU32.buffer.asUint32List(ptr, len),
+      fromBuffer: (buf, offset, len) => buf.asUint32List(offset, len),
+    );
+
+    Ptr$UnsignedInt$ = .new(this, 'Ptr\$UnsignedInt\$',
+      pointerFactory: (ptr) => .new(ptr, UnsignedInt$.pointerFactory),
+      rawArrayFunc: UnsignedInt$.RawArray,
+    );
+
+    Char$ = .new(this, 'Char\$',
+      byteSize: WasmSize.Int8,
+      pointerFactory: WasmInt8Pointer.new,
+      fromList: (list) => .fromList(list.cast<int>().toList()),
+      asView: (ptr, len) => WasmMemory.heapI8.buffer.asInt8List(ptr, len),
+      fromBuffer: (buf, offset, len) => buf.asInt8List(offset, len),
+    );
+
+    Ptr$Char$ = .new(this, 'Ptr\$Char\$',
+      pointerFactory: (ptr) => .new(ptr, Char$.pointerFactory),
+      rawArrayFunc: Char$.RawArray,
+    );
+
+    UnsignedChar$ = .new(this, 'UnsignedChar\$',
+      byteSize: WasmSize.Uint8,
+      pointerFactory: WasmUint8Pointer.new,
+      fromList: (list) => .fromList(list.cast<int>().toList()),
+      asView: (ptr, len) => WasmMemory.heapU8.buffer.asUint8List(ptr, len),
+      fromBuffer: (buf, offset, len) => buf.asUint8List(offset, len),
+    );
+
+    Ptr$UnsignedChar$ = .new(this, 'Ptr\$UnsignedChar\$',
+      pointerFactory: (ptr) => .new(ptr, UnsignedChar$.pointerFactory),
+      rawArrayFunc: UnsignedChar$.RawArray,
+    );
+
+    Short$ = .new(this, 'Short\$',
+      byteSize: WasmSize.Int16,
+      pointerFactory: WasmInt16Pointer.new,
+      fromList: (list) => .fromList(list.cast<int>().toList()),
+      asView: (ptr, len) => WasmMemory.heapI16.buffer.asInt16List(ptr, len),
+      fromBuffer: (buf, offset, len) => buf.asInt16List(offset, len),
+    );
+
+    Ptr$Short$ = .new(this, 'Ptr\$Short\$',
+      pointerFactory: (ptr) => .new(ptr, Short$.pointerFactory),
+      rawArrayFunc: Short$.RawArray,
+    );
+
+    UnsignedShort$ = .new(this, 'UnsignedShort\$',
+      byteSize: WasmSize.Uint16,
+      pointerFactory: WasmUint16Pointer.new,
+      fromList: (list) => .fromList(list.cast<int>().toList()),
+      asView: (ptr, len) => WasmMemory.heapU16.buffer.asUint16List(ptr, len),
+      fromBuffer: (buf, offset, len) => buf.asUint16List(offset, len),
+    );
+
+    Ptr$UnsignedShort$ = .new(this, 'Ptr\$UnsignedShort\$',
+      pointerFactory: (ptr) => .new(ptr, UnsignedShort$.pointerFactory),
+      rawArrayFunc: UnsignedShort$.RawArray,
+    );
+
     AudioStream$ = .new(this, 'AudioStream\$',
       byteSize: AudioStreamD.byteSize,
       factory: AudioStreamD.new
@@ -1377,6 +1662,17 @@ class RaylibTemp extends RaylibTempBase<Raylib> {
       valueFunc: Font$.Value,
       rawArrayFunc: Font$.RawArray,
     );
+    
+    GestureEvent$ = .new(this, 'GestureEvent\$',
+      byteSize: GestureEventD.byteSize,
+      factory: GestureEventD.new
+    );
+
+    Ptr$GestureEvent$ = .new(this, 'Ptr\$GestureEvent\$',
+      pointerFactory: (ptr) => .new(ptr, GestureEvent$.pointerFactory),
+      valueFunc: GestureEvent$.Value,
+      rawArrayFunc: GestureEvent$.RawArray,
+    );
 
     GlyphInfo$ = .new(this, 'GlyphInfo\$',
       byteSize: GlyphInfoD.byteSize,
@@ -1464,6 +1760,17 @@ class RaylibTemp extends RaylibTempBase<Raylib> {
       pointerFactory: (ptr) => .new(ptr, ModelAnimation$.pointerFactory),
       valueFunc: ModelAnimation$.Value,
       rawArrayFunc: ModelAnimation$.RawArray,
+    );
+
+    ModelSkeleton$ = .new(this, 'ModelSkeleton\$',
+      byteSize: ModelSkeletonD.byteSize,
+      factory: ModelSkeletonD.new
+    );
+
+    Ptr$ModelSkeleton$ = .new(this, 'Ptr\$ModelSkeleton\$',
+      pointerFactory: (ptr) => .new(ptr, ModelSkeleton$.pointerFactory),
+      valueFunc: ModelSkeleton$.Value,
+      rawArrayFunc: ModelSkeleton$.RawArray,
     );
 
     Model$ = .new(this, 'Model\$',

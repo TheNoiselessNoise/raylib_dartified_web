@@ -7,9 +7,9 @@ enum _ModelOffsets with _WasmOffsets {
   meshes,
   materials,
   meshMaterial,
-  boneCount,
-  bones,
-  bindPose,
+  skeleton,
+  currentPose,
+  boneMatrices
 }
 
 class ModelD extends StructDWeb<ModelD> with ModelBase<
@@ -25,7 +25,8 @@ class ModelD extends StructDWeb<ModelD> with ModelBase<
   TextureD,
   ColorD,
   TransformD,
-  BoneInfoD
+  BoneInfoD,
+  ModelSkeletonD
 > {
   static final byteSize = _o.byteSize;
   static final _Offsets<_ModelOffsets> _o = .fromMap({
@@ -35,9 +36,9 @@ class ModelD extends StructDWeb<ModelD> with ModelBase<
     .meshes:        WasmSize.StructPointer,
     .materials:     WasmSize.StructPointer,
     .meshMaterial:  WasmSize.Int32Pointer,
-    .boneCount:     WasmSize.Int32,
-    .bones:         WasmSize.StructPointer,
-    .bindPose:      WasmSize.StructPointer,
+    .skeleton:      ModelSkeletonD.byteSize,
+    .currentPose:   WasmSize.StructPointer,
+    .boneMatrices:  WasmSize.StructPointer,
   });
 
   static WasmStructPointer<ModelD> wasmPointer(int ptr) => .new(ptr, ModelD.new, byteSize);
@@ -83,28 +84,35 @@ class ModelD extends StructDWeb<ModelD> with ModelBase<
     _meshMaterial.inner = value;
   }
 
-  late WasmLiveListPointerStruct<BoneInfoD> _bones;
-  @override get bones {
-    structOnOp((p) => _bones.ptr = BoneInfoD.wasmPointer(p.readerAt(_o[.bones]).pointer()));
-    return _bones;
+  ModelSkeletonD _skeleton;
+  @override get skeleton {
+    structOnOp((p) => _skeleton.wasmReadFrom(p.readerAt(_o[.skeleton])));
+    return _skeleton;
   }
-  @override set bones(List<BoneInfoD> value) {
-    structOnOp((p) => _bones.ptr = BoneInfoD.wasmPointer(p.readerAt(_o[.bones]).pointer()));
-    _bones.inner = value;
-  }
-
-  late WasmLiveListPointerStruct<TransformD> _bindPose;
-  @override get bindPose {
-    structOnOp((p) => _bindPose.ptr = TransformD.wasmPointer(p.readerAt(_o[.bindPose]).pointer()));
-    return _bindPose;
-  }
-  @override set bindPose(List<TransformD> value) {
-    structOnOp((p) => _bindPose.ptr = TransformD.wasmPointer(p.readerAt(_o[.bindPose]).pointer()));
-    _bindPose.inner = value;
+  @override set skeleton(ModelSkeletonD value) {
+    _skeleton = value;
+    structOnOp((p) => value.wasmWriteInto(p.writerAt(_o[.skeleton])));
   }
   
-  @override
-  int get wasmByteSize => byteSize;
+  late WasmLiveListPointerStruct<TransformD> _currentPose;
+  @override get currentPose {
+    structOnOp((p) => _currentPose.ptr = TransformD.wasmPointer(p.readerAt(_o[.currentPose]).pointer()));
+    return _currentPose;
+  }
+  @override set currentPose(List<TransformD> value) {
+    structOnOp((p) => _currentPose.ptr = TransformD.wasmPointer(p.readerAt(_o[.currentPose]).pointer()));
+    _currentPose.inner = value;
+  }
+  
+  late WasmLiveListPointerStruct<MatrixD> _boneMatrices;
+  @override get boneMatrices {
+    structOnOp((p) => _boneMatrices.ptr = MatrixD.wasmPointer(p.readerAt(_o[.boneMatrices]).pointer()));
+    return _boneMatrices;
+  }
+  @override set boneMatrices(List<MatrixD> value) {
+    structOnOp((p) => _boneMatrices.ptr = MatrixD.wasmPointer(p.readerAt(_o[.boneMatrices]).pointer()));
+    _boneMatrices.inner = value;
+  }
 
   ModelD({
     super.originalPointer,
@@ -112,10 +120,12 @@ class ModelD extends StructDWeb<ModelD> with ModelBase<
     List<MeshD>? meshes,
     List<MaterialD>? materials,
     List<int>? meshMaterial,
-    List<BoneInfoD>? bones,
-    List<TransformD>? bindPose,
+    ModelSkeletonD? skeleton,
+    List<TransformD>? currentPose,
+    List<MatrixD>? boneMatrices,
   }) :
-    _transform = transform ?? .new()
+    _transform = transform ?? .new(),
+    _skeleton = skeleton ?? .new()
   {
     _meshes = .new(
       meshes ?? [],
@@ -132,14 +142,14 @@ class ModelD extends StructDWeb<ModelD> with ModelBase<
       originalPointer == null ? null : .new(wasmReader(_o[.meshMaterial]).pointer())
     );
 
-    _bones = .new(
-      bones ?? [],
-      originalPointer == null ? null : BoneInfoD.wasmPointer(wasmReader(_o[.bones]).pointer())
+    _currentPose = .new(
+      currentPose ?? [],
+      originalPointer == null ? null : TransformD.wasmPointer(wasmReader(_o[.currentPose]).pointer())
     );
 
-    _bindPose = .new(
-      bindPose ?? [],
-      originalPointer == null ? null : TransformD.wasmPointer(wasmReader(_o[.bindPose]).pointer())
+    _boneMatrices = .new(
+      boneMatrices ?? [],
+      originalPointer == null ? null : MatrixD.wasmPointer(wasmReader(_o[.boneMatrices]).pointer())
     );
   }
 
@@ -151,56 +161,56 @@ class ModelD extends StructDWeb<ModelD> with ModelBase<
     meshes = .from(o.meshes);
     materials = .from(o.materials);
     meshMaterial = .from(o.meshMaterial);
-    bones = .from(o.bones);
-    bindPose = .from(o.bindPose);
+    currentPose = .from(o.currentPose);
+    boneMatrices = .from(o.boneMatrices);
     return this;
   }
 
   @override
   void structAllocateInto(RaylibTemp temp, WasmStructPointer<ModelD> p, String key) {
-    if (meshes.isNotEmpty) _meshes.ptr = temp.Mesh$.Array(meshes, key: '${key}_meshes');
-    if (materials.isNotEmpty) _materials.ptr = temp.Material$.Array(materials, key: '${key}_materials');
-    if (meshMaterial.isNotEmpty) _meshMaterial.ptr = temp.Int32$.Array(meshMaterial, key: '${key}_meshMaterial');
-    if (bones.isNotEmpty) _bones.ptr = temp.BoneInfo$.Array(bones, key: '${key}_bones');
-    if (bindPose.isNotEmpty) _bindPose.ptr = temp.Transform$.Array(bindPose, key: '${key}_bindPose');
+    if (meshes.isNotEmpty) _meshes.ptr = temp.Mesh$.Array(_meshes.inner, key: '${key}_meshes');
+    if (materials.isNotEmpty) _materials.ptr = temp.Material$.Array(_materials.inner, key: '${key}_materials');
+    if (meshMaterial.isNotEmpty) _meshMaterial.ptr = temp.Int32$.Array(_meshMaterial.inner, key: '${key}_meshMaterial');
+    if (currentPose.isNotEmpty) _currentPose.ptr = temp.Transform$.Array(_currentPose.inner, key: '${key}_currentPose');
+    if (boneMatrices.isNotEmpty) _boneMatrices.ptr = temp.Matrix$.Array(_boneMatrices.inner, key: '${key}_boneMatrices');
   }
 
   @override
   void wasmWriteInto(WasmWriter writer) {
-    writer.struct(transform);
-    writer.Int32(meshes.length);
-    writer.Int32(materials.length);
+    writer.struct(_transform);
+    writer.Int32(_meshes.length);
+    writer.Int32(_materials.length);
     writer.wasmptr(_meshes.ptr);
     writer.wasmptr(_materials.ptr);
     writer.wasmptr(_meshMaterial.ptr);
-    writer.Int32(bones.length);
-    writer.wasmptr(_bones.ptr);
-    writer.wasmptr(_bindPose.ptr);
+    writer.struct(_skeleton);
+    writer.wasmptr(_currentPose.ptr);
+    writer.wasmptr(_boneMatrices.ptr);
 
     _meshes.onPointer((p) => p.writeArray(_meshes.inner));
     _materials.onPointer((p) => p.writeArray(_materials.inner));
     _meshMaterial.onPointer((p) => p.writeArray(_meshMaterial.inner));
-    _bones.onPointer((p) => p.writeArray(_bones.inner));
-    _bindPose.onPointer((p) => p.writeArray(_bindPose.inner));
+    _currentPose.onPointer((p) => p.writeArray(_currentPose.inner));
+    _boneMatrices.onPointer((p) => p.writeArray(_boneMatrices.inner));
   }
 
   @override
   void wasmReadFrom(WasmReader reader) {
-    reader.struct(transform);
+    reader.struct(_transform);
     int meshCount = reader.Int32();
     int materialCount = reader.Int32();
     _meshes.ptr = MeshD.wasmPointer(reader.pointer());
     _materials.ptr = MaterialD.wasmPointer(reader.pointer());
     _meshMaterial.ptr = .new(reader.pointer());
-    int boneCount = reader.Int32();
-    _bones.ptr = BoneInfoD.wasmPointer(reader.pointer());
-    _bindPose.ptr = TransformD.wasmPointer(reader.pointer());
+    reader.struct(_skeleton);
+    _currentPose.ptr = TransformD.wasmPointer(reader.pointer());
+    _boneMatrices.ptr = MatrixD.wasmPointer(reader.pointer());
 
-    _meshes.onPointer((p) => meshes = p.readArray(meshCount, owned: true));
-    _materials.onPointer((p) => materials = p.readArray(materialCount, owned: true));
-    _meshMaterial.onPointer((p) => meshMaterial = p.readArray(meshCount));
-    _bones.onPointer((p) => bones = p.readArray(boneCount));
-    _bindPose.onPointer((p) => bindPose = p.readArray(boneCount));
+    _meshes.onPointer((p) => _meshes.inner = p.readArray(meshCount, owned: true));
+    _materials.onPointer((p) => _materials.inner = p.readArray(materialCount, owned: true));
+    _meshMaterial.onPointer((p) => _meshMaterial.inner = p.readArray(meshCount));
+    _currentPose.onPointer((p) => _currentPose.inner = p.readArray(_skeleton.boneCount));
+    _boneMatrices.onPointer((p) => _boneMatrices.inner = p.readArray(_skeleton.boneCount));
   }
 
   @override
@@ -210,7 +220,7 @@ class ModelD extends StructDWeb<ModelD> with ModelBase<
     meshes: meshes.map((x) => x.clone()).toList(),
     materials: materials.map((x) => x.clone()).toList(),
     meshMaterial: .from(meshMaterial),
-    bones: bones.map((x) => x.clone()).toList(),
-    bindPose: bindPose.map((x) => x.clone()).toList(),
+    currentPose: currentPose.map((x) => x.clone()).toList(),
+    boneMatrices: boneMatrices.map((x) => x.clone()).toList(),
   );
 }

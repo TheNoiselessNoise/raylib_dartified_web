@@ -118,6 +118,7 @@ mixin _WasmOffsets on Enum {}
 abstract class RaylibModuleWasm extends RaylibModule<Raylib> {
   final String s = 'string';
   final String n = 'number';
+  final String b = 'boolean';
 
   RaylibModuleWasm(super.rl);
 }
@@ -126,8 +127,6 @@ abstract class StructDWeb<T extends StructDWeb<T>> extends RaylibStructBase<Rayl
   StructDWeb({
     super.originalPointer,
   });
-
-  int get wasmByteSize;
 
   WasmReader wasmReader([int? offset]) => .new(getOriginalPointer().address + (offset ?? 0));
   WasmReader wasmReaderOr(int address) => .new(originalPointer?.address ?? address);
@@ -264,19 +263,23 @@ abstract class CallbackD<D extends Function> with RaylibCallbackBase {
   String toString() => name;
 }
 
-abstract class WasmLiveList<T, P> extends RaylibLiveList<T> {
+abstract class WasmLiveList<T, P extends WasmSizedPointer> extends RaylibLiveList<T> {
   P? ptr;
 
   WasmLiveList(super.inner, [this.ptr]);
 
-  bool get isPointerValid {
-    if (ptr is WasmPointer) return (ptr as WasmPointer).isNotNull;
-    return false;
-  }
+  bool get isPointerValid => ptr?.isNotNull ?? false;
 
   void onPointer(void Function(P) fn) {
     final p = ptr;
     if (p == null || !isPointerValid) return;
+    final len = inner.length * (p.byteSize);
+    final start = p.address;
+    final end = start + len;
+    if (1583000 < end && 1583008 > start) {
+      print('!!! OVERLAP: writing [$start, $end) covers target. inner.length=${inner.length}, stride=${p.byteSize}, runtimeType=$runtimeType');
+      print(StackTrace.current);
+    }
     fn(p);
   }
 
@@ -314,10 +317,14 @@ class WasmLiveListPointerStruct<D extends StructDWeb<D>> extends WasmLiveList<D,
   WasmLiveListPointerStruct(super.inner, [super.ptr]);
 
   @override
-  D _indexGetter(WasmStructPointer<D> ptr, int index) => inner[index];
+  D _indexGetter(WasmStructPointer<D> ptr, int index) {
+    final item = ptr.owned(index);
+    inner[index] = item; // keep cache coherent for anything else reading `inner` directly
+    return item;
+  }
 
   @override
-  void _indexSetter(WasmStructPointer<D> ptr, int index, D value) => ptr.ref = value;
+  void _indexSetter(WasmStructPointer<D> ptr, int index, D value) => ptr[index] = value;
 
   @override
   void _arraySetter(WasmStructPointer<D> ptr, List<D> array) {
@@ -334,7 +341,11 @@ class WasmLiveListPointerPointerStruct<D extends StructDWeb<D>> extends WasmLive
   WasmStructPointer<D>? innerPointer(int index) => ptr == null ? null : ptr![index];
 
   @override
-  WasmLiveListPointerStruct<D> _indexGetter(WasmStructPointerPointer<D> ptr, int index) => inner[index];
+  WasmLiveListPointerStruct<D> _indexGetter(WasmStructPointerPointer<D> ptr, int index) {
+    final item = inner[index];
+    item.ptr = ptr[index]; // keep wired to the current frame, even if stale/unset
+    return item;
+  }
 
   @override
   void _indexSetter(WasmStructPointerPointer<D> ptr, int index, WasmLiveListPointerStruct<D> value) {
@@ -367,7 +378,10 @@ abstract class _WasmLiveListIntegerPointer<X, L extends TypedDataList<X>, P exte
   _WasmLiveListIntegerPointer(super.inner, [super.ptr]);
 
   @override
-  int _indexGetter(P ptr, int index) => ptr[index];
+  int _indexGetter(P ptr, int index) {
+    if (!isPointerValid) return inner[index]; // not yet wired to memory; fall back to cache
+    return ptr[index];
+  }
 
   @override
   void _indexSetter(P ptr, int index, int value) => ptr[index] = value;
@@ -382,7 +396,10 @@ abstract class _WasmLiveListDoublePointer<X, L extends TypedDataList<X>, P exten
   _WasmLiveListDoublePointer(super.inner, [super.ptr]);
 
   @override
-  double _indexGetter(P ptr, int index) => ptr[index];
+  double _indexGetter(P ptr, int index) {
+    if (!isPointerValid) return inner[index]; // not yet wired to memory; fall back to cache
+    return ptr[index];
+  }
 
   @override
   void _indexSetter(P ptr, int index, double value) => ptr[index] = value;

@@ -121,9 +121,6 @@ class VrStereoConfigD extends StructDWeb<VrStereoConfigD> with VrStereoConfigBas
     _scaleIn.inner = value;
   }
 
-  @override
-  int get wasmByteSize => byteSize;
-
   VrStereoConfigD({
     super.originalPointer,
     List<MatrixD>? projection,
@@ -204,8 +201,8 @@ class VrStereoConfigD extends StructDWeb<VrStereoConfigD> with VrStereoConfigBas
 
   @override
   void wasmReadFrom(WasmReader reader) {
-    projection = reader.structArray(paramsCount, MatrixD.wasmPointer);
-    viewOffset = reader.structArray(paramsCount, MatrixD.wasmPointer);
+    projection = reader.structArray(paramsCount, MatrixD.byteSize, MatrixD.wasmPointer);
+    viewOffset = reader.structArray(paramsCount, MatrixD.byteSize, MatrixD.wasmPointer);
     leftLensCenter = reader.Float32Array(paramsCount);
     rightLensCenter = reader.Float32Array(paramsCount);
     leftScreenCenter = reader.Float32Array(paramsCount);

@@ -1,7 +1,7 @@
 // Example dartified, see original for reference:
 // https://github.com/raysan5/raylib/blob/master/examples/core/core_smooth_pixelperfect.c
 import 'dart:math' as math;
-import 'package:raylib_dartified_web/raylib_dartified_web.dart';
+import '../base_dart.dart';
 
 const int screenWidth = 800;
 const int screenHeight = 450;
@@ -10,9 +10,8 @@ const int virtualScreenHeight = 90;
 const double virtualRatio = screenWidth/virtualScreenWidth;
 
 void main() => Raylib((rl) {
-  rl.CoreD.InitWindow(screenWidth, screenHeight, 'core_smooth_pixelperfect');
-  rl.CoreD.SetWindowMonitor(0);
-  rl.CoreD.SetTargetFPS(60);
+  InitWindow(screenWidth, screenHeight, "core_smooth_pixelperfect");
+  SetTargetFPS(60);
 
   final worldSpaceCamera = Camera2DD();
   worldSpaceCamera.zoom = 1.0;
@@ -20,7 +19,7 @@ void main() => Raylib((rl) {
   final screenSpaceCamera = Camera2DD();
   screenSpaceCamera.zoom = 1.0;
 
-  final target = rl.CoreD.LoadRenderTexture(virtualScreenWidth, virtualScreenHeight);
+  final target = LoadRenderTexture(virtualScreenWidth, virtualScreenHeight);
 
   final RectangleD rec01 = .rect(70.0, 35.0, 20.0, 20.0);
   final RectangleD rec02 = .rect(90.0, 55.0, 30.0, 10.0);
@@ -37,10 +36,10 @@ void main() => Raylib((rl) {
   double cameraY = 0.0;
 
   rl.setMainLoop(() {
-    rotation += 60.0*rl.CoreD.GetFrameTime();
+    rotation += 60.0*GetFrameTime();
 
-    cameraX = (math.sin(rl.CoreD.GetTime())*50.0) - 10.0;
-    cameraY = math.cos(rl.CoreD.GetTime())*30.0;
+    cameraX = (math.sin(GetTime())*50.0) - 10.0;
+    cameraY = math.cos(GetTime())*30.0;
 
     screenSpaceCamera.target.set(cameraX, cameraY);
 
@@ -52,32 +51,32 @@ void main() => Raylib((rl) {
     screenSpaceCamera.target.y -= worldSpaceCamera.target.y;
     screenSpaceCamera.target.y *= virtualRatio;
 
-    rl.CoreD.BeginTextureMode(target);
-      rl.CoreD.ClearBackground(.RAYWHITE);
+    BeginTextureMode(target);
+      ClearBackground(.RAYWHITE);
 
-      rl.CoreD.BeginMode2D(worldSpaceCamera);
-        rl.CoreD.DrawRectanglePro(rec01, origin, rotation, .BLACK);
-        rl.CoreD.DrawRectanglePro(rec02, origin, -rotation, .RED);
-        rl.CoreD.DrawRectanglePro(rec03, origin, rotation + 45.0, .BLUE);
-      rl.CoreD.EndMode2D();
-    rl.CoreD.EndTextureMode();
+      BeginMode2D(worldSpaceCamera);
+        DrawRectanglePro(rec01, origin, rotation, .BLACK);
+        DrawRectanglePro(rec02, origin, -rotation, .RED);
+        DrawRectanglePro(rec03, origin, rotation + 45.0, .BLUE);
+      EndMode2D();
+    EndTextureMode();
 
-    rl.CoreD.BeginDrawing();
-      rl.CoreD.ClearBackground(.RED);
+    BeginDrawing();
+      ClearBackground(.RED);
 
-      rl.CoreD.BeginMode2D(screenSpaceCamera);
-        rl.CoreD.DrawTexturePro(target.texture, sourceRec, destRec, origin, 0.0, .WHITE);
-      rl.CoreD.EndMode2D();
+      BeginMode2D(screenSpaceCamera);
+        DrawTexturePro(target.texture, sourceRec, destRec, origin, 0.0, .WHITE);
+      EndMode2D();
 
-      rl.CoreD.DrawText(
+      DrawText(
         "Screen resolution: ${screenWidth}x$screenHeight",
         10, 10, 20, .DARKBLUE
       );
-      rl.CoreD.DrawText(
+      DrawText(
         "World resolution: ${virtualScreenWidth}x$virtualScreenHeight",
         10, 40, 20, .DARKGREEN
       );
-      rl.CoreD.DrawFPS(rl.CoreD.GetScreenWidth() - 95, 10);
-    rl.CoreD.EndDrawing();
+      DrawFPS(GetScreenWidth() - 95, 10);
+    EndDrawing();
   });
 });

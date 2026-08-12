@@ -372,6 +372,39 @@ class RaylibRlglD extends RaylibRlglModuleBase<
     ),
   );
 
+  final Map<int, WasmPointer> _rlEnableStatePointer_statePointers = {};
+
+  @override
+  void rlEnableStatePointer(int vertexAttribType, TypedDataList data) => run(
+    () => RaylibDebugLabels.rlEnableStatePointer(vertexAttribType, data),
+    () {
+      final existing = _rlEnableStatePointer_statePointers[vertexAttribType];
+      if (existing != null) WasmMemory.free(existing.address);
+
+      final native = rl.Temp.TypedDataList$.Array(data, key: 'rlEnableStatePointer_$vertexAttribType');
+
+      _rlEnableStatePointer_statePointers[vertexAttribType] = native;
+
+      rl.Rlgl.rlEnableStatePointer.run2(
+        vertexAttribType.toJS,
+        native.toJS,
+      );
+    },
+  );
+
+  @override
+  void rlDisableStatePointer(int vertexAttribType) => run(
+    () => RaylibDebugLabels.rlDisableStatePointer(vertexAttribType),
+    () {
+      rl.Rlgl.rlDisableStatePointer.run1(
+        vertexAttribType.toJS,
+      );
+
+      final existing = _rlEnableStatePointer_statePointers.remove(vertexAttribType);
+      if (existing != null) WasmMemory.free(existing.address);
+    },
+  );
+
   @override
   void rlActiveTextureSlot(
     num slot,
@@ -631,15 +664,37 @@ class RaylibRlglD extends RaylibRlglModuleBase<
   );
 
   @override
-  void rlEnableWireMode() => run(
-    () => RaylibDebugLabels.rlEnableWireMode(),
-    () => rl.Rlgl.rlEnableWireMode.run,
-  );
-
-  @override
   void rlEnablePointMode() => run(
     () => RaylibDebugLabels.rlEnablePointMode(),
     () => rl.Rlgl.rlEnablePointMode.run,
+  );
+
+  @override
+  void rlDisablePointMode() => run(
+    () => RaylibDebugLabels.rlDisablePointMode(),
+    () => rl.Rlgl.rlDisablePointMode.run,
+  );
+
+  @override
+  void rlSetPointSize(
+    num size,
+  ) => run(
+    () => RaylibDebugLabels.rlSetPointSize(size),
+    () => rl.Rlgl.rlSetPointSize.run1(
+      size.toJS,
+    ),
+  );
+  
+  @override
+  double rlGetPointSize() => run(
+    () => RaylibDebugLabels.rlGetPointSize(),
+    () => rl.Rlgl.rlGetPointSize.run.toDouble(),
+  );
+
+  @override
+  void rlEnableWireMode() => run(
+    () => RaylibDebugLabels.rlEnableWireMode(),
+    () => rl.Rlgl.rlEnableWireMode.run,
   );
 
   @override
@@ -783,8 +838,6 @@ class RaylibRlglD extends RaylibRlglModuleBase<
     () => RaylibDebugLabels.rlglClose(),
     () => rl.Rlgl.rlglClose.run,
   );
-
-  // NOTE: rlLoadExtensions is not implemented, use it in raw WASM layer if you really need it
 
   @override
   int rlGetVersion() => run(
@@ -957,13 +1010,14 @@ class RaylibRlglD extends RaylibRlglModuleBase<
   void rlUpdateVertexBuffer(
     num bufferId,
     TypedDataList data,
+    num dataSize,
     num offset,
   ) => run(
-    () => RaylibDebugLabels.rlUpdateVertexBuffer(bufferId, data, offset),
+    () => RaylibDebugLabels.rlUpdateVertexBuffer(bufferId, data, dataSize, offset),
     () => rl.Rlgl.rlUpdateVertexBuffer.run4(
       bufferId.toJS,
       rl.Temp.TypedDataList$.Array(data).toJS,
-      data.length.toJS,
+      (dataSize * rl.Temp.TypedDataList$.ElementSize(data)).toJS,
       offset.toJS,
     ),
   );
@@ -972,13 +1026,14 @@ class RaylibRlglD extends RaylibRlglModuleBase<
   void rlUpdateVertexBufferElements(
     num id,
     TypedDataList data,
+    num dataSize,
     num offset,
   ) => run(
-    () => RaylibDebugLabels.rlUpdateVertexBufferElements(id, data, offset),
+    () => RaylibDebugLabels.rlUpdateVertexBufferElements(id, data, dataSize, offset),
     () => rl.Rlgl.rlUpdateVertexBufferElements.run4(
       id.toJS,
       rl.Temp.TypedDataList$.Array(data).toJS,
-      data.length.toJS,
+      (dataSize * rl.Temp.TypedDataList$.ElementSize(data)).toJS,
       offset.toJS,
     ),
   );
@@ -1325,39 +1380,104 @@ class RaylibRlglD extends RaylibRlglModuleBase<
   );
 
   @override
-  int rlLoadShaderCode(
-    String? vsCode,
-    String? fsCode,
+  Uint8List rlCopyFramebuffer(
+    num x,
+    num y,
+    num width,
+    num height,
+    PixelFormat format,
   ) => run(
-    () => RaylibDebugLabels.rlLoadShaderCode(vsCode, fsCode),
-    () => rl.Rlgl.rlLoadShaderCode.run2(
-      vsCode?.toJS,
-      fsCode?.toJS,
-    ).toInt(),
+    () => RaylibDebugLabels.rlCopyFramebuffer(x, y, width, height, format),
+    () {
+      final size = rl.CoreD.GetPixelDataSize(width, height, format);
+      if (size <= 0) {
+        throw ArgumentError(
+          'rlCopyFramebuffer: invalid pixel data size for '
+          '${width}x$height @ $format',
+        );
+      }
+
+      final pixels = rl.Temp.Uint8$.Sized(size);
+
+      rl.Rlgl.rlCopyFramebuffer.run6(
+        x.toJS,
+        y.toJS,
+        width.toJS,
+        height.toJS,
+        format.value.toJS,
+        pixels.toJS,
+      );
+
+      return pixels.readTypedArray(size);
+    },
+  );
+  
+  @override
+  void rlResizeFramebuffer(
+    num width,
+    num height,
+  ) => run(
+    () => RaylibDebugLabels.rlResizeFramebuffer(width, height),
+    () => rl.Rlgl.rlResizeFramebuffer.run2(
+      width.toJS,
+      height.toJS,
+    ),
   );
 
   @override
-  int rlCompileShader(
-    String shaderCode,
+  int rlLoadShader(
+    String code,
     RlShaderType type,
   ) => run(
-    () => RaylibDebugLabels.rlCompileShader(shaderCode, type),
-    () => rl.Rlgl.rlCompileShader.run2(
-      shaderCode.toJS,
+    () => RaylibDebugLabels.rlLoadShader(code, type),
+    () => rl.Rlgl.rlLoadShader.run2(
+      code.toJS,
       type.value.toJS,
     ).toInt(),
   );
 
   @override
   int rlLoadShaderProgram(
-    num vShaderId,
-    num fShaderId,
+    String vsCode,
+    String fsCode,
   ) => run(
-    () => RaylibDebugLabels.rlLoadShaderProgram(vShaderId, fShaderId),
+    () => RaylibDebugLabels.rlLoadShaderProgram(vsCode, fsCode),
     () => rl.Rlgl.rlLoadShaderProgram.run2(
-      vShaderId.toJS,
-      fShaderId.toJS,
+      vsCode.toJS,
+      fsCode.toJS,
     ).toInt(),
+  );
+
+  @override
+  int rlLoadShaderProgramEx(
+    num vsId,
+    num fsId,
+  ) => run(
+    () => RaylibDebugLabels.rlLoadShaderProgramEx(vsId, fsId),
+    () => rl.Rlgl.rlLoadShaderProgramEx.run2(
+      vsId.toJS,
+      fsId.toJS,
+    ).toInt(),
+  );
+  
+  @override
+  int rlLoadShaderProgramCompute(
+    num csId,
+  ) => run(
+    () => RaylibDebugLabels.rlLoadShaderProgramCompute(csId),
+    () => rl.Rlgl.rlLoadShaderProgramCompute.run1(
+      csId.toJS,
+    ).toInt(),
+  );
+  
+  @override
+  void rlUnloadShader(
+    num id,
+  ) => run(
+    () => RaylibDebugLabels.rlUnloadShader(id),
+    () => rl.Rlgl.rlUnloadShader.run1(
+      id.toJS,
+    ),
   );
 
   @override
@@ -1478,16 +1598,6 @@ class RaylibRlglD extends RaylibRlglModuleBase<
       id.toJS,
       rl.Temp.Int32$.Array(locs).toJS,
     ),
-  );
-
-  @override
-  int rlLoadComputeShaderProgram(
-    num shaderId,
-  ) => run(
-    () => RaylibDebugLabels.rlLoadComputeShaderProgram(shaderId),
-    () => rl.Rlgl.rlLoadComputeShaderProgram.run1(
-      shaderId.toJS,
-    ).toInt(),
   );
 
   @override

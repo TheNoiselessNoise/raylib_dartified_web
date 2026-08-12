@@ -10,12 +10,11 @@ enum _MeshOffsets with _WasmOffsets {
   tangents,
   colors,
   indices,
+  boneCount,
+  boneIndices,
+  boneWeights,
   animVertices,
   animNormals,
-  boneIds,
-  boneWeights,
-  boneMatrices,
-  boneCount,
   vaoId,
   vboId,
 }
@@ -38,12 +37,11 @@ class MeshD extends StructDWeb<MeshD> with MeshBase<
     .tangents:      WasmSize.Float32Pointer,
     .colors:        WasmSize.Uint8Pointer,
     .indices:       WasmSize.Uint16Pointer,
+    .boneCount:     WasmSize.Int32,
+    .boneIndices:   WasmSize.Uint8Pointer,
+    .boneWeights:   WasmSize.Float32Pointer,
     .animVertices:  WasmSize.Float32Pointer,
     .animNormals:   WasmSize.Float32Pointer,
-    .boneIds:       WasmSize.Uint8Pointer,
-    .boneWeights:   WasmSize.Float32Pointer,
-    .boneMatrices:  WasmSize.StructPointer,
-    .boneCount:     WasmSize.Int32,
     .vaoId:         WasmSize.Uint32,
     .vboId:         WasmSize.Uint32Pointer,
   });
@@ -69,16 +67,6 @@ class MeshD extends StructDWeb<MeshD> with MeshBase<
   @override set triangleCount(int value) {
     _triangleCount = value;
     structOnOp((p) => p.writerAt(_o[.triangleCount]).Int32(value));
-  }
-  
-  int _boneCount;
-  @override get boneCount {
-    structOnOp((p) => _boneCount = p.readerAt(_o[.boneCount]).Int32());
-    return _boneCount;
-  }
-  @override set boneCount(int value) {
-    _boneCount = value;
-    structOnOp((p) => p.writerAt(_o[.boneCount]).Int32(value));
   }
   
   late WasmLiveListPointerFloat32 _vertices;
@@ -158,6 +146,38 @@ class MeshD extends StructDWeb<MeshD> with MeshBase<
     _indices.inner = value;
   }
 
+  int _boneCount;
+  @override get boneCount {
+    structOnOp((p) => _boneCount = p.readerAt(_o[.boneCount]).Int32());
+    return _boneCount;
+  }
+  @override set boneCount(int value) {
+    _boneCount = value;
+    structOnOp((p) => p.writerAt(_o[.boneCount]).Int32(value));
+  }
+
+  late WasmLiveListPointerUint8 _boneIndices;
+  @override get boneIndices {
+    structOnOp((p) => _boneIndices.ptr = .new(p.readerAt(_o[.boneIndices]).pointer()));
+    return _boneIndices;
+  }
+  @override set boneIndices(List<int> value) {
+    assert(value.length <= boneIndicesCount);
+    structOnOp((p) => _boneIndices.ptr = .new(p.readerAt(_o[.boneIndices]).pointer()));
+    _boneIndices.inner = value;
+  }
+  
+  late WasmLiveListPointerFloat32 _boneWeights;
+  @override get boneWeights {
+    structOnOp((p) => _boneWeights.ptr = .new(p.readerAt(_o[.boneWeights]).pointer()));
+    return _boneWeights;
+  }
+  @override set boneWeights(List<double> value) {
+    assert(value.length <= boneWeightsCount);
+    structOnOp((p) => _boneWeights.ptr = .new(p.readerAt(_o[.boneWeights]).pointer()));
+    _boneWeights.inner = value;
+  }
+
   late WasmLiveListPointerFloat32 _animVertices;
   @override get animVertices {
     structOnOp((p) => _animVertices.ptr = .new(p.readerAt(_o[.animVertices]).pointer()));
@@ -178,39 +198,6 @@ class MeshD extends StructDWeb<MeshD> with MeshBase<
     assert(value.length <= animNormalsCount);
     structOnOp((p) => _animNormals.ptr = .new(p.readerAt(_o[.animNormals]).pointer()));
     _animNormals.inner = value;
-  }
-
-  late WasmLiveListPointerUint8 _boneIds;
-  @override get boneIds {
-    structOnOp((p) => _boneIds.ptr = .new(p.readerAt(_o[.boneIds]).pointer()));
-    return _boneIds;
-  }
-  @override set boneIds(List<int> value) {
-    assert(value.length <= boneIdsCount);
-    structOnOp((p) => _boneIds.ptr = .new(p.readerAt(_o[.boneIds]).pointer()));
-    _boneIds.inner = value;
-  }
-
-  late WasmLiveListPointerFloat32 _boneWeights;
-  @override get boneWeights {
-    structOnOp((p) => _boneWeights.ptr = .new(p.readerAt(_o[.boneWeights]).pointer()));
-    return _boneWeights;
-  }
-  @override set boneWeights(List<double> value) {
-    assert(value.length <= boneWeightsCount);
-    structOnOp((p) => _boneWeights.ptr = .new(p.readerAt(_o[.boneWeights]).pointer()));
-    _boneWeights.inner = value;
-  }
-
-  late WasmLiveListPointerStruct<MatrixD> _boneMatrices;
-  @override get boneMatrices {
-    structOnOp((p) => _boneMatrices.ptr = MatrixD.wasmPointer(p.readerAt(_o[.boneMatrices]).pointer()));
-    return _boneMatrices;
-  }
-  @override set boneMatrices(List<MatrixD> value) {
-    assert(value.length <= boneMatricesCount);
-    structOnOp((p) => _boneMatrices.ptr = MatrixD.wasmPointer(p.readerAt(_o[.boneMatrices]).pointer()));
-    _boneMatrices.inner = value;
   }
 
   int _vaoId;
@@ -234,9 +221,6 @@ class MeshD extends StructDWeb<MeshD> with MeshBase<
     _vboId.inner = value;
   }
 
-  @override
-  int get wasmByteSize => byteSize;
-
   MeshD({
     super.originalPointer,
     int vertexCount = 0,
@@ -249,11 +233,10 @@ class MeshD extends StructDWeb<MeshD> with MeshBase<
     List<double>? tangents,
     List<int>? colors,
     List<int>? indices,
+    List<int>? boneIndices,
+    List<double>? boneWeights,
     List<double>? animVertices,
     List<double>? animNormals,
-    List<int>? boneIds,
-    List<double>? boneWeights,
-    List<MatrixD>? boneMatrices,
     int vaoId = 0,
     List<int>? vboId,
   }) :
@@ -297,6 +280,16 @@ class MeshD extends StructDWeb<MeshD> with MeshBase<
       originalPointer == null ? null : .new(wasmReader(_o[.indices]).pointer())
     );
 
+    _boneIndices = .new(
+      boneIndices ?? .filled(boneIndicesCount, 0),
+      originalPointer == null ? null : .new(wasmReader(_o[.boneIndices]).pointer())
+    );
+
+    _boneWeights = .new(
+      boneWeights ?? .filled(boneWeightsCount, 0),
+      originalPointer == null ? null : .new(wasmReader(_o[.boneWeights]).pointer())
+    );
+
     _animVertices = .new(
       animVertices ?? .filled(animVerticesCount, 0),
       originalPointer == null ? null : .new(wasmReader(_o[.animVertices]).pointer())
@@ -305,21 +298,6 @@ class MeshD extends StructDWeb<MeshD> with MeshBase<
     _animNormals = .new(
       animNormals ?? .filled(animNormalsCount, 0),
       originalPointer == null ? null : .new(wasmReader(_o[.animNormals]).pointer())
-    );
-
-    _boneIds = .new(
-      boneIds ?? .filled(boneIdsCount, 0),
-      originalPointer == null ? null : .new(wasmReader(_o[.boneIds]).pointer())
-    );
-
-    _boneWeights = .new(
-      boneWeights ?? .filled(boneWeightsCount, 0),
-      originalPointer == null ? null : .new(wasmReader(_o[.boneWeights]).pointer())
-    );
-
-    _boneMatrices = .new(
-      boneMatrices ?? [],
-      originalPointer == null ? null : MatrixD.wasmPointer(wasmReader(_o[.boneMatrices]).pointer())
     );
 
     _vboId = .new(
@@ -342,11 +320,11 @@ class MeshD extends StructDWeb<MeshD> with MeshBase<
     tangents = .from(o.tangents);
     colors = .from(o.colors);
     indices = .from(o.indices);
+    boneCount = o.boneCount;
+    boneIndices = .from(o.boneIndices);
+    boneWeights = .from(o.boneWeights);
     animVertices = .from(o.animVertices);
     animNormals = .from(o.animNormals);
-    boneIds = .from(o.boneIds);
-    boneWeights = .from(o.boneWeights);
-    boneMatrices = o.boneMatrices.map((x) => x.clone()).toList();
     vaoId = o.vaoId;
     vboId = .from(o.vboId);
     return this;
@@ -354,25 +332,24 @@ class MeshD extends StructDWeb<MeshD> with MeshBase<
 
   @override
   void structAllocateInto(RaylibTemp temp, WasmStructPointer<MeshD> p, String key) {
-    if (vertices.isNotEmpty) _vertices.ptr = temp.Float32$.RawArray(vertices);
-    if (texcoords.isNotEmpty) _texcoords.ptr = temp.Float32$.RawArray(texcoords);
-    if (texcoords2.isNotEmpty) _texcoords2.ptr = temp.Float32$.RawArray(texcoords2);
-    if (normals.isNotEmpty) _normals.ptr = temp.Float32$.RawArray(normals);
-    if (tangents.isNotEmpty) _tangents.ptr = temp.Float32$.RawArray(tangents);
-    if (colors.isNotEmpty) _colors.ptr = temp.Uint8$.RawArray(colors);
-    if (indices.isNotEmpty) _indices.ptr = temp.Uint16$.RawArray(indices);
-    if (animVertices.isNotEmpty) _animVertices.ptr = temp.Float32$.RawArray(animVertices);
-    if (animNormals.isNotEmpty) _animNormals.ptr = temp.Float32$.RawArray(animNormals);
-    if (boneIds.isNotEmpty) _boneIds.ptr = temp.Uint8$.RawArray(boneIds);
-    if (boneWeights.isNotEmpty) _boneWeights.ptr = temp.Float32$.RawArray(boneWeights);
-    if (boneMatrices.isNotEmpty) _boneMatrices.ptr = temp.Matrix$.RawArray(boneMatrices);
+    if (_vertices.isNotEmpty) _vertices.ptr = temp.Float32$.RawArray(_vertices.inner);
+    if (_texcoords.isNotEmpty) _texcoords.ptr = temp.Float32$.RawArray(_texcoords.inner);
+    if (_texcoords2.isNotEmpty) _texcoords2.ptr = temp.Float32$.RawArray(_texcoords2.inner);
+    if (_normals.isNotEmpty) _normals.ptr = temp.Float32$.RawArray(_normals.inner);
+    if (_tangents.isNotEmpty) _tangents.ptr = temp.Float32$.RawArray(_tangents.inner);
+    if (_colors.isNotEmpty) _colors.ptr = temp.Uint8$.RawArray(_colors.inner);
+    if (_indices.isNotEmpty) _indices.ptr = temp.Uint16$.RawArray(_indices.inner);
+    if (_boneIndices.isNotEmpty) _boneIndices.ptr = temp.Uint8$.RawArray(_boneIndices.inner);
+    if (_boneWeights.isNotEmpty) _boneWeights.ptr = temp.Float32$.RawArray(_boneWeights.inner);
+    if (_animVertices.isNotEmpty) _animVertices.ptr = temp.Float32$.RawArray(_animVertices.inner);
+    if (_animNormals.isNotEmpty) _animNormals.ptr = temp.Float32$.RawArray(_animNormals.inner);
     _vboId.ptr = .nullptr();
   }
 
   @override
   void wasmWriteInto(WasmWriter writer) {
-    writer.Int32(vertexCount);
-    writer.Int32(triangleCount);
+    writer.Int32(_vertexCount);
+    writer.Int32(_triangleCount);
     writer.wasmptr(_vertices.ptr);
     writer.wasmptr(_texcoords.ptr);
     writer.wasmptr(_texcoords2.ptr);
@@ -380,13 +357,12 @@ class MeshD extends StructDWeb<MeshD> with MeshBase<
     writer.wasmptr(_tangents.ptr);
     writer.wasmptr(_colors.ptr);
     writer.wasmptr(_indices.ptr);
+    writer.Int32(_boneCount);
+    writer.wasmptr(_boneIndices.ptr);
+    writer.wasmptr(_boneWeights.ptr);
     writer.wasmptr(_animVertices.ptr);
     writer.wasmptr(_animNormals.ptr);
-    writer.wasmptr(_boneIds.ptr);
-    writer.wasmptr(_boneWeights.ptr);
-    writer.wasmptr(_boneMatrices.ptr);
-    writer.Int32(boneCount);
-    writer.Uint32(vaoId);
+    writer.Uint32(_vaoId);
     writer.wasmptr(_vboId.ptr);
 
     _vertices.onPointer((p) => p.writeArray(_vertices.inner));
@@ -396,18 +372,17 @@ class MeshD extends StructDWeb<MeshD> with MeshBase<
     _tangents.onPointer((p) => p.writeArray(_tangents.inner));
     _colors.onPointer((p) => p.writeArray(_colors.inner));
     _indices.onPointer((p) => p.writeArray(_indices.inner));
+    _boneIndices.onPointer((p) => p.writeArray(_boneIndices.inner));
+    _boneWeights.onPointer((p) => p.writeArray(_boneWeights.inner));
     _animVertices.onPointer((p) => p.writeArray(_animVertices.inner));
     _animNormals.onPointer((p) => p.writeArray(_animNormals.inner));
-    _boneIds.onPointer((p) => p.writeArray(_boneIds.inner));
-    _boneWeights.onPointer((p) => p.writeArray(_boneWeights.inner));
-    _boneMatrices.onPointer((p) => p.writeArray(_boneMatrices.inner));
     _vboId.onPointer((p) => p.writeArray(_vboId.inner));
   }
 
   @override
   void wasmReadFrom(WasmReader reader) {
-    vertexCount = reader.Int32();
-    triangleCount = reader.Int32();
+    _vertexCount = reader.Int32();
+    _triangleCount = reader.Int32();
     _vertices.ptr = reader.Float32Pointer();
     _texcoords.ptr = reader.Float32Pointer();
     _texcoords2.ptr = reader.Float32Pointer();
@@ -415,28 +390,26 @@ class MeshD extends StructDWeb<MeshD> with MeshBase<
     _tangents.ptr = reader.Float32Pointer();
     _colors.ptr = reader.Uint8Pointer();
     _indices.ptr = reader.Uint16Pointer();
+    _boneCount = reader.Int32();
+    _boneIndices.ptr = reader.Uint8Pointer();
+    _boneWeights.ptr = reader.Float32Pointer();
     _animVertices.ptr = reader.Float32Pointer();
     _animNormals.ptr = reader.Float32Pointer();
-    _boneIds.ptr = reader.Uint8Pointer();
-    _boneWeights.ptr = reader.Float32Pointer();
-    _boneMatrices.ptr = MatrixD.wasmPointer(reader.pointer());
-    boneCount = reader.Int32();
-    vaoId = reader.Uint32();
+    _vaoId = reader.Uint32();
     _vboId.ptr = reader.Uint32Pointer();
     
-    _vertices.onPointer((p) => vertices = p.readArray(verticesCount));
-    _texcoords.onPointer((p) => texcoords = p.readArray(texcoordsCount));
-    _texcoords2.onPointer((p) => texcoords2 = p.readArray(texcoords2Count));
-    _normals.onPointer((p) => normals = p.readArray(normalsCount));
-    _tangents.onPointer((p) => tangents = p.readArray(tangentsCount));
-    _colors.onPointer((p) => colors = p.readArray(colorsCount));
-    _indices.onPointer((p) => indices = p.readArray(indicesCount));
-    _animVertices.onPointer((p) => animVertices = p.readArray(animVerticesCount));
-    _animNormals.onPointer((p) => animNormals = p.readArray(animNormalsCount));
-    _boneIds.onPointer((p) => boneIds = p.readArray(boneIdsCount));
-    _boneWeights.onPointer((p) => boneWeights = p.readArray(boneWeightsCount));
-    _boneMatrices.onPointer((p) => boneMatrices = p.readArray(boneMatricesCount));
-    _vboId.onPointer((p) => vboId = p.readArray(vboIdCount));
+    _vertices.onPointer((p) => _vertices.inner = p.readArray(verticesCount));
+    _texcoords.onPointer((p) => _texcoords.inner = p.readArray(texcoordsCount));
+    _texcoords2.onPointer((p) => _texcoords2.inner = p.readArray(texcoords2Count));
+    _normals.onPointer((p) => _normals.inner = p.readArray(normalsCount));
+    _tangents.onPointer((p) => _tangents.inner = p.readArray(tangentsCount));
+    _colors.onPointer((p) => _colors.inner = p.readArray(colorsCount));
+    _indices.onPointer((p) => _indices.inner = p.readArray(indicesCount));
+    _boneIndices.onPointer((p) => _boneIndices.inner = p.readArray(boneIndicesCount));
+    _boneWeights.onPointer((p) => _boneWeights.inner = p.readArray(boneWeightsCount));
+    _animVertices.onPointer((p) => _animVertices.inner = p.readArray(animVerticesCount));
+    _animNormals.onPointer((p) => _animNormals.inner = p.readArray(animNormalsCount));
+    _vboId.onPointer((p) => _vboId.inner = p.readArray(vboIdCount));
   }
 
   @override
@@ -452,11 +425,10 @@ class MeshD extends StructDWeb<MeshD> with MeshBase<
     tangents: .from(tangents),
     colors: .from(colors),
     indices: .from(indices),
+    boneIndices: .from(boneIndices),
+    boneWeights: .from(boneWeights),
     animVertices: .from(animVertices),
     animNormals: .from(animNormals),
-    boneIds: .from(boneIds),
-    boneWeights: .from(boneWeights),
-    boneMatrices: boneMatrices.map((x) => x.clone()).toList(),
     vaoId: vaoId,
     vboId: .from(vboId),
   );

@@ -1,7 +1,7 @@
 // Example dartified, see original for reference:
 // https://github.com/raysan5/raylib/blob/master/examples/shaders/shaders_game_of_life.c
 // WARNING: expects resources from the raylib source
-import 'package:raylib_dartified_web/raylib_dartified_web.dart';
+import '../base_dart.dart';
 
 const String GLSL_VERSION = '300es';
 const int screenWidth = 800;
@@ -19,9 +19,8 @@ class PresetPattern {
 }
 
 void main() => Raylib((rl) {
-  rl.CoreD.InitWindow(screenWidth, screenHeight, "shaders_game_of_life");
-  rl.CoreD.SetWindowMonitor(0);
-  rl.CoreD.SetTargetFPS(60);
+  InitWindow(screenWidth, screenHeight, "shaders_game_of_life");
+  SetTargetFPS(60);
 
   const int menuWidth = 100;
   const int windowWidth = screenWidth - menuWidth;
@@ -57,27 +56,27 @@ void main() => Raylib((rl) {
   bool buttonFaster = false;
   bool buttonSlower = false;
 
-  final shdrGameOfLife = rl.CoreD.LoadShader(
+  final shdrGameOfLife = LoadShader(
     null,
-    "./resources/shaders/glsl$GLSL_VERSION/game_of_life.fs",
+    "../resources/shaders/glsl$GLSL_VERSION/game_of_life.fs",
   );
 
-  int resolutionLoc = rl.CoreD.GetShaderLocation(shdrGameOfLife, "resolution");
+  int resolutionLoc = GetShaderLocation(shdrGameOfLife, "resolution");
   final Vector2D resolution = .vec2(worldWidth, worldHeight);
-  rl.CoreD.SetShaderValue(
+  SetShaderValue(
     shdrGameOfLife, resolutionLoc, resolution.toArray(),
     .SHADER_UNIFORM_VEC2,
   );
 
-  final world1 = rl.CoreD.LoadRenderTexture(worldWidth, worldHeight);
-  final world2 = rl.CoreD.LoadRenderTexture(worldWidth, worldHeight);
+  final world1 = LoadRenderTexture(worldWidth, worldHeight);
+  final world2 = LoadRenderTexture(worldWidth, worldHeight);
 
-  rl.CoreD.BeginTextureMode(world2);
-    rl.CoreD.ClearBackground(.RAYWHITE);
-  rl.CoreD.EndTextureMode();
+  BeginTextureMode(world2);
+    ClearBackground(.RAYWHITE);
+  EndTextureMode();
 
-  var startPattern = rl.CoreD.LoadImage("./resources/game_of_life/r_pentomino.png");
-  rl.CoreD.UpdateTextureRec(
+  var startPattern = LoadImage("../resources/game_of_life/r_pentomino.png");
+  UpdateTextureRec(
     world2.texture,
     .rect(
       worldWidth/2.0, worldHeight/2.0,
@@ -85,7 +84,7 @@ void main() => Raylib((rl) {
     ),
     startPattern.data
   );
-  rl.CoreD.UnloadImage(startPattern);
+  UnloadImage(startPattern);
 
   var currentWorld = world2;
   var previousWorld = world1;
@@ -98,7 +97,7 @@ void main() => Raylib((rl) {
 
   void FreeImageToDraw() {
     if (imageToDraw != null) {
-      rl.CoreD.UnloadImage(imageToDraw!);
+      UnloadImage(imageToDraw!);
       imageToDraw = null;
     }
   }
@@ -106,7 +105,7 @@ void main() => Raylib((rl) {
   rl.setMainLoop(() {
     frame++;
 
-    final mouseWheelMove = rl.CoreD.GetMouseWheelMove();
+    final mouseWheelMove = GetMouseWheelMove();
     if (buttonZoomIn || (buttonZomOut && (zoom > 1)) || (mouseWheelMove != 0.0))
     {
       FreeImageToDraw();
@@ -126,8 +125,8 @@ void main() => Raylib((rl) {
     {
       FreeImageToDraw();
 
-      final mousePosition = rl.CoreD.GetMousePosition();
-      if (rl.CoreD.IsMouseButtonDown(.MOUSE_BUTTON_LEFT) && (mousePosition.x < windowWidth))
+      final mousePosition = GetMousePosition();
+      if (IsMouseButtonDown(.MOUSE_BUTTON_LEFT) && (mousePosition.x < windowWidth))
       {
         offsetX -= (mousePosition.x - prevMousePos.x)/zoom;
         offsetY -= (mousePosition.y - prevMousePos.y)/zoom;
@@ -143,9 +142,9 @@ void main() => Raylib((rl) {
 
       if (imageToDraw == null)
       {
-        final worldOnScreen = rl.CoreD.LoadRenderTexture(sizeInWorldX, sizeInWorldY);
-        rl.CoreD.BeginTextureMode(worldOnScreen);
-          rl.CoreD.DrawTexturePro(
+        final worldOnScreen = LoadRenderTexture(sizeInWorldX, sizeInWorldY);
+        BeginTextureMode(worldOnScreen);
+          DrawTexturePro(
             currentWorld.texture,
             .rect(
               offsetX.floorToDouble(), offsetY.floorToDouble(),
@@ -159,28 +158,28 @@ void main() => Raylib((rl) {
             0.0,
             .WHITE
           );
-        rl.CoreD.EndTextureMode();
+        EndTextureMode();
 
-        imageToDraw = rl.CoreD.LoadImageFromTexture(worldOnScreen.texture);
+        imageToDraw = LoadImageFromTexture(worldOnScreen.texture);
       
-        rl.CoreD.UnloadRenderTexture(worldOnScreen);
+        UnloadRenderTexture(worldOnScreen);
       }
 
-      final mousePosition = rl.CoreD.GetMousePosition();
-      if (rl.CoreD.IsMouseButtonDown(.MOUSE_BUTTON_LEFT) && (mousePosition.x < windowWidth) && imageToDraw != null)
+      final mousePosition = GetMousePosition();
+      if (IsMouseButtonDown(.MOUSE_BUTTON_LEFT) && (mousePosition.x < windowWidth) && imageToDraw != null)
       {
         int mouseX = (mousePosition.x + offsetDecimalX*zoom)~/zoom;
         int mouseY = (mousePosition.y + offsetDecimalY*zoom)~/zoom;
         if (mouseX >= sizeInWorldX) mouseX = sizeInWorldX - 1;
         if (mouseY >= sizeInWorldY) mouseY = sizeInWorldY - 1;
         if (firstColor == -1) {
-          firstColor = (rl.CoreD.GetImageColor(imageToDraw!, mouseX, mouseY).r < 5)? 0 : 1;
+          firstColor = (GetImageColor(imageToDraw!, mouseX, mouseY).r < 5)? 0 : 1;
         }
-        final prevColor = (rl.CoreD.GetImageColor(imageToDraw!, mouseX, mouseY).r < 5)? 0 : 1;
+        final prevColor = (GetImageColor(imageToDraw!, mouseX, mouseY).r < 5)? 0 : 1;
         
-        rl.CoreD.ImageDrawPixel(imageToDraw!, mouseX, mouseY, (firstColor != 0) ? .BLACK : .RAYWHITE);
+        ImageDrawPixel(imageToDraw!, mouseX, mouseY, (firstColor != 0) ? .BLACK : .RAYWHITE);
 
-        if (prevColor != firstColor) rl.CoreD.UpdateTextureRec(
+        if (prevColor != firstColor) UpdateTextureRec(
           currentWorld.texture,
           .rect(
             offsetX.floorToDouble(), offsetY.floorToDouble(),
@@ -198,22 +197,22 @@ void main() => Raylib((rl) {
       {
         switch (preset)
         {
-          case 0: pattern = rl.CoreD.LoadImage("./resources/game_of_life/glider.png"); break;
-          case 1: pattern = rl.CoreD.LoadImage("./resources/game_of_life/r_pentomino.png"); break;
-          case 2: pattern = rl.CoreD.LoadImage("./resources/game_of_life/acorn.png"); break;
-          case 3: pattern = rl.CoreD.LoadImage("./resources/game_of_life/spaceships.png"); break;
-          case 4: pattern = rl.CoreD.LoadImage("./resources/game_of_life/still_lifes.png"); break;
-          case 5: pattern = rl.CoreD.LoadImage("./resources/game_of_life/oscillators.png"); break;
-          case 6: pattern = rl.CoreD.LoadImage("./resources/game_of_life/puffer_train.png"); break;
-          case 7: pattern = rl.CoreD.LoadImage("./resources/game_of_life/glider_gun.png"); break;
-          case 8: pattern = rl.CoreD.LoadImage("./resources/game_of_life/breeder.png"); break;
+          case 0: pattern = LoadImage("../resources/game_of_life/glider.png"); break;
+          case 1: pattern = LoadImage("../resources/game_of_life/r_pentomino.png"); break;
+          case 2: pattern = LoadImage("../resources/game_of_life/acorn.png"); break;
+          case 3: pattern = LoadImage("../resources/game_of_life/spaceships.png"); break;
+          case 4: pattern = LoadImage("../resources/game_of_life/still_lifes.png"); break;
+          case 5: pattern = LoadImage("../resources/game_of_life/oscillators.png"); break;
+          case 6: pattern = LoadImage("../resources/game_of_life/puffer_train.png"); break;
+          case 7: pattern = LoadImage("../resources/game_of_life/glider_gun.png"); break;
+          case 8: pattern = LoadImage("../resources/game_of_life/breeder.png"); break;
           default: throw UnimplementedError();
         }
-        rl.CoreD.BeginTextureMode(currentWorld);
-          rl.CoreD.ClearBackground(.RAYWHITE);
-        rl.CoreD.EndTextureMode();
+        BeginTextureMode(currentWorld);
+          ClearBackground(.RAYWHITE);
+        EndTextureMode();
         
-        rl.CoreD.UpdateTextureRec(
+        UpdateTextureRec(
           currentWorld.texture,
           .rect(
             worldWidth*presetPatterns[preset].position.x - pattern.width/2.0,
@@ -224,21 +223,21 @@ void main() => Raylib((rl) {
           pattern.data,
         );
       } else {
-        pattern = rl.CoreD.GenImageColor(worldWidth~/randomTiles, worldHeight~/randomTiles, .RAYWHITE);
+        pattern = GenImageColor(worldWidth~/randomTiles, worldHeight~/randomTiles, .RAYWHITE);
 
         for (int i = 0; i < randomTiles; i++)
         {
           for (int j = 0; j < randomTiles; j++)
           {
-            rl.CoreD.ImageClearBackground(pattern, .RAYWHITE);
+            ImageClearBackground(pattern, .RAYWHITE);
             for (int x = 0; x < pattern.width; x++)
             {
               for (int y = 0; y < pattern.height; y++)
               {
-                if (rl.CoreD.GetRandomValue(0, 100) < 15) rl.CoreD.ImageDrawPixel(pattern, x, y, .BLACK);
+                if (GetRandomValue(0, 100) < 15) ImageDrawPixel(pattern, x, y, .BLACK);
               }
             }
-            rl.CoreD.UpdateTextureRec(
+            UpdateTextureRec(
               currentWorld.texture,
               .rect(
                 pattern.width*i, pattern.height*j,
@@ -250,7 +249,7 @@ void main() => Raylib((rl) {
         }
       }
 
-      rl.CoreD.UnloadImage(pattern);
+      UnloadImage(pattern);
       
       mode = MODE_PAUSE;
       offsetX = worldWidth*presetPatterns[preset].position.x - windowWidth/zoom/2.0;
@@ -268,9 +267,9 @@ void main() => Raylib((rl) {
       currentWorld = previousWorld;
       previousWorld = tempWorld;
 
-      rl.CoreD.BeginTextureMode(currentWorld);
-        rl.CoreD.BeginShaderMode(shdrGameOfLife);
-          rl.CoreD.DrawTexturePro(
+      BeginTextureMode(currentWorld);
+        BeginShaderMode(shdrGameOfLife);
+          DrawTexturePro(
             previousWorld.texture,
             worldRectSource,
             worldRectDest,
@@ -278,13 +277,13 @@ void main() => Raylib((rl) {
             0.0,
             .RAYWHITE
           );
-        rl.CoreD.EndShaderMode();
-      rl.CoreD.EndTextureMode();
+        EndShaderMode();
+      EndTextureMode();
     }
 
-    rl.CoreD.BeginDrawing();
+    BeginDrawing();
         
-      rl.CoreD.DrawTexturePro(
+      DrawTexturePro(
         currentWorld.texture,
         .rect(
           offsetX, offsetY,
@@ -296,45 +295,42 @@ void main() => Raylib((rl) {
         .WHITE
       );
 
-      rl.CoreD.DrawLine(windowWidth, 0, windowWidth, screenHeight, .color(218, 218, 218, 255));
-      rl.CoreD.DrawRectangle(windowWidth, 0, screenWidth - windowWidth, screenHeight, .color(232, 232, 232, 255));
+      DrawLine(windowWidth, 0, windowWidth, screenHeight, .color(218, 218, 218, 255));
+      DrawRectangle(windowWidth, 0, screenWidth - windowWidth, screenHeight, .color(232, 232, 232, 255));
 
-      rl.CoreD.DrawText("Conway's", 704, 4, 20, .DARKBLUE);
-      rl.CoreD.DrawText(" game of", 704, 19, 20, .DARKBLUE);
-      rl.CoreD.DrawText("  life", 708, 34, 20, .DARKBLUE);
-      rl.CoreD.DrawText("in raylib", 757, 42, 6, .BLACK);
+      DrawText("Conway's", 704, 4, 20, .DARKBLUE);
+      DrawText(" game of", 704, 19, 20, .DARKBLUE);
+      DrawText("  life", 708, 34, 20, .DARKBLUE);
+      DrawText("in raylib", 757, 42, 6, .BLACK);
 
-      rl.CoreD.DrawText("Presets", 710, 58, 8, .GRAY);
+      DrawText("Presets", 710, 58, 8, .GRAY);
       preset = -1;
       for (int i = 0; i < presetPatterns.length; i++)
-        if (rl.GuiD.GuiButton(.rect(710.0, 70.0 + 18*i, 80.0, 16.0), presetPatterns[i].name) != 0)
+        if (GuiButton(.rect(710.0, 70.0 + 18*i, 80.0, 16.0), presetPatterns[i].name) != 0)
           preset = i;
 
-      {
-        final (result, newValue) = rl.GuiD.GuiToggleGroup(
-          .rect(710, 258, 80, 16),
-          "Run\nPause\nDraw",
-          mode,
-        );
-        mode = newValue;
-      }
+      (_, mode) = GuiToggleGroup(
+        .rect(710, 258, 80, 16),
+        "Run\nPause\nDraw",
+        mode,
+      );
 
-      rl.CoreD.DrawText(
+      DrawText(
         "Zoom: $zoom",
         710, 316, 8, .GRAY
       );
-      buttonZoomIn = rl.GuiD.GuiButton(.rect(710, 328, 80, 16), "Zoom in") != 0;
-      buttonZomOut = rl.GuiD.GuiButton(.rect(710, 346, 80, 16), "Zoom out") != 0;
+      buttonZoomIn = GuiButton(.rect(710, 328, 80, 16), "Zoom in") != 0;
+      buttonZomOut = GuiButton(.rect(710, 346, 80, 16), "Zoom out") != 0;
 
-      rl.CoreD.DrawText(
+      DrawText(
         "Speed: $framesPerStep frame${(framesPerStep > 1)? "s" : ""}",
         710, 370, 8, .GRAY
       );
-      buttonFaster = rl.GuiD.GuiButton(.rect(710, 382, 80, 16), "Faster") != 0;
-      buttonSlower = rl.GuiD.GuiButton(.rect(710, 400, 80, 16), "Slower") != 0;
+      buttonFaster = GuiButton(.rect(710, 382, 80, 16), "Faster") != 0;
+      buttonSlower = GuiButton(.rect(710, 400, 80, 16), "Slower") != 0;
 
-      rl.CoreD.DrawFPS(712, 426);
+      DrawFPS(712, 426);
 
-    rl.CoreD.EndDrawing();
+    EndDrawing();
   });
 });

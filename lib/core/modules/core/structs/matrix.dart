@@ -31,9 +31,6 @@ class MatrixD extends StructDLiteralWeb<MatrixD> with MatrixBase<
     m8, m9, m10, m11,
     m12, m13, m14, m15;
 
-  @override
-  int get wasmByteSize => byteSize;
-
   MatrixD({
     super.originalPointer,
     this.m0 = 0, this.m1 = 0, this.m2 = 0, this.m3 = 0,

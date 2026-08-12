@@ -78,9 +78,6 @@ class ImageD extends StructDWeb<ImageD> with ImageBase<ImageD> {
   @override
   int frameCount = 1; // normal image has only 1 frame
 
-  @override
-  int get wasmByteSize => byteSize;
-
   ImageD({
     super.originalPointer,
     Uint8List? data,

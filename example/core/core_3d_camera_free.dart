@@ -1,15 +1,14 @@
 // Example dartified, see original for reference:
 // https://github.com/raysan5/raylib/blob/master/examples/core/core_3d_camera_free.c
-import 'package:raylib_dartified_web/raylib_dartified_web.dart';
+import '../base_dart.dart';
 
 const int screenWidth = 800;
 const int screenHeight = 450;
 
 void main() => Raylib((rl) {
-  rl.CoreD.InitWindow(screenWidth, screenHeight, 'core_3d_camera_free');
-  rl.CoreD.SetWindowMonitor(0);
-  rl.CoreD.SetTargetFPS(60);
-  rl.CoreD.DisableCursor();
+  InitWindow(screenWidth, screenHeight, "core_3d_camera_free");
+  SetTargetFPS(60);
+  DisableCursor();
 
   final camera = Camera3DD(
     position: .vec3(10, 10, 10),
@@ -22,44 +21,44 @@ void main() => Raylib((rl) {
   final Vector3D cubePosition = .zero();
 
   rl.setMainLoop(() {
-    rl.CoreD.UpdateCamera(camera, .CAMERA_FREE);
+    UpdateCamera(camera, .CAMERA_FREE);
 
-    if (rl.CoreD.IsKeyPressed(.KEY_Z))
+    if (IsKeyPressed(.KEY_Z))
       camera.target.set(0, 0, 0);
 
-    rl.CoreD.BeginDrawing();
+    BeginDrawing();
 
-      rl.CoreD.ClearBackground(.RAYWHITE);
+      ClearBackground(.RAYWHITE);
 
-      rl.CoreD.BeginMode3D(camera);
+      BeginMode3D(camera);
 
-        rl.CoreD.DrawCube(cubePosition, 2.0, 2.0, 2.0, .RED);
-        rl.CoreD.DrawCubeWires(cubePosition, 2.0, 2.0, 2.0, .MAROON);
+        DrawCube(cubePosition, 2.0, 2.0, 2.0, .RED);
+        DrawCubeWires(cubePosition, 2.0, 2.0, 2.0, .MAROON);
 
-        rl.CoreD.DrawGrid(10, 1.0);
+        DrawGrid(10, 1.0);
 
-      rl.CoreD.EndMode3D();
+      EndMode3D();
 
-      rl.CoreD.DrawRectangle(10, 10, 320, 93, rl.CoreD.Fade(.SKYBLUE, 0.5));
-      rl.CoreD.DrawRectangleLines(10, 10, 320, 93, .BLUE);
+      DrawRectangle(10, 10, 320, 93, Fade(.SKYBLUE, 0.5));
+      DrawRectangleLines(10, 10, 320, 93, .BLUE);
 
-      rl.CoreD.DrawText(
+      DrawText(
         "Free camera default controls:",
         20, 20, 10, .BLACK
       );
-      rl.CoreD.DrawText(
+      DrawText(
         "- Mouse Wheel to Zoom in-out",
         40, 40, 10, .DARKGRAY
       );
-      rl.CoreD.DrawText(
+      DrawText(
         "- Mouse Wheel Pressed to Pan",
         40, 60, 10, .DARKGRAY
       );
-      rl.CoreD.DrawText(
+      DrawText(
         "- Z to zoom to (0, 0, 0)",
         40, 80, 10, .DARKGRAY
       );
 
-    rl.CoreD.EndDrawing();
+    EndDrawing();
   });
 });

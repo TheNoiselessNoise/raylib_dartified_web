@@ -34,9 +34,6 @@ class AudioStreamD extends StructDWeb<AudioStreamD> with AudioStreamBase<AudioSt
   @override
   int channels;
 
-  @override
-  int get wasmByteSize => byteSize;
-
   AudioStreamD({
     super.originalPointer,
     this.sampleRate = 0,

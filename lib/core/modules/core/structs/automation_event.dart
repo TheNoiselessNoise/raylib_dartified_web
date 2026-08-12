@@ -48,9 +48,6 @@ class AutomationEventD extends StructDWeb<AutomationEventD> with AutomationEvent
     _params.inner = value;
   }
 
-  @override
-  int get wasmByteSize => byteSize;
-
   AutomationEventD({
     super.originalPointer,
     int frame = 0,

@@ -1,17 +1,16 @@
 // Example dartified, see original for reference:
 // https://github.com/raysan5/raylib/blob/master/examples/shaders/shaders_vertex_displacement.c
 // WARNING: expects resources from the raylib source
-import 'package:raylib_dartified_web/raylib_dartified_web.dart';
+import '../base_dart.dart';
 
 const String GLSL_VERSION = '300es';
 const int screenWidth = 800;
 const int screenHeight = 450;
 
 void main() => Raylib((rl) {
-  rl.CoreD.InitWindow(screenWidth, screenHeight, "shaders_vertex_displacement");
-  rl.CoreD.SetWindowMonitor(0);
-  rl.CoreD.SetTargetFPS(60);
-  rl.CoreD.DisableCursor();
+  InitWindow(screenWidth, screenHeight, "shaders_vertex_displacement");
+  SetTargetFPS(60);
+  DisableCursor();
 
   final camera = Camera3DD(
     position: .vec3(20.0, 5.0, -20.0),
@@ -21,60 +20,60 @@ void main() => Raylib((rl) {
     projection: .CAMERA_PERSPECTIVE,
   );
 
-  final shader = rl.CoreD.LoadShader(
-    "./resources/shaders/glsl$GLSL_VERSION/vertex_displacement.vs",
-    "./resources/shaders/glsl$GLSL_VERSION/vertex_displacement.fs",
+  final shader = LoadShader(
+    "../resources/shaders/glsl$GLSL_VERSION/vertex_displacement.vs",
+    "../resources/shaders/glsl$GLSL_VERSION/vertex_displacement.fs",
   );
 
-  final perlinNoiseImage = rl.CoreD.GenImagePerlinNoise(512, 512, 0, 0, 1.0);
-  final perlinNoiseMap = rl.CoreD.LoadTextureFromImage(perlinNoiseImage);
-  rl.CoreD.UnloadImage(perlinNoiseImage);
+  final perlinNoiseImage = GenImagePerlinNoise(512, 512, 0, 0, 1.0);
+  final perlinNoiseMap = LoadTextureFromImage(perlinNoiseImage);
+  UnloadImage(perlinNoiseImage);
 
-  int perlinNoiseMapLoc = rl.CoreD.GetShaderLocation(shader, "perlinNoiseMap");
-  rl.RlglD.rlEnableShader(shader.id);
-  rl.RlglD.rlActiveTextureSlot(1);
-  rl.RlglD.rlEnableTexture(perlinNoiseMap.id);
-  rl.RlglD.rlSetUniformSampler(perlinNoiseMapLoc, 1);
+  int perlinNoiseMapLoc = GetShaderLocation(shader, "perlinNoiseMap");
+  rlEnableShader(shader.id);
+  rlActiveTextureSlot(1);
+  rlEnableTexture(perlinNoiseMap.id);
+  rlSetUniformSampler(perlinNoiseMapLoc, 1);
   
-  final planeMesh = rl.CoreD.GenMeshPlane(50, 50, 50, 50);
-  final planeModel = rl.CoreD.LoadModelFromMesh(planeMesh);
+  final planeMesh = GenMeshPlane(50, 50, 50, 50);
+  final planeModel = LoadModelFromMesh(planeMesh);
   planeModel.materials[0].shader = shader;
 
   double time = 0.0;
 
   rl.setMainLoop(() {
-    rl.CoreD.UpdateCamera(camera, .CAMERA_FREE);
+    UpdateCamera(camera, .CAMERA_FREE);
 
-    time += rl.CoreD.GetFrameTime();
-    rl.CoreD.SetShaderValue(shader,
-      rl.CoreD.GetShaderLocation(shader, "time"),
+    time += GetFrameTime();
+    SetShaderValue(shader,
+      GetShaderLocation(shader, "time"),
       [time],
       .SHADER_UNIFORM_FLOAT,
     );
 
-    rl.CoreD.BeginDrawing();
+    BeginDrawing();
 
-      rl.CoreD.ClearBackground(.RAYWHITE);
+      ClearBackground(.RAYWHITE);
 
-      rl.CoreD.BeginMode3D(camera);
+      BeginMode3D(camera);
 
-        rl.CoreD.BeginShaderMode(shader);
-          rl.CoreD.DrawModel(
+        BeginShaderMode(shader);
+          DrawModel(
             planeModel,
             .vec3(0.0, 0.0, 0.0),
             1.0,
             .color(255, 255, 255, 255),
           );
-        rl.CoreD.EndShaderMode();
+        EndShaderMode();
 
-      rl.CoreD.EndMode3D();
+      EndMode3D();
 
-      rl.CoreD.DrawText(
+      DrawText(
         "Vertex displacement",
         10, 10, 20, .DARKGRAY
       );
-      rl.CoreD.DrawFPS(10, 40);
+      DrawFPS(10, 40);
 
-    rl.CoreD.EndDrawing();
+    EndDrawing();
   });
 });

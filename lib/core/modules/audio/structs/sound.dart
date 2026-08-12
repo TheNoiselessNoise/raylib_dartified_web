@@ -24,9 +24,6 @@ class SoundD extends StructDWeb<SoundD> with SoundBase<
   @override
   int frameCount;
 
-  @override
-  int get wasmByteSize => byteSize;
-
   SoundD({
     super.originalPointer,
     AudioStreamD? stream,

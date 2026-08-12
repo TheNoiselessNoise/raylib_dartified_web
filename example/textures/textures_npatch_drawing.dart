@@ -1,17 +1,16 @@
 // Example dartified, see original for reference:
 // https://github.com/raysan5/raylib/blob/master/examples/textures/textures_npatch_drawing.c
 // WARNING: expects resources from the raylib source
-import 'package:raylib_dartified_web/raylib_dartified_web.dart';
+import '../base_dart.dart';
 
 const int screenWidth = 800;
 const int screenHeight = 450;
 
 void main() => Raylib((rl) {
-  rl.CoreD.InitWindow(screenWidth, screenHeight, "textures_npatch_drawing");
-  rl.CoreD.SetWindowMonitor(0);
-  rl.CoreD.SetTargetFPS(60);
+  InitWindow(screenWidth, screenHeight, "textures_npatch_drawing");
+  SetTargetFPS(60);
 
-  final nPatchTexture = rl.CoreD.LoadTexture("./resources/ninepatch_button.png");
+  final nPatchTexture = LoadTexture("../resources/ninepatch_button.png");
 
   Vector2D mousePosition = .zero();
   final Vector2D origin = .zero();
@@ -46,7 +45,7 @@ void main() => Raylib((rl) {
   );
 
   rl.setMainLoop(() {
-    mousePosition = rl.CoreD.GetMousePosition();
+    mousePosition = GetMousePosition();
 
     dstRec1.width = mousePosition.x - dstRec1.x;
     dstRec1.height = mousePosition.y - dstRec1.y;
@@ -64,27 +63,27 @@ void main() => Raylib((rl) {
     if (dstRecH.width < 1.0) dstRecH.width = 1.0;
     if (dstRecV.height < 1.0) dstRecV.height = 1.0;
 
-    rl.CoreD.BeginDrawing();
+    BeginDrawing();
 
-      rl.CoreD.ClearBackground(.RAYWHITE);
+      ClearBackground(.RAYWHITE);
 
-      rl.CoreD.DrawTextureNPatch(nPatchTexture, ninePatchInfo2, dstRec2, origin, 0.0, .WHITE);
-      rl.CoreD.DrawTextureNPatch(nPatchTexture, ninePatchInfo1, dstRec1, origin, 0.0, .WHITE);
-      rl.CoreD.DrawTextureNPatch(nPatchTexture, h3PatchInfo, dstRecH, origin, 0.0, .WHITE);
-      rl.CoreD.DrawTextureNPatch(nPatchTexture, v3PatchInfo, dstRecV, origin, 0.0, .WHITE);
+      DrawTextureNPatch(nPatchTexture, ninePatchInfo2, dstRec2, origin, 0.0, .WHITE);
+      DrawTextureNPatch(nPatchTexture, ninePatchInfo1, dstRec1, origin, 0.0, .WHITE);
+      DrawTextureNPatch(nPatchTexture, h3PatchInfo, dstRecH, origin, 0.0, .WHITE);
+      DrawTextureNPatch(nPatchTexture, v3PatchInfo, dstRecV, origin, 0.0, .WHITE);
 
-      rl.CoreD.DrawRectangleLines(5, 88, 74, 266, .BLUE);
-      rl.CoreD.DrawTexture(nPatchTexture, 10, 93, .WHITE);
-      rl.CoreD.DrawText(
+      DrawRectangleLines(5, 88, 74, 266, .BLUE);
+      DrawTexture(nPatchTexture, 10, 93, .WHITE);
+      DrawText(
         "TEXTURE",
         15, 360, 10, .DARKGRAY
       );
 
-      rl.CoreD.DrawText(
+      DrawText(
         "Move the mouse to stretch or shrink the n-patches",
         10, 20, 20, .DARKGRAY
       );
 
-    rl.CoreD.EndDrawing();
+    EndDrawing();
   });
 });

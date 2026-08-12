@@ -27,9 +27,6 @@ class QuaternionD extends StructDLiteralWeb<QuaternionD> with QuaternionBase<
   @override
   double x, y, z, w;
 
-  @override
-  int get wasmByteSize => byteSize;
-
   QuaternionD({
     super.originalPointer,
     this.x = 0,

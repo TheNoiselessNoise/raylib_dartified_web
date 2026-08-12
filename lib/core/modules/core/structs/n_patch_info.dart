@@ -44,9 +44,6 @@ class NPatchInfoD extends StructDLiteralWeb<NPatchInfoD> with NPatchInfoBase<
   @override
   NPatchLayout layout;
 
-  @override
-  int get wasmByteSize => byteSize;
-
   NPatchInfoD({
     super.originalPointer,
     RectangleD? source,

@@ -32,9 +32,6 @@ class TransformD extends StructDLiteralWeb<TransformD> with TransformBase<
   @override
   Vector3D scale;
 
-  @override
-  int get wasmByteSize => byteSize;
-
   TransformD({
     super.originalPointer,
     Vector3D? translation,

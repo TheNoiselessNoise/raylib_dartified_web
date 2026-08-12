@@ -1,16 +1,15 @@
 // Example dartified, see original for reference:
 // https://github.com/raysan5/raylib/blob/master/examples/core/core_2d_camera.c
 import 'dart:math' as math;
-import 'package:raylib_dartified_web/raylib_dartified_web.dart';
+import '../base_dart.dart';
 
 const int screenWidth = 800;
 const int screenHeight = 450;
 const int MAX_BUILDINGS = 100;
 
 void main() => Raylib((rl) {
-  rl.CoreD.InitWindow(screenWidth, screenHeight, 'core_2d_camera');
-  rl.CoreD.SetWindowMonitor(0);
-  rl.CoreD.SetTargetFPS(60);
+  InitWindow(screenWidth, screenHeight, "core_2d_camera");
+  SetTargetFPS(60);
 
   final RectangleD player = .rect(400, 280, 40, 40);
   final buildings = <RectangleD>[];
@@ -18,8 +17,8 @@ void main() => Raylib((rl) {
 
   int spacing = 0;
   for (int i = 0; i < MAX_BUILDINGS; i++) {
-    final width = rl.CoreD.GetRandomValue(50, 200);
-    final height = rl.CoreD.GetRandomValue(100, 800);
+    final width = GetRandomValue(50, 200);
+    final height = GetRandomValue(100, 800);
     final y = screenHeight - 130 - height;
     final x = -6000 + spacing;
 
@@ -28,9 +27,9 @@ void main() => Raylib((rl) {
     spacing += width.toInt();
 
     colors.add(.color(
-      rl.CoreD.GetRandomValue(200, 240),
-      rl.CoreD.GetRandomValue(200, 240),
-      rl.CoreD.GetRandomValue(200, 240),
+      GetRandomValue(200, 240),
+      GetRandomValue(200, 240),
+      GetRandomValue(200, 240),
       255,
     ));
   }
@@ -43,17 +42,17 @@ void main() => Raylib((rl) {
   );
 
   rl.setMainLoop(() {
-    if (rl.CoreD.IsKeyDown(.KEY_RIGHT)) {
+    if (IsKeyDown(.KEY_RIGHT)) {
       player.x += 2;
-    } else if (rl.CoreD.IsKeyDown(.KEY_LEFT)) {
+    } else if (IsKeyDown(.KEY_LEFT)) {
       player.x -= 2;
     }
 
     camera.target.set(player.x + 20, player.y + 20);
 
-    if (rl.CoreD.IsKeyDown(.KEY_A)) {
+    if (IsKeyDown(.KEY_A)) {
       camera.rotation--;
-    } else if (rl.CoreD.IsKeyDown(.KEY_S)) {
+    } else if (IsKeyDown(.KEY_S)) {
       camera.rotation++;
     }
 
@@ -63,7 +62,7 @@ void main() => Raylib((rl) {
       camera.rotation = -40;
     }
 
-    camera.zoom = math.exp(math.log(camera.zoom) + (rl.CoreD.GetMouseWheelMove()*0.1));
+    camera.zoom = math.exp(math.log(camera.zoom) + (GetMouseWheelMove()*0.1));
 
     if (camera.zoom > 3.0) {
       camera.zoom = 3.0;
@@ -71,54 +70,54 @@ void main() => Raylib((rl) {
       camera.zoom = 0.1;
     }
 
-    if (rl.CoreD.IsKeyPressed(.KEY_R)) {
+    if (IsKeyPressed(.KEY_R)) {
       camera.zoom = 1;
       camera.rotation = 0;
     }
 
-    rl.CoreD.BeginDrawing();
+    BeginDrawing();
 
-    rl.CoreD.ClearBackground(.RAYWHITE);
+    ClearBackground(.RAYWHITE);
 
-      rl.CoreD.BeginMode2D(camera);
-        rl.CoreD.DrawRectangle(-6000, 320, 13000, 8000, .DARKGRAY);
+      BeginMode2D(camera);
+        DrawRectangle(-6000, 320, 13000, 8000, .DARKGRAY);
 
         for (int i = 0; i < MAX_BUILDINGS; i++) {
-          rl.CoreD.DrawRectangleRec(buildings[i], colors[i]);
+          DrawRectangleRec(buildings[i], colors[i]);
         }
 
-        rl.CoreD.DrawRectangleRec(player, .RED);
+        DrawRectangleRec(player, .RED);
 
-        rl.CoreD.DrawLine(
+        DrawLine(
           camera.target.x, -screenHeight*10,
           camera.target.x, screenHeight*10,
           .GREEN,
         );
 
-        rl.CoreD.DrawLine(
+        DrawLine(
           -screenWidth*10, camera.target.y,
           screenWidth*10, camera.target.y,
           .GREEN,
         );
 
-      rl.CoreD.EndMode2D();
+      EndMode2D();
 
-    rl.CoreD.DrawText("SCREEN AREA", 640, 10, 20, .RED);
+    DrawText("SCREEN AREA", 640, 10, 20, .RED);
 
-    rl.CoreD.DrawRectangle(0, 0, screenWidth, 5, .RED);
-    rl.CoreD.DrawRectangle(0, 5, 5, screenHeight - 10, .RED);
-    rl.CoreD.DrawRectangle(screenWidth - 5, 5, 5, screenHeight - 10, .RED);
-    rl.CoreD.DrawRectangle(0, screenHeight - 5, screenWidth, 5, .RED);
+    DrawRectangle(0, 0, screenWidth, 5, .RED);
+    DrawRectangle(0, 5, 5, screenHeight - 10, .RED);
+    DrawRectangle(screenWidth - 5, 5, 5, screenHeight - 10, .RED);
+    DrawRectangle(0, screenHeight - 5, screenWidth, 5, .RED);
 
-    rl.CoreD.DrawRectangle(10, 10, 250, 113, rl.CoreD.Fade(.SKYBLUE, 0.5));
-    rl.CoreD.DrawRectangleLines(10, 10, 250, 113, .BLUE);
+    DrawRectangle(10, 10, 250, 113, Fade(.SKYBLUE, 0.5));
+    DrawRectangleLines(10, 10, 250, 113, .BLUE);
 
-    rl.CoreD.DrawText("Free 2D camera controls:", 20, 20, 10, .BLACK);
-    rl.CoreD.DrawText("- Right/Left to move player", 40, 40, 10, .DARKGRAY);
-    rl.CoreD.DrawText("- Mouse Wheel to Zoom in-out", 40, 60, 10, .DARKGRAY);
-    rl.CoreD.DrawText("- A / S to Rotate", 40, 80, 10, .DARKGRAY);
-    rl.CoreD.DrawText("- R to reset Zoom and Rotation", 40, 100, 10, .DARKGRAY);
+    DrawText("Free 2D camera controls:", 20, 20, 10, .BLACK);
+    DrawText("- Right/Left to move player", 40, 40, 10, .DARKGRAY);
+    DrawText("- Mouse Wheel to Zoom in-out", 40, 60, 10, .DARKGRAY);
+    DrawText("- A / S to Rotate", 40, 80, 10, .DARKGRAY);
+    DrawText("- R to reset Zoom and Rotation", 40, 100, 10, .DARKGRAY);
 
-    rl.CoreD.EndDrawing();
+    EndDrawing();
   });
 });

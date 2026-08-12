@@ -1,5 +1,62 @@
 part of '../../raylib_dartified_web.dart';
 
+// TraceLogCallback
+
+typedef TraceLogCallbackFunctionD = void Function(
+  int logLevel,
+  int textPtr,
+  int argsPtr,
+);
+
+typedef TraceLogCallbackFriendlyFunctionD = void Function(
+  TraceLogLevel logLevel,
+  String text,
+);
+
+abstract class TraceLogCallbackD extends CallbackD<
+  TraceLogCallbackFunctionD
+> with TraceLogCallbackBase {
+  TraceLogCallbackD([super.name]);
+
+  static final List<TraceLogCallbackD> _registry = [];
+
+  @override
+  @nonVirtual
+  get registry => _registry;
+
+  @override
+  JSFunction get jsFunction => function.toJS;
+
+  @override
+  String get signature => 'vipp';
+
+  static void disposeRegistry() => CallbackD.disposeRegistry(_registry);
+
+  factory TraceLogCallbackD.function(TraceLogCallbackFunctionD f, {String? name})
+    => _TraceLogCallbackD(f, name: name);
+
+  factory TraceLogCallbackD.friendly(TraceLogCallbackFriendlyFunctionD f, {String? name})
+    => _TraceLogCallbackFriendlyD(f, name: name);
+}
+
+class _TraceLogCallbackD extends TraceLogCallbackD {
+  final TraceLogCallbackFunctionD _f;
+  _TraceLogCallbackD(this._f, {String? name}) : super(name);
+
+  @override
+  TraceLogCallbackFunctionD get function => _f;
+}
+
+class _TraceLogCallbackFriendlyD extends TraceLogCallbackD {
+  final TraceLogCallbackFriendlyFunctionD _f;
+  _TraceLogCallbackFriendlyD(this._f, {String? name}) : super(name);
+
+  @override
+  TraceLogCallbackFunctionD get function => (int logLevel, int textPtr, int argsPtr) {
+    return _f(.fromValue(logLevel), WasmStringPointer(textPtr).ref);
+  };
+}
+
 // LoadFileDataCallback
 
 typedef LoadFileDataCallbackFunctionD = int Function(

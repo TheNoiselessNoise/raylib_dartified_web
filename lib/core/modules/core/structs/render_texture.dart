@@ -29,9 +29,6 @@ class RenderTextureD extends StructDLiteralWeb<RenderTextureD> with RenderTextur
   @override
   TextureD depth;
 
-  @override
-  int get wasmByteSize => byteSize;
-
   RenderTextureD({
     super.originalPointer,
     this.id = 0,

@@ -27,9 +27,6 @@ class Vector4D extends StructDLiteralWeb<Vector4D> with Vector4Base<
   @override
   double x, y, z, w;
 
-  @override
-  int get wasmByteSize => byteSize;
-
   Vector4D({
     super.originalPointer,
     this.x = 0,

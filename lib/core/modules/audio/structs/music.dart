@@ -38,9 +38,6 @@ class MusicD extends StructDWeb<MusicD> with MusicBase<
 
   int _ctxDataPtr = 0;
 
-  @override
-  int get wasmByteSize => byteSize;
-
   MusicD({
     super.originalPointer,
     AudioStreamD? stream,

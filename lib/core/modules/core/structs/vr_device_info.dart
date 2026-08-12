@@ -121,9 +121,6 @@ class VrDeviceInfoD extends StructDWeb<VrDeviceInfoD> with VrDeviceInfoBase<VrDe
     _chromaAbCorrection.inner = value;
   }
 
-  @override
-  int get wasmByteSize => byteSize;
-
   VrDeviceInfoD({
     super.originalPointer,
     int hResolution = 0,

@@ -1,10 +1,5 @@
 part of 'raylib_dartified_web.dart';
 
-class DoNotValidate {
-  final String reason;
-  const DoNotValidate([this.reason = '']);
-}
-
 mixin FEnum on Enum {
   int get value;
 

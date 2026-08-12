@@ -1,6 +1,6 @@
 // Example dartified, see original for reference:
 // https://github.com/raysan5/raylib/blob/master/examples/shapes/shapes_pie_chart.c
-import 'package:raylib_dartified_web/raylib_dartified_web.dart';
+import '../base_dart.dart';
 import 'dart:math' as math;
 
 const int screenWidth = 800;
@@ -8,9 +8,8 @@ const int screenHeight = 450;
 const int MAX_PIE_SLICES = 7;
 
 void main() => Raylib((rl) {
-  rl.CoreD.InitWindow(screenWidth, screenHeight, "shapes_pie_chart");
-  rl.CoreD.SetWindowMonitor(0);
-  rl.CoreD.SetTargetFPS(60);
+  InitWindow(screenWidth, screenHeight, "shapes_pie_chart");
+  SetTargetFPS(60);
 
   double donutInnerRadius = 25;
   var sliceCount = MAX_PIE_SLICES;
@@ -55,8 +54,8 @@ void main() => Raylib((rl) {
     for (int i = 0; i < sliceCount; i++) totalValue += values[i];
 
     hoveredSlice = -1;
-    final mousePos = rl.CoreD.GetMousePosition();
-    if (rl.CoreD.CheckCollisionPointRec(mousePos, canvas))
+    final mousePos = GetMousePosition();
+    if (CheckCollisionPointRec(mousePos, canvas))
     {
       final dx = mousePos.x - center.x;
       final dy = mousePos.y - center.y;
@@ -83,8 +82,8 @@ void main() => Raylib((rl) {
       }
     }
 
-    rl.CoreD.BeginDrawing();
-      rl.CoreD.ClearBackground(.RAYWHITE);
+    BeginDrawing();
+      ClearBackground(.RAYWHITE);
 
       double startAngle = 0.0;
       for (int i = 0; i < sliceCount; i++)
@@ -92,12 +91,12 @@ void main() => Raylib((rl) {
         final sweepAngle = (totalValue > 0)? (values[i]/totalValue)*360.0 : 0.0;
         final midAngle = startAngle + sweepAngle/2.0;
 
-        final color = rl.CoreD.ColorFromHSV(i/sliceCount*360.0, 0.75, 0.9);
+        final color = ColorFromHSV(i/sliceCount*360.0, 0.75, 0.9);
         double currentRadius = radius;
 
         if (i == hoveredSlice) currentRadius += 20.0;
 
-        rl.CoreD.DrawCircleSector(center, currentRadius, startAngle, startAngle + sweepAngle, 120, color);
+        DrawCircleSector(center, currentRadius, startAngle, startAngle + sweepAngle, 120, color);
 
         if (values[i] > 0)
         {
@@ -107,70 +106,55 @@ void main() => Raylib((rl) {
           else if (showPercentages) labelText = "${((values[i]/totalValue)*100).f0}%";
           else labelText = labels[i];
 
-          final textSize = rl.CoreD.MeasureTextEx(rl.CoreD.GetFontDefault(), labelText, 20, 1);
+          final textSize = MeasureTextEx(GetFontDefault(), labelText, 20, 1);
           final labelRadius = radius*0.7;
           final Vector2D labelPos = .vec2(
             center.x + math.cos(midAngle*rl.DEG2RAD)*labelRadius - textSize.x/2.0,
             center.y + math.sin(midAngle*rl.DEG2RAD)*labelRadius - textSize.y/2.0
           );
-          rl.CoreD.DrawText(
+          DrawText(
             labelText,
             labelPos.x, labelPos.y, 20, .WHITE
           );
         }
 
-        if (showDonut) rl.CoreD.DrawCircleV(center, donutInnerRadius, .RAYWHITE);
+        if (showDonut) DrawCircleV(center, donutInnerRadius, .RAYWHITE);
 
         startAngle += sweepAngle;
       }
 
-      rl.CoreD.DrawRectangleRec(panelRect, rl.CoreD.Fade(.LIGHTGRAY, 0.5));
-      rl.CoreD.DrawRectangleLinesEx(panelRect, 1.0, .GRAY);
+      DrawRectangleRec(panelRect, Fade(.LIGHTGRAY, 0.5));
+      DrawRectangleLinesEx(panelRect, 1.0, .GRAY);
 
-      {
-        final (result, newValue) = rl.GuiD.GuiSpinner(
-          .rect(panelPos.x + 95, panelPos.y + 12, 125, 25),
-          "Slices ", sliceCount, 1, MAX_PIE_SLICES, false
-        );
-        sliceCount = newValue;
-      }
+      (_, sliceCount) = GuiSpinner(
+        .rect(panelPos.x + 95, panelPos.y + 12, 125, 25),
+        "Slices ", sliceCount, 1, MAX_PIE_SLICES, false
+      );
 
-      {
-        final (result, newValue) = rl.GuiD.GuiCheckBox(
-          .rect(panelPos.x + 20, panelPos.y + 12 + 40, 20, 20),
-          "Show Values", showValues
-        );
-        showValues = newValue;
-      }
+      (_, showValues) = GuiCheckBox(
+        .rect(panelPos.x + 20, panelPos.y + 12 + 40, 20, 20),
+        "Show Values", showValues
+      );
 
-      {
-        final (result, newValue) = rl.GuiD.GuiCheckBox(
-          .rect(panelPos.x + 20, panelPos.y + 12 + 70, 20, 20),
-          "Show Percentages", showPercentages
-        );
-        showPercentages = newValue;
-      }
+      (_, showPercentages) = GuiCheckBox(
+        .rect(panelPos.x + 20, panelPos.y + 12 + 70, 20, 20),
+        "Show Percentages", showPercentages
+      );
 
-      {
-        final (result, newValue) = rl.GuiD.GuiCheckBox(
-          .rect(panelPos.x + 20, panelPos.y + 12 + 100, 20, 20),
-          "Make Donut", showDonut
-        );
-        showDonut = newValue;
-      }
+      (_, showDonut) = GuiCheckBox(
+        .rect(panelPos.x + 20, panelPos.y + 12 + 100, 20, 20),
+        "Make Donut", showDonut
+      );
 
-      if (!showDonut) rl.GuiD.GuiDisable();
+      if (!showDonut) GuiDisable();
       
-      {
-        final (result, newValue) = rl.GuiD.GuiSliderBar(
-          .rect(panelPos.x + 80, panelPos.y + 12 + 130, panelRect.width - 100, 30),
-          "Inner Radius", null, donutInnerRadius, 5.0, radius - 10.0
-        );
-        donutInnerRadius = newValue;
-      }
-      rl.GuiD.GuiEnable();
+      (_, donutInnerRadius) = GuiSliderBar(
+        .rect(panelPos.x + 80, panelPos.y + 12 + 130, panelRect.width - 100, 30),
+        "Inner Radius", null, donutInnerRadius, 5.0, radius - 10.0
+      );
+      GuiEnable();
 
-      rl.GuiD.GuiLine(
+      GuiLine(
         .rect(panelPos.x + 10, panelPos.y + 12 + 170, panelRect.width - 20, 1),
         null,
       );
@@ -184,7 +168,7 @@ void main() => Raylib((rl) {
 
       final contentHeight = sliceCount*35;
 
-      rl.GuiD.GuiScrollPanel(
+      GuiScrollPanel(
         scrollPanelBounds, null,
         .rect(0, 0, panelRect.width - 25, contentHeight),
         scrollContentOffset,
@@ -194,7 +178,7 @@ void main() => Raylib((rl) {
       final contentX = view.x + scrollContentOffset.x;
       final contentY = view.y + scrollContentOffset.y;
 
-      rl.CoreD.BeginScissorMode(
+      BeginScissorMode(
         view.x, view.y,
         view.width, view.height
       );
@@ -203,11 +187,11 @@ void main() => Raylib((rl) {
         {
           int rowY = (contentY + 5 + i*35).toInt();
 
-          final color = rl.CoreD.ColorFromHSV(i/sliceCount*360.0, 0.75, 0.9);
-          rl.CoreD.DrawRectangle(contentX + 15, rowY + 5, 20, 20, color);
+          final color = ColorFromHSV(i/sliceCount*360.0, 0.75, 0.9);
+          DrawRectangle(contentX + 15, rowY + 5, 20, 20, color);
 
           {
-            final (result, newValue) = rl.GuiD.GuiTextBox(
+            final (result, newValue) = GuiTextBox(
               .rect(contentX + 45, rowY, 75, 30),
               labels[i], 32, editingLabel[i]
             );
@@ -216,7 +200,7 @@ void main() => Raylib((rl) {
           }
 
           {
-            final (result, newValue) = rl.GuiD.GuiSliderBar(
+            final (result, newValue) = GuiSliderBar(
               .rect(contentX + 130, rowY, 110, 30),
               null,
               null,
@@ -228,8 +212,8 @@ void main() => Raylib((rl) {
           }
         }
 
-      rl.CoreD.EndScissorMode();
+      EndScissorMode();
 
-    rl.CoreD.EndDrawing();
+    EndDrawing();
   });
 });

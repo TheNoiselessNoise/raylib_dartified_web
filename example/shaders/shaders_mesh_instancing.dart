@@ -1,7 +1,7 @@
 // Example dartified, see original for reference:
 // https://github.com/raysan5/raylib/blob/master/examples/shaders/shaders_mesh_instancing.c
 // WARNING: expects resources from the raylib source
-import 'package:raylib_dartified_web/raylib_dartified_web.dart';
+import '../base_dart.dart';
 
 const String GLSL_VERSION = '300es';
 const int screenWidth = 800;
@@ -9,10 +9,9 @@ const int screenHeight = 450;
 const int MAX_INSTANCES = 10000;
 
 void main() => Raylib((rl) {
-  rl.CoreD.SetConfigFlags([.FLAG_MSAA_4X_HINT]);
-  rl.CoreD.InitWindow(screenWidth, screenHeight, "shaders_mesh_instancing");
-  rl.CoreD.SetWindowMonitor(0);
-  rl.CoreD.SetTargetFPS(60);
+  SetConfigFlags([.FLAG_MSAA_4X_HINT]);
+  InitWindow(screenWidth, screenHeight, "shaders_mesh_instancing");
+  SetTargetFPS(60);
 
   final camera = Camera3DD(
     position: .vec3(-125, 125, -125),
@@ -22,78 +21,78 @@ void main() => Raylib((rl) {
     projection: .CAMERA_PERSPECTIVE,
   );
 
-  final cube = rl.CoreD.GenMeshCube(1.0, 1.0, 1.0);
+  final cube = GenMeshCube(1.0, 1.0, 1.0);
   final transforms = List.generate(MAX_INSTANCES, (i) {
     final MatrixD translation = .translate(
-      rl.CoreD.GetRandomValue(-50, 50),
-      rl.CoreD.GetRandomValue(-50, 50),
-      rl.CoreD.GetRandomValue(-50, 50)
+      GetRandomValue(-50, 50),
+      GetRandomValue(-50, 50),
+      GetRandomValue(-50, 50)
     );
 
     final Vector3D axis = .vec3Normalized(
-      rl.CoreD.GetRandomValue(0, 360),
-      rl.CoreD.GetRandomValue(0, 360),
-      rl.CoreD.GetRandomValue(0, 360)
+      GetRandomValue(0, 360),
+      GetRandomValue(0, 360),
+      GetRandomValue(0, 360)
     );
 
-    double angle = rl.CoreD.GetRandomValue(0, 10)*rl.DEG2RAD;
+    double angle = GetRandomValue(0, 10)*rl.DEG2RAD;
     final MatrixD rotation = .rotateAngle(axis, angle);
     
     return rotation.mul(translation);
   });
 
-  final shader = rl.CoreD.LoadShader(
-    "./resources/shaders/glsl$GLSL_VERSION/lighting_instancing.vs",
-    "./resources/shaders/glsl$GLSL_VERSION/lighting.fs",
+  final shader = LoadShader(
+    "../resources/shaders/glsl$GLSL_VERSION/lighting_instancing.vs",
+    "../resources/shaders/glsl$GLSL_VERSION/lighting.fs",
   );
 
   shader.locs[ShaderLocationIndex.SHADER_LOC_MATRIX_MVP.value] =
-    rl.CoreD.GetShaderLocation(shader, "mvp");
+    GetShaderLocation(shader, "mvp");
   shader.locs[ShaderLocationIndex.SHADER_LOC_VECTOR_VIEW.value] =
-    rl.CoreD.GetShaderLocation(shader, "viewPos");
+    GetShaderLocation(shader, "viewPos");
   shader.locs[ShaderLocationIndex.SHADER_LOC_MATRIX_MODEL.value] =
-    rl.CoreD.GetShaderLocationAttrib(shader, "instanceTransform");
+    GetShaderLocationAttrib(shader, "instanceTransform");
 
-  int ambientLoc = rl.CoreD.GetShaderLocation(shader, "ambient");
-  rl.CoreD.SetShaderValue(shader, ambientLoc, [0.2, 0.2, 0.2, 1.0], .SHADER_UNIFORM_VEC4);
+  int ambientLoc = GetShaderLocation(shader, "ambient");
+  SetShaderValue(shader, ambientLoc, [0.2, 0.2, 0.2, 1.0], .SHADER_UNIFORM_VEC4);
 
-  rl.LightD.CreateLight(
+  CreateLight(
     .LIGHT_DIRECTIONAL, .vec3(50, 50, 0), .zero(), .WHITE, shader
   );
 
-  final matInstances = rl.CoreD.LoadMaterialDefault();
+  final matInstances = LoadMaterialDefault();
   matInstances.shader = shader;
   matInstances.maps[rl.MATERIAL_MAP_DIFFUSE.value].color = .RED;
 
-  final matDefault = rl.CoreD.LoadMaterialDefault();
+  final matDefault = LoadMaterialDefault();
   matDefault.maps[rl.MATERIAL_MAP_DIFFUSE.value].color = .BLUE;
   
   rl.setMainLoop(() {
-    rl.CoreD.UpdateCamera(camera, .CAMERA_ORBITAL);
+    UpdateCamera(camera, .CAMERA_ORBITAL);
 
-    rl.CoreD.SetShaderValue(
+    SetShaderValue(
       shader,
       shader.locs[ShaderLocationIndex.SHADER_LOC_VECTOR_VIEW.value],
       camera.position.toArray(),
       .SHADER_UNIFORM_VEC3,
     );
 
-    rl.CoreD.BeginDrawing();
+    BeginDrawing();
 
-      rl.CoreD.ClearBackground(.RAYWHITE);
+      ClearBackground(.RAYWHITE);
 
-      rl.CoreD.BeginMode3D(camera);
+      BeginMode3D(camera);
 
-        rl.CoreD.DrawMesh(cube, matDefault, .translate(-10.0, 0.0, 0.0));
+        DrawMesh(cube, matDefault, .translate(-10.0, 0.0, 0.0));
 
-        rl.CoreD.DrawMeshInstanced(cube, matInstances, transforms);
+        DrawMeshInstanced(cube, matInstances, transforms);
 
-        rl.CoreD.DrawMesh(cube, matDefault, .translate(10.0, 0.0, 0.0));
+        DrawMesh(cube, matDefault, .translate(10.0, 0.0, 0.0));
 
-      rl.CoreD.EndMode3D();
+      EndMode3D();
 
-      rl.CoreD.DrawFPS(10, 10);
+      DrawFPS(10, 10);
 
-    rl.CoreD.EndDrawing();
+    EndDrawing();
   });
 });

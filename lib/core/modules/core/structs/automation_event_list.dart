@@ -17,9 +17,6 @@ class AutomationEventListD extends StructDViewWeb<AutomationEventListD> with Aut
     .events:   WasmSize.StructPointer,
   });
 
-  @override
-  int get wasmByteSize => byteSize;
-  
   AutomationEventListD({super.originalPointer});
 
   @override

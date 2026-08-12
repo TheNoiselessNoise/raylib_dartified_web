@@ -16,6 +16,7 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ColorD,
   FilePathListD,
   FontD,
+  GestureEventD,
   GlyphInfoD,
   ImageD,
   MaterialD,
@@ -24,6 +25,7 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   MeshD,
   ModelD,
   ModelAnimationD,
+  ModelSkeletonD,
   NPatchInfoD,
   QuaternionD,
   RayD,
@@ -40,6 +42,7 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   VrStereoConfigD,
 
   // callbacks
+  TraceLogCallbackD,
   LoadFileDataCallbackD,
   SaveFileDataCallbackD,
   LoadFileTextCallbackD,
@@ -52,6 +55,7 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   @override
   void dispose() {
     super.dispose();
+    TraceLogCallbackD.disposeRegistry();
     LoadFileDataCallbackD.disposeRegistry();
     SaveFileDataCallbackD.disposeRegistry();
     LoadFileTextCallbackD.disposeRegistry();
@@ -81,7 +85,6 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   @override
   bool WindowShouldClose() => run(
     () => RaylibDebugLabels.WindowShouldClose(),
-    // () => rl.Core.WindowShouldClose.run.toBool(),
     () => false, // NOTE: we should not call WindowShouldClose on web
   );
 
@@ -315,28 +318,26 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   );
     
   @override
+  @Deprecated("GetMonitorCount() not implemented on target platform")
   int GetMonitorCount() => run(
     () => RaylibDebugLabels.GetMonitorCount(),
-    () => rl.Core.GetMonitorCount.run.toInt(),
+    () => throw UnsupportedError("GetMonitorCount() not implemented on target platform"),
   );
-    
+
   @override
+  @Deprecated("GetCurrentMonitor() not implemented on target platform")
   int GetCurrentMonitor() => run(
     () => RaylibDebugLabels.GetCurrentMonitor(),
-    () => rl.Core.GetCurrentMonitor.run.toInt(),
+    () => throw UnsupportedError("GetCurrentMonitor() not implemented on target platform"),
   );
     
   @override
+  @Deprecated("GetMonitorPosition() not implemented on target platform")
   Vector2D GetMonitorPosition(
     num monitor,
   ) => run(
     () => RaylibDebugLabels.GetMonitorPosition(monitor),
-    () => rl.Temp.Vector2$.Extract1(
-      (p) => rl.Core.GetMonitorPosition.run2(
-        p.toJS,
-        monitor.toJS,
-      ),
-    ),
+    () => throw UnsupportedError("GetMonitorPosition() not implemented on target platform"),
   );
     
   @override
@@ -360,33 +361,30 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   );
     
   @override
+  @Deprecated("GetMonitorPhysicalWidth() not implemented on target platform")
   int GetMonitorPhysicalWidth(
     num monitor,
   ) => run(
     () => RaylibDebugLabels.GetMonitorPhysicalWidth(monitor),
-    () => rl.Core.GetMonitorPhysicalWidth.run1(
-      monitor.toJS,
-    ).toInt(),
+    () => throw UnsupportedError("GetMonitorPhysicalWidth() not implemented on target platform"),
   );
     
   @override
+  @Deprecated("GetMonitorPhysicalHeight() not implemented on target platform")
   int GetMonitorPhysicalHeight(
     num monitor,
   ) => run(
     () => RaylibDebugLabels.GetMonitorPhysicalHeight(monitor),
-    () => rl.Core.GetMonitorPhysicalHeight.run1(
-      monitor.toJS,
-    ).toInt(),
+    () => throw UnsupportedError("GetMonitorPhysicalHeight() not implemented on target platform"),
   );
     
   @override
+  @Deprecated("GetMonitorRefreshRate() not implemented on target platform")
   int GetMonitorRefreshRate(
     num monitor,
   ) => run(
     () => RaylibDebugLabels.GetMonitorRefreshRate(monitor),
-    () => rl.Core.GetMonitorRefreshRate.run1(
-      monitor.toJS,
-    ).toInt(),
+    () => throw UnsupportedError("GetMonitorRefreshRate() not implemented on target platform"),
   );
     
   @override
@@ -410,16 +408,12 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   );
     
   @override
+  @Deprecated("GetMonitorName() not implemented on target platform")
   String GetMonitorName(
     num monitor,
   ) => run(
     () => RaylibDebugLabels.GetMonitorName(monitor),
-    () {
-      final namePtr = rl.Core.GetMonitorName.run1(
-        monitor.toJS,
-      ).toInt();
-      return WasmStringPointer(namePtr).ref;
-    },
+    () => throw UnsupportedError("GetMonitorName() not implemented on target platform"),
   );
     
   @override
@@ -625,7 +619,6 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     () => rl.Core.EndScissorMode.run,
   );
     
-  // TODO: untested, no VR hardware
   @override
   void BeginVrStereoMode(
     VrStereoConfigD config,
@@ -636,14 +629,12 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     ),
   );
     
-  // TODO: untested, no VR hardware
   @override
   void EndVrStereoMode() => run(
     () => RaylibDebugLabels.EndVrStereoMode(),
     () => rl.Core.EndVrStereoMode.run,
   );
     
-  // TODO: untested, no VR hardware
   @override
   VrStereoConfigD LoadVrStereoConfig(
     VrDeviceInfoD device,
@@ -658,7 +649,6 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     ),
   );
     
-  // TODO: untested, no VR hardware
   @override
   void UnloadVrStereoConfig(
     VrStereoConfigD config,
@@ -764,14 +754,19 @@ class RaylibCoreD extends RaylibCoreModuleBase<
         .SHADER_UNIFORM_FLOAT ||
         .SHADER_UNIFORM_VEC2  ||
         .SHADER_UNIFORM_VEC3  ||
-        .SHADER_UNIFORM_VEC4  => rl.Temp.Float32$.Array(value.cast()),
+        .SHADER_UNIFORM_VEC4  => rl.Temp.Float32$.Array(value),
         
         .SHADER_UNIFORM_INT   ||
         .SHADER_UNIFORM_IVEC2 ||
         .SHADER_UNIFORM_IVEC3 ||
-        .SHADER_UNIFORM_IVEC4 => rl.Temp.Int32$.Array(value.cast()),
+        .SHADER_UNIFORM_IVEC4 => rl.Temp.Int32$.Array(value),
+
+        .SHADER_UNIFORM_UINT   ||
+        .SHADER_UNIFORM_UIVEC2 ||
+        .SHADER_UNIFORM_UIVEC3 ||
+        .SHADER_UNIFORM_UIVEC4 => rl.Temp.UnsignedInt$.Array(value),
         
-        .SHADER_UNIFORM_SAMPLER2D => rl.Temp.Int32$.Array(value.cast()),
+        .SHADER_UNIFORM_SAMPLER2D => rl.Temp.Int32$.Array(value),
       };
 
       rl.Core.SetShaderValueV.run5(
@@ -1017,6 +1012,25 @@ class RaylibCoreD extends RaylibCoreModuleBase<
       max.toJS,
     ).toInt(),
   );
+
+  @override
+  List<int> LoadRandomSequence(
+    num count,
+    num min,
+    num max,
+  ) => run(
+    () => RaylibDebugLabels.LoadRandomSequence(count, min, max),
+    () {
+      final seqPtr = rl.Core.LoadRandomSequence.run3(
+        count.toJS,
+        min.toJS,
+        max.toJS,
+      ).toInt();
+      final values = WasmInt32Pointer(seqPtr).readArray(count.toInt());
+      rl.Core.UnloadRandomSequence.run1(seqPtr.toJS);
+      return values;
+    },
+  );
   
   @override
   void TakeScreenshot(
@@ -1067,6 +1081,16 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     () => RaylibDebugLabels.SetTraceLogLevel(logLevel),
     () => rl.Core.SetTraceLogLevel.run1(
       logLevel.value.toJS,
+    ),
+  );
+
+  @override
+  void SetTraceLogCallback(
+    TraceLogCallbackD? callback
+  ) => run(
+    () => RaylibDebugLabels.SetTraceLogCallback(callback),
+    () => rl.Core.SetTraceLogCallback.run1(
+      (callback?.attach() ?? 0).toJS,
     ),
   );
     
@@ -1179,6 +1203,78 @@ class RaylibCoreD extends RaylibCoreModuleBase<
       text.toJS,
     ).toBool(),
   );
+
+  @override
+  int FileRename(
+    String fileName,
+    String fileRename,
+  ) => run(
+    () => RaylibDebugLabels.FileRename(fileName, fileRename),
+    () => rl.Core.FileRename.run2(
+      fileName.toJS,
+      fileRename.toJS,
+    ).toInt(),
+  );
+  
+  @override
+  int FileRemove(
+    String fileName,
+  ) => run(
+    () => RaylibDebugLabels.FileRemove(fileName),
+    () => rl.Core.FileRemove.run1(
+      fileName.toJS,
+    ).toInt(),
+  );
+  
+  @override
+  int FileCopy(
+    String srcPath,
+    String dstPath,
+  ) => run(
+    () => RaylibDebugLabels.FileCopy(srcPath, dstPath),
+    () => rl.Core.FileCopy.run2(
+      srcPath.toJS,
+      dstPath.toJS,
+    ).toInt(),
+  );
+  
+  @override
+  int FileMove(
+    String srcPath,
+    String dstPath,
+  ) => run(
+    () => RaylibDebugLabels.FileMove(srcPath, dstPath),
+    () => rl.Core.FileMove.run2(
+      srcPath.toJS,
+      dstPath.toJS,
+    ).toInt(),
+  );
+  
+  @override
+  int FileTextReplace(
+    String fileName,
+    String search,
+    String replacement,
+  ) => run(
+    () => RaylibDebugLabels.FileTextReplace(fileName, search, replacement),
+    () => rl.Core.FileTextReplace.run3(
+      fileName.toJS,
+      search.toJS,
+      replacement.toJS,
+    ).toInt(),
+  );
+  
+  @override
+  int FileTextFindIndex(
+    String fileName,
+    String search,
+  ) => run(
+    () => RaylibDebugLabels.FileTextFindIndex(fileName, search),
+    () => rl.Core.FileTextFindIndex.run2(
+      fileName.toJS,
+      search.toJS,
+    ).toInt(),
+  );
     
   @override
   bool FileExists(
@@ -1259,6 +1355,30 @@ class RaylibCoreD extends RaylibCoreModuleBase<
       ).toInt();
       return WasmStringPointer(fileNamePtr).ref;
     },
+  );
+
+  @override
+  int GetDirectoryFileCount(
+    String dirPath, 
+  ) => run(
+    () => RaylibDebugLabels.GetDirectoryFileCount(dirPath),
+    () => rl.Core.GetDirectoryFileCount.run1(
+      dirPath.toJS,
+    ).toInt(),
+  );
+  
+  @override
+  int GetDirectoryFileCountEx(
+    String basePath,
+    String filter,
+    bool scanSubdirs,
+  ) => run(
+    () => RaylibDebugLabels.GetDirectoryFileCountEx(basePath, filter, scanSubdirs),
+    () => rl.Core.GetDirectoryFileCountEx.run3(
+      basePath.toJS,
+      filter.toJS,
+      scanSubdirs.toJS,
+    ).toInt(),
   );
 
   @override
@@ -1486,7 +1606,7 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     () {
       final outputSizePtr = rl.Temp.Int32$.Ref1();
       final outputDataPtr = rl.Core.DecodeDataBase64.run2(
-        rl.Temp.Uint8$.Array(data).toJS,
+        rl.Temp.Int8$.Array(data).toJS,
         outputSizePtr.toJS,
       ).toInt();
       final newData = WasmUint8Pointer(outputDataPtr).readTypedArray(outputSizePtr.value);
@@ -1531,6 +1651,20 @@ class RaylibCoreD extends RaylibCoreModuleBase<
         data.length.toJS,
       ).toInt(),
       rl.Utils.sha1Uint32HashLength,
+    )),
+  );
+
+  @override
+  Uint8List ComputeSHA256(
+    Uint8List data,
+  ) => run(
+    () => RaylibDebugLabels.ComputeSHA256(data),
+    () => .fromList(rl.Temp.Uint32$.ToBEBytes(
+      rl.Core.ComputeSHA256.run2(
+        rl.Temp.Uint8$.Array(data).toJS,
+        data.length.toJS,
+      ).toInt(),
+      rl.Utils.sha256Uint32HashLength,
     )),
   );
     
@@ -1660,6 +1794,15 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     () => rl.Core.IsKeyUp.run1(
       key.value.toJS
     ).toBool(),
+  );
+
+  @override
+  @Deprecated("GetKeyName() not implemented on target platform")
+  String GetKeyName(
+    KeyboardKey key,
+  ) => run(
+    () => RaylibDebugLabels.GetKeyName(key),
+    () => throw UnsupportedError("GetKeyName() not implemented on target platform"),
   );
 
   @override
@@ -2047,7 +2190,23 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     () => RaylibDebugLabels.GetGesturePinchAngle(),
     () => rl.Core.GetGesturePinchAngle.run.toDouble(),
   );
-    
+
+  @override
+  void ProcessGestureEvent(
+    GestureEventD event,
+  ) => run(
+    () => RaylibDebugLabels.ProcessGestureEvent(event),
+    () => rl.Core.ProcessGestureEvent.run1(
+      rl.Temp.GestureEvent$.Ref1(event).toJS,
+    ),
+  );
+  
+  @override
+  void UpdateGestures() => run(
+    () => RaylibDebugLabels.UpdateGestures(),
+    () => rl.Core.UpdateGestures.run,
+  );
+
   @override
   void UpdateCamera(
     Camera3DD camera,
@@ -2216,6 +2375,24 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   );
 
   @override
+  void DrawLineDashed(
+    Vector2D startPos,
+    Vector2D endPos,
+    num dashSize,
+    num spaceSize,
+    ColorD color,
+  ) => run(
+    () => RaylibDebugLabels.DrawLineDashed(startPos, endPos, dashSize, spaceSize, color),
+    () => rl.Core.DrawLineBezier.run5(
+      rl.Temp.Vector2$.Ref1(startPos).toJS,
+      rl.Temp.Vector2$.Ref2(endPos).toJS,
+      dashSize.toJS,
+      spaceSize.toJS,
+      rl.Temp.Color$.Ref1(color).toJS,
+    ),
+  );
+
+  @override
   void DrawCircle(
     num centerX,
     num centerY,
@@ -2273,16 +2450,14 @@ class RaylibCoreD extends RaylibCoreModuleBase<
 
   @override
   void DrawCircleGradient(
-    num centerX,
-    num centerY,
+    Vector2D center,
     num radius,
     ColorD inner,
     ColorD outer,
   ) => run(
-    () => RaylibDebugLabels.DrawCircleGradient(centerX, centerY, radius, inner, outer),
-    () => rl.Core.DrawCircleGradient.run5(
-      centerX.toJS,
-      centerY.toJS,
+    () => RaylibDebugLabels.DrawCircleGradient(center, radius, inner, outer),
+    () => rl.Core.DrawCircleGradient.run4(
+      rl.Temp.Vector2$.Ref1(center).toJS,
       radius.toJS,
       rl.Temp.Color$.Ref1(inner).toJS,
       rl.Temp.Color$.Ref2(outer).toJS,
@@ -2352,6 +2527,22 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   );
 
   @override
+  void DrawEllipseV(
+    Vector2D center,
+    num radiusH,
+    num radiusV,
+    ColorD color,
+  ) => run(
+    () => RaylibDebugLabels.DrawEllipseV(center, radiusH, radiusV, color),
+    () => rl.Core.DrawEllipseV.run4(
+      rl.Temp.Vector2$.Ref1(center).toJS,
+      radiusH.toJS,
+      radiusV.toJS,
+      rl.Temp.Color$.Ref1(color).toJS,
+    ),
+  );
+
+  @override
   void DrawEllipseLines(
     num centerX,
     num centerY,
@@ -2363,6 +2554,22 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     () => rl.Core.DrawEllipseLines.run5(
       centerX.toJS,
       centerY.toJS,
+      radiusH.toJS,
+      radiusV.toJS,
+      rl.Temp.Color$.Ref1(color).toJS,
+    ),
+  );
+
+  @override
+  void DrawEllipseLinesV(
+    Vector2D center,
+    num radiusH,
+    num radiusV,
+    ColorD color,
+  ) => run(
+    () => RaylibDebugLabels.DrawEllipseLinesV(center, radiusH, radiusV, color),
+    () => rl.Core.DrawEllipseLinesV.run4(
+      rl.Temp.Vector2$.Ref1(center).toJS,
       radiusH.toJS,
       radiusV.toJS,
       rl.Temp.Color$.Ref1(color).toJS,
@@ -4537,9 +4744,12 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     TextureD texture,
   ) => run(
     () => RaylibDebugLabels.UnloadTexture(texture),
-    () => rl.Core.UnloadTexture.run1(
-      texture.getOriginalPointerAndDispose().toJS,
-    ),
+    () {
+      rl.Core.UnloadTexture.run1(
+        rl.Temp.Texture$.Ref1(texture).toJS,
+      );
+      texture.structMarkDisposed();
+    },
   );
 
   @override
@@ -5046,7 +5256,6 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     ).toBool(),
   );
 
-  // TODO: ON NEW RAYLIB RELEASE - add glyphCount, now it defaults to 95
   @override
   List<GlyphInfoD> LoadFontData(
     Uint8List fileData,
@@ -5057,19 +5266,18 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.LoadFontData(fileData, fontSize, codepoints, codepointCount, type),
     () {
-      // final glyphCount = _int1();
-      final glyphsPtr = rl.Core.LoadFontData.run6(
+      final glyphCount = rl.Temp.Int$.Ref1();
+      final glyphsPtr = rl.Core.LoadFontData.run7(
         rl.Temp.Uint8$.Array(fileData).toJS,
         fileData.length.toJS,
         fontSize.toJS,
         (codepoints == null ? 0 : rl.Temp.Int32$.Array(codepoints).address).toJS,
         (codepointCount ?? codepoints?.length ?? 0).toJS,
         type.value.toJS,
-        // glyphCount.toJS,
+        glyphCount.toJS,
       ).toInt();
       final requestedCount = (codepointCount == null || codepointCount == 0) 
-        // ? codepoints?.length ?? glyphCount.value 
-        ? codepoints?.length ?? 95 
+        ? codepoints?.length ?? glyphCount.value 
         : codepointCount.toInt();
       
       return GlyphInfoD.wasmPointer(glyphsPtr).readArray(requestedCount, owned: true);
@@ -5299,6 +5507,26 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   );
 
   @override
+  Vector2D MeasureTextCodepoints(
+    FontD font,
+    Int32List codepoints,
+    num fontSize,
+    num spacing,
+  ) => run(
+    () => RaylibDebugLabels.MeasureTextCodepoints(font, codepoints, fontSize, spacing),
+    () => rl.Temp.Vector2$.Extract1(
+      (p) => rl.Core.MeasureTextCodepoints.run6(
+        p.toJS,
+        rl.Temp.Font$.Ref1(font).toJS,
+        rl.Temp.Int$.Array(codepoints).toJS,
+        codepoints.length.toJS,
+        fontSize.toJS,
+        spacing.toJS,
+      ),
+    ),
+  );
+
+  @override
   int GetGlyphIndex(
     FontD font,
     num codepoint,
@@ -5445,6 +5673,310 @@ class RaylibCoreD extends RaylibCoreModuleBase<
       ).toInt();
       return (WasmStringPointer(textPtr).ref, sizePtr.value);
     },
+  );
+
+  @override
+  List<String> LoadTextLines(
+    String text,
+  ) => run(
+    () => RaylibDebugLabels.TextLength(text),
+    () {
+      final lineCountPtr = rl.Temp.Int$.Ref1();
+      final linesPtr = rl.Core.LoadTextLines.run2(
+        text.toJS,
+        lineCountPtr.toJS,
+      ).toInt();
+      return WasmStringPointerPointer(linesPtr).readStrings(lineCountPtr.value);
+    },
+  );
+  
+  @override
+  bool TextIsEqual(
+    String text1,
+    String text2,
+  ) => run(
+    () => RaylibDebugLabels.TextIsEqual(text1, text2),
+    () => rl.Core.TextIsEqual.run2(
+      text1.toJS,
+      text2.toJS,
+    ).toBool(),
+  );
+
+  @override
+  int TextLength(
+    String text,
+  ) => run(
+    () => RaylibDebugLabels.TextLength(text),
+    () => rl.Core.TextLength.run1(
+      text.toJS,
+    ).toInt(),
+  );
+
+  @override
+  String TextSubtext(
+    String text,
+    int position,
+    int length,
+  ) => run(
+    () => RaylibDebugLabels.TextSubtext(text, position, length),
+    () {
+      final textPtr = rl.Core.TextSubtext.run3(
+        text.toJS,
+        position.toJS,
+        length.toJS,
+      ).toInt();
+      return WasmStringPointer(textPtr).ref;
+    },
+  );
+
+  @override
+  String TextRemoveSpaces(
+    String text,
+  ) => run(
+    () => RaylibDebugLabels.TextRemoveSpaces(text),
+    () {
+      final textPtr = rl.Core.TextRemoveSpaces.run1(
+        text.toJS,
+      ).toInt();
+      return WasmStringPointer(textPtr).ref;
+    },
+  );
+
+  @override
+  String GetTextBetween(
+    String text,
+    String begin,
+    String end,
+  ) => run(
+    () => RaylibDebugLabels.GetTextBetween(text, begin, end),
+    () {
+      final textPtr = rl.Core.TextRemoveSpaces.run3(
+        text.toJS,
+        begin.toJS,
+        end.toJS,
+      ).toInt();
+      return WasmStringPointer(textPtr).ref;
+    },
+  );
+
+  @override
+  String TextReplace(
+    String text,
+    String search,
+    String replacement,
+  ) => run(
+    () => RaylibDebugLabels.TextReplace(text, search, replacement),
+    () {
+      // NOTE: uses Alloc variant so we are not limited by the static buffer
+      final textPtr = rl.Core.TextReplaceAlloc.run3(
+        text.toJS,
+        search.toJS,
+        replacement.toJS,
+      ).toInt();
+      final result = WasmStringPointer(textPtr).ref;
+      WasmMemory.free(textPtr);
+      return result;
+    },
+  );
+
+  @override
+  String TextReplaceBetween(
+    String text,
+    String begin,
+    String end,
+    String replacement,
+  ) => run(
+    () => RaylibDebugLabels.TextReplaceBetween(text, begin, end, replacement),
+    () {
+      // NOTE: uses Alloc variant so we are not limited by the static buffer
+      final textPtr = rl.Core.TextReplaceBetweenAlloc.run4(
+        text.toJS,
+        begin.toJS,
+        end.toJS,
+        replacement.toJS,
+      ).toInt();
+      final result = WasmStringPointer(textPtr).ref;
+      WasmMemory.free(textPtr);
+      return result;
+    },
+  );
+
+  @override
+  String TextInsert(
+    String text,
+    String insert,
+    int position,
+  ) => run(
+    () => RaylibDebugLabels.TextInsert(text, insert, position),
+    () {
+      // NOTE: uses Alloc variant so we are not limited by the static buffer
+      final textPtr = rl.Core.TextInsertAlloc.run3(
+        text.toJS,
+        insert.toJS,
+        position.toJS,
+      ).toInt();
+      final result = WasmStringPointer(textPtr).ref;
+      WasmMemory.free(textPtr);
+      return result;
+    },
+  );
+
+  @override
+  String TextJoin(
+    List<String> textList,
+    String delimiter,
+  ) => run(
+    () => RaylibDebugLabels.TextJoin(textList, delimiter),
+    () {
+      final textListPtr = rl.Temp.String$.RawPtr(textList.length);
+
+      try {
+        for (final (i, text) in textList.indexed) {
+          textListPtr[i] = rl.Temp.String$.RawValue(text);
+        }
+
+        final textPtr = rl.Core.TextJoin.run3(
+          textListPtr.toJS,
+          textList.length.toJS,
+          delimiter.toJS,
+        ).toInt();
+
+        return WasmStringPointer(textPtr).ref;
+      } finally {
+        for (final (i, _) in textList.indexed) {
+          WasmMemory.free(textListPtr[i].address);
+        }
+        WasmMemory.free(textListPtr.address);
+      }
+    },
+  );
+
+  @override
+  List<String> TextSplit(
+    String text,
+    String delimiter,
+  ) => run(
+    () => RaylibDebugLabels.TextSplit(text, delimiter),
+    () {
+      final countPtr = rl.Temp.Int$.Ref1();
+      final delimiterChar = delimiter.isEmpty ? 0 : delimiter.codeUnitAt(0);
+      final partsPtr = rl.Core.TextSplit.run3(
+        text.toJS,
+        delimiterChar.toJS,
+        countPtr.toJS,
+      ).toInt();
+      return WasmStringPointerPointer(partsPtr).readStrings(countPtr.value);
+    },
+  );
+
+  @override
+  String TextAppend(
+    String text,
+    String append,
+  ) => run(
+    () => RaylibDebugLabels.TextAppend(text, append),
+    // NOTE: not calling rl.Core.TextAppend here. The native version writes into
+    // `text`'s buffer at a caller-tracked position, assuming extra headroom beyond
+    // its current length, a C-buffer contract that doesn't translate to immutable
+    // Dart Strings and risks a real overflow if faked. Reimplemented directly instead.
+    () => text + append,
+  );
+
+  @override
+  int TextFindIndex(
+    String text,
+    String search,
+  ) => run(
+    () => RaylibDebugLabels.TextFindIndex(text, search),
+    () => rl.Core.TextFindIndex.run2(
+      text.toJS,
+      search.toJS,
+    ).toInt(),
+  );
+
+  @override
+  String TextToUpper(
+    String text,
+  ) => run(
+    () => RaylibDebugLabels.TextToUpper(text),
+    () {
+      final textPtr = rl.Core.TextToUpper.run2(
+        text.toJS,
+      ).toInt();
+      return WasmStringPointer(textPtr).ref;
+    },
+  );
+  
+  @override
+  String TextToLower(
+    String text,
+  ) => run(
+    () => RaylibDebugLabels.TextToLower(text),
+    () {
+      final textPtr = rl.Core.TextToLower.run2(
+        text.toJS,
+      ).toInt();
+      return WasmStringPointer(textPtr).ref;
+    },
+  );
+  
+  @override
+  String TextToPascal(
+    String text,
+  ) => run(
+    () => RaylibDebugLabels.TextToPascal(text),
+    () {
+      final textPtr = rl.Core.TextToPascal.run2(
+        text.toJS,
+      ).toInt();
+      return WasmStringPointer(textPtr).ref;
+    },
+  );
+  
+  @override
+  String TextToSnake(
+    String text,
+  ) => run(
+    () => RaylibDebugLabels.TextToSnake(text),
+    () {
+      final textPtr = rl.Core.TextToSnake.run2(
+        text.toJS,
+      ).toInt();
+      return WasmStringPointer(textPtr).ref;
+    },
+  );
+  
+  @override
+  String TextToCamel(
+    String text,
+  ) => run(
+    () => RaylibDebugLabels.TextToCamel(text),
+    () {
+      final textPtr = rl.Core.TextToCamel.run2(
+        text.toJS,
+      ).toInt();
+      return WasmStringPointer(textPtr).ref;
+    },
+  );
+
+  @override
+  int TextToInteger(
+    String text,
+  ) => run(
+    () => RaylibDebugLabels.TextToInteger(text),
+    () => rl.Core.TextToInteger.run2(
+      text.toJS,
+    ).toInt(),
+  );
+  
+  @override
+  double TextToFloat(
+    String text,
+  ) => run(
+    () => RaylibDebugLabels.TextToFloat(text),
+    () => rl.Core.TextToFloat.run2(
+      text.toJS,
+    ).toDouble(),
   );
     
   @override
@@ -5926,42 +6458,6 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   );
     
   @override
-  void DrawModelPoints(
-    ModelD model,
-    Vector3D position,
-    num scale,
-    ColorD tint,
-  ) => run(
-    () => RaylibDebugLabels.DrawModelPoints(model, position, scale, tint),
-    () => rl.Core.DrawModelPoints.run4(
-      rl.Temp.Model$.Ref1(model).toJS,
-      rl.Temp.Vector3$.Ref1(position).toJS,
-      scale.toJS,
-      rl.Temp.Color$.Ref1(tint).toJS,
-    ),
-  );
-    
-  @override
-  void DrawModelPointsEx(
-    ModelD model,
-    Vector3D position,
-    Vector3D rotationAxis,
-    num rotationAngle,
-    Vector3D scale,
-    ColorD tint,
-  ) => run(
-    () => RaylibDebugLabels.DrawModelPointsEx(model, position, rotationAxis, rotationAngle, scale, tint),
-    () => rl.Core.DrawModelPointsEx.run6(
-      rl.Temp.Model$.Ref1(model).toJS,
-      rl.Temp.Vector3$.Ref1(position).toJS,
-      rl.Temp.Vector3$.Ref2(rotationAxis).toJS,
-      rotationAngle.toJS,
-      rl.Temp.Vector3$.Ref3(scale).toJS,
-      rl.Temp.Color$.Ref1(tint).toJS,
-    ),
-  );
-    
-  @override
   void DrawBoundingBox(
     BoundingBoxD box,
     ColorD color,
@@ -6431,7 +6927,7 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   );
     
   @override
-  List<ModelAnimationD> LoadModelAnimations(
+  WasmLiveListPointerStruct<ModelAnimationD> LoadModelAnimations(
     String fileName,
   ) => run(
     () => RaylibDebugLabels.LoadModelAnimations(fileName),
@@ -6441,7 +6937,12 @@ class RaylibCoreD extends RaylibCoreModuleBase<
         fileName.toJS,
         animCountPtr.toJS,
       ).toInt();
-      return ModelAnimationD.wasmPointer(animsPtr).readArray(animCountPtr.value, owned: true);
+
+      final ptr = ModelAnimationD.wasmPointer(animsPtr);
+      return .new(
+        ptr.readArray(animCountPtr.value, owned: true),
+        ptr,
+      );
     },
   );
     
@@ -6458,32 +6959,24 @@ class RaylibCoreD extends RaylibCoreModuleBase<
       frame.toJS,
     ),
   );
-    
+
   @override
-  void UpdateModelAnimationBones(
+  void UpdateModelAnimationEx(
     ModelD model,
-    ModelAnimationD anim,
-    num frame,
+    ModelAnimationD animA,
+    num frameA,
+    ModelAnimationD animB,
+    num frameB,
+    num blend,
   ) => run(
-    () => RaylibDebugLabels.UpdateModelAnimationBones(model, anim, frame),
-    () => rl.Temp.Model$.RefUpdate1(model,
-      (pm) => rl.Temp.ModelAnimation$.RefUpdate1(anim,
-        (pma) => rl.Core.UpdateModelAnimationBones.run3(
-          pm.toJS,
-          pma.toJS,
-          frame.toJS,
-        ),
-      ),
-    ),
-  );
-    
-  @override
-  void UnloadModelAnimation(
-    ModelAnimationD anim,
-  ) => run(
-    () => RaylibDebugLabels.UnloadModelAnimation(anim),
-    () => rl.Core.UnloadModelAnimation.run1(
-      rl.Temp.ModelAnimation$.Ref1(anim).toJS,
+    () => RaylibDebugLabels.UpdateModelAnimationEx(model, animA, frameA, animB, frameB, blend),
+    () => rl.Core.UpdateModelAnimationEx.run6(
+      rl.Temp.Model$.Ref1(model).toJS,
+      rl.Temp.ModelAnimation$.Ref1(animA).toJS,
+      frameA.toJS,
+      rl.Temp.ModelAnimation$.Ref2(animB).toJS,
+      frameB.toJS,
+      blend.toJS,
     ),
   );
     
@@ -6492,7 +6985,14 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     List<ModelAnimationD> animations,
   ) => run(
     () => RaylibDebugLabels.UnloadModelAnimations(animations),
-    () => animations.forEach(UnloadModelAnimation),
+    () {
+      final slot = 'UnloadModelAnimations__animations';
+      rl.Core.UnloadModelAnimations.run2(
+        rl.Temp.ModelAnimation$.Array(animations, key: slot).toJS,
+        animations.length.toJS,
+      );
+      rl.Temp.ModelAnimation$.Unslot(slot); // freed by raylib
+    },
   );
     
   @override
