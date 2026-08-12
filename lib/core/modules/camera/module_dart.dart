@@ -19,10 +19,10 @@ class RaylibCameraD extends RaylibCameraModuleBase<
     Camera3DD camera,
   ) => run(
     () => RaylibDebugLabels.GetCameraForward(camera),
-    () => rl.Temp.Vector3$.Extract1(
+    () => rl.Temp.Vector3$.val.Extract1(
       (p) => rl.Camera.GetCameraForward.run2(
         p.toJS,
-        rl.Temp.Camera3D$.Ref1(camera).toJS,
+        rl.Temp.Camera3D$.val.Ref1(camera).toJS,
       ),
     ),
   );
@@ -32,10 +32,10 @@ class RaylibCameraD extends RaylibCameraModuleBase<
     Camera3DD camera,
   ) => run(
     () => RaylibDebugLabels.GetCameraUp(camera),
-    () => rl.Temp.Vector3$.Extract1(
+    () => rl.Temp.Vector3$.val.Extract1(
       (p) => rl.Camera.GetCameraUp.run2(
         p.toJS,
-        rl.Temp.Camera3D$.Ref1(camera).toJS,
+        rl.Temp.Camera3D$.val.Ref1(camera).toJS,
       ),
     ),
   );
@@ -45,10 +45,10 @@ class RaylibCameraD extends RaylibCameraModuleBase<
     Camera3DD camera,
   ) => run(
     () => RaylibDebugLabels.GetCameraRight(camera),
-    () => rl.Temp.Vector3$.Extract1(
+    () => rl.Temp.Vector3$.val.Extract1(
       (p) => rl.Camera.GetCameraRight.run2(
         p.toJS,
-        rl.Temp.Camera3D$.Ref1(camera).toJS,
+        rl.Temp.Camera3D$.val.Ref1(camera).toJS,
       ),
     ),
   );
@@ -60,7 +60,7 @@ class RaylibCameraD extends RaylibCameraModuleBase<
     bool moveInWorldPlane,
   ) => run(
     () => RaylibDebugLabels.CameraMoveForward(camera, distance, moveInWorldPlane),
-    () => rl.Temp.Camera3D$.RefUpdate1(camera,
+    () => rl.Temp.Camera3D$.val.RefUpdate1(camera,
       (pc) => rl.Camera.CameraMoveForward.run3(
         pc.toJS,
         distance.toJS,
@@ -75,7 +75,7 @@ class RaylibCameraD extends RaylibCameraModuleBase<
     num distance,
   ) => run(
     () => RaylibDebugLabels.CameraMoveUp(camera, distance),
-    () => rl.Temp.Camera3D$.RefUpdate1(camera,
+    () => rl.Temp.Camera3D$.val.RefUpdate1(camera,
       (pc) => rl.Camera.CameraMoveUp.run2(
         pc.toJS,
         distance.toJS,
@@ -90,7 +90,7 @@ class RaylibCameraD extends RaylibCameraModuleBase<
     bool moveInWorldPlane,
   ) => run(
     () => RaylibDebugLabels.CameraMoveRight(camera, distance, moveInWorldPlane),
-    () => rl.Temp.Camera3D$.RefUpdate1(camera,
+    () => rl.Temp.Camera3D$.val.RefUpdate1(camera,
       (pc) => rl.Camera.CameraMoveRight.run3(
         pc.toJS,
         distance.toJS,
@@ -105,7 +105,7 @@ class RaylibCameraD extends RaylibCameraModuleBase<
     num delta,
   ) => run(
     () => RaylibDebugLabels.CameraMoveToTarget(camera, delta),
-    () => rl.Temp.Camera3D$.RefUpdate1(camera,
+    () => rl.Temp.Camera3D$.val.RefUpdate1(camera,
       (pc) => rl.Camera.CameraMoveToTarget.run2(
         pc.toJS,
         delta.toJS,
@@ -120,7 +120,7 @@ class RaylibCameraD extends RaylibCameraModuleBase<
     bool rotateAroundTarget,
   ) => run(
     () => RaylibDebugLabels.CameraYaw(camera, angle, rotateAroundTarget),
-    () => rl.Temp.Camera3D$.RefUpdate1(camera,
+    () => rl.Temp.Camera3D$.val.RefUpdate1(camera,
       (pc) => rl.Camera.CameraYaw.run3(
         pc.toJS,
         angle.toJS,
@@ -138,7 +138,7 @@ class RaylibCameraD extends RaylibCameraModuleBase<
     bool rotateUp,
   ) => run(
     () => RaylibDebugLabels.CameraPitch(camera, angle, lockView, rotateAroundTarget, rotateUp),
-    () => rl.Temp.Camera3D$.RefUpdate1(camera,
+    () => rl.Temp.Camera3D$.val.RefUpdate1(camera,
       (pc) => rl.Camera.CameraPitch.run5(
         pc.toJS,
         angle.toJS,
@@ -155,7 +155,7 @@ class RaylibCameraD extends RaylibCameraModuleBase<
     num angle,
   ) => run(
     () => RaylibDebugLabels.CameraRoll(camera, angle),
-    () => rl.Temp.Camera3D$.RefUpdate1(camera,
+    () => rl.Temp.Camera3D$.val.RefUpdate1(camera,
       (pc) => rl.Camera.CameraRoll.run2(
         pc.toJS,
         angle.toJS,
@@ -168,10 +168,10 @@ class RaylibCameraD extends RaylibCameraModuleBase<
     Camera3DD camera,
   ) => run(
     () => RaylibDebugLabels.GetCameraViewMatrix(camera),
-    () => rl.Temp.Matrix$.Extract1(
+    () => rl.Temp.Matrix$.val.Extract1(
       (p) => rl.Camera.GetCameraViewMatrix.run2(
         p.toJS,
-        rl.Temp.Camera3D$.Ref1(camera).toJS,
+        rl.Temp.Camera3D$.val.Ref1(camera).toJS,
       ),
     ),
   );
@@ -182,10 +182,10 @@ class RaylibCameraD extends RaylibCameraModuleBase<
     num aspect,
   ) => run(
     () => RaylibDebugLabels.GetCameraProjectionMatrix(camera, aspect),
-    () => rl.Temp.Matrix$.Extract1(
+    () => rl.Temp.Matrix$.val.Extract1(
       (p) => rl.Camera.GetCameraProjectionMatrix.run3(
         p.toJS,
-        rl.Temp.Camera3D$.Ref1(camera).toJS,
+        rl.Temp.Camera3D$.val.Ref1(camera).toJS,
         aspect.toJS,
       ),
     ),

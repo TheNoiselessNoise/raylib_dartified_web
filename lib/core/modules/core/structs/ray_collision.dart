@@ -16,7 +16,7 @@ class RayCollisionD extends StructDLiteralWeb<RayCollisionD> with RayCollisionBa
 > {
   static final byteSize = _o.byteSize;
   static final _Offsets<_RayCollisionOffsets> _o = .fromMap({
-    .hit:      WasmSize.Boolean,
+    .hit:      WasmSize.Bool,
     .distance: WasmSize.Float32,
     .point:    Vector3D.byteSize,
     .normal:   Vector3D.byteSize,
@@ -60,7 +60,7 @@ class RayCollisionD extends StructDLiteralWeb<RayCollisionD> with RayCollisionBa
 
   @override
   void wasmWriteInto(WasmWriter writer) {
-    writer.boolean(hit);
+    writer.Bool(hit);
     writer.Float32(distance);
     writer.struct(point);
     writer.struct(normal);
@@ -68,7 +68,7 @@ class RayCollisionD extends StructDLiteralWeb<RayCollisionD> with RayCollisionBa
 
   @override
   void wasmReadFrom(WasmReader reader) {
-    hit = reader.boolean();
+    hit = reader.Bool();
     distance = reader.Float32();
     reader.struct(point);
     reader.struct(normal);

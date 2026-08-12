@@ -176,11 +176,11 @@ class RlVertexBufferD extends StructDWeb<RlVertexBufferD> with RlVertexBufferBas
   @override
   void wasmWriteInto(WasmWriter writer) {
     writer.Int32(elementCount);
-    writer.wasmptr(_vertices.ptr);
-    writer.wasmptr(_texcoords.ptr);
-    writer.wasmptr(_normals.ptr);
-    writer.wasmptr(_colors.ptr);
-    writer.wasmptr(_indices.ptr);
+    writer.wasmPointer(_vertices.ptr);
+    writer.wasmPointer(_texcoords.ptr);
+    writer.wasmPointer(_normals.ptr);
+    writer.wasmPointer(_colors.ptr);
+    writer.wasmPointer(_indices.ptr);
     writer.Uint32(vaoId);
     writer.Uint32Array(_vboId.inner);
 

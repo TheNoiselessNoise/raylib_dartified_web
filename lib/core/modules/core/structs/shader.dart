@@ -60,7 +60,7 @@ class ShaderD extends StructDWeb<ShaderD> with ShaderBase<ShaderD> {
   @override
   void wasmWriteInto(WasmWriter writer) {
     writer.Uint32(_id);
-    writer.wasmptr(_locs.ptr);
+    writer.wasmPointer(_locs.ptr);
 
     _locs.onPointer((p) => p.writeArray(_locs.inner));
   }

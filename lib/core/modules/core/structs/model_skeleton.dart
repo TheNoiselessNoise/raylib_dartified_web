@@ -89,15 +89,15 @@ class ModelSkeletonD extends StructDWeb<ModelSkeletonD> with ModelSkeletonBase<
 
   @override
   void structAllocateInto(RaylibTemp temp, WasmStructPointer<ModelSkeletonD> p, String key) {
-    if (bones.isNotEmpty) _bones.ptr = temp.BoneInfo$.Array(_bones.inner, key: '${key}_bones');
-    if (bindPose.isNotEmpty) _bindPose.ptr = temp.Transform$.Array(_bindPose.inner, key: '${key}_bindPose');
+    if (bones.isNotEmpty) _bones.ptr = temp.BoneInfo$.val.Array(_bones.inner, key: '${key}_bones');
+    if (bindPose.isNotEmpty) _bindPose.ptr = temp.Transform$.val.Array(_bindPose.inner, key: '${key}_bindPose');
   }
 
   @override
   void wasmWriteInto(WasmWriter writer) {
     writer.Int32(_boneCount);
-    writer.wasmptr(_bones.ptr);
-    writer.wasmptr(_bindPose.ptr);
+    writer.wasmPointer(_bones.ptr);
+    writer.wasmPointer(_bindPose.ptr);
 
     _bones.onPointer((p) => p.writeArray(_bones.inner));
     _bindPose.onPointer((p) => p.writeArray(_bindPose.inner));

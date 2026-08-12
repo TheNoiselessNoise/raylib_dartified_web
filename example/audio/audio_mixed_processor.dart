@@ -2,6 +2,7 @@
 // https://github.com/raysan5/raylib/blob/master/examples/audio/audio_mixed_processor.c
 // WARNING: expects resources from the raylib source
 import 'dart:math' as math;
+import 'dart:typed_data';
 import '../base_dart.dart';
 
 const int screenWidth = 800;
@@ -17,7 +18,7 @@ void main() => Raylib((rl) {
   InitAudioDevice();
 
   AttachAudioMixedProcessor(.function((buffer, frames) {
-    final samples = WasmFloat32Pointer(buffer);
+    final samples = buffer.asView<Float32List>(frames * 2);
     double average = 0.0;
 
     for (int frame = 0; frame < frames; frame++)
@@ -66,7 +67,7 @@ void main() => Raylib((rl) {
       DrawRectangle(199, 199, 402, 34, .LIGHTGRAY);
       for (int i = 0; i < 400; i++)
       {
-        DrawLine(201 + i, 232 - (averageVolume[i] * 32).toInt(), 201 + i, 232, .MAROON);
+        DrawLine(201 + i, 232 - averageVolume[i] * 32, 201 + i, 232, .MAROON);
       }
       DrawRectangleLines(199, 199, 402, 34, .GRAY);
 

@@ -56,12 +56,12 @@ void main() => Raylib((rl) {
   final golTransfertProgram = rlLoadShaderProgramCompute(golTransfertShader);
 
   int ssboA = rlLoadShaderBuffer(
-    UnsignedInt$.Size(GOL_WIDTH*GOL_WIDTH),
+    UnsignedInt$.val.Size(GOL_WIDTH*GOL_WIDTH),
     null,
     .RL_DYNAMIC_COPY
   );
   int ssboB = rlLoadShaderBuffer(
-    UnsignedInt$.Size(GOL_WIDTH*GOL_WIDTH),
+    UnsignedInt$.val.Size(GOL_WIDTH*GOL_WIDTH),
     null,
     .RL_DYNAMIC_COPY
   );
@@ -71,7 +71,7 @@ void main() => Raylib((rl) {
   );
 
   final ssboTransfert = rlLoadShaderBuffer(
-    transfertBuffer.data.length*UnsignedInt$.Size(),
+    transfertBuffer.data.length*UnsignedInt$.val.Size(),
     null,
     .RL_DYNAMIC_COPY
   );

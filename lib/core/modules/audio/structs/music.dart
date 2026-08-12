@@ -16,9 +16,9 @@ class MusicD extends StructDWeb<MusicD> with MusicBase<
   static final _Offsets<_MusicOffsets> _o = .fromMap({
     .stream:     AudioStreamD.byteSize,
     .frameCount: WasmSize.Uint32,
-    .looping:    WasmSize.Boolean,
+    .looping:    WasmSize.Bool,
     .ctxType:    WasmSize.Int32,
-    .ctxData:    WasmSize.AnyPointer,
+    .ctxData:    WasmSize.Pointer,
   });
 
   static WasmStructPointer<MusicD> wasmPointer(int ptr) => .new(ptr, MusicD.new, byteSize);
@@ -62,7 +62,7 @@ class MusicD extends StructDWeb<MusicD> with MusicBase<
   void wasmWriteInto(WasmWriter writer) {
     writer.struct(stream);
     writer.Uint32(frameCount);
-    writer.boolean(looping);
+    writer.Bool(looping);
     writer.Int32(ctxType.value);
     writer.pointer(_ctxDataPtr);
   }
@@ -71,7 +71,7 @@ class MusicD extends StructDWeb<MusicD> with MusicBase<
   void wasmReadFrom(WasmReader reader) {
     reader.struct(stream);
     frameCount = reader.Uint32();
-    looping = reader.boolean();
+    looping = reader.Bool();
     ctxType = .fromValue(reader.Int32());
     _ctxDataPtr = reader.pointer();
   }

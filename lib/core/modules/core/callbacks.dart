@@ -2,19 +2,14 @@ part of '../../raylib_dartified_web.dart';
 
 // TraceLogCallback
 
-typedef TraceLogCallbackFunctionD = void Function(
+typedef _TraceLogCallbackFunction = void Function(
   int logLevel,
   int textPtr,
   int argsPtr,
 );
 
-typedef TraceLogCallbackFriendlyFunctionD = void Function(
-  TraceLogLevel logLevel,
-  String text,
-);
-
 abstract class TraceLogCallbackD extends CallbackD<
-  TraceLogCallbackFunctionD
+  TraceLogCallbackFunction
 > with TraceLogCallbackBase {
   TraceLogCallbackD([super.name]);
 
@@ -24,53 +19,57 @@ abstract class TraceLogCallbackD extends CallbackD<
   @nonVirtual
   get registry => _registry;
 
+  /// The actual trampoline.
+  _TraceLogCallbackFunction get _rawFunction =>
+    (int logLevel, int textPtr, int argsPtr) =>
+      function(
+        logLevel,
+        WasmMemoryPointer(textPtr),
+        WasmMemoryPointer(argsPtr),
+      );
+
   @override
-  JSFunction get jsFunction => function.toJS;
+  JSFunction get jsFunction => _rawFunction.toJS;
 
   @override
   String get signature => 'vipp';
 
   static void disposeRegistry() => CallbackD.disposeRegistry(_registry);
 
-  factory TraceLogCallbackD.function(TraceLogCallbackFunctionD f, {String? name})
+  factory TraceLogCallbackD.function(TraceLogCallbackFunction f, {String? name})
     => _TraceLogCallbackD(f, name: name);
 
-  factory TraceLogCallbackD.friendly(TraceLogCallbackFriendlyFunctionD f, {String? name})
+  factory TraceLogCallbackD.friendly(TraceLogCallbackFriendlyFunction f, {String? name})
     => _TraceLogCallbackFriendlyD(f, name: name);
 }
 
 class _TraceLogCallbackD extends TraceLogCallbackD {
-  final TraceLogCallbackFunctionD _f;
+  final TraceLogCallbackFunction _f;
   _TraceLogCallbackD(this._f, {String? name}) : super(name);
 
   @override
-  TraceLogCallbackFunctionD get function => _f;
+  TraceLogCallbackFunction get function => _f;
 }
 
 class _TraceLogCallbackFriendlyD extends TraceLogCallbackD {
-  final TraceLogCallbackFriendlyFunctionD _f;
+  final TraceLogCallbackFriendlyFunction _f;
   _TraceLogCallbackFriendlyD(this._f, {String? name}) : super(name);
 
   @override
-  TraceLogCallbackFunctionD get function => (int logLevel, int textPtr, int argsPtr) {
-    return _f(.fromValue(logLevel), WasmStringPointer(textPtr).ref);
+  TraceLogCallbackFunction get function => (int logLevel, MemoryPointer text, MemoryPointer args) {
+    return _f(.fromValue(logLevel), text.toDartString());
   };
 }
 
 // LoadFileDataCallback
 
-typedef LoadFileDataCallbackFunctionD = int Function(
+typedef _LoadFileDataCallbackFunction = int Function(
   int fileNamePtr, // Pointer<Char>
   int dataSizePtr, // Pointer<Int>
 );
 
-typedef LoadFileDataCallbackFriendlyFunctionD = WasmUint8Pointer Function(
-  String fileName,
-  int dataSizePtr,
-);
-
 abstract class LoadFileDataCallbackD extends CallbackD<
-  LoadFileDataCallbackFunctionD
+  LoadFileDataCallbackFunction
 > with LoadFileDataCallbackBase {
   LoadFileDataCallbackD([super.name]);
 
@@ -80,57 +79,61 @@ abstract class LoadFileDataCallbackD extends CallbackD<
   @nonVirtual
   get registry => _registry;
 
+  /// The actual trampoline.
+  _LoadFileDataCallbackFunction get _rawFunction =>
+    (int fileNamePtr, int dataSizePtr) {
+      final result = function(
+        WasmMemoryPointer(fileNamePtr),
+        WasmMemoryPointer(dataSizePtr),
+      );
+      if (result.isNull) return 0;
+      return result.address;
+    };
+
   @override
-  JSFunction get jsFunction => function.toJS;
+  JSFunction get jsFunction => _rawFunction.toJS;
 
   @override
   String get signature => 'ipp';
 
   static void disposeRegistry() => CallbackD.disposeRegistry(_registry);
 
-  factory LoadFileDataCallbackD.function(LoadFileDataCallbackFunctionD f, {String? name})
+  factory LoadFileDataCallbackD.function(LoadFileDataCallbackFunction f, {String? name})
     => _LoadFileDataCallbackD(f, name: name);
 
-  factory LoadFileDataCallbackD.friendly(LoadFileDataCallbackFriendlyFunctionD f, {String? name})
+  factory LoadFileDataCallbackD.friendly(LoadFileDataCallbackFriendlyFunction f, {String? name})
     => _LoadFileDataCallbackFriendlyD(f, name: name);
 }
 
 class _LoadFileDataCallbackD extends LoadFileDataCallbackD {
-  final LoadFileDataCallbackFunctionD _f;
+  final LoadFileDataCallbackFunction _f;
   _LoadFileDataCallbackD(this._f, {String? name}) : super(name);
 
   @override
-  LoadFileDataCallbackFunctionD get function => _f;
+  LoadFileDataCallbackFunction get function => _f;
 }
 
 class _LoadFileDataCallbackFriendlyD extends LoadFileDataCallbackD {
-  final LoadFileDataCallbackFriendlyFunctionD _f;
+  final LoadFileDataCallbackFriendlyFunction _f;
   _LoadFileDataCallbackFriendlyD(this._f, {String? name}) : super(name);
 
   @override
-  LoadFileDataCallbackFunctionD get function => (int fileNamePtr, int dataSizePtr) {
-    final fileName = WasmStringPointer(fileNamePtr).ref;
-    return _f(fileName, dataSizePtr).address;
+  LoadFileDataCallbackFunction get function => (MemoryPointer<RInt8> fileName, MemoryPointer<RInt32> dataSize) {
+    return _f(fileName.toDartString(), dataSize);
   };
 }
 
 // SaveFileDataCallback
 
 // returnType: bool
-typedef SaveFileDataCallbackFunctionD = int Function(
+typedef _SaveFileDataCallbackFunction = int Function(
   int fileNamePtr, // Pointer<Char>
   int dataPtr, // Pointer<Void>
   int dataSize,
 );
 
-typedef SaveFileDataCallbackFriendlyFunctionD = bool Function(
-  String fileName,
-  int dataPtr,
-  int dataSize,
-);
-
 abstract class SaveFileDataCallbackD extends CallbackD<
-  SaveFileDataCallbackFunctionD
+  SaveFileDataCallbackFunction
 > with SaveFileDataCallbackBase {
   SaveFileDataCallbackD([super.name]);
 
@@ -140,53 +143,57 @@ abstract class SaveFileDataCallbackD extends CallbackD<
   @nonVirtual
   get registry => _registry;
 
+  /// The actual trampoline.
+  _SaveFileDataCallbackFunction get _rawFunction =>
+    (int fileNamePtr, int dataPtr, int dataSize) =>
+      function(
+        WasmMemoryPointer(fileNamePtr),
+        WasmMemoryPointer(dataPtr),
+        dataSize
+      ).toInt();
+
   @override
-  JSFunction get jsFunction => function.toJS;
+  JSFunction get jsFunction => _rawFunction.toJS;
 
   @override
   String get signature => 'ippi';
 
   static void disposeRegistry() => CallbackD.disposeRegistry(_registry);
 
-  factory SaveFileDataCallbackD.function(SaveFileDataCallbackFunctionD f, {String? name})
+  factory SaveFileDataCallbackD.function(SaveFileDataCallbackFunction f, {String? name})
     => _SaveFileDataCallbackD(f, name: name);
 
-  factory SaveFileDataCallbackD.friendly(SaveFileDataCallbackFriendlyFunctionD f, {String? name})
+  factory SaveFileDataCallbackD.friendly(SaveFileDataCallbackFriendlyFunction f, {String? name})
     => _SaveFileDataCallbackFriendlyD(f, name: name);
 }
 
 class _SaveFileDataCallbackD extends SaveFileDataCallbackD {
-  final SaveFileDataCallbackFunctionD _f;
+  final SaveFileDataCallbackFunction _f;
   _SaveFileDataCallbackD(this._f, {String? name}) : super(name);
 
   @override
-  SaveFileDataCallbackFunctionD get function => _f;
+  SaveFileDataCallbackFunction get function => _f;
 }
 
 class _SaveFileDataCallbackFriendlyD extends SaveFileDataCallbackD {
-  final SaveFileDataCallbackFriendlyFunctionD _f;
+  final SaveFileDataCallbackFriendlyFunction _f;
   _SaveFileDataCallbackFriendlyD(this._f, {String? name}) : super(name);
 
   @override
-  SaveFileDataCallbackFunctionD get function => (int fileNamePtr, int dataPtr, int dataSize) {
-    final fileName = WasmStringPointer(fileNamePtr).ref;
-    return _f(fileName, dataPtr, dataSize).toInt();
+  SaveFileDataCallbackFunction get function => (MemoryPointer<RInt8> fileName, MemoryPointer<RVoid> data, int dataSize) {
+    return _f(fileName.toDartString(), data, dataSize);
   };
 }
 
 // LoadFileTextCallback
 
 // returnType: Pointer<Char>
-typedef LoadFileTextCallbackFunctionD = int Function(
+typedef _LoadFileTextCallbackFunction = int Function(
   int fileNamePtr, // Pointer<Char>
 );
 
-typedef LoadFileTextCallbackFriendlyFunctionD = String Function(
-  String fileName,
-);
-
 abstract class LoadFileTextCallbackD extends CallbackD<
-  LoadFileTextCallbackFunctionD
+  LoadFileTextCallbackFunction
 > with LoadFileTextCallbackBase {
   LoadFileTextCallbackD([super.name]);
 
@@ -196,55 +203,59 @@ abstract class LoadFileTextCallbackD extends CallbackD<
   @nonVirtual
   get registry => _registry;
 
+  /// The actual trampoline.
+  _LoadFileTextCallbackFunction get _rawFunction =>
+    (int fileNamePtr) {
+      final result = function(
+        WasmMemoryPointer(fileNamePtr),
+      );
+      if (result.isNull) return 0;
+      return result.address;
+    };
+
   @override
-  JSFunction get jsFunction => function.toJS;
+  JSFunction get jsFunction => _rawFunction.toJS;
 
   @override
   String get signature => 'pp';
 
   static void disposeRegistry() => CallbackD.disposeRegistry(_registry);
 
-  factory LoadFileTextCallbackD.function(LoadFileTextCallbackFunctionD f, {String? name})
+  factory LoadFileTextCallbackD.function(LoadFileTextCallbackFunction f, {String? name})
     => _LoadFileTextCallbackD(f, name: name);
 
-  factory LoadFileTextCallbackD.friendly(LoadFileTextCallbackFriendlyFunctionD f, {String? name})
+  factory LoadFileTextCallbackD.friendly(LoadFileTextCallbackFriendlyFunction f, {String? name})
     => _LoadFileTextCallbackFriendlyD(f, name: name);
 }
 
 class _LoadFileTextCallbackD extends LoadFileTextCallbackD {
-  final LoadFileTextCallbackFunctionD _f;
+  final LoadFileTextCallbackFunction _f;
   _LoadFileTextCallbackD(this._f, {String? name}) : super(name);
 
   @override
-  LoadFileTextCallbackFunctionD get function => _f;
+  LoadFileTextCallbackFunction get function => _f;
 }
 
 class _LoadFileTextCallbackFriendlyD extends LoadFileTextCallbackD {
-  final LoadFileTextCallbackFriendlyFunctionD _f;
+  final LoadFileTextCallbackFriendlyFunction _f;
   _LoadFileTextCallbackFriendlyD(this._f, {String? name}) : super(name);
 
   @override
-  LoadFileTextCallbackFunctionD get function => (int fileNamePtr) {
-    final fileName = WasmStringPointer(fileNamePtr).ref;
-    return Raylib.instance.Temp.String$.Value(_f(fileName)).address;
+  LoadFileTextCallbackFunction get function => (MemoryPointer<RInt8> fileName) {
+    return WasmMemoryPointer(WasmMemory.allocString(_f(fileName.toDartString())));
   };
 }
 
 // SaveFileTextCallback
 
 // returnType: bool
-typedef SaveFileTextCallbackFunctionD = int Function(
+typedef _SaveFileTextCallbackFunction = int Function(
   int fileNamePtr, // Pointer<Char>
   int textPtr, // Pointer<Char>
 );
 
-typedef SaveFileTextCallbackFriendlyFunctionD = bool Function(
-  String fileName,
-  String text,
-);
-
 abstract class SaveFileTextCallbackD extends CallbackD<
-  SaveFileTextCallbackFunctionD
+  SaveFileTextCallbackFunction
 > with SaveFileTextCallbackBase {
   SaveFileTextCallbackD([super.name]);
 
@@ -254,37 +265,43 @@ abstract class SaveFileTextCallbackD extends CallbackD<
   @nonVirtual
   get registry => _registry;
 
+  /// The actual trampoline.
+  _SaveFileTextCallbackFunction get _rawFunction =>
+    (int fileNamePtr, int textPtr) =>
+      function(
+        WasmMemoryPointer(fileNamePtr),
+        WasmMemoryPointer(textPtr),
+      ).toInt();
+
   @override
-  JSFunction get jsFunction => function.toJS;
+  JSFunction get jsFunction => _rawFunction.toJS;
 
   @override
   String get signature => 'ipp';
 
   static void disposeRegistry() => CallbackD.disposeRegistry(_registry);
 
-  factory SaveFileTextCallbackD.function(SaveFileTextCallbackFunctionD f, {String? name})
+  factory SaveFileTextCallbackD.function(SaveFileTextCallbackFunction f, {String? name})
     => _SaveFileTextCallbackD(f, name: name);
 
-  factory SaveFileTextCallbackD.friendly(SaveFileTextCallbackFriendlyFunctionD f, {String? name})
+  factory SaveFileTextCallbackD.friendly(SaveFileTextCallbackFriendlyFunction f, {String? name})
     => _SaveFileTextCallbackFriendlyD(f, name: name);
 }
 
 class _SaveFileTextCallbackD extends SaveFileTextCallbackD {
-  final SaveFileTextCallbackFunctionD _f;
+  final SaveFileTextCallbackFunction _f;
   _SaveFileTextCallbackD(this._f, {String? name}) : super(name);
 
   @override
-  SaveFileTextCallbackFunctionD get function => _f;
+  SaveFileTextCallbackFunction get function => _f;
 }
 
 class _SaveFileTextCallbackFriendlyD extends SaveFileTextCallbackD {
-  final SaveFileTextCallbackFriendlyFunctionD _f;
+  final SaveFileTextCallbackFriendlyFunction _f;
   _SaveFileTextCallbackFriendlyD(this._f, {String? name}) : super(name);
 
   @override
-  SaveFileTextCallbackFunctionD get function => (int fileNamePtr, int textPtr) {
-    final fileName = WasmStringPointer(fileNamePtr).ref;
-    final text = WasmStringPointer(textPtr).ref;
-    return _f(fileName, text).toInt();
+  SaveFileTextCallbackFunction get function => (MemoryPointer<RInt8> fileName, MemoryPointer<RInt8> text) {
+    return _f(fileName.toDartString(), text.toDartString());
   };
 }

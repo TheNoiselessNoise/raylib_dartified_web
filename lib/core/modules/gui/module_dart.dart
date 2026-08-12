@@ -80,14 +80,14 @@ class RaylibGuiD extends RaylibGuiModuleBase<
   ) => run(
     () => RaylibDebugLabels.GuiSetFont(font),
     () => rl.Gui.GuiSetFont.run1(
-      rl.Temp.Font$.Ref1(font).toJS,
+      rl.Temp.Font$.val.Ref1(font).toJS,
     ),
   );
 
   @override
   FontD GuiGetFont() => run(
     () => RaylibDebugLabels.GuiGetFont(),
-    () => rl.Temp.Font$.RefCapture(
+    () => rl.Temp.Font$.val.RefCapture(
       RaylibCaptureIds.GuiGetFont(),
       (p) => rl.Gui.GuiGetFont.run1(
         p.toJS,
@@ -230,7 +230,7 @@ class RaylibGuiD extends RaylibGuiModuleBase<
       posX.toJS,
       posY.toJS,
       pixelSize.toJS,
-      rl.Temp.Color$.Ref1(color).toJS,
+      rl.Temp.Color$.val.Ref1(color).toJS,
     ),
   );
 
@@ -251,7 +251,7 @@ class RaylibGuiD extends RaylibGuiModuleBase<
   ) => run(
     () => RaylibDebugLabels.GuiWindowBox(bounds, title),
     () => rl.Gui.GuiWindowBox.run2(
-      rl.Temp.Rectangle$.Ref1(bounds).toJS,
+      rl.Temp.Rectangle$.val.Ref1(bounds).toJS,
       title?.toJS,
     ).toInt(),
   );
@@ -263,7 +263,7 @@ class RaylibGuiD extends RaylibGuiModuleBase<
   ) => run(
     () => RaylibDebugLabels.GuiGroupBox(bounds, text),
     () => rl.Gui.GuiGroupBox.run2(
-      rl.Temp.Rectangle$.Ref1(bounds).toJS,
+      rl.Temp.Rectangle$.val.Ref1(bounds).toJS,
       text?.toJS,
     ).toInt(),
   );
@@ -275,7 +275,7 @@ class RaylibGuiD extends RaylibGuiModuleBase<
   ) => run(
     () => RaylibDebugLabels.GuiLine(bounds, text),
     () => rl.Gui.GuiLine.run2(
-      rl.Temp.Rectangle$.Ref1(bounds).toJS,
+      rl.Temp.Rectangle$.val.Ref1(bounds).toJS,
       text?.toJS,
     ).toInt(),
   );
@@ -287,7 +287,7 @@ class RaylibGuiD extends RaylibGuiModuleBase<
   ) => run(
     () => RaylibDebugLabels.GuiPanel(bounds, text),
     () => rl.Gui.GuiPanel.run2(
-      rl.Temp.Rectangle$.Ref1(bounds).toJS,
+      rl.Temp.Rectangle$.val.Ref1(bounds).toJS,
       text?.toJS,
     ).toInt(),
   );
@@ -299,9 +299,9 @@ class RaylibGuiD extends RaylibGuiModuleBase<
   ) => run(
     () => RaylibDebugLabels.GuiTabBar(bounds, text),
     () {
-      final activePtr = rl.Temp.Int32$.Ref1();
+      final activePtr = rl.Temp.Int32$.val.Ref1();
       final currentTabClosingRequested = rl.Gui.GuiTabBar.run4(
-        rl.Temp.Rectangle$.Ref1(bounds).toJS,
+        rl.Temp.Rectangle$.val.Ref1(bounds).toJS,
         rl.Temp.String$.Array(text).toJS,
         text.length.toJS,
         activePtr.toJS,
@@ -319,12 +319,12 @@ class RaylibGuiD extends RaylibGuiModuleBase<
     [RectangleD? view]
   ) => run(
     () => RaylibDebugLabels.GuiScrollPanel(bounds, text, content, scroll, view),
-    () => rl.Temp.Vector2$.RefUpdate1(scroll,
-      (ps) => rl.Temp.Rectangle$.RefUpdate1(view,
+    () => rl.Temp.Vector2$.val.RefUpdate1(scroll,
+      (ps) => rl.Temp.Rectangle$.val.RefUpdate1(view,
         (pv) => rl.Gui.GuiScrollPanel.run5(
-          rl.Temp.Rectangle$.Ref2(bounds).toJS,
+          rl.Temp.Rectangle$.val.Ref2(bounds).toJS,
           text?.toJS,
-          rl.Temp.Rectangle$.Ref3(content).toJS,
+          rl.Temp.Rectangle$.val.Ref3(content).toJS,
           ps.toJS,
           pv.toJS,
         ).toInt(),
@@ -339,7 +339,7 @@ class RaylibGuiD extends RaylibGuiModuleBase<
   ) => run(
     () => RaylibDebugLabels.GuiLabel(bounds, text),
     () => rl.Gui.GuiLabel.run2(
-      rl.Temp.Rectangle$.Ref1(bounds).toJS,
+      rl.Temp.Rectangle$.val.Ref1(bounds).toJS,
       text?.toJS,
     ).toInt(),
   );
@@ -351,7 +351,7 @@ class RaylibGuiD extends RaylibGuiModuleBase<
   ) => run(
     () => RaylibDebugLabels.GuiButton(bounds, text),
     () => rl.Gui.GuiButton.run2(
-      rl.Temp.Rectangle$.Ref1(bounds).toJS,
+      rl.Temp.Rectangle$.val.Ref1(bounds).toJS,
       text?.toJS,
     ).toInt(),
   );
@@ -363,7 +363,7 @@ class RaylibGuiD extends RaylibGuiModuleBase<
   ) => run(
     () => RaylibDebugLabels.GuiLabelButton(bounds, text),
     () => rl.Gui.GuiLabelButton.run2(
-      rl.Temp.Rectangle$.Ref1(bounds).toJS,
+      rl.Temp.Rectangle$.val.Ref1(bounds).toJS,
       text?.toJS,
     ).toInt(),
   );
@@ -376,9 +376,9 @@ class RaylibGuiD extends RaylibGuiModuleBase<
   ) => run(
     () => RaylibDebugLabels.GuiToggle(bounds, text, active),
     () {
-      final valuePtr = rl.Temp.Bool$.Ref1(active);
+      final valuePtr = rl.Temp.Bool$.val.Ref1(active);
       final result = rl.Gui.GuiToggle.run3(
-        rl.Temp.Rectangle$.Ref1(bounds).toJS,
+        rl.Temp.Rectangle$.val.Ref1(bounds).toJS,
         text?.toJS,
         valuePtr.toJS,
       ).toInt();
@@ -394,9 +394,9 @@ class RaylibGuiD extends RaylibGuiModuleBase<
   ) => run(
     () => RaylibDebugLabels.GuiToggleGroup(bounds, text, active),
     () {
-      final valuePtr = rl.Temp.Int32$.Ref1(active.toInt());
+      final valuePtr = rl.Temp.Int32$.val.Ref1(active.toInt());
       final result = rl.Gui.GuiToggleGroup.run3(
-        rl.Temp.Rectangle$.Ref1(bounds).toJS,
+        rl.Temp.Rectangle$.val.Ref1(bounds).toJS,
         text?.toJS,
         valuePtr.toJS,
       ).toInt();
@@ -412,9 +412,9 @@ class RaylibGuiD extends RaylibGuiModuleBase<
   ) => run(
     () => RaylibDebugLabels.GuiToggleSlider(bounds, text, active),
     () {
-      final valuePtr = rl.Temp.Int32$.Ref1(active.toInt());
+      final valuePtr = rl.Temp.Int32$.val.Ref1(active.toInt());
       final result = rl.Gui.GuiToggleSlider.run3(
-        rl.Temp.Rectangle$.Ref1(bounds).toJS,
+        rl.Temp.Rectangle$.val.Ref1(bounds).toJS,
         text?.toJS,
         valuePtr.toJS,
       ).toInt();
@@ -430,9 +430,9 @@ class RaylibGuiD extends RaylibGuiModuleBase<
   ) => run(
     () => RaylibDebugLabels.GuiCheckBox(bounds, text, checked),
     () {
-      final valuePtr = rl.Temp.Bool$.Ref1(checked);
+      final valuePtr = rl.Temp.Bool$.val.Ref1(checked);
       final result = rl.Gui.GuiCheckBox.run3(
-        rl.Temp.Rectangle$.Ref1(bounds).toJS,
+        rl.Temp.Rectangle$.val.Ref1(bounds).toJS,
         text?.toJS,
         valuePtr.toJS,
       ).toInt();
@@ -448,9 +448,9 @@ class RaylibGuiD extends RaylibGuiModuleBase<
   ) => run(
     () => RaylibDebugLabels.GuiComboBox(bounds, text, active),
     () {
-      final valuePtr = rl.Temp.Int32$.Ref1(active.toInt());
+      final valuePtr = rl.Temp.Int32$.val.Ref1(active.toInt());
       final result = rl.Gui.GuiComboBox.run3(
-        rl.Temp.Rectangle$.Ref1(bounds).toJS,
+        rl.Temp.Rectangle$.val.Ref1(bounds).toJS,
         text?.toJS,
         valuePtr.toJS,
       ).toInt();
@@ -467,9 +467,9 @@ class RaylibGuiD extends RaylibGuiModuleBase<
   ) => run(
     () => RaylibDebugLabels.GuiDropdownBox(bounds, text, active, editMode),
     () {
-      final valuePtr = rl.Temp.Int32$.Ref1(active.toInt());
+      final valuePtr = rl.Temp.Int32$.val.Ref1(active.toInt());
       final result = rl.Gui.GuiDropdownBox.run4(
-        rl.Temp.Rectangle$.Ref1(bounds).toJS,
+        rl.Temp.Rectangle$.val.Ref1(bounds).toJS,
         text?.toJS,
         valuePtr.toJS,
         editMode.toJS,
@@ -489,9 +489,9 @@ class RaylibGuiD extends RaylibGuiModuleBase<
   ) => run(
     () => RaylibDebugLabels.GuiSpinner(bounds, text, value, minValue, maxValue, editMode),
     () {
-      final valuePtr = rl.Temp.Int32$.Ref1(value.toInt());
+      final valuePtr = rl.Temp.Int32$.val.Ref1(value.toInt());
       final result = rl.Gui.GuiSpinner.run6(
-        rl.Temp.Rectangle$.Ref1(bounds).toJS,
+        rl.Temp.Rectangle$.val.Ref1(bounds).toJS,
         text?.toJS,
         valuePtr.toJS,
         minValue.toJS,
@@ -513,9 +513,9 @@ class RaylibGuiD extends RaylibGuiModuleBase<
   ) => run(
     () => RaylibDebugLabels.GuiValueBox(bounds, text, value, minValue, maxValue, editMode),
     () {
-      final valuePtr = rl.Temp.Int32$.Ref1(value.toInt());
+      final valuePtr = rl.Temp.Int32$.val.Ref1(value.toInt());
       final result = rl.Gui.GuiValueBox.run6(
-        rl.Temp.Rectangle$.Ref1(bounds).toJS,
+        rl.Temp.Rectangle$.val.Ref1(bounds).toJS,
         text?.toJS,
         valuePtr.toJS,
         minValue.toJS,
@@ -536,9 +536,9 @@ class RaylibGuiD extends RaylibGuiModuleBase<
   ) => run(
     () => RaylibDebugLabels.GuiValueBoxFloat(bounds, text, textValue, value, editMode),
     () {
-      final valuePtr = rl.Temp.Float32$.Ref1(value.toDouble());
+      final valuePtr = rl.Temp.Float32$.val.Ref1(value.toDouble());
       final result = rl.Gui.GuiValueBoxFloat.run5(
-        rl.Temp.Rectangle$.Ref1(bounds).toJS,
+        rl.Temp.Rectangle$.val.Ref1(bounds).toJS,
         text?.toJS,
         textValue.toJS,
         valuePtr.toJS,
@@ -559,7 +559,7 @@ class RaylibGuiD extends RaylibGuiModuleBase<
     () {
       final valuePtr = rl.Temp.String$.Ref1(text ?? '', textSize.toInt());
       final result = rl.Gui.GuiTextBox.run4(
-        rl.Temp.Rectangle$.Ref1(bounds).toJS,
+        rl.Temp.Rectangle$.val.Ref1(bounds).toJS,
         valuePtr.toJS,
         textSize.toJS,
         editMode.toJS,
@@ -579,9 +579,9 @@ class RaylibGuiD extends RaylibGuiModuleBase<
   ) => run(
     () => RaylibDebugLabels.GuiSlider(bounds, textLeft, textRight, value, minValue, maxValue),
     () {
-      final valuePtr = rl.Temp.Float32$.Ref1(value.toDouble());
+      final valuePtr = rl.Temp.Float32$.val.Ref1(value.toDouble());
       final result = rl.Gui.GuiSlider.run6(
-        rl.Temp.Rectangle$.Ref1(bounds).toJS,
+        rl.Temp.Rectangle$.val.Ref1(bounds).toJS,
         textLeft?.toJS,
         textRight?.toJS,
         valuePtr.toJS,
@@ -603,9 +603,9 @@ class RaylibGuiD extends RaylibGuiModuleBase<
   ) => run(
     () => RaylibDebugLabels.GuiSliderBar(bounds, textLeft, textRight, value, minValue, maxValue),
     () {
-      final valuePtr = rl.Temp.Float32$.Ref1(value.toDouble());
+      final valuePtr = rl.Temp.Float32$.val.Ref1(value.toDouble());
       final result = rl.Gui.GuiSliderBar.run6(
-        rl.Temp.Rectangle$.Ref1(bounds).toJS,
+        rl.Temp.Rectangle$.val.Ref1(bounds).toJS,
         textLeft?.toJS,
         textRight?.toJS,
         valuePtr.toJS,
@@ -627,9 +627,9 @@ class RaylibGuiD extends RaylibGuiModuleBase<
   ) => run(
     () => RaylibDebugLabels.GuiProgressBar(bounds, textLeft, textRight, value, minValue, maxValue),
     () {
-      final valuePtr = rl.Temp.Float32$.Ref1(value.toDouble());
+      final valuePtr = rl.Temp.Float32$.val.Ref1(value.toDouble());
       final result = rl.Gui.GuiProgressBar.run6(
-        rl.Temp.Rectangle$.Ref1(bounds).toJS,
+        rl.Temp.Rectangle$.val.Ref1(bounds).toJS,
         textLeft?.toJS,
         textRight?.toJS,
         valuePtr.toJS,
@@ -647,7 +647,7 @@ class RaylibGuiD extends RaylibGuiModuleBase<
   ) => run(
     () => RaylibDebugLabels.GuiStatusBar(bounds, text),
     () => rl.Gui.GuiStatusBar.run2(
-      rl.Temp.Rectangle$.Ref1(bounds).toJS,
+      rl.Temp.Rectangle$.val.Ref1(bounds).toJS,
       text?.toJS,
     ).toInt(),
   );
@@ -659,7 +659,7 @@ class RaylibGuiD extends RaylibGuiModuleBase<
   ) => run(
     () => RaylibDebugLabels.GuiDummyRec(bounds, text),
     () => rl.Gui.GuiDummyRec.run2(
-      rl.Temp.Rectangle$.Ref1(bounds).toJS,
+      rl.Temp.Rectangle$.val.Ref1(bounds).toJS,
       text?.toJS,
     ).toInt(),
   );
@@ -672,9 +672,9 @@ class RaylibGuiD extends RaylibGuiModuleBase<
     [Vector2D? mouseCell]
   ) => run(
     () => RaylibDebugLabels.GuiGrid(bounds, spacing, subdivs, mouseCell),
-    () => rl.Temp.Vector2$.RefUpdate1(mouseCell,
+    () => rl.Temp.Vector2$.val.RefUpdate1(mouseCell,
       (pv) => rl.Gui.GuiGrid.run5(
-        rl.Temp.Rectangle$.Ref1(bounds).toJS,
+        rl.Temp.Rectangle$.val.Ref1(bounds).toJS,
         0.toJS, // `text`, it's not used at all
         spacing.toJS,
         subdivs.toJS,
@@ -693,10 +693,10 @@ class RaylibGuiD extends RaylibGuiModuleBase<
   ) => run(
     () => RaylibDebugLabels.GuiListView(bounds, text, scrollIndex: scrollIndex, active: active),
     () {
-      final scrollIndexPtr = rl.Temp.Int32$.RefOrNull1(scrollIndex);
-      final activePtr = rl.Temp.Int32$.RefOrNull2(active);
+      final scrollIndexPtr = rl.Temp.Int32$.val.RefOrNull1(scrollIndex);
+      final activePtr = rl.Temp.Int32$.val.RefOrNull2(active);
       final result = rl.Gui.GuiListView.run4(
-        rl.Temp.Rectangle$.Ref1(bounds).toJS,
+        rl.Temp.Rectangle$.val.Ref1(bounds).toJS,
         text?.toJS,
         scrollIndexPtr.toJS,
         activePtr.toJS,
@@ -720,11 +720,11 @@ class RaylibGuiD extends RaylibGuiModuleBase<
   ) => run(
     () => RaylibDebugLabels.GuiListViewEx(bounds, text, scrollIndex: scrollIndex, active: active, focus: focus),
     () {
-      final scrollIndexPtr = rl.Temp.Int32$.RefOrNull1(scrollIndex);
-      final activePtr = rl.Temp.Int32$.RefOrNull2(active);
-      final focusPtr = rl.Temp.Int32$.RefOrNull3(focus);
+      final scrollIndexPtr = rl.Temp.Int32$.val.RefOrNull1(scrollIndex);
+      final activePtr = rl.Temp.Int32$.val.RefOrNull2(active);
+      final focusPtr = rl.Temp.Int32$.val.RefOrNull3(focus);
       final result = rl.Gui.GuiListViewEx.run6(
-        rl.Temp.Rectangle$.Ref1(bounds).toJS,
+        rl.Temp.Rectangle$.val.Ref1(bounds).toJS,
         (text == null ? 0 : rl.Temp.String$.Array(text).address).toJS,
         (text?.length ?? 0).toJS,
         scrollIndexPtr.toJS,
@@ -749,7 +749,7 @@ class RaylibGuiD extends RaylibGuiModuleBase<
   ) => run(
     () => RaylibDebugLabels.GuiMessageBox(bounds, title, message, buttons),
     () => rl.Gui.GuiMessageBox.run4(
-      rl.Temp.Rectangle$.Ref1(bounds).toJS,
+      rl.Temp.Rectangle$.val.Ref1(bounds).toJS,
       title?.toJS,
       message.toJS,
       buttons.toJS,
@@ -769,9 +769,9 @@ class RaylibGuiD extends RaylibGuiModuleBase<
     () => RaylibDebugLabels.GuiTextInputBox(bounds, title, message, buttons, text, textMaxSize, secretViewActive),
     () {
       final valuePtr = rl.Temp.String$.Ref1(text, textMaxSize.toInt());
-      final secretViewActivePtr = rl.Temp.Bool$.RefOrNull1(secretViewActive);
+      final secretViewActivePtr = rl.Temp.Bool$.val.RefOrNull1(secretViewActive);
       final result = rl.Gui.GuiTextInputBox.run7(
-        rl.Temp.Rectangle$.Ref1(bounds).toJS,
+        rl.Temp.Rectangle$.val.Ref1(bounds).toJS,
         title?.toJS,
         message?.toJS,
         buttons.toJS,
@@ -790,9 +790,9 @@ class RaylibGuiD extends RaylibGuiModuleBase<
   ) => run(
     () => RaylibDebugLabels.GuiColorPicker(bounds, color),
     () {
-      final valuePtr = rl.Temp.Color$.Ref1(color);
+      final valuePtr = rl.Temp.Color$.val.Ref1(color);
       final result = rl.Gui.GuiColorPicker.run3(
-        rl.Temp.Rectangle$.Ref1(bounds).toJS,
+        rl.Temp.Rectangle$.val.Ref1(bounds).toJS,
         0.toJS, // `text`, it's not used at all
         valuePtr.toJS,
       ).toInt();
@@ -807,9 +807,9 @@ class RaylibGuiD extends RaylibGuiModuleBase<
   ) => run(
     () => RaylibDebugLabels.GuiColorPanel(bounds, color),
     () {
-      final valuePtr = rl.Temp.Color$.Ref1(color);
+      final valuePtr = rl.Temp.Color$.val.Ref1(color);
       final result = rl.Gui.GuiColorPanel.run3(
-        rl.Temp.Rectangle$.Ref1(bounds).toJS,
+        rl.Temp.Rectangle$.val.Ref1(bounds).toJS,
         0.toJS, // `text`, it's not used at all
         valuePtr.toJS,
       ).toInt();
@@ -824,9 +824,9 @@ class RaylibGuiD extends RaylibGuiModuleBase<
   ) => run(
     () => RaylibDebugLabels.GuiColorBarAlpha(bounds, alpha),
     () {
-      final valuePtr = rl.Temp.Float32$.Ref1(alpha.toDouble());
+      final valuePtr = rl.Temp.Float32$.val.Ref1(alpha.toDouble());
       final result = rl.Gui.GuiColorBarAlpha.run3(
-        rl.Temp.Rectangle$.Ref1(bounds).toJS,
+        rl.Temp.Rectangle$.val.Ref1(bounds).toJS,
         0.toJS, // `text`, it's not used at all
         valuePtr.toJS,
       ).toInt();
@@ -841,9 +841,9 @@ class RaylibGuiD extends RaylibGuiModuleBase<
   ) => run(
     () => RaylibDebugLabels.GuiColorBarHue(bounds, value),
     () {
-      final valuePtr = rl.Temp.Float32$.Ref1(value.toDouble());
+      final valuePtr = rl.Temp.Float32$.val.Ref1(value.toDouble());
       final result = rl.Gui.GuiColorBarHue.run3(
-        rl.Temp.Rectangle$.Ref1(bounds).toJS,
+        rl.Temp.Rectangle$.val.Ref1(bounds).toJS,
         0.toJS, // `text`, it's not used at all
         valuePtr.toJS,
       ).toInt();
@@ -858,9 +858,9 @@ class RaylibGuiD extends RaylibGuiModuleBase<
   ) => run(
     () => RaylibDebugLabels.GuiColorPickerHSV(bounds, colorHsv),
     () {
-      final valuePtr = rl.Temp.Vector3$.Ref1(colorHsv);
+      final valuePtr = rl.Temp.Vector3$.val.Ref1(colorHsv);
       final result = rl.Gui.GuiColorPickerHSV.run3(
-        rl.Temp.Rectangle$.Ref1(bounds).toJS,
+        rl.Temp.Rectangle$.val.Ref1(bounds).toJS,
         0.toJS, // `text`, it's not used at all
         valuePtr.toJS,
       ).toInt();
@@ -875,9 +875,9 @@ class RaylibGuiD extends RaylibGuiModuleBase<
   ) => run(
     () => RaylibDebugLabels.GuiColorPanelHSV(bounds, colorHsv),
     () {
-      final valuePtr = rl.Temp.Vector3$.Ref1(colorHsv);
+      final valuePtr = rl.Temp.Vector3$.val.Ref1(colorHsv);
       final result = rl.Gui.GuiColorPanelHSV.run3(
-        rl.Temp.Rectangle$.Ref1(bounds).toJS,
+        rl.Temp.Rectangle$.val.Ref1(bounds).toJS,
         0.toJS, // `text`, it's not used at all
         valuePtr.toJS,
       ).toInt();

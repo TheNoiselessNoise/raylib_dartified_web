@@ -129,8 +129,8 @@ class RlRenderBatchD extends StructDWeb<RlRenderBatchD> with RlRenderBatchBase<
   void wasmWriteInto(WasmWriter writer) {
     writer.Int32(bufferCount);
     writer.Int32(currentBuffer);
-    writer.wasmptr(_vertexBuffer.ptr);
-    writer.wasmptr(_draws.ptr);
+    writer.wasmPointer(_vertexBuffer.ptr);
+    writer.wasmPointer(_draws.ptr);
     writer.Int32(drawCounter);
     writer.Float32(currentDepth);
 

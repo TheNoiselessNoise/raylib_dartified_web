@@ -92,9 +92,9 @@ void main() => Raylib((rl) {
   });
 });
 
-void SineCallback(int framesOutPtr, int frameCount)
+void SineCallback(MemoryPointer framesOut, int frameCount)
 {
-  final frames = WasmFloat32Pointer(framesOutPtr);
+  final frames = framesOut.asView<Float32List>(frameCount * 2);
 
   int wavelength = SAMPLE_RATE~/waveFrequency;
 
@@ -115,9 +115,9 @@ void SineCallback(int framesOutPtr, int frameCount)
   for (int i = 0; i < frameCount; i++) buffer[SAMPLE_RATE - frameCount + i] = frames[i];
 }
 
-void SquareCallback(int framesOutPtr, int frameCount)
+void SquareCallback(MemoryPointer framesOut, int frameCount)
 {
-  final frames = WasmFloat32Pointer(framesOutPtr);
+  final frames = framesOut.asView<Float32List>(frameCount * 2);
 
   int wavelength = SAMPLE_RATE~/waveFrequency;
 
@@ -137,9 +137,9 @@ void SquareCallback(int framesOutPtr, int frameCount)
   for (int i = 0; i < frameCount; i++) buffer[SAMPLE_RATE - frameCount + i] = frames[i];
 }
 
-void TriangleCallback(int framesOutPtr, int frameCount)
+void TriangleCallback(MemoryPointer framesOut, int frameCount)
 {
-  final frames = WasmFloat32Pointer(framesOutPtr);
+  final frames = framesOut.asView<Float32List>(frameCount * 2);
 
   int wavelength = SAMPLE_RATE~/waveFrequency;
 
@@ -159,9 +159,9 @@ void TriangleCallback(int framesOutPtr, int frameCount)
   for (int i = 0; i < frameCount; i++) buffer[SAMPLE_RATE - frameCount + i] = frames[i];
 }
 
-void SawtoothCallback(int framesOutPtr, int frameCount)
+void SawtoothCallback(MemoryPointer framesOut, int frameCount)
 {
-  final frames = WasmFloat32Pointer(framesOutPtr);
+  final frames = framesOut.asView<Float32List>(frameCount * 2);
 
   int wavelength = SAMPLE_RATE~/waveFrequency;
 

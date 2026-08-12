@@ -2,7 +2,10 @@ part of '../../raylib_dartified_web.dart';
 
 // AudioCallback
 
-typedef AudioCallbackFunctionD = void Function(int bufferDataPtr, int frames);
+typedef _AudioCallbackFunction = void Function(
+  int bufferDataPtr,
+  int frames,
+);
 
 abstract class AudioCallbackD extends CallbackD<
   AudioCallbackFunctionD
@@ -15,8 +18,13 @@ abstract class AudioCallbackD extends CallbackD<
   @nonVirtual
   get registry => _registry;
 
+  /// The actual trampoline.
+  _AudioCallbackFunction get _rawFunction =>
+    (int bufferDataPtr, int frames) =>
+      function(WasmMemoryPointer(bufferDataPtr), frames);
+
   @override
-  JSFunction get jsFunction => function.toJS;
+  JSFunction get jsFunction => _rawFunction.toJS;
 
   @override
   String get signature => 'vpi';

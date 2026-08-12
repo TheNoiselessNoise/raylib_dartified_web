@@ -2,9 +2,6 @@ part of '../../raylib_dartified_web.dart';
 
 class RaylibCoreD extends RaylibCoreModuleBase<
   Raylib,
-  
-  // pointers
-  int,
 
   // types
   AutomationEventListD,
@@ -196,7 +193,7 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.SetWindowIcon(image),
     () => rl.Core.SetWindowIcon.run1(
-      rl.Temp.Image$.Ref1(image).toJS,
+      rl.Temp.Image$.val.Ref1(image).toJS,
     ),
   );
     
@@ -206,7 +203,7 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.SetWindowIcons(images),
     () => rl.Core.SetWindowIcons.run2(
-      rl.Temp.Image$.Array(images).toJS,
+      rl.Temp.Image$.val.Array(images).toJS,
       images.length.toJS,
     ),
   );
@@ -390,7 +387,7 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   @override
   Vector2D GetWindowPosition() => run(
     () => RaylibDebugLabels.GetWindowPosition(),
-    () => rl.Temp.Vector2$.Extract1(
+    () => rl.Temp.Vector2$.val.Extract1(
       (p) => rl.Core.GetWindowPosition.run1(
         p.toJS,
       ),
@@ -400,7 +397,7 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   @override
   Vector2D GetWindowScaleDPI() => run(
     () => RaylibDebugLabels.GetWindowScaleDPI(),
-    () => rl.Temp.Vector2$.Extract1(
+    () => rl.Temp.Vector2$.val.Extract1(
       (p) => rl.Core.GetWindowScaleDPI.run1(
         p.toJS,
       ),
@@ -439,7 +436,7 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   @override
   ImageD GetClipboardImage() => run(
     () => RaylibDebugLabels.GetClipboardImage(),
-    () => rl.Temp.Image$.RefCapture(
+    () => rl.Temp.Image$.val.RefCapture(
       RaylibCaptureIds.GetClipboardImage(),
       (p) => rl.Core.GetClipboardImage.run1(
         p.toJS,
@@ -501,7 +498,7 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.ClearBackground(color),
     () => rl.Core.ClearBackground.run1(
-      rl.Temp.Color$.Ref1(color).toJS,
+      rl.Temp.Color$.val.Ref1(color).toJS,
     ),
   );
     
@@ -523,7 +520,7 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.BeginMode2D(camera),
     () => rl.Core.BeginMode2D.run1(
-      rl.Temp.Camera2D$.Ref1(camera).toJS,
+      rl.Temp.Camera2D$.val.Ref1(camera).toJS,
     ),
   );
 
@@ -539,7 +536,7 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.BeginMode3D(camera),
     () => rl.Core.BeginMode3D.run1(
-      rl.Temp.Camera3D$.Ref1(camera).toJS,
+      rl.Temp.Camera3D$.val.Ref1(camera).toJS,
     ),
   );
 
@@ -555,7 +552,7 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.BeginTextureMode(target),
     () => rl.Core.BeginTextureMode.run1(
-      rl.Temp.RenderTexture$.Ref1(target).toJS,
+      rl.Temp.RenderTexture$.val.Ref1(target).toJS,
     ),
   );
     
@@ -571,7 +568,7 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.BeginShaderMode(shader),
     () => rl.Core.BeginShaderMode.run1(
-      rl.Temp.Shader$.Ref1(shader).toJS,
+      rl.Temp.Shader$.val.Ref1(shader).toJS,
     ),
   );
     
@@ -625,7 +622,7 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.BeginVrStereoMode(config),
     () => rl.Core.BeginVrStereoMode.run1(
-      rl.Temp.VrStereoConfig$.Ref1(config).toJS,
+      rl.Temp.VrStereoConfig$.val.Ref1(config).toJS,
     ),
   );
     
@@ -640,11 +637,11 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     VrDeviceInfoD device,
   ) => run(
     () => RaylibDebugLabels.LoadVrStereoConfig(device),
-    () => rl.Temp.VrStereoConfig$.RefCapture(
+    () => rl.Temp.VrStereoConfig$.val.RefCapture(
       RaylibCaptureIds.LoadVrStereoConfig(device),
       (p) => rl.Core.LoadVrStereoConfig.run2(
         p.toJS,
-        rl.Temp.VrDeviceInfo$.Ref1(device).toJS,
+        rl.Temp.VrDeviceInfo$.val.Ref1(device).toJS,
       ),
     ),
   );
@@ -665,7 +662,7 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     String? fsFileName,
   ) => run(
     () => RaylibDebugLabels.LoadShader(vsFileName, fsFileName),
-    () => rl.Temp.Shader$.RefCapture(
+    () => rl.Temp.Shader$.val.RefCapture(
       RaylibCaptureIds.LoadShader(vsFileName, fsFileName),
       (p) => rl.Core.LoadShader.run3(
         p.toJS,
@@ -681,7 +678,7 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     String? fsCode,
   ) => run(
     () => RaylibDebugLabels.LoadShaderFromMemory(vsCode, fsCode),
-    () => rl.Temp.Shader$.RefCapture(
+    () => rl.Temp.Shader$.val.RefCapture(
       RaylibCaptureIds.LoadShaderFromMemory(vsCode, fsCode),
       (p) => rl.Core.LoadShaderFromMemory.run3(
         p.toJS,
@@ -697,7 +694,7 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.IsShaderValid(shader),
     () => rl.Core.IsShaderValid.run1(
-      rl.Temp.Shader$.Ref1(shader).toJS,
+      rl.Temp.Shader$.val.Ref1(shader).toJS,
     ).toBool(),
   );
     
@@ -708,7 +705,7 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.GetShaderLocation(shader, uniformName),
     () => rl.Core.GetShaderLocation.run2(
-      rl.Temp.Shader$.Ref1(shader).toJS,
+      rl.Temp.Shader$.val.Ref1(shader).toJS,
       uniformName.toJS,
     ).toInt(),
   );
@@ -720,7 +717,7 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.GetShaderLocationAttrib(shader, attribName),
     () => rl.Core.GetShaderLocationAttrib.run2(
-      rl.Temp.Shader$.Ref1(shader).toJS,
+      rl.Temp.Shader$.val.Ref1(shader).toJS,
       attribName.toJS,
     ).toInt(),
   );
@@ -754,23 +751,23 @@ class RaylibCoreD extends RaylibCoreModuleBase<
         .SHADER_UNIFORM_FLOAT ||
         .SHADER_UNIFORM_VEC2  ||
         .SHADER_UNIFORM_VEC3  ||
-        .SHADER_UNIFORM_VEC4  => rl.Temp.Float32$.Array(value),
+        .SHADER_UNIFORM_VEC4  => rl.Temp.Float32$.val.Array(value),
         
         .SHADER_UNIFORM_INT   ||
         .SHADER_UNIFORM_IVEC2 ||
         .SHADER_UNIFORM_IVEC3 ||
-        .SHADER_UNIFORM_IVEC4 => rl.Temp.Int32$.Array(value),
+        .SHADER_UNIFORM_IVEC4 => rl.Temp.Int32$.val.Array(value),
 
         .SHADER_UNIFORM_UINT   ||
         .SHADER_UNIFORM_UIVEC2 ||
         .SHADER_UNIFORM_UIVEC3 ||
-        .SHADER_UNIFORM_UIVEC4 => rl.Temp.UnsignedInt$.Array(value),
+        .SHADER_UNIFORM_UIVEC4 => rl.Temp.UnsignedInt$.val.Array(value),
         
-        .SHADER_UNIFORM_SAMPLER2D => rl.Temp.Int32$.Array(value),
+        .SHADER_UNIFORM_SAMPLER2D => rl.Temp.Int32$.val.Array(value),
       };
 
       rl.Core.SetShaderValueV.run5(
-        rl.Temp.Shader$.Ref1(shader).toJS,
+        rl.Temp.Shader$.val.Ref1(shader).toJS,
         locIndex.toJS,
         ptr.toJS,
         uniformType.value.toJS,
@@ -787,9 +784,9 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.SetShaderValueMatrix(shader, locIndex, mat),
     () => rl.Core.SetShaderValueMatrix.run3(
-      rl.Temp.Shader$.Ref1(shader).toJS,
+      rl.Temp.Shader$.val.Ref1(shader).toJS,
       locIndex.toJS,
-      rl.Temp.Matrix$.Ref1(mat).toJS,
+      rl.Temp.Matrix$.val.Ref1(mat).toJS,
     ),
   );
     
@@ -801,9 +798,9 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.SetShaderValueTexture(shader, locIndex, texture),
     () => rl.Core.SetShaderValueTexture.run3(
-      rl.Temp.Shader$.Ref1(shader).toJS,
+      rl.Temp.Shader$.val.Ref1(shader).toJS,
       locIndex.toJS,
-      rl.Temp.Texture$.Ref1(texture).toJS,
+      rl.Temp.Texture$.val.Ref1(texture).toJS,
     ),
   );
     
@@ -823,11 +820,11 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     Camera3DD camera,
   ) => run(
     () => RaylibDebugLabels.GetScreenToWorldRay(position, camera),
-    () => rl.Temp.Ray$.Extract1(
+    () => rl.Temp.Ray$.val.Extract1(
       (p) => rl.Core.GetScreenToWorldRay.run3(
         p.toJS,
-        rl.Temp.Vector2$.Ref1(position).toJS,
-        rl.Temp.Camera3D$.Ref1(camera).toJS,
+        rl.Temp.Vector2$.val.Ref1(position).toJS,
+        rl.Temp.Camera3D$.val.Ref1(camera).toJS,
       ),
     ),
   );
@@ -840,11 +837,11 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     num height,
   ) => run(
     () => RaylibDebugLabels.GetScreenToWorldRayEx(position, camera, width, height),
-    () => rl.Temp.Ray$.Extract1(
+    () => rl.Temp.Ray$.val.Extract1(
       (p) => rl.Core.GetScreenToWorldRayEx.run5(
         p.toJS,
-        rl.Temp.Vector2$.Ref1(position).toJS,
-        rl.Temp.Camera3D$.Ref1(camera).toJS,
+        rl.Temp.Vector2$.val.Ref1(position).toJS,
+        rl.Temp.Camera3D$.val.Ref1(camera).toJS,
         width.toJS,
         height.toJS,
       ),
@@ -857,11 +854,11 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     Camera3DD camera,
   ) => run(
     () => RaylibDebugLabels.GetWorldToScreen(position, camera),
-    () => rl.Temp.Vector2$.Extract1(
+    () => rl.Temp.Vector2$.val.Extract1(
       (p) => rl.Core.GetWorldToScreen.run3(
         p.toJS,
-        rl.Temp.Vector3$.Ref1(position).toJS,
-        rl.Temp.Camera3D$.Ref1(camera).toJS,
+        rl.Temp.Vector3$.val.Ref1(position).toJS,
+        rl.Temp.Camera3D$.val.Ref1(camera).toJS,
       ),
     ),
   );
@@ -874,11 +871,11 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     num height,
   ) => run(
     () => RaylibDebugLabels.GetWorldToScreenEx(position, camera, width, height),
-    () => rl.Temp.Vector2$.Extract1(
+    () => rl.Temp.Vector2$.val.Extract1(
       (p) => rl.Core.GetWorldToScreenEx.run5(
         p.toJS,
-        rl.Temp.Vector3$.Ref1(position).toJS,
-        rl.Temp.Camera3D$.Ref1(camera).toJS,
+        rl.Temp.Vector3$.val.Ref1(position).toJS,
+        rl.Temp.Camera3D$.val.Ref1(camera).toJS,
         width.toJS,
         height.toJS,
       ),
@@ -891,11 +888,11 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     Camera2DD camera,
   ) => run(
     () => RaylibDebugLabels.GetWorldToScreen2D(position, camera),
-    () => rl.Temp.Vector2$.Extract2(
+    () => rl.Temp.Vector2$.val.Extract2(
       (p) => rl.Core.GetWorldToScreen2D.run3(
         p.toJS,
-        rl.Temp.Vector2$.Ref1(position).toJS,
-        rl.Temp.Camera2D$.Ref1(camera).toJS,
+        rl.Temp.Vector2$.val.Ref1(position).toJS,
+        rl.Temp.Camera2D$.val.Ref1(camera).toJS,
       ),
     ),
   );
@@ -906,11 +903,11 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     Camera2DD camera,
   ) => run(
     () => RaylibDebugLabels.GetScreenToWorld2D(position, camera),
-    () => rl.Temp.Vector2$.Extract2(
+    () => rl.Temp.Vector2$.val.Extract2(
       (p) => rl.Core.GetScreenToWorld2D.run3(
         p.toJS,
-        rl.Temp.Vector2$.Ref1(position).toJS,
-        rl.Temp.Camera2D$.Ref1(camera).toJS,
+        rl.Temp.Vector2$.val.Ref1(position).toJS,
+        rl.Temp.Camera2D$.val.Ref1(camera).toJS,
       ),
     ),
   );
@@ -920,10 +917,10 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     Camera3DD camera,
   ) => run(
     () => RaylibDebugLabels.GetCameraMatrix(camera),
-    () => rl.Temp.Matrix$.Extract1(
+    () => rl.Temp.Matrix$.val.Extract1(
       (p) => rl.Core.GetCameraMatrix.run2(
         p.toJS,
-        rl.Temp.Camera3D$.Ref1(camera).toJS,
+        rl.Temp.Camera3D$.val.Ref1(camera).toJS,
       ),
     ),
   );
@@ -933,10 +930,10 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     Camera2DD camera,
   ) => run(
     () => RaylibDebugLabels.GetCameraMatrix2D(camera),
-    () => rl.Temp.Matrix$.Extract1(
+    () => rl.Temp.Matrix$.val.Extract1(
       (p) => rl.Core.GetCameraMatrix2D.run2(
         p.toJS,
-        rl.Temp.Camera2D$.Ref1(camera).toJS,
+        rl.Temp.Camera2D$.val.Ref1(camera).toJS,
       ),
     ),
   );
@@ -1140,7 +1137,7 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.LoadFileData(fileName),
     () {
-      final fileSizePtr = rl.Temp.Int32$.Ref1();
+      final fileSizePtr = rl.Temp.Int32$.val.Ref1();
       final dataPtr = rl.Core.LoadFileData.run2(
         fileName.toJS,
         fileSizePtr.toJS,
@@ -1159,7 +1156,7 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     () => RaylibDebugLabels.SaveFileData(fileName, data),
     () => rl.Core.SaveFileData.run3(
       fileName.toJS,
-      rl.Temp.Uint8$.Array(data).toJS,
+      rl.Temp.Uint8$.val.Array(data).toJS,
       data.length.toJS,
     ).toBool(),
   );
@@ -1171,7 +1168,7 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.ExportDataAsCode(data, fileName),
     () => rl.Core.ExportDataAsCode.run3(
-      rl.Temp.Uint8$.Array(data).toJS,
+      rl.Temp.Uint8$.val.Array(data).toJS,
       data.length.toJS,
       fileName.toJS,
     ).toBool(),
@@ -1470,7 +1467,7 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     String dirPath,
   ) => run(
     () => RaylibDebugLabels.LoadDirectoryFiles(dirPath),
-    () => rl.Temp.FilePathList$.RefCapture(
+    () => rl.Temp.FilePathList$.val.RefCapture(
       RaylibCaptureIds.LoadDirectoryFiles(dirPath),
       (p) => rl.Core.LoadDirectoryFiles.run2(
         p.toJS,
@@ -1486,7 +1483,7 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     bool scanSubdirs,
   ) => run(
     () => RaylibDebugLabels.LoadDirectoryFilesEx(basePath, filter, scanSubdirs),
-    () => rl.Temp.FilePathList$.RefCapture(
+    () => rl.Temp.FilePathList$.val.RefCapture(
       RaylibCaptureIds.LoadDirectoryFilesEx(basePath, filter, scanSubdirs),
       (p) => rl.Core.LoadDirectoryFilesEx.run4(
         p.toJS,
@@ -1516,7 +1513,7 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   @override
   FilePathListD LoadDroppedFiles() => run(
     () => RaylibDebugLabels.LoadDroppedFiles(),
-    () => rl.Temp.FilePathList$.RefCapture(
+    () => rl.Temp.FilePathList$.val.RefCapture(
       RaylibCaptureIds.LoadDroppedFiles(),
       (p) => rl.Core.LoadDroppedFiles.run1(
         p.toJS,
@@ -1550,9 +1547,9 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.CompressData(data),
     () {
-      final compDataSizePtr = rl.Temp.Int32$.Ref1();
+      final compDataSizePtr = rl.Temp.Int32$.val.Ref1();
       final compDataPtr = rl.Core.CompressData.run3(
-        rl.Temp.Uint8$.Array(data).toJS,
+        rl.Temp.Uint8$.val.Array(data).toJS,
         data.length.toJS,
         compDataSizePtr.toJS,
       ).toInt();
@@ -1568,9 +1565,9 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.DecompressData(compData),
     () {
-      final dataSizePtr = rl.Temp.Int32$.Ref1();
+      final dataSizePtr = rl.Temp.Int32$.val.Ref1();
       final dataPtr = rl.Core.DecompressData.run3(
-        rl.Temp.Uint8$.Array(compData).toJS,
+        rl.Temp.Uint8$.val.Array(compData).toJS,
         compData.length.toJS,
         dataSizePtr.toJS,
       ).toInt();
@@ -1586,9 +1583,9 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.EncodeDataBase64(data),
     () {
-      final outputSizePtr = rl.Temp.Int32$.Ref1();
+      final outputSizePtr = rl.Temp.Int32$.val.Ref1();
       final outputDataPtr = rl.Core.EncodeDataBase64.run3(
-        rl.Temp.Uint8$.Array(data).toJS,
+        rl.Temp.Uint8$.val.Array(data).toJS,
         data.length.toJS,
         outputSizePtr.toJS,
       ).toInt();
@@ -1604,9 +1601,9 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.DecodeDataBase64(data),
     () {
-      final outputSizePtr = rl.Temp.Int32$.Ref1();
+      final outputSizePtr = rl.Temp.Int32$.val.Ref1();
       final outputDataPtr = rl.Core.DecodeDataBase64.run2(
-        rl.Temp.Int8$.Array(data).toJS,
+        rl.Temp.Int8$.val.Array(data).toJS,
         outputSizePtr.toJS,
       ).toInt();
       final newData = WasmUint8Pointer(outputDataPtr).readTypedArray(outputSizePtr.value);
@@ -1621,7 +1618,7 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.ComputeCRC32(data),
     () => rl.Core.ComputeCRC32.run2(
-      rl.Temp.Uint8$.Array(data).toJS,
+      rl.Temp.Uint8$.val.Array(data).toJS,
       data.length.toJS,
     ).toInt(),
   );
@@ -1631,9 +1628,9 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     Uint8List data,
   ) => run(
     () => RaylibDebugLabels.ComputeMD5(data),
-    () => .fromList(rl.Temp.Uint32$.ToLEBytes(
+    () => .fromList(rl.Temp.Uint32$.val.ToLEBytes(
       rl.Core.ComputeMD5.run2(
-        rl.Temp.Uint8$.Array(data).toJS,
+        rl.Temp.Uint8$.val.Array(data).toJS,
         data.length.toJS,
       ).toInt(),
       rl.Utils.md5Uint32HashLength,
@@ -1645,9 +1642,9 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     Uint8List data,
   ) => run(
     () => RaylibDebugLabels.ComputeSHA1(data),
-    () => .fromList(rl.Temp.Uint32$.ToBEBytes(
+    () => .fromList(rl.Temp.Uint32$.val.ToBEBytes(
       rl.Core.ComputeSHA1.run2(
-        rl.Temp.Uint8$.Array(data).toJS,
+        rl.Temp.Uint8$.val.Array(data).toJS,
         data.length.toJS,
       ).toInt(),
       rl.Utils.sha1Uint32HashLength,
@@ -1659,9 +1656,9 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     Uint8List data,
   ) => run(
     () => RaylibDebugLabels.ComputeSHA256(data),
-    () => .fromList(rl.Temp.Uint32$.ToBEBytes(
+    () => .fromList(rl.Temp.Uint32$.val.ToBEBytes(
       rl.Core.ComputeSHA256.run2(
-        rl.Temp.Uint8$.Array(data).toJS,
+        rl.Temp.Uint8$.val.Array(data).toJS,
         data.length.toJS,
       ).toInt(),
       rl.Utils.sha256Uint32HashLength,
@@ -1673,7 +1670,7 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     String? fileName,
   ) => run(
     () => RaylibDebugLabels.LoadAutomationEventList(fileName),
-    () => rl.Temp.AutomationEventList$.RefCapture(
+    () => rl.Temp.AutomationEventList$.val.RefCapture(
       RaylibCaptureIds.LoadAutomationEventList(fileName),
       (p) => rl.Core.LoadAutomationEventList.run2(
         p.toJS,
@@ -1699,7 +1696,7 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.ExportAutomationEventList(list, fileName),
     () => rl.Core.ExportAutomationEventList.run2(
-      rl.Temp.AutomationEventList$.Ref1(list).toJS,
+      rl.Temp.AutomationEventList$.val.Ref1(list).toJS,
       fileName.toJS,
     ).toBool(),
   );
@@ -1710,7 +1707,7 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.SetAutomationEventList(list),
     () => rl.Core.SetAutomationEventList.run1(
-      rl.Temp.AutomationEventList$.Ref1(list).toJS,
+      rl.Temp.AutomationEventList$.val.Ref1(list).toJS,
     ),
   );
     
@@ -1742,7 +1739,7 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.PlayAutomationEvent(event),
     () => rl.Core.PlayAutomationEvent.run1(
-      rl.Temp.AutomationEvent$.Ref1(event).toJS,
+      rl.Temp.AutomationEvent$.val.Ref1(event).toJS,
     ),
   );
 
@@ -2007,7 +2004,7 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   @override
   Vector2D GetMousePosition() => run(
     () => RaylibDebugLabels.GetMousePosition(),
-    () => rl.Temp.Vector2$.Extract1(
+    () => rl.Temp.Vector2$.val.Extract1(
       (p) => rl.Core.GetMousePosition.run1(
         p.toJS,
       ),
@@ -2017,7 +2014,7 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   @override
   Vector2D GetMouseDelta() => run(
     () => RaylibDebugLabels.GetMouseDelta(),
-    () => rl.Temp.Vector2$.Extract1(
+    () => rl.Temp.Vector2$.val.Extract1(
       (p) => rl.Core.GetMouseDelta.run1(
         p.toJS,
       ),
@@ -2069,7 +2066,7 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   @override
   Vector2D GetMouseWheelMoveV() => run(
     () => RaylibDebugLabels.GetMouseWheelMoveV(),
-    () => rl.Temp.Vector2$.Extract1(
+    () => rl.Temp.Vector2$.val.Extract1(
       (p) => rl.Core.GetMouseWheelMoveV.run1(
         p.toJS,
       ),
@@ -2103,7 +2100,7 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     num index,
   ) => run(
     () => RaylibDebugLabels.GetTouchPosition(index),
-    () => rl.Temp.Vector2$.Extract1(
+    () => rl.Temp.Vector2$.val.Extract1(
       (p) => rl.Core.GetTouchPosition.run2(
         p.toJS,
         index.toJS,
@@ -2162,7 +2159,7 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   @override
   Vector2D GetGestureDragVector() => run(
     () => RaylibDebugLabels.GetGestureDragVector(),
-    () => rl.Temp.Vector2$.Extract1(
+    () => rl.Temp.Vector2$.val.Extract1(
       (p) => rl.Core.GetGestureDragVector.run1(
         p.toJS,
       ),
@@ -2178,7 +2175,7 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   @override
   Vector2D GetGesturePinchVector() => run(
     () => RaylibDebugLabels.GetGesturePinchVector(),
-    () => rl.Temp.Vector2$.Extract1(
+    () => rl.Temp.Vector2$.val.Extract1(
       (p) => rl.Core.GetGesturePinchVector.run1(
         p.toJS,
       ),
@@ -2197,7 +2194,7 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.ProcessGestureEvent(event),
     () => rl.Core.ProcessGestureEvent.run1(
-      rl.Temp.GestureEvent$.Ref1(event).toJS,
+      rl.Temp.GestureEvent$.val.Ref1(event).toJS,
     ),
   );
   
@@ -2213,7 +2210,7 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     CameraMode mode,
   ) => run(
     () => RaylibDebugLabels.UpdateCamera(camera, mode),
-    () => rl.Temp.Camera3D$.RefUpdate1(camera,
+    () => rl.Temp.Camera3D$.val.RefUpdate1(camera,
       (p) => rl.Core.UpdateCamera.run2(
         p.toJS,
         mode.value.toJS,
@@ -2229,11 +2226,11 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     num zoom,
   ) => run(
     () => RaylibDebugLabels.UpdateCameraPro(camera, movement, rotation, zoom),
-    () => rl.Temp.Camera3D$.RefUpdate1(camera,
+    () => rl.Temp.Camera3D$.val.RefUpdate1(camera,
       (p) => rl.Core.UpdateCameraPro.run4(
         p.toJS,
-        rl.Temp.Vector3$.Ref1(movement).toJS,
-        rl.Temp.Vector3$.Ref2(rotation).toJS,
+        rl.Temp.Vector3$.val.Ref1(movement).toJS,
+        rl.Temp.Vector3$.val.Ref2(rotation).toJS,
         zoom.toJS,
       )
     ),
@@ -2246,15 +2243,15 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.SetShapesTexture(texture, source),
     () => rl.Core.SetShapesTexture.run2(
-      rl.Temp.Texture$.Ref1(texture).toJS,
-      rl.Temp.Rectangle$.Ref1(source).toJS,
+      rl.Temp.Texture$.val.Ref1(texture).toJS,
+      rl.Temp.Rectangle$.val.Ref1(source).toJS,
     ),
   );
 
   @override
   TextureD GetShapesTexture() => run(
     () => RaylibDebugLabels.GetShapesTexture(),
-    () => rl.Temp.Texture$.Extract1(
+    () => rl.Temp.Texture$.val.Extract1(
       (p) => rl.Core.GetShapesTexture.run1(
         p.toJS,
       ),
@@ -2264,7 +2261,7 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   @override
   RectangleD GetShapesTextureRectangle() => run(
     () => RaylibDebugLabels.GetShapesTextureRectangle(),
-    () => rl.Temp.Rectangle$.Extract1(
+    () => rl.Temp.Rectangle$.val.Extract1(
       (p) => rl.Core.GetShapesTextureRectangle.run1(
         p.toJS,
       ),
@@ -2281,7 +2278,7 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     () => rl.Core.DrawPixel.run3(
       posX.toJS,
       posY.toJS,
-      rl.Temp.Color$.Ref1(color).toJS,
+      rl.Temp.Color$.val.Ref1(color).toJS,
     ),
   );
 
@@ -2292,8 +2289,8 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.DrawPixelV(position, color),
     () => rl.Core.DrawPixelV.run2(
-      rl.Temp.Vector2$.Ref1(position).toJS,
-      rl.Temp.Color$.Ref1(color).toJS,
+      rl.Temp.Vector2$.val.Ref1(position).toJS,
+      rl.Temp.Color$.val.Ref1(color).toJS,
     ),
   );
     
@@ -2311,7 +2308,7 @@ class RaylibCoreD extends RaylibCoreModuleBase<
       startPosY.toJS,
       endPosX.toJS,
       endPosY.toJS,
-      rl.Temp.Color$.Ref1(color).toJS,
+      rl.Temp.Color$.val.Ref1(color).toJS,
     ),
   );
 
@@ -2323,9 +2320,9 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.DrawLineV(startPos, endPos, color),
     () => rl.Core.DrawLineV.run3(
-      rl.Temp.Vector2$.Ref1(startPos).toJS,
-      rl.Temp.Vector2$.Ref2(endPos).toJS,
-      rl.Temp.Color$.Ref1(color).toJS,
+      rl.Temp.Vector2$.val.Ref1(startPos).toJS,
+      rl.Temp.Vector2$.val.Ref2(endPos).toJS,
+      rl.Temp.Color$.val.Ref1(color).toJS,
     ),
   );
 
@@ -2338,10 +2335,10 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.DrawLineEx(startPos, endPos, thick, color),
     () => rl.Core.DrawLineEx.run4(
-      rl.Temp.Vector2$.Ref1(startPos).toJS,
-      rl.Temp.Vector2$.Ref2(endPos).toJS,
+      rl.Temp.Vector2$.val.Ref1(startPos).toJS,
+      rl.Temp.Vector2$.val.Ref2(endPos).toJS,
       thick.toJS,
-      rl.Temp.Color$.Ref1(color).toJS,
+      rl.Temp.Color$.val.Ref1(color).toJS,
     ),
   );
 
@@ -2352,9 +2349,9 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.DrawLineStrip(points, color),
     () => rl.Core.DrawLineStrip.run3(
-      rl.Temp.Vector2$.Array(points).toJS,
+      rl.Temp.Vector2$.val.Array(points).toJS,
       points.length.toJS,
-      rl.Temp.Color$.Ref1(color).toJS,
+      rl.Temp.Color$.val.Ref1(color).toJS,
     ),
   );
 
@@ -2367,10 +2364,10 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.DrawLineBezier(startPos, endPos, thick, color),
     () => rl.Core.DrawLineBezier.run4(
-      rl.Temp.Vector2$.Ref1(startPos).toJS,
-      rl.Temp.Vector2$.Ref2(endPos).toJS,
+      rl.Temp.Vector2$.val.Ref1(startPos).toJS,
+      rl.Temp.Vector2$.val.Ref2(endPos).toJS,
       thick.toJS,
-      rl.Temp.Color$.Ref1(color).toJS,
+      rl.Temp.Color$.val.Ref1(color).toJS,
     ),
   );
 
@@ -2384,11 +2381,11 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.DrawLineDashed(startPos, endPos, dashSize, spaceSize, color),
     () => rl.Core.DrawLineBezier.run5(
-      rl.Temp.Vector2$.Ref1(startPos).toJS,
-      rl.Temp.Vector2$.Ref2(endPos).toJS,
+      rl.Temp.Vector2$.val.Ref1(startPos).toJS,
+      rl.Temp.Vector2$.val.Ref2(endPos).toJS,
       dashSize.toJS,
       spaceSize.toJS,
-      rl.Temp.Color$.Ref1(color).toJS,
+      rl.Temp.Color$.val.Ref1(color).toJS,
     ),
   );
 
@@ -2404,7 +2401,7 @@ class RaylibCoreD extends RaylibCoreModuleBase<
       centerX.toJS,
       centerY.toJS,
       radius.toJS,
-      rl.Temp.Color$.Ref1(color).toJS,
+      rl.Temp.Color$.val.Ref1(color).toJS,
     ),
   );
 
@@ -2419,12 +2416,12 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.DrawCircleSector(center, radius, startAngle, endAngle, segments, color),
     () => rl.Core.DrawCircleSector.run6(
-      rl.Temp.Vector2$.Ref1(center).toJS,
+      rl.Temp.Vector2$.val.Ref1(center).toJS,
       radius.toJS,
       startAngle.toJS,
       endAngle.toJS,
       segments.toJS,
-      rl.Temp.Color$.Ref1(color).toJS,
+      rl.Temp.Color$.val.Ref1(color).toJS,
     ),
   );
 
@@ -2439,12 +2436,12 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.DrawCircleSectorLines(center, radius, startAngle, endAngle, segments, color),
     () => rl.Core.DrawCircleSectorLines.run6(
-      rl.Temp.Vector2$.Ref1(center).toJS,
+      rl.Temp.Vector2$.val.Ref1(center).toJS,
       radius.toJS,
       startAngle.toJS,
       endAngle.toJS,
       segments.toJS,
-      rl.Temp.Color$.Ref1(color).toJS,
+      rl.Temp.Color$.val.Ref1(color).toJS,
     ),
   );
 
@@ -2457,10 +2454,10 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.DrawCircleGradient(center, radius, inner, outer),
     () => rl.Core.DrawCircleGradient.run4(
-      rl.Temp.Vector2$.Ref1(center).toJS,
+      rl.Temp.Vector2$.val.Ref1(center).toJS,
       radius.toJS,
-      rl.Temp.Color$.Ref1(inner).toJS,
-      rl.Temp.Color$.Ref2(outer).toJS,
+      rl.Temp.Color$.val.Ref1(inner).toJS,
+      rl.Temp.Color$.val.Ref2(outer).toJS,
     ),
   );
 
@@ -2472,9 +2469,9 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.DrawCircleV(center, radius, color),
     () => rl.Core.DrawCircleV.run3(
-      rl.Temp.Vector2$.Ref1(center).toJS,
+      rl.Temp.Vector2$.val.Ref1(center).toJS,
       radius.toJS,
-      rl.Temp.Color$.Ref1(color).toJS,
+      rl.Temp.Color$.val.Ref1(color).toJS,
     ),
   );
 
@@ -2490,7 +2487,7 @@ class RaylibCoreD extends RaylibCoreModuleBase<
       centerX.toJS,
       centerY.toJS,
       radius.toJS,
-      rl.Temp.Color$.Ref1(color).toJS,
+      rl.Temp.Color$.val.Ref1(color).toJS,
     ),
   );
 
@@ -2502,9 +2499,9 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.DrawCircleLinesV(center, radius, color),
     () => rl.Core.DrawCircleLinesV.run3(
-      rl.Temp.Vector2$.Ref1(center).toJS,
+      rl.Temp.Vector2$.val.Ref1(center).toJS,
       radius.toJS,
-      rl.Temp.Color$.Ref1(color).toJS,
+      rl.Temp.Color$.val.Ref1(color).toJS,
     ),
   );
     
@@ -2522,7 +2519,7 @@ class RaylibCoreD extends RaylibCoreModuleBase<
       centerY.toJS,
       radiusH.toJS,
       radiusV.toJS,
-      rl.Temp.Color$.Ref1(color).toJS,
+      rl.Temp.Color$.val.Ref1(color).toJS,
     ),
   );
 
@@ -2535,10 +2532,10 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.DrawEllipseV(center, radiusH, radiusV, color),
     () => rl.Core.DrawEllipseV.run4(
-      rl.Temp.Vector2$.Ref1(center).toJS,
+      rl.Temp.Vector2$.val.Ref1(center).toJS,
       radiusH.toJS,
       radiusV.toJS,
-      rl.Temp.Color$.Ref1(color).toJS,
+      rl.Temp.Color$.val.Ref1(color).toJS,
     ),
   );
 
@@ -2556,7 +2553,7 @@ class RaylibCoreD extends RaylibCoreModuleBase<
       centerY.toJS,
       radiusH.toJS,
       radiusV.toJS,
-      rl.Temp.Color$.Ref1(color).toJS,
+      rl.Temp.Color$.val.Ref1(color).toJS,
     ),
   );
 
@@ -2569,10 +2566,10 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.DrawEllipseLinesV(center, radiusH, radiusV, color),
     () => rl.Core.DrawEllipseLinesV.run4(
-      rl.Temp.Vector2$.Ref1(center).toJS,
+      rl.Temp.Vector2$.val.Ref1(center).toJS,
       radiusH.toJS,
       radiusV.toJS,
-      rl.Temp.Color$.Ref1(color).toJS,
+      rl.Temp.Color$.val.Ref1(color).toJS,
     ),
   );
 
@@ -2588,13 +2585,13 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.DrawRing(center, innerRadius, outerRadius, startAngle, endAngle, segments, color),
     () => rl.Core.DrawRing.run7(
-      rl.Temp.Vector2$.Ref1(center).toJS,
+      rl.Temp.Vector2$.val.Ref1(center).toJS,
       innerRadius.toJS,
       outerRadius.toJS,
       startAngle.toJS,
       endAngle.toJS,
       segments.toJS,
-      rl.Temp.Color$.Ref1(color).toJS,
+      rl.Temp.Color$.val.Ref1(color).toJS,
     ),
   );
 
@@ -2610,13 +2607,13 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.DrawRingLines(center, innerRadius, outerRadius, startAngle, endAngle, segments, color),
     () => rl.Core.DrawRingLines.run7(
-      rl.Temp.Vector2$.Ref1(center).toJS,
+      rl.Temp.Vector2$.val.Ref1(center).toJS,
       innerRadius.toJS,
       outerRadius.toJS,
       startAngle.toJS,
       endAngle.toJS,
       segments.toJS,
-      rl.Temp.Color$.Ref1(color).toJS,
+      rl.Temp.Color$.val.Ref1(color).toJS,
     ),
   );
 
@@ -2634,7 +2631,7 @@ class RaylibCoreD extends RaylibCoreModuleBase<
       posY.toJS,
       width.toJS,
       height.toJS,
-      rl.Temp.Color$.Ref1(color).toJS,
+      rl.Temp.Color$.val.Ref1(color).toJS,
     ),
   );
 
@@ -2646,9 +2643,9 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.DrawRectangleV(position, size, color),
     () => rl.Core.DrawRectangleV.run3(
-      rl.Temp.Vector2$.Ref1(position).toJS,
-      rl.Temp.Vector2$.Ref2(size).toJS,
-      rl.Temp.Color$.Ref1(color).toJS,
+      rl.Temp.Vector2$.val.Ref1(position).toJS,
+      rl.Temp.Vector2$.val.Ref2(size).toJS,
+      rl.Temp.Color$.val.Ref1(color).toJS,
     ),
   );
 
@@ -2659,8 +2656,8 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.DrawRectangleRec(rec, color),
     () => rl.Core.DrawRectangleRec.run2(
-      rl.Temp.Rectangle$.Ref1(rec).toJS,
-      rl.Temp.Color$.Ref1(color).toJS,
+      rl.Temp.Rectangle$.val.Ref1(rec).toJS,
+      rl.Temp.Color$.val.Ref1(color).toJS,
     ),
   );
     
@@ -2673,10 +2670,10 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.DrawRectanglePro(rec, origin, rotation, color),
     () => rl.Core.DrawRectanglePro.run4(
-      rl.Temp.Rectangle$.Ref1(rec).toJS,
-      rl.Temp.Vector2$.Ref1(origin).toJS,
+      rl.Temp.Rectangle$.val.Ref1(rec).toJS,
+      rl.Temp.Vector2$.val.Ref1(origin).toJS,
       rotation.toJS,
-      rl.Temp.Color$.Ref1(color).toJS,
+      rl.Temp.Color$.val.Ref1(color).toJS,
     ),
   );
 
@@ -2695,8 +2692,8 @@ class RaylibCoreD extends RaylibCoreModuleBase<
       posY.toJS,
       width.toJS,
       height.toJS,
-      rl.Temp.Color$.Ref1(top).toJS,
-      rl.Temp.Color$.Ref2(bottom).toJS,
+      rl.Temp.Color$.val.Ref1(top).toJS,
+      rl.Temp.Color$.val.Ref2(bottom).toJS,
     ),
   );
 
@@ -2715,8 +2712,8 @@ class RaylibCoreD extends RaylibCoreModuleBase<
       posY.toJS,
       width.toJS,
       height.toJS,
-      rl.Temp.Color$.Ref1(left).toJS,
-      rl.Temp.Color$.Ref2(right).toJS,
+      rl.Temp.Color$.val.Ref1(left).toJS,
+      rl.Temp.Color$.val.Ref2(right).toJS,
     ),
   );
 
@@ -2730,11 +2727,11 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.DrawRectangleGradientEx(rec, topLeft, bottomLeft, topRight, bottomRight),
     () => rl.Core.DrawRectangleGradientEx.run5(
-      rl.Temp.Rectangle$.Ref1(rec).toJS,
-      rl.Temp.Color$.Ref1(topLeft).toJS,
-      rl.Temp.Color$.Ref2(bottomLeft).toJS,
-      rl.Temp.Color$.Ref3(topRight).toJS,
-      rl.Temp.Color$.Ref4(bottomRight).toJS,
+      rl.Temp.Rectangle$.val.Ref1(rec).toJS,
+      rl.Temp.Color$.val.Ref1(topLeft).toJS,
+      rl.Temp.Color$.val.Ref2(bottomLeft).toJS,
+      rl.Temp.Color$.val.Ref3(topRight).toJS,
+      rl.Temp.Color$.val.Ref4(bottomRight).toJS,
     ),
   );
 
@@ -2752,7 +2749,7 @@ class RaylibCoreD extends RaylibCoreModuleBase<
       posY.toJS,
       width.toJS,
       height.toJS,
-      rl.Temp.Color$.Ref1(color).toJS,
+      rl.Temp.Color$.val.Ref1(color).toJS,
     ),
   );
 
@@ -2764,9 +2761,9 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.DrawRectangleLinesEx(rec, lineThick, color),
     () => rl.Core.DrawRectangleLinesEx.run3(
-      rl.Temp.Rectangle$.Ref1(rec).toJS,
+      rl.Temp.Rectangle$.val.Ref1(rec).toJS,
       lineThick.toJS,
-      rl.Temp.Color$.Ref1(color).toJS,
+      rl.Temp.Color$.val.Ref1(color).toJS,
     ),
   );
 
@@ -2779,10 +2776,10 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.DrawRectangleRounded(rec, roundness, segments, color),
     () => rl.Core.DrawRectangleRounded.run4(
-      rl.Temp.Rectangle$.Ref1(rec).toJS,
+      rl.Temp.Rectangle$.val.Ref1(rec).toJS,
       roundness.toJS,
       segments.toJS,
-      rl.Temp.Color$.Ref1(color).toJS,
+      rl.Temp.Color$.val.Ref1(color).toJS,
     ),
   );
 
@@ -2795,10 +2792,10 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.DrawRectangleRoundedLines(rec, roundness, segments, color),
     () => rl.Core.DrawRectangleRoundedLines.run4(
-      rl.Temp.Rectangle$.Ref1(rec).toJS,
+      rl.Temp.Rectangle$.val.Ref1(rec).toJS,
       roundness.toJS,
       segments.toJS,
-      rl.Temp.Color$.Ref1(color).toJS,
+      rl.Temp.Color$.val.Ref1(color).toJS,
     ),
   );
 
@@ -2812,11 +2809,11 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.DrawRectangleRoundedLinesEx(rec, roundness, segments, lineThick, color),
     () => rl.Core.DrawRectangleRoundedLinesEx.run5(
-      rl.Temp.Rectangle$.Ref1(rec).toJS,
+      rl.Temp.Rectangle$.val.Ref1(rec).toJS,
       roundness.toJS,
       segments.toJS,
       lineThick.toJS,
-      rl.Temp.Color$.Ref1(color).toJS,
+      rl.Temp.Color$.val.Ref1(color).toJS,
     ),
   );
     
@@ -2829,10 +2826,10 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.DrawTriangle(v1, v2, v3, color),
     () => rl.Core.DrawTriangle.run4(
-      rl.Temp.Vector2$.Ref1(v1).toJS,
-      rl.Temp.Vector2$.Ref2(v2).toJS,
-      rl.Temp.Vector2$.Ref3(v3).toJS,
-      rl.Temp.Color$.Ref1(color).toJS,
+      rl.Temp.Vector2$.val.Ref1(v1).toJS,
+      rl.Temp.Vector2$.val.Ref2(v2).toJS,
+      rl.Temp.Vector2$.val.Ref3(v3).toJS,
+      rl.Temp.Color$.val.Ref1(color).toJS,
     ),
   );
 
@@ -2845,10 +2842,10 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.DrawTriangleLines(v1, v2, v3, color),
     () => rl.Core.DrawTriangleLines.run4(
-      rl.Temp.Vector2$.Ref1(v1).toJS,
-      rl.Temp.Vector2$.Ref2(v2).toJS,
-      rl.Temp.Vector2$.Ref3(v3).toJS,
-      rl.Temp.Color$.Ref1(color).toJS,
+      rl.Temp.Vector2$.val.Ref1(v1).toJS,
+      rl.Temp.Vector2$.val.Ref2(v2).toJS,
+      rl.Temp.Vector2$.val.Ref3(v3).toJS,
+      rl.Temp.Color$.val.Ref1(color).toJS,
     ),
   );
 
@@ -2859,9 +2856,9 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.DrawTriangleFan(points, color),
     () => rl.Core.DrawTriangleFan.run3(
-      rl.Temp.Vector2$.Array(points).toJS,
+      rl.Temp.Vector2$.val.Array(points).toJS,
       points.length.toJS,
-      rl.Temp.Color$.Ref1(color).toJS,
+      rl.Temp.Color$.val.Ref1(color).toJS,
     ),
   );
 
@@ -2872,9 +2869,9 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.DrawTriangleStrip(points, color),
     () => rl.Core.DrawTriangleStrip.run3(
-      rl.Temp.Vector2$.Array(points).toJS,
+      rl.Temp.Vector2$.val.Array(points).toJS,
       points.length.toJS,
-      rl.Temp.Color$.Ref1(color).toJS,
+      rl.Temp.Color$.val.Ref1(color).toJS,
     ),
   );
 
@@ -2888,11 +2885,11 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.DrawPoly(center, sides, radius, rotation, color),
     () => rl.Core.DrawPoly.run5(
-      rl.Temp.Vector2$.Ref1(center).toJS,
+      rl.Temp.Vector2$.val.Ref1(center).toJS,
       sides.toJS,
       radius.toJS,
       rotation.toJS,
-      rl.Temp.Color$.Ref1(color).toJS,
+      rl.Temp.Color$.val.Ref1(color).toJS,
     ),
   );
 
@@ -2906,11 +2903,11 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.DrawPolyLines(center, sides, radius, rotation, color),
     () => rl.Core.DrawPolyLines.run5(
-      rl.Temp.Vector2$.Ref1(center).toJS,
+      rl.Temp.Vector2$.val.Ref1(center).toJS,
       sides.toJS,
       radius.toJS,
       rotation.toJS,
-      rl.Temp.Color$.Ref1(color).toJS,
+      rl.Temp.Color$.val.Ref1(color).toJS,
     ),
   );
 
@@ -2925,12 +2922,12 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.DrawPolyLinesEx(center, sides, radius, rotation, lineThick, color),
     () => rl.Core.DrawPolyLinesEx.run6(
-      rl.Temp.Vector2$.Ref1(center).toJS,
+      rl.Temp.Vector2$.val.Ref1(center).toJS,
       sides.toJS,
       radius.toJS,
       rotation.toJS,
       lineThick.toJS,
-      rl.Temp.Color$.Ref1(color).toJS,
+      rl.Temp.Color$.val.Ref1(color).toJS,
     ),
   );
 
@@ -2942,10 +2939,10 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.DrawSplineLinear(points, thick, color),
     () => rl.Core.DrawSplineLinear.run4(
-      rl.Temp.Vector2$.Array(points).toJS,
+      rl.Temp.Vector2$.val.Array(points).toJS,
       points.length.toJS,
       thick.toJS,
-      rl.Temp.Color$.Ref1(color).toJS,
+      rl.Temp.Color$.val.Ref1(color).toJS,
     ),
   );
 
@@ -2957,10 +2954,10 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.DrawSplineBasis(points, thick, color),
     () => rl.Core.DrawSplineBasis.run4(
-      rl.Temp.Vector2$.Array(points).toJS,
+      rl.Temp.Vector2$.val.Array(points).toJS,
       points.length.toJS,
       thick.toJS,
-      rl.Temp.Color$.Ref1(color).toJS,
+      rl.Temp.Color$.val.Ref1(color).toJS,
     ),
   );
 
@@ -2972,10 +2969,10 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.DrawSplineCatmullRom(points, thick, color),
     () => rl.Core.DrawSplineCatmullRom.run4(
-      rl.Temp.Vector2$.Array(points).toJS, 
+      rl.Temp.Vector2$.val.Array(points).toJS, 
       points.length.toJS, 
       thick.toJS, 
-      rl.Temp.Color$.Ref1(color).toJS,
+      rl.Temp.Color$.val.Ref1(color).toJS,
     ),
   );
 
@@ -2987,10 +2984,10 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.DrawSplineBezierQuadratic(points, thick, color),
     () => rl.Core.DrawSplineBezierQuadratic.run4(
-      rl.Temp.Vector2$.Array(points).toJS,
+      rl.Temp.Vector2$.val.Array(points).toJS,
       points.length.toJS,
       thick.toJS,
-      rl.Temp.Color$.Ref1(color).toJS,
+      rl.Temp.Color$.val.Ref1(color).toJS,
     ),
   );
 
@@ -3002,10 +2999,10 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.DrawSplineBezierCubic(points, thick, color),
     () => rl.Core.DrawSplineBezierCubic.run4(
-      rl.Temp.Vector2$.Array(points).toJS,
+      rl.Temp.Vector2$.val.Array(points).toJS,
       points.length.toJS,
       thick.toJS,
-      rl.Temp.Color$.Ref1(color).toJS,
+      rl.Temp.Color$.val.Ref1(color).toJS,
     ),
   );
     
@@ -3018,10 +3015,10 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.DrawSplineSegmentLinear(p1, p2, thick, color),
     () => rl.Core.DrawSplineSegmentLinear.run4(
-      rl.Temp.Vector2$.Ref1(p1).toJS,
-      rl.Temp.Vector2$.Ref2(p2).toJS,
+      rl.Temp.Vector2$.val.Ref1(p1).toJS,
+      rl.Temp.Vector2$.val.Ref2(p2).toJS,
       thick.toJS,
-      rl.Temp.Color$.Ref1(color).toJS,
+      rl.Temp.Color$.val.Ref1(color).toJS,
     ),
   );
 
@@ -3036,12 +3033,12 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.DrawSplineSegmentBasis(p1, p2, p3, p4, thick, color),
     () => rl.Core.DrawSplineSegmentBasis.run6(
-      rl.Temp.Vector2$.Ref1(p1).toJS,
-      rl.Temp.Vector2$.Ref2(p2).toJS,
-      rl.Temp.Vector2$.Ref3(p3).toJS,
-      rl.Temp.Vector2$.Ref4(p4).toJS,
+      rl.Temp.Vector2$.val.Ref1(p1).toJS,
+      rl.Temp.Vector2$.val.Ref2(p2).toJS,
+      rl.Temp.Vector2$.val.Ref3(p3).toJS,
+      rl.Temp.Vector2$.val.Ref4(p4).toJS,
       thick.toJS,
-      rl.Temp.Color$.Ref1(color).toJS,
+      rl.Temp.Color$.val.Ref1(color).toJS,
     ),
   );
 
@@ -3056,12 +3053,12 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.DrawSplineSegmentCatmullRom(p1, p2, p3, p4, thick, color),
     () => rl.Core.DrawSplineSegmentCatmullRom.run6(
-      rl.Temp.Vector2$.Ref1(p1).toJS,
-      rl.Temp.Vector2$.Ref2(p2).toJS,
-      rl.Temp.Vector2$.Ref3(p3).toJS,
-      rl.Temp.Vector2$.Ref4(p4).toJS,
+      rl.Temp.Vector2$.val.Ref1(p1).toJS,
+      rl.Temp.Vector2$.val.Ref2(p2).toJS,
+      rl.Temp.Vector2$.val.Ref3(p3).toJS,
+      rl.Temp.Vector2$.val.Ref4(p4).toJS,
       thick.toJS,
-      rl.Temp.Color$.Ref1(color).toJS,
+      rl.Temp.Color$.val.Ref1(color).toJS,
     ),
   );
 
@@ -3075,11 +3072,11 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.DrawSplineSegmentBezierQuadratic(p1, c2, p3, thick, color),
     () => rl.Core.DrawSplineSegmentBezierQuadratic.run5(
-      rl.Temp.Vector2$.Ref1(p1).toJS,
-      rl.Temp.Vector2$.Ref2(c2).toJS,
-      rl.Temp.Vector2$.Ref3(p3).toJS,
+      rl.Temp.Vector2$.val.Ref1(p1).toJS,
+      rl.Temp.Vector2$.val.Ref2(c2).toJS,
+      rl.Temp.Vector2$.val.Ref3(p3).toJS,
       thick.toJS,
-      rl.Temp.Color$.Ref1(color).toJS,
+      rl.Temp.Color$.val.Ref1(color).toJS,
     ),
   );
 
@@ -3094,12 +3091,12 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.DrawSplineSegmentBezierCubic(p1, c2, c3, p4, thick, color),
     () => rl.Core.DrawSplineSegmentBezierCubic.run6(
-      rl.Temp.Vector2$.Ref1(p1).toJS,
-      rl.Temp.Vector2$.Ref2(c2).toJS,
-      rl.Temp.Vector2$.Ref3(c3).toJS,
-      rl.Temp.Vector2$.Ref4(p4).toJS,
+      rl.Temp.Vector2$.val.Ref1(p1).toJS,
+      rl.Temp.Vector2$.val.Ref2(c2).toJS,
+      rl.Temp.Vector2$.val.Ref3(c3).toJS,
+      rl.Temp.Vector2$.val.Ref4(p4).toJS,
       thick.toJS,
-      rl.Temp.Color$.Ref1(color).toJS,
+      rl.Temp.Color$.val.Ref1(color).toJS,
     ),
   );
 
@@ -3110,11 +3107,11 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     num t,
   ) => run(
     () => RaylibDebugLabels.GetSplinePointLinear(startPos, endPos, t),
-    () => rl.Temp.Vector2$.Extract1(
+    () => rl.Temp.Vector2$.val.Extract1(
       (p) => rl.Core.GetSplinePointLinear.run4(
         p.toJS,
-        rl.Temp.Vector2$.Ref2(startPos).toJS,
-        rl.Temp.Vector2$.Ref3(endPos).toJS,
+        rl.Temp.Vector2$.val.Ref2(startPos).toJS,
+        rl.Temp.Vector2$.val.Ref3(endPos).toJS,
         t.toJS,
       ),
     ),
@@ -3129,13 +3126,13 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     num t,
   ) => run(
     () => RaylibDebugLabels.GetSplinePointBasis(p1, p2, p3, p4, t),
-    () => rl.Temp.Vector2$.Extract1(
+    () => rl.Temp.Vector2$.val.Extract1(
       (p) => rl.Core.GetSplinePointBasis.run6(
         p.toJS,
-        rl.Temp.Vector2$.Ref2(p1).toJS,
-        rl.Temp.Vector2$.Ref3(p2).toJS,
-        rl.Temp.Vector2$.Ref4(p3).toJS,
-        rl.Temp.Vector2$.Ref5(p4).toJS,
+        rl.Temp.Vector2$.val.Ref2(p1).toJS,
+        rl.Temp.Vector2$.val.Ref3(p2).toJS,
+        rl.Temp.Vector2$.val.Ref4(p3).toJS,
+        rl.Temp.Vector2$.val.Ref5(p4).toJS,
         t.toJS,
       ),
     ),
@@ -3150,13 +3147,13 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     num t,
   ) => run(
     () => RaylibDebugLabels.GetSplinePointCatmullRom(p1, p2, p3, p4, t),
-    () => rl.Temp.Vector2$.Extract1(
+    () => rl.Temp.Vector2$.val.Extract1(
       (p) => rl.Core.GetSplinePointCatmullRom.run6(
         p.toJS,
-        rl.Temp.Vector2$.Ref2(p1).toJS,
-        rl.Temp.Vector2$.Ref3(p2).toJS,
-        rl.Temp.Vector2$.Ref4(p3).toJS,
-        rl.Temp.Vector2$.Ref5(p4).toJS,
+        rl.Temp.Vector2$.val.Ref2(p1).toJS,
+        rl.Temp.Vector2$.val.Ref3(p2).toJS,
+        rl.Temp.Vector2$.val.Ref4(p3).toJS,
+        rl.Temp.Vector2$.val.Ref5(p4).toJS,
         t.toJS,
       ),
     ),
@@ -3170,12 +3167,12 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     num t,
   ) => run(
     () => RaylibDebugLabels.GetSplinePointBezierQuad(p1, c2, p3, t),
-    () => rl.Temp.Vector2$.Extract1(
+    () => rl.Temp.Vector2$.val.Extract1(
       (p) => rl.Core.GetSplinePointBezierQuad.run5(
         p.toJS,
-        rl.Temp.Vector2$.Ref2(p1).toJS,
-        rl.Temp.Vector2$.Ref3(c2).toJS,
-        rl.Temp.Vector2$.Ref4(p3).toJS,
+        rl.Temp.Vector2$.val.Ref2(p1).toJS,
+        rl.Temp.Vector2$.val.Ref3(c2).toJS,
+        rl.Temp.Vector2$.val.Ref4(p3).toJS,
         t.toJS,
       ),
     ),
@@ -3190,13 +3187,13 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     num t,
   ) => run(
     () => RaylibDebugLabels.GetSplinePointBezierCubic(p1, c2, c3, p4, t),
-    () => rl.Temp.Vector2$.Extract1(
+    () => rl.Temp.Vector2$.val.Extract1(
       (p) => rl.Core.GetSplinePointBezierCubic.run6(
         p.toJS,
-        rl.Temp.Vector2$.Ref2(p1).toJS,
-        rl.Temp.Vector2$.Ref3(c2).toJS,
-        rl.Temp.Vector2$.Ref4(c3).toJS,
-        rl.Temp.Vector2$.Ref5(p4).toJS,
+        rl.Temp.Vector2$.val.Ref2(p1).toJS,
+        rl.Temp.Vector2$.val.Ref3(c2).toJS,
+        rl.Temp.Vector2$.val.Ref4(c3).toJS,
+        rl.Temp.Vector2$.val.Ref5(p4).toJS,
         t.toJS,
       ),
     ),
@@ -3209,8 +3206,8 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.CheckCollisionRecs(rec1, rec2),
     () => rl.Core.CheckCollisionRecs.run2(
-      rl.Temp.Rectangle$.Ref1(rec1).toJS,
-      rl.Temp.Rectangle$.Ref2(rec2).toJS,
+      rl.Temp.Rectangle$.val.Ref1(rec1).toJS,
+      rl.Temp.Rectangle$.val.Ref2(rec2).toJS,
     ).toBool(),
   );
 
@@ -3223,9 +3220,9 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.CheckCollisionCircles(center1, radius1, center2, radius2),
     () => rl.Core.CheckCollisionCircles.run4(
-      rl.Temp.Vector2$.Ref1(center1).toJS,
+      rl.Temp.Vector2$.val.Ref1(center1).toJS,
       radius1.toJS,
-      rl.Temp.Vector2$.Ref2(center2).toJS,
+      rl.Temp.Vector2$.val.Ref2(center2).toJS,
       radius2.toJS,
     ).toBool(),
   );
@@ -3238,9 +3235,9 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.CheckCollisionCircleRec(center, radius, rec),
     () => rl.Core.CheckCollisionCircleRec.run3(
-      rl.Temp.Vector2$.Ref1(center).toJS,
+      rl.Temp.Vector2$.val.Ref1(center).toJS,
       radius.toJS,
-      rl.Temp.Rectangle$.Ref1(rec).toJS,
+      rl.Temp.Rectangle$.val.Ref1(rec).toJS,
     ).toBool(),
   );
 
@@ -3253,10 +3250,10 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.CheckCollisionCircleLine(center, radius, p1, p2),
     () => rl.Core.CheckCollisionCircleLine.run4(
-      rl.Temp.Vector2$.Ref1(center).toJS,
+      rl.Temp.Vector2$.val.Ref1(center).toJS,
       radius.toJS,
-      rl.Temp.Vector2$.Ref2(p1).toJS,
-      rl.Temp.Vector2$.Ref3(p2).toJS,
+      rl.Temp.Vector2$.val.Ref2(p1).toJS,
+      rl.Temp.Vector2$.val.Ref3(p2).toJS,
     ).toBool(),
   );
 
@@ -3267,8 +3264,8 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.CheckCollisionPointRec(point, rec),
     () => rl.Core.CheckCollisionPointRec.run2(
-      rl.Temp.Vector2$.Ref1(point).toJS,
-      rl.Temp.Rectangle$.Ref1(rec).toJS,
+      rl.Temp.Vector2$.val.Ref1(point).toJS,
+      rl.Temp.Rectangle$.val.Ref1(rec).toJS,
     ).toBool(),
   );
     
@@ -3280,8 +3277,8 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.CheckCollisionPointCircle(point, center, radius),
     () => rl.Core.CheckCollisionPointCircle.run3(
-      rl.Temp.Vector2$.Ref1(point).toJS,
-      rl.Temp.Vector2$.Ref2(center).toJS,
+      rl.Temp.Vector2$.val.Ref1(point).toJS,
+      rl.Temp.Vector2$.val.Ref2(center).toJS,
       radius.toJS,
     ).toBool(),
   );
@@ -3295,10 +3292,10 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.CheckCollisionPointTriangle(point, p1, p2, p3),
     () => rl.Core.CheckCollisionPointTriangle.run4(
-      rl.Temp.Vector2$.Ref1(point).toJS,
-      rl.Temp.Vector2$.Ref2(p1).toJS,
-      rl.Temp.Vector2$.Ref3(p2).toJS,
-      rl.Temp.Vector2$.Ref4(p3).toJS,
+      rl.Temp.Vector2$.val.Ref1(point).toJS,
+      rl.Temp.Vector2$.val.Ref2(p1).toJS,
+      rl.Temp.Vector2$.val.Ref3(p2).toJS,
+      rl.Temp.Vector2$.val.Ref4(p3).toJS,
     ).toBool(),
   );
 
@@ -3311,9 +3308,9 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.CheckCollisionPointLine(point, p1, p2, threshold),
     () => rl.Core.CheckCollisionPointLine.run4(
-      rl.Temp.Vector2$.Ref1(point).toJS,
-      rl.Temp.Vector2$.Ref2(p1).toJS,
-      rl.Temp.Vector2$.Ref3(p2).toJS,
+      rl.Temp.Vector2$.val.Ref1(point).toJS,
+      rl.Temp.Vector2$.val.Ref2(p1).toJS,
+      rl.Temp.Vector2$.val.Ref3(p2).toJS,
       threshold.toJS,
     ).toBool(),
   );
@@ -3325,8 +3322,8 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.CheckCollisionPointPoly(point, points),
     () => rl.Core.CheckCollisionPointPoly.run3(
-      rl.Temp.Vector2$.Ref1(point).toJS,
-      rl.Temp.Vector2$.Array(points).toJS,
+      rl.Temp.Vector2$.val.Ref1(point).toJS,
+      rl.Temp.Vector2$.val.Array(points).toJS,
       points.length.toJS,
     ).toBool(),
   );
@@ -3340,12 +3337,12 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.CheckCollisionLines(startPos1, endPos1, startPos2, endPos2),
     () {
-      final collisionPointPtr = rl.Temp.Vector2$.Ref5();
+      final collisionPointPtr = rl.Temp.Vector2$.val.Ref5();
       final result = rl.Core.CheckCollisionLines.run5(
-        rl.Temp.Vector2$.Ref1(startPos1).toJS,
-        rl.Temp.Vector2$.Ref2(endPos1).toJS,
-        rl.Temp.Vector2$.Ref3(startPos2).toJS,
-        rl.Temp.Vector2$.Ref4(endPos2).toJS,
+        rl.Temp.Vector2$.val.Ref1(startPos1).toJS,
+        rl.Temp.Vector2$.val.Ref2(endPos1).toJS,
+        rl.Temp.Vector2$.val.Ref3(startPos2).toJS,
+        rl.Temp.Vector2$.val.Ref4(endPos2).toJS,
         collisionPointPtr.toJS,
       ).toBool();
       return (result, collisionPointPtr.ref);
@@ -3358,11 +3355,11 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     RectangleD rec2,
   ) => run(
     () => RaylibDebugLabels.GetCollisionRec(rec1, rec2),
-    () => rl.Temp.Rectangle$.Extract1(
+    () => rl.Temp.Rectangle$.val.Extract1(
       (p) => rl.Core.GetCollisionRec.run3(
         p.toJS,
-        rl.Temp.Rectangle$.Ref2(rec1).toJS,
-        rl.Temp.Rectangle$.Ref3(rec2).toJS,
+        rl.Temp.Rectangle$.val.Ref2(rec1).toJS,
+        rl.Temp.Rectangle$.val.Ref3(rec2).toJS,
       ),
     ),
   );
@@ -3372,7 +3369,7 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     String fileName,
   ) => run(
     () => RaylibDebugLabels.LoadImage(fileName),
-    () => rl.Temp.Image$.RefCapture(
+    () => rl.Temp.Image$.val.RefCapture(
       RaylibCaptureIds.LoadImage(fileName),
       (p) => rl.Core.LoadImage.run2(
         p.toJS,
@@ -3390,7 +3387,7 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     num headerSize,
   ) => run(
     () => RaylibDebugLabels.LoadImageRaw(fileName, width, height, format, headerSize),
-    () => rl.Temp.Image$.RefCapture(
+    () => rl.Temp.Image$.val.RefCapture(
       RaylibCaptureIds.LoadImageRaw(fileName, width, height, format, headerSize),
       (p) => rl.Core.LoadImageRaw.run6(
         p.toJS,
@@ -3409,8 +3406,8 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.LoadImageAnim(fileName),
     () {
-      final frameCountPtr = rl.Temp.Int32$.Ref1();
-      final image = rl.Temp.Image$.RefCapture(
+      final frameCountPtr = rl.Temp.Int32$.val.Ref1();
+      final image = rl.Temp.Image$.val.RefCapture(
         RaylibCaptureIds.LoadImageAnim(fileName),
         (p) => rl.Core.LoadImageAnim.run3(
           p.toJS,
@@ -3430,13 +3427,13 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.LoadImageAnimFromMemory(fileType, fileData),
     () {
-      final frameCountPtr = rl.Temp.Int32$.Ref1();
-      final image = rl.Temp.Image$.RefCapture(
+      final frameCountPtr = rl.Temp.Int32$.val.Ref1();
+      final image = rl.Temp.Image$.val.RefCapture(
         RaylibCaptureIds.LoadImageAnimFromMemory(fileType, fileData),
         (p) => rl.Core.LoadImageAnimFromMemory.run5(
           p.toJS,
           fileType.toJS,
-          rl.Temp.Uint8$.Array(fileData).toJS,
+          rl.Temp.Uint8$.val.Array(fileData).toJS,
           fileData.length.toJS,
           frameCountPtr.toJS,
         ),
@@ -3452,12 +3449,12 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     Uint8List fileData,
   ) => run(
     () => RaylibDebugLabels.LoadImageFromMemory(fileType, fileData),
-    () => rl.Temp.Image$.RefCapture(
+    () => rl.Temp.Image$.val.RefCapture(
       RaylibCaptureIds.LoadImageFromMemory(fileType, fileData),
       (p) => rl.Core.LoadImageFromMemory.run4(
         p.toJS,
         fileType.toJS,
-        rl.Temp.Uint8$.Array(fileData).toJS,
+        rl.Temp.Uint8$.val.Array(fileData).toJS,
         fileData.length.toJS,
       )
     ),
@@ -3468,11 +3465,11 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     TextureD texture,
   ) => run(
     () => RaylibDebugLabels.LoadImageFromTexture(texture),
-    () => rl.Temp.Image$.RefCapture(
+    () => rl.Temp.Image$.val.RefCapture(
       RaylibCaptureIds.LoadImageFromTexture(texture),
       (p) => rl.Core.LoadImageFromTexture.run2(
         p.toJS,
-        rl.Temp.Texture$.Ref1(texture).toJS,
+        rl.Temp.Texture$.val.Ref1(texture).toJS,
       ),
     ),
   );
@@ -3480,7 +3477,7 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   @override
   ImageD LoadImageFromScreen() => run(
     () => RaylibDebugLabels.LoadImageFromScreen(),
-    () => rl.Temp.Image$.RefCapture(
+    () => rl.Temp.Image$.val.RefCapture(
       RaylibCaptureIds.LoadImageFromScreen(),
       (p) => rl.Core.LoadImageFromScreen.run1(
         p.toJS,
@@ -3494,7 +3491,7 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.IsImageValid(image),
     () => rl.Core.IsImageValid.run1(
-      rl.Temp.Image$.Ref1(image).toJS,
+      rl.Temp.Image$.val.Ref1(image).toJS,
     ).toBool(),
   );
 
@@ -3504,7 +3501,7 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.UnloadImage(image),
     () => rl.Core.UnloadImage.run1(
-      rl.Temp.Image$.Ref1(image).toJS,
+      rl.Temp.Image$.val.Ref1(image).toJS,
     ),
   );
 
@@ -3515,25 +3512,25 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.ExportImage(image, fileName),
     () => rl.Core.ExportImage.run2(
-      rl.Temp.Image$.Ref1(image).toJS,
+      rl.Temp.Image$.val.Ref1(image).toJS,
       fileName.toJS,
     ).toBool(),
   );
     
   @override
-  (int dataPtr, int dataSize) ExportImageToMemory(
+  (WasmMemoryPointer<RUint8> dataPtr, int dataSize) ExportImageToMemory(
     ImageD image,
     String fileType,
   ) => run(
     () => RaylibDebugLabels.ExportImageToMemory(image, fileType),
     () {
-      final dataSizePtr = rl.Temp.Int32$.Ref1();
+      final dataSizePtr = rl.Temp.Int32$.val.Ref1();
       final dataPtr = rl.Core.ExportImageToMemory.run3(
-        rl.Temp.Image$.Ref1(image).toJS,
+        rl.Temp.Image$.val.Ref1(image).toJS,
         fileType.toJS,
         dataSizePtr.toJS,
       ).toInt();
-      return (dataPtr, dataSizePtr.value);
+      return (.new(dataPtr), dataSizePtr.value);
     },
   );
 
@@ -3544,7 +3541,7 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.ExportImageAsCode(image, fileName),
     () => rl.Core.ExportImageAsCode.run2(
-      rl.Temp.Image$.Ref1(image).toJS,
+      rl.Temp.Image$.val.Ref1(image).toJS,
       fileName.toJS,
     ).toBool(),
   );
@@ -3556,13 +3553,13 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     ColorD color,
   ) => run(
     () => RaylibDebugLabels.GenImageColor(width, height, color),
-    () => rl.Temp.Image$.RefCapture(
+    () => rl.Temp.Image$.val.RefCapture(
       RaylibCaptureIds.GenImageColor(width, height, color),
       (p) => rl.Core.GenImageColor.run4(
         p.toJS,
         width.toJS,
         height.toJS,
-        rl.Temp.Color$.Ref1(color).toJS,
+        rl.Temp.Color$.val.Ref1(color).toJS,
       ),
     ),
   );
@@ -3576,15 +3573,15 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     ColorD end,
   ) => run(
     () => RaylibDebugLabels.GenImageGradientLinear(width, height, direction, start, end),
-    () => rl.Temp.Image$.RefCapture(
+    () => rl.Temp.Image$.val.RefCapture(
       RaylibCaptureIds.GenImageGradientLinear(width, height, direction, start, end),
       (p) => rl.Core.GenImageGradientLinear.run6(
         p.toJS,
         width.toJS,
         height.toJS,
         direction.toJS,
-        rl.Temp.Color$.Ref1(start).toJS,
-        rl.Temp.Color$.Ref2(end).toJS,
+        rl.Temp.Color$.val.Ref1(start).toJS,
+        rl.Temp.Color$.val.Ref2(end).toJS,
       ),
     ),
   );
@@ -3598,15 +3595,15 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     ColorD outer,
   ) => run(
     () => RaylibDebugLabels.GenImageGradientRadial(width, height, density, inner, outer),
-    () => rl.Temp.Image$.RefCapture(
+    () => rl.Temp.Image$.val.RefCapture(
       RaylibCaptureIds.GenImageGradientRadial(width, height, density, inner, outer),
       (p) => rl.Core.GenImageGradientRadial.run6(
         p.toJS,
         width.toJS,
         height.toJS,
         density.toJS,
-        rl.Temp.Color$.Ref1(inner).toJS,
-        rl.Temp.Color$.Ref2(outer).toJS,
+        rl.Temp.Color$.val.Ref1(inner).toJS,
+        rl.Temp.Color$.val.Ref2(outer).toJS,
       ),
     ),
   );
@@ -3620,15 +3617,15 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     ColorD outer,
   ) => run(
     () => RaylibDebugLabels.GenImageGradientSquare(width, height, density, inner, outer),
-    () => rl.Temp.Image$.RefCapture(
+    () => rl.Temp.Image$.val.RefCapture(
       RaylibCaptureIds.GenImageGradientSquare(width, height, density, inner, outer),
       (p) => rl.Core.GenImageGradientSquare.run6(
         p.toJS,
         width.toJS,
         height.toJS,
         density.toJS,
-        rl.Temp.Color$.Ref1(inner).toJS,
-        rl.Temp.Color$.Ref2(outer).toJS,
+        rl.Temp.Color$.val.Ref1(inner).toJS,
+        rl.Temp.Color$.val.Ref2(outer).toJS,
       ),
     ),
   );
@@ -3643,7 +3640,7 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     ColorD col2,
   ) => run(
     () => RaylibDebugLabels.GenImageChecked(width, height, checksX, checksY, col1, col2),
-    () => rl.Temp.Image$.RefCapture(
+    () => rl.Temp.Image$.val.RefCapture(
       RaylibCaptureIds.GenImageChecked(width, height, checksX, checksY, col1, col2),
       (p) => rl.Core.GenImageChecked.run7(
         p.toJS,
@@ -3651,8 +3648,8 @@ class RaylibCoreD extends RaylibCoreModuleBase<
         height.toJS,
         checksX.toJS,
         checksY.toJS,
-        rl.Temp.Color$.Ref1(col1).toJS,
-        rl.Temp.Color$.Ref2(col2).toJS,
+        rl.Temp.Color$.val.Ref1(col1).toJS,
+        rl.Temp.Color$.val.Ref2(col2).toJS,
       ),
     ),
   );
@@ -3664,7 +3661,7 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     num factor,
   ) => run(
     () => RaylibDebugLabels.GenImageWhiteNoise(width, height, factor),
-    () => rl.Temp.Image$.RefCapture(
+    () => rl.Temp.Image$.val.RefCapture(
       RaylibCaptureIds.GenImageWhiteNoise(width, height, factor),
       (p) => rl.Core.GenImageWhiteNoise.run4(
         p.toJS,
@@ -3684,7 +3681,7 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     num scale,
   ) => run(
     () => RaylibDebugLabels.GenImagePerlinNoise(width, height, offsetX, offsetY, scale),
-    () => rl.Temp.Image$.RefCapture(
+    () => rl.Temp.Image$.val.RefCapture(
       RaylibCaptureIds.GenImagePerlinNoise(width, height, offsetX, offsetY, scale),
       (p) => rl.Core.GenImagePerlinNoise.run6(
         p.toJS,
@@ -3704,7 +3701,7 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     num tileSize,
   ) => run(
     () => RaylibDebugLabels.GenImageCellular(width, height, tileSize),
-    () => rl.Temp.Image$.RefCapture(
+    () => rl.Temp.Image$.val.RefCapture(
       RaylibCaptureIds.GenImageCellular(width, height, tileSize),
       (p) => rl.Core.GenImageCellular.run4(
         p.toJS,
@@ -3722,7 +3719,7 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     String text,
   ) => run(
     () => RaylibDebugLabels.GenImageText(width, height, text),
-    () => rl.Temp.Image$.RefCapture(
+    () => rl.Temp.Image$.val.RefCapture(
       RaylibCaptureIds.GenImageText(width, height, text),
       (p) => rl.Core.GenImageText.run4(
         p.toJS,
@@ -3738,11 +3735,11 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     ImageD image,
   ) => run(
     () => RaylibDebugLabels.ImageCopy(image),
-    () => rl.Temp.Image$.RefCapture(
+    () => rl.Temp.Image$.val.RefCapture(
       RaylibCaptureIds.ImageCopy(image),
       (p) => rl.Core.ImageCopy.run2(
         p.toJS,
-        rl.Temp.Image$.Ref1(image).toJS,
+        rl.Temp.Image$.val.Ref1(image).toJS,
       ),
     ),
   );
@@ -3753,12 +3750,12 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     RectangleD rec,
   ) => run(
     () => RaylibDebugLabels.ImageFromImage(image, rec),
-    () => rl.Temp.Image$.RefCapture(
+    () => rl.Temp.Image$.val.RefCapture(
       RaylibCaptureIds.ImageFromImage(image, rec),
       (p) => rl.Core.ImageFromImage.run3(
         p.toJS,
-        rl.Temp.Image$.Ref1(image).toJS,
-        rl.Temp.Rectangle$.Ref1(rec).toJS,
+        rl.Temp.Image$.val.Ref1(image).toJS,
+        rl.Temp.Rectangle$.val.Ref1(rec).toJS,
       ),
     ),
   );
@@ -3769,11 +3766,11 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     num selectedChannel,
   ) => run(
     () => RaylibDebugLabels.ImageFromChannel(image, selectedChannel),
-    () => rl.Temp.Image$.RefCapture(
+    () => rl.Temp.Image$.val.RefCapture(
       RaylibCaptureIds.ImageFromChannel(image, selectedChannel),
       (p) => rl.Core.ImageFromChannel.run3(
         p.toJS,
-        rl.Temp.Image$.Ref1(image).toJS,
+        rl.Temp.Image$.val.Ref1(image).toJS,
         selectedChannel.toJS,
       ),
     ),
@@ -3786,13 +3783,13 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     ColorD color,
   ) => run(
     () => RaylibDebugLabels.ImageText(text, fontSize, color),
-    () => rl.Temp.Image$.RefCapture(
+    () => rl.Temp.Image$.val.RefCapture(
       RaylibCaptureIds.ImageText(text, fontSize, color),
       (p) => rl.Core.ImageText.run4(
         p.toJS,
         text.toJS,
         fontSize.toJS,
-        rl.Temp.Color$.Ref1(color).toJS,
+        rl.Temp.Color$.val.Ref1(color).toJS,
       ),
     ),
   );
@@ -3806,15 +3803,15 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     ColorD tint,
   ) => run(
     () => RaylibDebugLabels.ImageTextEx(font, text, fontSize, spacing, tint),
-    () => rl.Temp.Image$.RefCapture(
+    () => rl.Temp.Image$.val.RefCapture(
       RaylibCaptureIds.ImageTextEx(font, text, fontSize, spacing, tint),
       (p) => rl.Core.ImageTextEx.run6(
         p.toJS,
-        rl.Temp.Font$.Ref1(font).toJS,
+        rl.Temp.Font$.val.Ref1(font).toJS,
         text.toJS,
         fontSize.toJS,
         spacing.toJS,
-        rl.Temp.Color$.Ref1(tint).toJS,
+        rl.Temp.Color$.val.Ref1(tint).toJS,
       ),
     ),
   );
@@ -3825,7 +3822,7 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     PixelFormat newFormat,
   ) => run(
     () => RaylibDebugLabels.ImageFormat(image, newFormat),
-    () => rl.Temp.Image$.RefUpdate1(image,
+    () => rl.Temp.Image$.val.RefUpdate1(image,
       (p) => rl.Core.ImageFormat.run2(
         p.toJS,
         newFormat.value.toJS,
@@ -3839,10 +3836,10 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     ColorD fill,
   ) => run(
     () => RaylibDebugLabels.ImageToPOT(image, fill),
-    () => rl.Temp.Image$.RefUpdate1(image,
+    () => rl.Temp.Image$.val.RefUpdate1(image,
       (p) => rl.Core.ImageToPOT.run2(
         p.toJS,
-        rl.Temp.Color$.Ref1(fill).toJS,
+        rl.Temp.Color$.val.Ref1(fill).toJS,
       ),
     ),
   );
@@ -3853,10 +3850,10 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     RectangleD crop,
   ) => run(
     () => RaylibDebugLabels.ImageCrop(image, crop),
-    () => rl.Temp.Image$.RefUpdate1(image,
+    () => rl.Temp.Image$.val.RefUpdate1(image,
       (p) => rl.Core.ImageCrop.run2(
         p.toJS,
-        rl.Temp.Rectangle$.Ref1(crop).toJS,
+        rl.Temp.Rectangle$.val.Ref1(crop).toJS,
       ),
     ),
   );
@@ -3867,7 +3864,7 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     num threshold,
   ) => run(
     () => RaylibDebugLabels.ImageAlphaCrop(image, threshold),
-    () => rl.Temp.Image$.RefUpdate1(image,
+    () => rl.Temp.Image$.val.RefUpdate1(image,
       (p) => rl.Core.ImageAlphaCrop.run2(
         p.toJS,
         threshold.toJS,
@@ -3882,10 +3879,10 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     num threshold,
   ) => run(
     () => RaylibDebugLabels.ImageAlphaClear(image, color, threshold),
-    () => rl.Temp.Image$.RefUpdate1(image,
+    () => rl.Temp.Image$.val.RefUpdate1(image,
       (p) => rl.Core.ImageAlphaClear.run3(
         p.toJS,
-        rl.Temp.Color$.Ref1(color).toJS,
+        rl.Temp.Color$.val.Ref1(color).toJS,
         threshold.toJS,
       ),
     ),
@@ -3897,10 +3894,10 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     ImageD alphaMask,
   ) => run(
     () => RaylibDebugLabels.ImageAlphaMask(image, alphaMask),
-    () => rl.Temp.Image$.RefUpdate1(image,
+    () => rl.Temp.Image$.val.RefUpdate1(image,
       (p) => rl.Core.ImageAlphaMask.run2(
         p.toJS,
-        rl.Temp.Image$.Ref2(alphaMask).toJS,
+        rl.Temp.Image$.val.Ref2(alphaMask).toJS,
       ),
     ),
   );
@@ -3910,7 +3907,7 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     ImageD image,
   ) => run(
     () => RaylibDebugLabels.ImageAlphaPremultiply(image),
-    () => rl.Temp.Image$.RefUpdate1(image,
+    () => rl.Temp.Image$.val.RefUpdate1(image,
       (p) => rl.Core.ImageAlphaPremultiply.run1(
         p.toJS,
       ),
@@ -3923,7 +3920,7 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     num blurSize,
   ) => run(
     () => RaylibDebugLabels.ImageBlurGaussian(image, blurSize),
-    () => rl.Temp.Image$.RefUpdate1(image,
+    () => rl.Temp.Image$.val.RefUpdate1(image,
       (p) => rl.Core.ImageBlurGaussian.run2(
         p.toJS,
         blurSize.toJS,
@@ -3937,10 +3934,10 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     List<double> kernel,
   ) => run(
     () => RaylibDebugLabels.ImageKernelConvolution(image, kernel),
-    () => rl.Temp.Image$.RefUpdate1(image,
+    () => rl.Temp.Image$.val.RefUpdate1(image,
       (p) => rl.Core.ImageKernelConvolution.run3(
         p.toJS,
-        rl.Temp.Float32$.Array(kernel).toJS,
+        rl.Temp.Float32$.val.Array(kernel).toJS,
         kernel.length.toJS,
       ),
     ),
@@ -3953,7 +3950,7 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     num newHeight,
   ) => run(
     () => RaylibDebugLabels.ImageResize(image, newWidth, newHeight),
-    () => rl.Temp.Image$.RefUpdate1(image,
+    () => rl.Temp.Image$.val.RefUpdate1(image,
       (p) => rl.Core.ImageResize.run3(
         p.toJS,
         newWidth.toJS,
@@ -3969,7 +3966,7 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     num newHeight,
   ) => run(
     () => RaylibDebugLabels.ImageResizeNN(image, newWidth, newHeight),
-    () => rl.Temp.Image$.RefUpdate1(image,
+    () => rl.Temp.Image$.val.RefUpdate1(image,
       (p) => rl.Core.ImageResizeNN.run3(
         p.toJS,
         newWidth.toJS,
@@ -3988,14 +3985,14 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     ColorD fill,
   ) => run(
     () => RaylibDebugLabels.ImageResizeCanvas(image, newWidth, newHeight, offsetX, offsetY, fill),
-    () => rl.Temp.Image$.RefUpdate1(image,
+    () => rl.Temp.Image$.val.RefUpdate1(image,
       (p) => rl.Core.ImageResizeCanvas.run6(
         p.toJS,
         newWidth.toJS,
         newHeight.toJS,
         offsetX.toJS,
         offsetY.toJS,
-        rl.Temp.Color$.Ref1(fill).toJS,
+        rl.Temp.Color$.val.Ref1(fill).toJS,
       ),
     ),
   );
@@ -4005,7 +4002,7 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     ImageD image,
   ) => run(
     () => RaylibDebugLabels.ImageMipmaps(image),
-    () => rl.Temp.Image$.RefUpdate1(image,
+    () => rl.Temp.Image$.val.RefUpdate1(image,
       (p) => rl.Core.ImageMipmaps.run1(
         p.toJS,
       ),
@@ -4021,7 +4018,7 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     num aBpp,
   ) => run(
     () => RaylibDebugLabels.ImageDither(image, rBpp, gBpp, bBpp, aBpp),
-    () => rl.Temp.Image$.RefUpdate1(image,
+    () => rl.Temp.Image$.val.RefUpdate1(image,
       (p) => rl.Core.ImageDither.run5(
         p.toJS,
         rBpp.toJS,
@@ -4037,7 +4034,7 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     ImageD image,
   ) => run(
     () => RaylibDebugLabels.ImageFlipVertical(image),
-    () => rl.Temp.Image$.RefUpdate1(image,
+    () => rl.Temp.Image$.val.RefUpdate1(image,
       (p) => rl.Core.ImageFlipVertical.run1(
         p.toJS,
       ),
@@ -4049,7 +4046,7 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     ImageD image,
   ) => run(
     () => RaylibDebugLabels.ImageFlipHorizontal(image),
-    () => rl.Temp.Image$.RefUpdate1(image,
+    () => rl.Temp.Image$.val.RefUpdate1(image,
       (p) => rl.Core.ImageFlipHorizontal.run1(
         p.toJS,
       ),
@@ -4062,7 +4059,7 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     num degrees,
   ) => run(
     () => RaylibDebugLabels.ImageRotate(image, degrees),
-    () => rl.Temp.Image$.RefUpdate1(image,
+    () => rl.Temp.Image$.val.RefUpdate1(image,
       (p) => rl.Core.ImageRotate.run2(
         p.toJS,
         degrees.toJS,
@@ -4075,7 +4072,7 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     ImageD image,
   ) => run(
     () => RaylibDebugLabels.ImageRotateCW(image),
-    () => rl.Temp.Image$.RefUpdate1(image,
+    () => rl.Temp.Image$.val.RefUpdate1(image,
       (p) => rl.Core.ImageRotateCW.run1(
         p.toJS,
       ),
@@ -4087,7 +4084,7 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     ImageD image,
   ) => run(
     () => RaylibDebugLabels.ImageRotateCCW(image),
-    () => rl.Temp.Image$.RefUpdate1(image,
+    () => rl.Temp.Image$.val.RefUpdate1(image,
       (p) => rl.Core.ImageRotateCCW.run1(
         p.toJS,
       ),
@@ -4100,10 +4097,10 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     ColorD color,
   ) => run(
     () => RaylibDebugLabels.ImageColorTint(image, color),
-    () => rl.Temp.Image$.RefUpdate1(image,
+    () => rl.Temp.Image$.val.RefUpdate1(image,
       (p) => rl.Core.ImageColorTint.run2(
         p.toJS,
-        rl.Temp.Color$.Ref1(color).toJS,
+        rl.Temp.Color$.val.Ref1(color).toJS,
       ),
     ),
   );
@@ -4113,7 +4110,7 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     ImageD image,
   ) => run(
     () => RaylibDebugLabels.ImageColorInvert(image),
-    () => rl.Temp.Image$.RefUpdate1(image,
+    () => rl.Temp.Image$.val.RefUpdate1(image,
       (p) => rl.Core.ImageColorInvert.run1(
         p.toJS,
       ),
@@ -4125,7 +4122,7 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     ImageD image,
   ) => run(
     () => RaylibDebugLabels.ImageColorGrayscale(image),
-    () => rl.Temp.Image$.RefUpdate1(image,
+    () => rl.Temp.Image$.val.RefUpdate1(image,
       (p) => rl.Core.ImageColorGrayscale.run1(
         p.toJS,
       ),
@@ -4138,7 +4135,7 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     num contrast,
   ) => run(
     () => RaylibDebugLabels.ImageColorContrast(image, contrast),
-    () => rl.Temp.Image$.RefUpdate1(image,
+    () => rl.Temp.Image$.val.RefUpdate1(image,
       (p) => rl.Core.ImageColorContrast.run2(
         p.toJS,
         contrast.toJS,
@@ -4152,7 +4149,7 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     num brightness,
   ) => run(
     () => RaylibDebugLabels.ImageColorBrightness(image, brightness),
-    () => rl.Temp.Image$.RefUpdate1(image,
+    () => rl.Temp.Image$.val.RefUpdate1(image,
       (p) => rl.Core.ImageColorBrightness.run2(
         p.toJS,
         brightness.toJS,
@@ -4167,11 +4164,11 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     ColorD replace,
   ) => run(
     () => RaylibDebugLabels.ImageColorReplace(image, color, replace),
-    () => rl.Temp.Image$.RefUpdate1(image,
+    () => rl.Temp.Image$.val.RefUpdate1(image,
       (p) => rl.Core.ImageColorReplace.run3(
         p.toJS,
-        rl.Temp.Color$.Ref1(color).toJS,
-        rl.Temp.Color$.Ref2(replace).toJS,
+        rl.Temp.Color$.val.Ref1(color).toJS,
+        rl.Temp.Color$.val.Ref2(replace).toJS,
       ),
     ),
   );
@@ -4183,7 +4180,7 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     () => RaylibDebugLabels.LoadImageColors(image),
     () {
       final colorsPtr = rl.Core.LoadImageColors.run1(
-        rl.Temp.Image$.Ref1(image).toJS,
+        rl.Temp.Image$.val.Ref1(image).toJS,
       ).toInt();
       final count = image.width * image.height;
       try {
@@ -4201,9 +4198,9 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.LoadImagePalette(image, maxPaletteSize),
     () {
-      final colorCountPtr = rl.Temp.Int32$.Ref1();
+      final colorCountPtr = rl.Temp.Int32$.val.Ref1();
       final colorsPtr = rl.Core.LoadImagePalette.run3(
-        rl.Temp.Image$.Ref1(image).toJS,
+        rl.Temp.Image$.val.Ref1(image).toJS,
         maxPaletteSize.toJS,
         colorCountPtr.toJS,
       ).toInt();
@@ -4221,10 +4218,10 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     num threshold,
   ) => run(
     () => RaylibDebugLabels.GetImageAlphaBorder(image, threshold),
-    () => rl.Temp.Rectangle$.Extract1(
+    () => rl.Temp.Rectangle$.val.Extract1(
       (p) => rl.Core.GetImageAlphaBorder.run3(
         p.toJS,
-        rl.Temp.Image$.Ref1(image).toJS,
+        rl.Temp.Image$.val.Ref1(image).toJS,
         threshold.toJS,
       ),
     ),
@@ -4237,10 +4234,10 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     num y,
   ) => run(
     () => RaylibDebugLabels.GetImageColor(image, x, y),
-    () => rl.Temp.Color$.Extract1(
+    () => rl.Temp.Color$.val.Extract1(
       (p) => rl.Core.GetImageColor.run4(
         p.toJS,
-        rl.Temp.Image$.Ref1(image).toJS,
+        rl.Temp.Image$.val.Ref1(image).toJS,
         x.toJS,
         y.toJS,
       ),
@@ -4253,10 +4250,10 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     ColorD color,
   ) => run(
     () => RaylibDebugLabels.ImageClearBackground(dst, color),
-    () => rl.Temp.Image$.RefUpdate1(dst,
+    () => rl.Temp.Image$.val.RefUpdate1(dst,
       (p) => rl.Core.ImageClearBackground.run2(
         p.toJS,
-        rl.Temp.Color$.Ref1(color).toJS,
+        rl.Temp.Color$.val.Ref1(color).toJS,
       ),
     ),
   );
@@ -4269,12 +4266,12 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     ColorD color,
   ) => run(
     () => RaylibDebugLabels.ImageDrawPixel(dst, posX, posY, color),
-    () => rl.Temp.Image$.RefUpdate1(dst,
+    () => rl.Temp.Image$.val.RefUpdate1(dst,
       (p) => rl.Core.ImageDrawPixel.run4(
         p.toJS,
         posX.toJS,
         posY.toJS,
-        rl.Temp.Color$.Ref1(color).toJS,
+        rl.Temp.Color$.val.Ref1(color).toJS,
       ),
     ),
   );
@@ -4286,11 +4283,11 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     ColorD color,
   ) => run(
     () => RaylibDebugLabels.ImageDrawPixelV(dst, position, color),
-    () => rl.Temp.Image$.RefUpdate1(dst,
+    () => rl.Temp.Image$.val.RefUpdate1(dst,
       (p) => rl.Core.ImageDrawPixelV.run3(
         p.toJS,
-        rl.Temp.Vector2$.Ref1(position).toJS,
-        rl.Temp.Color$.Ref1(color).toJS,
+        rl.Temp.Vector2$.val.Ref1(position).toJS,
+        rl.Temp.Color$.val.Ref1(color).toJS,
       ),
     ),
   );
@@ -4305,14 +4302,14 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     ColorD color,
   ) => run(
     () => RaylibDebugLabels.ImageDrawLine(dst, startPosX, startPosY, endPosX, endPosY, color),
-    () => rl.Temp.Image$.RefUpdate1(dst,
+    () => rl.Temp.Image$.val.RefUpdate1(dst,
       (p) => rl.Core.ImageDrawLine.run6(
         p.toJS,
         startPosX.toJS,
         startPosY.toJS,
         endPosX.toJS,
         endPosY.toJS,
-        rl.Temp.Color$.Ref1(color).toJS,
+        rl.Temp.Color$.val.Ref1(color).toJS,
       ),
     ),
   );
@@ -4325,12 +4322,12 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     ColorD color,
   ) => run(
     () => RaylibDebugLabels.ImageDrawLineV(dst, start, end, color),
-    () => rl.Temp.Image$.RefUpdate1(dst,
+    () => rl.Temp.Image$.val.RefUpdate1(dst,
       (p) => rl.Core.ImageDrawLineV.run4(
         p.toJS,
-        rl.Temp.Vector2$.Ref1(start).toJS,
-        rl.Temp.Vector2$.Ref2(end).toJS,
-        rl.Temp.Color$.Ref1(color).toJS,
+        rl.Temp.Vector2$.val.Ref1(start).toJS,
+        rl.Temp.Vector2$.val.Ref2(end).toJS,
+        rl.Temp.Color$.val.Ref1(color).toJS,
       ),
     ),
   );
@@ -4344,13 +4341,13 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     ColorD color,
   ) => run(
     () => RaylibDebugLabels.ImageDrawLineEx(dst, start, end, thick, color),
-    () => rl.Temp.Image$.RefUpdate1(dst,
+    () => rl.Temp.Image$.val.RefUpdate1(dst,
       (p) => rl.Core.ImageDrawLineEx.run5(
         p.toJS,
-        rl.Temp.Vector2$.Ref1(start).toJS,
-        rl.Temp.Vector2$.Ref2(end).toJS,
+        rl.Temp.Vector2$.val.Ref1(start).toJS,
+        rl.Temp.Vector2$.val.Ref2(end).toJS,
         thick.toJS,
-        rl.Temp.Color$.Ref1(color).toJS,
+        rl.Temp.Color$.val.Ref1(color).toJS,
       ),
     ),
   );
@@ -4364,13 +4361,13 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     ColorD color,
   ) => run(
     () => RaylibDebugLabels.ImageDrawCircle(dst, centerX, centerY, radius, color),
-    () => rl.Temp.Image$.RefUpdate1(dst,
+    () => rl.Temp.Image$.val.RefUpdate1(dst,
       (p) => rl.Core.ImageDrawCircle.run5(
         p.toJS,
         centerX.toJS,
         centerY.toJS,
         radius.toJS,
-        rl.Temp.Color$.Ref1(color).toJS,
+        rl.Temp.Color$.val.Ref1(color).toJS,
       ),
     ),
   );
@@ -4383,12 +4380,12 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     ColorD color,
   ) => run(
     () => RaylibDebugLabels.ImageDrawCircleV(dst, center, radius, color),
-    () => rl.Temp.Image$.RefUpdate1(dst,
+    () => rl.Temp.Image$.val.RefUpdate1(dst,
       (p) => rl.Core.ImageDrawCircleV.run4(
         p.toJS,
-        rl.Temp.Vector2$.Ref1(center).toJS,
+        rl.Temp.Vector2$.val.Ref1(center).toJS,
         radius.toJS,
-        rl.Temp.Color$.Ref1(color).toJS,
+        rl.Temp.Color$.val.Ref1(color).toJS,
       ),
     ),
   );
@@ -4402,13 +4399,13 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     ColorD color,
   ) => run(
     () => RaylibDebugLabels.ImageDrawCircleLines(dst, centerX, centerY, radius, color),
-    () => rl.Temp.Image$.RefUpdate1(dst,
+    () => rl.Temp.Image$.val.RefUpdate1(dst,
       (p) => rl.Core.ImageDrawCircleLines.run5(
         p.toJS,
         centerX.toJS,
         centerY.toJS,
         radius.toJS,
-        rl.Temp.Color$.Ref1(color).toJS,
+        rl.Temp.Color$.val.Ref1(color).toJS,
       ),
     ),
   );
@@ -4421,12 +4418,12 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     ColorD color,
   ) => run(
     () => RaylibDebugLabels.ImageDrawCircleLinesV(dst, center, radius, color),
-    () => rl.Temp.Image$.RefUpdate1(dst,
+    () => rl.Temp.Image$.val.RefUpdate1(dst,
       (p) => rl.Core.ImageDrawCircleLinesV.run4(
         p.toJS,
-        rl.Temp.Vector2$.Ref1(center).toJS,
+        rl.Temp.Vector2$.val.Ref1(center).toJS,
         radius.toJS,
-        rl.Temp.Color$.Ref1(color).toJS,
+        rl.Temp.Color$.val.Ref1(color).toJS,
       ),
     ),
   );
@@ -4441,14 +4438,14 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     ColorD color,
   ) => run(
     () => RaylibDebugLabels.ImageDrawRectangle(dst, posX, posY, width, height, color),
-    () => rl.Temp.Image$.RefUpdate1(dst,
+    () => rl.Temp.Image$.val.RefUpdate1(dst,
       (p) => rl.Core.ImageDrawRectangle.run6(
         p.toJS,
         posX.toJS,
         posY.toJS,
         width.toJS,
         height.toJS,
-        rl.Temp.Color$.Ref1(color).toJS,
+        rl.Temp.Color$.val.Ref1(color).toJS,
       ),
     ),
   );
@@ -4461,12 +4458,12 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     ColorD color,
   ) => run(
     () => RaylibDebugLabels.ImageDrawRectangleV(dst, position, size, color),
-    () => rl.Temp.Image$.RefUpdate1(dst,
+    () => rl.Temp.Image$.val.RefUpdate1(dst,
       (p) => rl.Core.ImageDrawRectangleV.run4(
         p.toJS,
-        rl.Temp.Vector2$.Ref1(position).toJS,
-        rl.Temp.Vector2$.Ref2(size).toJS,
-        rl.Temp.Color$.Ref1(color).toJS,
+        rl.Temp.Vector2$.val.Ref1(position).toJS,
+        rl.Temp.Vector2$.val.Ref2(size).toJS,
+        rl.Temp.Color$.val.Ref1(color).toJS,
       ),
     ),
   );
@@ -4478,11 +4475,11 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     ColorD color,
   ) => run(
     () => RaylibDebugLabels.ImageDrawRectangleRec(dst, rec, color),
-    () => rl.Temp.Image$.RefUpdate1(dst,
+    () => rl.Temp.Image$.val.RefUpdate1(dst,
       (p) => rl.Core.ImageDrawRectangleRec.run3(
         p.toJS,
-        rl.Temp.Rectangle$.Ref1(rec).toJS,
-        rl.Temp.Color$.Ref1(color).toJS,
+        rl.Temp.Rectangle$.val.Ref1(rec).toJS,
+        rl.Temp.Color$.val.Ref1(color).toJS,
       ),
     ),
   );
@@ -4495,12 +4492,12 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     ColorD color,
   ) => run(
     () => RaylibDebugLabels.ImageDrawRectangleLines(dst, rec, thick, color),
-    () => rl.Temp.Image$.RefUpdate1(dst,
+    () => rl.Temp.Image$.val.RefUpdate1(dst,
       (p) => rl.Core.ImageDrawRectangleLines.run4(
         p.toJS,
-        rl.Temp.Rectangle$.Ref1(rec).toJS,
+        rl.Temp.Rectangle$.val.Ref1(rec).toJS,
         thick.toJS,
-        rl.Temp.Color$.Ref1(color).toJS,
+        rl.Temp.Color$.val.Ref1(color).toJS,
       ),
     ),
   );
@@ -4514,13 +4511,13 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     ColorD color,
   ) => run(
     () => RaylibDebugLabels.ImageDrawTriangle(dst, v1, v2, v3, color),
-    () => rl.Temp.Image$.RefUpdate1(dst,
+    () => rl.Temp.Image$.val.RefUpdate1(dst,
       (p) => rl.Core.ImageDrawTriangle.run5(
         p.toJS,
-        rl.Temp.Vector2$.Ref1(v1).toJS,
-        rl.Temp.Vector2$.Ref2(v2).toJS,
-        rl.Temp.Vector2$.Ref3(v3).toJS,
-        rl.Temp.Color$.Ref1(color).toJS,
+        rl.Temp.Vector2$.val.Ref1(v1).toJS,
+        rl.Temp.Vector2$.val.Ref2(v2).toJS,
+        rl.Temp.Vector2$.val.Ref3(v3).toJS,
+        rl.Temp.Color$.val.Ref1(color).toJS,
       ),
     ),
   );
@@ -4536,15 +4533,15 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     ColorD c3,
   ) => run(
     () => RaylibDebugLabels.ImageDrawTriangleEx(dst, v1, v2, v3, c1, c2, c3),
-    () => rl.Temp.Image$.RefUpdate1(dst,
+    () => rl.Temp.Image$.val.RefUpdate1(dst,
       (p) => rl.Core.ImageDrawTriangleEx.run7(
         p.toJS,
-        rl.Temp.Vector2$.Ref1(v1).toJS,
-        rl.Temp.Vector2$.Ref2(v2).toJS,
-        rl.Temp.Vector2$.Ref3(v3).toJS,
-        rl.Temp.Color$.Ref1(c1).toJS,
-        rl.Temp.Color$.Ref2(c2).toJS,
-        rl.Temp.Color$.Ref3(c3).toJS,
+        rl.Temp.Vector2$.val.Ref1(v1).toJS,
+        rl.Temp.Vector2$.val.Ref2(v2).toJS,
+        rl.Temp.Vector2$.val.Ref3(v3).toJS,
+        rl.Temp.Color$.val.Ref1(c1).toJS,
+        rl.Temp.Color$.val.Ref2(c2).toJS,
+        rl.Temp.Color$.val.Ref3(c3).toJS,
       ),
     ),
   );
@@ -4558,13 +4555,13 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     ColorD color,
   ) => run(
     () => RaylibDebugLabels.ImageDrawTriangleLines(dst, v1, v2, v3, color),
-    () => rl.Temp.Image$.RefUpdate1(dst,
+    () => rl.Temp.Image$.val.RefUpdate1(dst,
       (p) => rl.Core.ImageDrawTriangleLines.run5(
         p.toJS,
-        rl.Temp.Vector2$.Ref1(v1).toJS,
-        rl.Temp.Vector2$.Ref2(v2).toJS,
-        rl.Temp.Vector2$.Ref3(v3).toJS,
-        rl.Temp.Color$.Ref1(color).toJS,
+        rl.Temp.Vector2$.val.Ref1(v1).toJS,
+        rl.Temp.Vector2$.val.Ref2(v2).toJS,
+        rl.Temp.Vector2$.val.Ref3(v3).toJS,
+        rl.Temp.Color$.val.Ref1(color).toJS,
       ),
     ),
   );
@@ -4576,12 +4573,12 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     ColorD color,
   ) => run(
     () => RaylibDebugLabels.ImageDrawTriangleFan(dst, points, color),
-    () => rl.Temp.Image$.RefUpdate1(dst,
+    () => rl.Temp.Image$.val.RefUpdate1(dst,
       (p) => rl.Core.ImageDrawTriangleFan.run4(
         p.toJS,
-        rl.Temp.Vector2$.Array(points).toJS,
+        rl.Temp.Vector2$.val.Array(points).toJS,
         points.length.toJS,
-        rl.Temp.Color$.Ref1(color).toJS,
+        rl.Temp.Color$.val.Ref1(color).toJS,
       ),
     ),
   );
@@ -4593,12 +4590,12 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     ColorD color,
   ) => run(
     () => RaylibDebugLabels.ImageDrawTriangleStrip(dst, points, color),
-    () => rl.Temp.Image$.RefUpdate1(dst,
+    () => rl.Temp.Image$.val.RefUpdate1(dst,
       (p) => rl.Core.ImageDrawTriangleStrip.run4(
         p.toJS,
-        rl.Temp.Vector2$.Array(points).toJS,
+        rl.Temp.Vector2$.val.Array(points).toJS,
         points.length.toJS,
-        rl.Temp.Color$.Ref1(color).toJS,
+        rl.Temp.Color$.val.Ref1(color).toJS,
       ),
     ),
   );
@@ -4612,13 +4609,13 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     ColorD tint,
   ) => run(
     () => RaylibDebugLabels.ImageDraw(dst, src, srcRec, dstRec, tint),
-    () => rl.Temp.Image$.RefUpdate1(dst,
+    () => rl.Temp.Image$.val.RefUpdate1(dst,
       (p) => rl.Core.ImageDraw.run5(
         p.toJS,
-        rl.Temp.Image$.Ref2(src).toJS,
-        rl.Temp.Rectangle$.Ref1(srcRec).toJS,
-        rl.Temp.Rectangle$.Ref2(dstRec).toJS,
-        rl.Temp.Color$.Ref1(tint).toJS,
+        rl.Temp.Image$.val.Ref2(src).toJS,
+        rl.Temp.Rectangle$.val.Ref1(srcRec).toJS,
+        rl.Temp.Rectangle$.val.Ref2(dstRec).toJS,
+        rl.Temp.Color$.val.Ref1(tint).toJS,
       ),
     ),
   );
@@ -4633,14 +4630,14 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     ColorD color,
   ) => run(
     () => RaylibDebugLabels.ImageDrawText(dst, text, posX, posY, fontSize, color),
-    () => rl.Temp.Image$.RefUpdate1(dst,
+    () => rl.Temp.Image$.val.RefUpdate1(dst,
       (p) => rl.Core.ImageDrawText.run6(
         p.toJS,
         text.toJS,
         posX.toJS,
         posY.toJS,
         fontSize.toJS,
-        rl.Temp.Color$.Ref1(color).toJS,
+        rl.Temp.Color$.val.Ref1(color).toJS,
       ),
     ),
   );
@@ -4656,15 +4653,15 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     ColorD tint,
   ) => run(
     () => RaylibDebugLabels.ImageDrawTextEx(dst, font, text, position, fontSize, spacing, tint),
-    () => rl.Temp.Image$.RefUpdate1(dst,
+    () => rl.Temp.Image$.val.RefUpdate1(dst,
       (p) => rl.Core.ImageDrawTextEx.run7(
         p.toJS,
-        rl.Temp.Font$.Ref1(font).toJS,
+        rl.Temp.Font$.val.Ref1(font).toJS,
         text.toJS,
-        rl.Temp.Vector2$.Ref1(position).toJS,
+        rl.Temp.Vector2$.val.Ref1(position).toJS,
         fontSize.toJS,
         spacing.toJS,
-        rl.Temp.Color$.Ref1(tint).toJS,
+        rl.Temp.Color$.val.Ref1(tint).toJS,
       ),
     ),
   );
@@ -4674,7 +4671,7 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     String fileName,
   ) => run(
     () => RaylibDebugLabels.LoadTexture(fileName),
-    () => rl.Temp.Texture$.RefCapture(
+    () => rl.Temp.Texture$.val.RefCapture(
       RaylibCaptureIds.LoadTexture(fileName),
       (p) => rl.Core.LoadTexture.run2(
         p.toJS,
@@ -4688,11 +4685,11 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     ImageD image,
   ) => run(
     () => RaylibDebugLabels.LoadTextureFromImage(image),
-    () => rl.Temp.Texture$.RefCapture(
+    () => rl.Temp.Texture$.val.RefCapture(
       RaylibCaptureIds.LoadTextureFromImage(image),
       (p) => rl.Core.LoadTextureFromImage.run2(
         p.toJS,
-        rl.Temp.Image$.Ref1(image).toJS,
+        rl.Temp.Image$.val.Ref1(image).toJS,
       ),
     ),
   );
@@ -4703,11 +4700,11 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     CubemapLayout layout,
   ) => run(
     () => RaylibDebugLabels.LoadTextureCubemap(image, layout),
-    () => rl.Temp.Texture$.RefCapture(
+    () => rl.Temp.Texture$.val.RefCapture(
       RaylibCaptureIds.LoadTextureCubemap(image, layout),
       (p) => rl.Core.LoadTextureCubemap.run3(
         p.toJS,
-        rl.Temp.Image$.Ref1(image).toJS,
+        rl.Temp.Image$.val.Ref1(image).toJS,
         layout.value.toJS,
       ),
     ),
@@ -4719,7 +4716,7 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     num height,
   ) => run(
     () => RaylibDebugLabels.LoadRenderTexture(width, height),
-    () => rl.Temp.RenderTexture$.RefCapture(
+    () => rl.Temp.RenderTexture$.val.RefCapture(
       RaylibCaptureIds.LoadRenderTexture(width, height),
       (p) => rl.Core.LoadRenderTexture.run3(
         p.toJS,
@@ -4735,7 +4732,7 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.IsTextureValid(texture),
     () => rl.Core.IsTextureValid.run1(
-      rl.Temp.Texture$.Ref1(texture).toJS,
+      rl.Temp.Texture$.val.Ref1(texture).toJS,
     ).toBool(),
   );
 
@@ -4746,7 +4743,7 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     () => RaylibDebugLabels.UnloadTexture(texture),
     () {
       rl.Core.UnloadTexture.run1(
-        rl.Temp.Texture$.Ref1(texture).toJS,
+        rl.Temp.Texture$.val.Ref1(texture).toJS,
       );
       texture.structMarkDisposed();
     },
@@ -4758,7 +4755,7 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.IsRenderTextureValid(target),
     () => rl.Core.IsRenderTextureValid.run1(
-      rl.Temp.RenderTexture$.Ref1(target).toJS,
+      rl.Temp.RenderTexture$.val.Ref1(target).toJS,
     ).toBool(),
   );
 
@@ -4768,7 +4765,7 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.UnloadRenderTexture(target),
     () => rl.Core.UnloadRenderTexture.run1(
-      rl.Temp.RenderTexture$.Ref1(target).toJS,
+      rl.Temp.RenderTexture$.val.Ref1(target).toJS,
     ),
   );
 
@@ -4778,10 +4775,10 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     Uint8List pixels,
   ) => run(
     () => RaylibDebugLabels.UpdateTexture(texture, pixels),
-    () => rl.Temp.Texture$.RefUpdate1(texture,
+    () => rl.Temp.Texture$.val.RefUpdate1(texture,
       (p) => rl.Core.UpdateTexture.run2(
         p.toJS,
-        rl.Temp.Uint8$.Array(pixels).toJS,
+        rl.Temp.Uint8$.val.Array(pixels).toJS,
       ),
     ),
   );
@@ -4793,11 +4790,11 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     Uint8List pixels,
   ) => run(
     () => RaylibDebugLabels.UpdateTextureRec(texture, rec, pixels),
-    () => rl.Temp.Texture$.RefUpdate1(texture,
+    () => rl.Temp.Texture$.val.RefUpdate1(texture,
       (p) => rl.Core.UpdateTextureRec.run3(
         p.toJS,
-        rl.Temp.Rectangle$.Ref1(rec).toJS,
-        rl.Temp.Uint8$.Array(pixels).toJS,
+        rl.Temp.Rectangle$.val.Ref1(rec).toJS,
+        rl.Temp.Uint8$.val.Array(pixels).toJS,
       ),
     ),
   );
@@ -4807,7 +4804,7 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     TextureD texture,
   ) => run(
     () => RaylibDebugLabels.GenTextureMipmaps(texture),
-    () => rl.Temp.Texture$.RefUpdate1(texture,
+    () => rl.Temp.Texture$.val.RefUpdate1(texture,
       (p) => rl.Core.GenTextureMipmaps.run1(
         p.toJS,
       ),
@@ -4820,7 +4817,7 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     TextureFilter filter,
   ) => run(
     () => RaylibDebugLabels.SetTextureFilter(texture, filter),
-    () => rl.Temp.Texture$.RefUpdate1(texture,
+    () => rl.Temp.Texture$.val.RefUpdate1(texture,
       (p) => rl.Core.SetTextureFilter.run2(
         p.toJS,
         filter.value.toJS,
@@ -4834,7 +4831,7 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     TextureWrap wrap,
   ) => run(
     () => RaylibDebugLabels.SetTextureWrap(texture, wrap),
-    () => rl.Temp.Texture$.RefUpdate1(texture,
+    () => rl.Temp.Texture$.val.RefUpdate1(texture,
       (p) => rl.Core.SetTextureWrap.run2(
         p.toJS,
         wrap.value.toJS,
@@ -4851,10 +4848,10 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.DrawTexture(texture, posX, posY, tint),
     () => rl.Core.DrawTexture.run4(
-      rl.Temp.Texture$.Ref1(texture).toJS,
+      rl.Temp.Texture$.val.Ref1(texture).toJS,
       posX.toJS,
       posY.toJS,
-      rl.Temp.Color$.Ref1(tint).toJS,
+      rl.Temp.Color$.val.Ref1(tint).toJS,
     ),
   );
 
@@ -4866,9 +4863,9 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.DrawTextureV(texture, position, tint),
     () => rl.Core.DrawTextureV.run3(
-      rl.Temp.Texture$.Ref1(texture).toJS,
-      rl.Temp.Vector2$.Ref1(position).toJS,
-      rl.Temp.Color$.Ref1(tint).toJS,
+      rl.Temp.Texture$.val.Ref1(texture).toJS,
+      rl.Temp.Vector2$.val.Ref1(position).toJS,
+      rl.Temp.Color$.val.Ref1(tint).toJS,
     ),
   );
     
@@ -4882,11 +4879,11 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.DrawTextureEx(texture, position, rotation, scale, tint),
     () => rl.Core.DrawTextureEx.run5(
-      rl.Temp.Texture$.Ref1(texture).toJS,
-      rl.Temp.Vector2$.Ref1(position).toJS,
+      rl.Temp.Texture$.val.Ref1(texture).toJS,
+      rl.Temp.Vector2$.val.Ref1(position).toJS,
       rotation.toJS,
       scale.toJS,
-      rl.Temp.Color$.Ref1(tint).toJS,
+      rl.Temp.Color$.val.Ref1(tint).toJS,
     ),
   );
 
@@ -4899,10 +4896,10 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.DrawTextureRec(texture, source, position, tint),
     () => rl.Core.DrawTextureRec.run4(
-      rl.Temp.Texture$.Ref1(texture).toJS,
-      rl.Temp.Rectangle$.Ref1(source).toJS,
-      rl.Temp.Vector2$.Ref1(position).toJS,
-      rl.Temp.Color$.Ref1(tint).toJS,
+      rl.Temp.Texture$.val.Ref1(texture).toJS,
+      rl.Temp.Rectangle$.val.Ref1(source).toJS,
+      rl.Temp.Vector2$.val.Ref1(position).toJS,
+      rl.Temp.Color$.val.Ref1(tint).toJS,
     ),
   );
 
@@ -4917,12 +4914,12 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.DrawTexturePro(texture, source, dest, origin, rotation, tint),
     () => rl.Core.DrawTexturePro.run6(
-      rl.Temp.Texture$.Ref1(texture).toJS,
-      rl.Temp.Rectangle$.Ref1(source).toJS,
-      rl.Temp.Rectangle$.Ref2(dest).toJS,
-      rl.Temp.Vector2$.Ref1(origin).toJS,
+      rl.Temp.Texture$.val.Ref1(texture).toJS,
+      rl.Temp.Rectangle$.val.Ref1(source).toJS,
+      rl.Temp.Rectangle$.val.Ref2(dest).toJS,
+      rl.Temp.Vector2$.val.Ref1(origin).toJS,
       rotation.toJS,
-      rl.Temp.Color$.Ref1(tint).toJS,
+      rl.Temp.Color$.val.Ref1(tint).toJS,
     ),
   );
 
@@ -4937,12 +4934,12 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.DrawTextureNPatch(texture, nPatchInfo, dest, origin, rotation, tint),
     () => rl.Core.DrawTextureNPatch.run6(
-      rl.Temp.Texture$.Ref1(texture).toJS,
-      rl.Temp.NPatchInfo$.Ref1(nPatchInfo).toJS,
-      rl.Temp.Rectangle$.Ref1(dest).toJS,
-      rl.Temp.Vector2$.Ref1(origin).toJS,
+      rl.Temp.Texture$.val.Ref1(texture).toJS,
+      rl.Temp.NPatchInfo$.val.Ref1(nPatchInfo).toJS,
+      rl.Temp.Rectangle$.val.Ref1(dest).toJS,
+      rl.Temp.Vector2$.val.Ref1(origin).toJS,
       rotation.toJS,
-      rl.Temp.Color$.Ref1(tint).toJS,
+      rl.Temp.Color$.val.Ref1(tint).toJS,
     ),
   );
 
@@ -4953,8 +4950,8 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.ColorIsEqual(col1, col2),
     () => rl.Core.ColorIsEqual.run2(
-      rl.Temp.Color$.Ref1(col1).toJS,
-      rl.Temp.Color$.Ref2(col2).toJS,
+      rl.Temp.Color$.val.Ref1(col1).toJS,
+      rl.Temp.Color$.val.Ref2(col2).toJS,
     ).toBool(),
   );
 
@@ -4964,10 +4961,10 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     num alpha,
   ) => run(
     () => RaylibDebugLabels.Fade(color, alpha),
-    () => rl.Temp.Color$.Extract1(
+    () => rl.Temp.Color$.val.Extract1(
       (p) => rl.Core.Fade.run3(
         p.toJS,
-        rl.Temp.Color$.Ref2(color).toJS,
+        rl.Temp.Color$.val.Ref2(color).toJS,
         alpha.toJS,
       ),
     ),
@@ -4979,7 +4976,7 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.ColorToInt(color),
     () => rl.Core.ColorToInt.run1(
-      rl.Temp.Color$.Ref1(color).toJS,
+      rl.Temp.Color$.val.Ref1(color).toJS,
     ).toInt(),
   );
 
@@ -4988,10 +4985,10 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     ColorD color,
   ) => run(
     () => RaylibDebugLabels.ColorNormalize(color),
-    () => rl.Temp.Vector4$.Extract1(
+    () => rl.Temp.Vector4$.val.Extract1(
       (p) => rl.Core.ColorNormalize.run2(
         p.toJS,
-        rl.Temp.Color$.Ref1(color).toJS,
+        rl.Temp.Color$.val.Ref1(color).toJS,
       ),
     ),
   );
@@ -5001,10 +4998,10 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     Vector4D normalized,
   ) => run(
     () => RaylibDebugLabels.ColorFromNormalized(normalized),
-    () => rl.Temp.Color$.Extract1(
+    () => rl.Temp.Color$.val.Extract1(
       (p) => rl.Core.ColorFromNormalized.run2(
         p.toJS,
-        rl.Temp.Vector4$.Ref1(normalized).toJS,
+        rl.Temp.Vector4$.val.Ref1(normalized).toJS,
       ),
     ),
   );
@@ -5014,10 +5011,10 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     ColorD color,
   ) => run(
     () => RaylibDebugLabels.ColorToHSV(color),
-    () => rl.Temp.Vector3$.Extract1(
+    () => rl.Temp.Vector3$.val.Extract1(
       (p) => rl.Core.ColorToHSV.run2(
         p.toJS,
-        rl.Temp.Color$.Ref1(color).toJS,
+        rl.Temp.Color$.val.Ref1(color).toJS,
       ),
     ),
   );
@@ -5029,7 +5026,7 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     num value,
   ) => run(
     () => RaylibDebugLabels.ColorFromHSV(hue, saturation, value),
-    () => rl.Temp.Color$.Extract1(
+    () => rl.Temp.Color$.val.Extract1(
       (p) => rl.Core.ColorFromHSV.run4(
         p.toJS,
         hue.toJS,
@@ -5045,11 +5042,11 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     ColorD tint,
   ) => run(
     () => RaylibDebugLabels.ColorTint(color, tint),
-    () => rl.Temp.Color$.Extract1(
+    () => rl.Temp.Color$.val.Extract1(
       (p) => rl.Core.ColorTint.run3(
         p.toJS,
-        rl.Temp.Color$.Ref2(color).toJS,
-        rl.Temp.Color$.Ref3(tint).toJS,
+        rl.Temp.Color$.val.Ref2(color).toJS,
+        rl.Temp.Color$.val.Ref3(tint).toJS,
       ),
     ),
   );
@@ -5060,10 +5057,10 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     num factor,
   ) => run(
     () => RaylibDebugLabels.ColorBrightness(color, factor),
-    () => rl.Temp.Color$.Extract1(
+    () => rl.Temp.Color$.val.Extract1(
       (p) => rl.Core.ColorBrightness.run3(
         p.toJS,
-        rl.Temp.Color$.Ref2(color).toJS,
+        rl.Temp.Color$.val.Ref2(color).toJS,
         factor.toJS,
       ),
     ),
@@ -5075,10 +5072,10 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     num contrast,
   ) => run(
     () => RaylibDebugLabels.ColorContrast(color, contrast),
-    () => rl.Temp.Color$.Extract1(
+    () => rl.Temp.Color$.val.Extract1(
       (p) => rl.Core.ColorContrast.run3(
         p.toJS,
-        rl.Temp.Color$.Ref2(color).toJS,
+        rl.Temp.Color$.val.Ref2(color).toJS,
         contrast.toJS,
       ),
     ),
@@ -5090,10 +5087,10 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     num alpha,
   ) => run(
     () => RaylibDebugLabels.ColorAlpha(color, alpha),
-    () => rl.Temp.Color$.Extract1(
+    () => rl.Temp.Color$.val.Extract1(
       (p) => rl.Core.ColorAlpha.run3(
         p.toJS,
-        rl.Temp.Color$.Ref2(color).toJS,
+        rl.Temp.Color$.val.Ref2(color).toJS,
         alpha.toJS,
       ),
     ),
@@ -5106,12 +5103,12 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     ColorD tint,
   ) => run(
     () => RaylibDebugLabels.ColorAlphaBlend(dst, src, tint),
-    () => rl.Temp.Color$.Extract1(
+    () => rl.Temp.Color$.val.Extract1(
       (p) => rl.Core.ColorAlphaBlend.run4(
         p.toJS,
-        rl.Temp.Color$.Ref2(dst).toJS,
-        rl.Temp.Color$.Ref3(src).toJS,
-        rl.Temp.Color$.Ref4(tint).toJS,
+        rl.Temp.Color$.val.Ref2(dst).toJS,
+        rl.Temp.Color$.val.Ref3(src).toJS,
+        rl.Temp.Color$.val.Ref4(tint).toJS,
       ),
     ),
   );
@@ -5123,11 +5120,11 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     num factor,
   ) => run(
     () => RaylibDebugLabels.ColorLerp(color1, color2, factor),
-    () => rl.Temp.Color$.Extract1(
+    () => rl.Temp.Color$.val.Extract1(
       (p) => rl.Core.ColorLerp.run4(
         p.toJS,
-        rl.Temp.Color$.Ref2(color1).toJS,
-        rl.Temp.Color$.Ref3(color2).toJS,
+        rl.Temp.Color$.val.Ref2(color1).toJS,
+        rl.Temp.Color$.val.Ref3(color2).toJS,
         factor.toJS,
       ),
     ),
@@ -5138,7 +5135,7 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     num hexValue,
   ) => run(
     () => RaylibDebugLabels.GetColor(hexValue),
-    () => rl.Temp.Color$.Extract1(
+    () => rl.Temp.Color$.val.Extract1(
       (p) => rl.Core.GetColor.run2(
         p.toJS,
         hexValue.toJS,
@@ -5163,7 +5160,7 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   @override
   FontD GetFontDefault() => run(
     () => RaylibDebugLabels.GetFontDefault(),
-    () => rl.Temp.Font$.RefCapture(
+    () => rl.Temp.Font$.val.RefCapture(
       RaylibCaptureIds.GetFontDefault(),
       (p) => rl.Core.GetFontDefault.run1(
         p.toJS,
@@ -5176,7 +5173,7 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     String fileName,
   ) => run(
     () => RaylibDebugLabels.LoadFont(fileName),
-    () => rl.Temp.Font$.RefCapture(
+    () => rl.Temp.Font$.val.RefCapture(
       RaylibCaptureIds.LoadFont(fileName),
       (p) => rl.Core.LoadFont.run2(
         p.toJS,
@@ -5194,13 +5191,13 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     ]
   ) => run(
     () => RaylibDebugLabels.LoadFontEx(fileName, fontSize, codepoints),
-    () => rl.Temp.Font$.RefCapture(
+    () => rl.Temp.Font$.val.RefCapture(
       RaylibCaptureIds.LoadFontEx(fileName, fontSize, codepoints),
       (p) => rl.Core.LoadFontEx.run5(
         p.toJS,
         fileName.toJS,
         fontSize.toJS,
-        (codepoints == null ? 0 : rl.Temp.Int32$.Array(codepoints).address).toJS,
+        (codepoints == null ? 0 : rl.Temp.Int32$.val.Array(codepoints).address).toJS,
         (codePointCount ?? codepoints?.length ?? 0).toJS,
       ),
     ),
@@ -5213,12 +5210,12 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     num firstChar,
   ) => run(
     () => RaylibDebugLabels.LoadFontFromImage(image, key, firstChar),
-    () => rl.Temp.Font$.RefCapture(
+    () => rl.Temp.Font$.val.RefCapture(
       RaylibCaptureIds.LoadFontFromImage(image, key, firstChar),
       (p) => rl.Core.LoadFontFromImage.run4(
         p.toJS,
-        rl.Temp.Image$.Ref1(image).toJS,
-        rl.Temp.Color$.Ref1(key).toJS,
+        rl.Temp.Image$.val.Ref1(image).toJS,
+        rl.Temp.Color$.val.Ref1(key).toJS,
         firstChar.toJS,
       ),
     ),
@@ -5232,15 +5229,15 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     Int32List codepoints,
   ) => run(
     () => RaylibDebugLabels.LoadFontFromMemory(fileType, fileData, fontSize, codepoints),
-    () => rl.Temp.Font$.RefCapture(
+    () => rl.Temp.Font$.val.RefCapture(
       RaylibCaptureIds.LoadFontFromMemory(fileType, fileData, fontSize, codepoints),
       (p) => rl.Core.LoadFontFromMemory.run7(
         p.toJS,
         fileType.toJS,
-        rl.Temp.Uint8$.Array(fileData).toJS,
+        rl.Temp.Uint8$.val.Array(fileData).toJS,
         fileData.length.toJS,
         fontSize.toJS,
-        rl.Temp.Int32$.Array(codepoints).toJS,
+        rl.Temp.Int32$.val.Array(codepoints).toJS,
         codepoints.length.toJS,
       ),
     ),
@@ -5252,7 +5249,7 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.IsFontValid(font),
     () => rl.Core.IsFontValid.run1(
-      rl.Temp.Font$.Ref1(font).toJS,
+      rl.Temp.Font$.val.Ref1(font).toJS,
     ).toBool(),
   );
 
@@ -5266,12 +5263,12 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.LoadFontData(fileData, fontSize, codepoints, codepointCount, type),
     () {
-      final glyphCount = rl.Temp.Int$.Ref1();
+      final glyphCount = rl.Temp.Int$.val.Ref1();
       final glyphsPtr = rl.Core.LoadFontData.run7(
-        rl.Temp.Uint8$.Array(fileData).toJS,
+        rl.Temp.Uint8$.val.Array(fileData).toJS,
         fileData.length.toJS,
         fontSize.toJS,
-        (codepoints == null ? 0 : rl.Temp.Int32$.Array(codepoints).address).toJS,
+        (codepoints == null ? 0 : rl.Temp.Int32$.val.Array(codepoints).address).toJS,
         (codepointCount ?? codepoints?.length ?? 0).toJS,
         type.value.toJS,
         glyphCount.toJS,
@@ -5296,11 +5293,11 @@ class RaylibCoreD extends RaylibCoreModuleBase<
       final recsPtr = WasmMemory.malloc(4); // Rectangle**
 
       try {
-        final image = rl.Temp.Image$.RefCapture(
+        final image = rl.Temp.Image$.val.RefCapture(
           RaylibCaptureIds.GenImageFontAtlas(glyphs, fontSize, padding, packMethod),
           (p) => rl.Core.GenImageFontAtlas.run7(
             p.toJS,
-            (glyphs.firstOrNull?.originalPointer?.address ?? rl.Temp.GlyphInfo$.Array(glyphs).address).toJS,
+            (glyphs.firstOrNull?.originalPointer?.address ?? rl.Temp.GlyphInfo$.val.Array(glyphs).address).toJS,
             recsPtr.toJS,
             glyphs.length.toJS,
             fontSize.toJS,
@@ -5325,7 +5322,7 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.UnloadFontData(glyphs),
     () => rl.Core.UnloadFontData.run2(
-      (glyphs.firstOrNull?.originalPointer?.address ?? rl.Temp.GlyphInfo$.Array(glyphs).address).toJS,
+      (glyphs.firstOrNull?.originalPointer?.address ?? rl.Temp.GlyphInfo$.val.Array(glyphs).address).toJS,
       glyphs.length.toJS,
     ),
   );
@@ -5336,7 +5333,7 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.UnloadFont(font),
     () => rl.Core.UnloadFont.run1(
-      rl.Temp.Font$.Ref1(font).toJS,
+      rl.Temp.Font$.val.Ref1(font).toJS,
     ),
   );
 
@@ -5347,7 +5344,7 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.ExportFontAsCode(font, fileName),
     () => rl.Core.ExportFontAsCode.run2(
-      rl.Temp.Font$.Ref1(font).toJS,
+      rl.Temp.Font$.val.Ref1(font).toJS,
       fileName.toJS,
     ).toBool(),
   );
@@ -5378,7 +5375,7 @@ class RaylibCoreD extends RaylibCoreModuleBase<
       posX.toJS,
       posY.toJS,
       fontSize.toJS,
-      rl.Temp.Color$.Ref1(color).toJS,
+      rl.Temp.Color$.val.Ref1(color).toJS,
     ),
   );
 
@@ -5393,12 +5390,12 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.DrawTextEx(font, text, position, fontSize, spacing, tint),
     () => rl.Core.DrawTextEx.run6(
-      rl.Temp.Font$.Ref1(font).toJS,
+      rl.Temp.Font$.val.Ref1(font).toJS,
       text.toJS,
-      rl.Temp.Vector2$.Ref1(position).toJS,
+      rl.Temp.Vector2$.val.Ref1(position).toJS,
       fontSize.toJS,
       spacing.toJS,
-      rl.Temp.Color$.Ref1(tint).toJS,
+      rl.Temp.Color$.val.Ref1(tint).toJS,
     ),
   );
 
@@ -5415,14 +5412,14 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.DrawTextPro(font, text, position, origin, rotation, fontSize, spacing, tint),
     () => rl.Core.DrawTextPro.run8(
-      rl.Temp.Font$.Ref1(font).toJS,
+      rl.Temp.Font$.val.Ref1(font).toJS,
       text.toJS,
-      rl.Temp.Vector2$.Ref1(position).toJS,
-      rl.Temp.Vector2$.Ref2(origin).toJS,
+      rl.Temp.Vector2$.val.Ref1(position).toJS,
+      rl.Temp.Vector2$.val.Ref2(origin).toJS,
       rotation.toJS,
       fontSize.toJS,
       spacing.toJS,
-      rl.Temp.Color$.Ref1(tint).toJS,
+      rl.Temp.Color$.val.Ref1(tint).toJS,
     ),
   );
     
@@ -5436,11 +5433,11 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.DrawTextCodepoint(font, codepoint, position, fontSize, tint),
     () => rl.Core.DrawTextCodepoint.run5(
-      rl.Temp.Font$.Ref1(font).toJS,
+      rl.Temp.Font$.val.Ref1(font).toJS,
       codepoint.toJS,
-      rl.Temp.Vector2$.Ref1(position).toJS,
+      rl.Temp.Vector2$.val.Ref1(position).toJS,
       fontSize.toJS,
-      rl.Temp.Color$.Ref1(tint).toJS,
+      rl.Temp.Color$.val.Ref1(tint).toJS,
     ),
   );
 
@@ -5455,13 +5452,13 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.DrawTextCodepoints(font, codepoints, position, fontSize, spacing, tint),
     () => rl.Core.DrawTextCodepoints.run7(
-      rl.Temp.Font$.Ref1(font).toJS,
-      rl.Temp.Int32$.Array(codepoints).toJS,
+      rl.Temp.Font$.val.Ref1(font).toJS,
+      rl.Temp.Int32$.val.Array(codepoints).toJS,
       codepoints.length.toJS,
-      rl.Temp.Vector2$.Ref1(position).toJS,
+      rl.Temp.Vector2$.val.Ref1(position).toJS,
       fontSize.toJS,
       spacing.toJS,
-      rl.Temp.Color$.Ref1(tint).toJS,
+      rl.Temp.Color$.val.Ref1(tint).toJS,
     ),
   );
 
@@ -5495,10 +5492,10 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     num spacing,
   ) => run(
     () => RaylibDebugLabels.MeasureTextEx(font, text, fontSize, spacing),
-    () => rl.Temp.Vector2$.Extract1(
+    () => rl.Temp.Vector2$.val.Extract1(
       (p) => rl.Core.MeasureTextEx.run5(
         p.toJS,
-        rl.Temp.Font$.Ref1(font).toJS,
+        rl.Temp.Font$.val.Ref1(font).toJS,
         text.toJS,
         fontSize.toJS,
         spacing.toJS,
@@ -5514,11 +5511,11 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     num spacing,
   ) => run(
     () => RaylibDebugLabels.MeasureTextCodepoints(font, codepoints, fontSize, spacing),
-    () => rl.Temp.Vector2$.Extract1(
+    () => rl.Temp.Vector2$.val.Extract1(
       (p) => rl.Core.MeasureTextCodepoints.run6(
         p.toJS,
-        rl.Temp.Font$.Ref1(font).toJS,
-        rl.Temp.Int$.Array(codepoints).toJS,
+        rl.Temp.Font$.val.Ref1(font).toJS,
+        rl.Temp.Int$.val.Array(codepoints).toJS,
         codepoints.length.toJS,
         fontSize.toJS,
         spacing.toJS,
@@ -5533,7 +5530,7 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.GetGlyphIndex(font, codepoint),
     () => rl.Core.GetGlyphIndex.run2(
-      rl.Temp.Font$.Ref1(font).toJS,
+      rl.Temp.Font$.val.Ref1(font).toJS,
       codepoint.toJS,
     ).toInt(),
   );
@@ -5544,10 +5541,10 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     num codepoint,
   ) => run(
     () => RaylibDebugLabels.GetGlyphInfo(font, codepoint),
-    () => rl.Temp.GlyphInfo$.Extract1(
+    () => rl.Temp.GlyphInfo$.val.Extract1(
       (p) => rl.Core.GetGlyphInfo.run3(
         p.toJS,
-        rl.Temp.Font$.Ref1(font).toJS,
+        rl.Temp.Font$.val.Ref1(font).toJS,
         codepoint.toJS,
       ),
     ),
@@ -5559,10 +5556,10 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     num codepoint,
   ) => run(
     () => RaylibDebugLabels.GetGlyphAtlasRec(font, codepoint),
-    () => rl.Temp.Rectangle$.Extract1(
+    () => rl.Temp.Rectangle$.val.Extract1(
       (p) => rl.Core.GetGlyphAtlasRec.run3(
         p.toJS,
-        rl.Temp.Font$.Ref1(font).toJS,
+        rl.Temp.Font$.val.Ref1(font).toJS,
         codepoint.toJS,
       ),
     ),
@@ -5575,7 +5572,7 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     () => RaylibDebugLabels.LoadUTF8(codepoints),
     () {
       final utf8Ptr = rl.Core.LoadUTF8.run2(
-        rl.Temp.Int32$.Array(codepoints).toJS,
+        rl.Temp.Int32$.val.Array(codepoints).toJS,
         codepoints.length.toJS,
       ).toInt();
       try {
@@ -5592,7 +5589,7 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.LoadCodepoints(text),
     () {
-      final countPtr = rl.Temp.Int32$.Ref1();
+      final countPtr = rl.Temp.Int32$.val.Ref1();
       final codepointsPtr = rl.Core.LoadCodepoints.run2(
         text.toJS,
         countPtr.toJS,
@@ -5621,7 +5618,7 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.GetCodepoint(text),
     () {
-      final sizePtr = rl.Temp.Int32$.Ref1();
+      final sizePtr = rl.Temp.Int32$.val.Ref1();
       final codepoint = rl.Core.GetCodepoint.run2(
         text.toJS,
         sizePtr.toJS,
@@ -5636,7 +5633,7 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.GetCodepointNext(text),
     () {
-      final sizePtr = rl.Temp.Int32$.Ref1();
+      final sizePtr = rl.Temp.Int32$.val.Ref1();
       final codepoint = rl.Core.GetCodepointNext.run2(
         text.toJS,
         sizePtr.toJS,
@@ -5651,7 +5648,7 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.GetCodepointPrevious(text),
     () {
-      final sizePtr = rl.Temp.Int32$.Ref1();
+      final sizePtr = rl.Temp.Int32$.val.Ref1();
       final codepoint = rl.Core.GetCodepointPrevious.run2(
         text.toJS,
         sizePtr.toJS,
@@ -5666,7 +5663,7 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.CodepointToUTF8(codepoint),
     () {
-      final sizePtr = rl.Temp.Int32$.Ref1();
+      final sizePtr = rl.Temp.Int32$.val.Ref1();
       final textPtr = rl.Core.CodepointToUTF8.run2(
         codepoint.toJS,
         sizePtr.toJS,
@@ -5681,7 +5678,7 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.TextLength(text),
     () {
-      final lineCountPtr = rl.Temp.Int$.Ref1();
+      final lineCountPtr = rl.Temp.Int$.val.Ref1();
       final linesPtr = rl.Core.LoadTextLines.run2(
         text.toJS,
         lineCountPtr.toJS,
@@ -5858,7 +5855,7 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.TextSplit(text, delimiter),
     () {
-      final countPtr = rl.Temp.Int$.Ref1();
+      final countPtr = rl.Temp.Int$.val.Ref1();
       final delimiterChar = delimiter.isEmpty ? 0 : delimiter.codeUnitAt(0);
       final partsPtr = rl.Core.TextSplit.run3(
         text.toJS,
@@ -5987,9 +5984,9 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.DrawLine3D(startPos, endPos, color),
     () => rl.Core.DrawLine3D.run3(
-      rl.Temp.Vector3$.Ref1(startPos).toJS,
-      rl.Temp.Vector3$.Ref2(endPos).toJS,
-      rl.Temp.Color$.Ref1(color).toJS,
+      rl.Temp.Vector3$.val.Ref1(startPos).toJS,
+      rl.Temp.Vector3$.val.Ref2(endPos).toJS,
+      rl.Temp.Color$.val.Ref1(color).toJS,
     ),
   );
     
@@ -6000,8 +5997,8 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.DrawPoint3D(position, color),
     () => rl.Core.DrawPoint3D.run2(
-      rl.Temp.Vector3$.Ref1(position).toJS,
-      rl.Temp.Color$.Ref1(color).toJS,
+      rl.Temp.Vector3$.val.Ref1(position).toJS,
+      rl.Temp.Color$.val.Ref1(color).toJS,
     ),
   );
     
@@ -6015,11 +6012,11 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.DrawCircle3D(center, radius, rotationAxis, rotationAngle, color),
     () => rl.Core.DrawCircle3D.run5(
-      rl.Temp.Vector3$.Ref1(center).toJS,
+      rl.Temp.Vector3$.val.Ref1(center).toJS,
       radius.toJS,
-      rl.Temp.Vector3$.Ref2(rotationAxis).toJS,
+      rl.Temp.Vector3$.val.Ref2(rotationAxis).toJS,
       rotationAngle.toJS,
-      rl.Temp.Color$.Ref1(color).toJS,
+      rl.Temp.Color$.val.Ref1(color).toJS,
     ),
   );
     
@@ -6032,10 +6029,10 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.DrawTriangle3D(v1, v2, v3, color),
     () => rl.Core.DrawTriangle3D.run4(
-      rl.Temp.Vector3$.Ref1(v1).toJS,
-      rl.Temp.Vector3$.Ref2(v2).toJS,
-      rl.Temp.Vector3$.Ref3(v3).toJS,
-      rl.Temp.Color$.Ref1(color).toJS,
+      rl.Temp.Vector3$.val.Ref1(v1).toJS,
+      rl.Temp.Vector3$.val.Ref2(v2).toJS,
+      rl.Temp.Vector3$.val.Ref3(v3).toJS,
+      rl.Temp.Color$.val.Ref1(color).toJS,
     ),
   );
     
@@ -6046,9 +6043,9 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.DrawTriangleStrip3D(points, color),
     () => rl.Core.DrawTriangleStrip3D.run3(
-      rl.Temp.Vector3$.Array(points).toJS,
+      rl.Temp.Vector3$.val.Array(points).toJS,
       points.length.toJS,
-      rl.Temp.Color$.Ref1(color).toJS,
+      rl.Temp.Color$.val.Ref1(color).toJS,
     ),
   );
     
@@ -6062,11 +6059,11 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.DrawCube(position, width, height, length, color),
     () => rl.Core.DrawCube.run5(
-      rl.Temp.Vector3$.Ref1(position).toJS,
+      rl.Temp.Vector3$.val.Ref1(position).toJS,
       width.toJS,
       height.toJS,
       length.toJS,
-      rl.Temp.Color$.Ref1(color).toJS,
+      rl.Temp.Color$.val.Ref1(color).toJS,
     ),
   );
     
@@ -6078,9 +6075,9 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.DrawCubeV(position, size, color),
     () => rl.Core.DrawCubeV.run3(
-      rl.Temp.Vector3$.Ref1(position).toJS,
-      rl.Temp.Vector3$.Ref2(size).toJS,
-      rl.Temp.Color$.Ref1(color).toJS,
+      rl.Temp.Vector3$.val.Ref1(position).toJS,
+      rl.Temp.Vector3$.val.Ref2(size).toJS,
+      rl.Temp.Color$.val.Ref1(color).toJS,
     ),
   );
     
@@ -6094,11 +6091,11 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.DrawCubeWires(position, width, height, length, color),
     () => rl.Core.DrawCubeWires.run5(
-      rl.Temp.Vector3$.Ref1(position).toJS,
+      rl.Temp.Vector3$.val.Ref1(position).toJS,
       width.toJS,
       height.toJS,
       length.toJS,
-      rl.Temp.Color$.Ref1(color).toJS,
+      rl.Temp.Color$.val.Ref1(color).toJS,
     ),
   );
     
@@ -6110,9 +6107,9 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.DrawCubeWiresV(position, size, color),
     () => rl.Core.DrawCubeWiresV.run3(
-      rl.Temp.Vector3$.Ref1(position).toJS,
-      rl.Temp.Vector3$.Ref2(size).toJS,
-      rl.Temp.Color$.Ref1(color).toJS,
+      rl.Temp.Vector3$.val.Ref1(position).toJS,
+      rl.Temp.Vector3$.val.Ref2(size).toJS,
+      rl.Temp.Color$.val.Ref1(color).toJS,
     ),
   );
     
@@ -6124,9 +6121,9 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.DrawSphere(centerPos, radius, color),
     () => rl.Core.DrawSphere.run3(
-      rl.Temp.Vector3$.Ref1(centerPos).toJS,
+      rl.Temp.Vector3$.val.Ref1(centerPos).toJS,
       radius.toJS,
-      rl.Temp.Color$.Ref1(color).toJS,
+      rl.Temp.Color$.val.Ref1(color).toJS,
     ),
   );
     
@@ -6140,11 +6137,11 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.DrawSphereEx(centerPos, radius, rings, slices, color),
     () => rl.Core.DrawSphereEx.run5(
-      rl.Temp.Vector3$.Ref1(centerPos).toJS,
+      rl.Temp.Vector3$.val.Ref1(centerPos).toJS,
       radius.toJS,
       rings.toJS,
       slices.toJS,
-      rl.Temp.Color$.Ref1(color).toJS,
+      rl.Temp.Color$.val.Ref1(color).toJS,
     ),
   );
     
@@ -6158,11 +6155,11 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.DrawSphereWires(centerPos, radius, rings, slices, color),
     () => rl.Core.DrawSphereWires.run5(
-      rl.Temp.Vector3$.Ref1(centerPos).toJS,
+      rl.Temp.Vector3$.val.Ref1(centerPos).toJS,
       radius.toJS,
       rings.toJS,
       slices.toJS,
-      rl.Temp.Color$.Ref1(color).toJS,
+      rl.Temp.Color$.val.Ref1(color).toJS,
     ),
   );
     
@@ -6177,12 +6174,12 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.DrawCylinder(position, radiusTop, radiusBottom, height, slices, color),
     () => rl.Core.DrawCylinder.run6(
-      rl.Temp.Vector3$.Ref1(position).toJS,
+      rl.Temp.Vector3$.val.Ref1(position).toJS,
       radiusTop.toJS,
       radiusBottom.toJS,
       height.toJS,
       slices.toJS,
-      rl.Temp.Color$.Ref1(color).toJS,
+      rl.Temp.Color$.val.Ref1(color).toJS,
     ),
   );
     
@@ -6197,12 +6194,12 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.DrawCylinderEx(startPos, endPos, startRadius, endRadius, sides, color),
     () => rl.Core.DrawCylinderEx.run6(
-      rl.Temp.Vector3$.Ref1(startPos).toJS,
-      rl.Temp.Vector3$.Ref2(endPos).toJS,
+      rl.Temp.Vector3$.val.Ref1(startPos).toJS,
+      rl.Temp.Vector3$.val.Ref2(endPos).toJS,
       startRadius.toJS,
       endRadius.toJS,
       sides.toJS,
-      rl.Temp.Color$.Ref1(color).toJS,
+      rl.Temp.Color$.val.Ref1(color).toJS,
     ),
   );
     
@@ -6217,12 +6214,12 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.DrawCylinderWires(position, radiusTop, radiusBottom, height, slices, color),
     () => rl.Core.DrawCylinderWires.run6(
-      rl.Temp.Vector3$.Ref1(position).toJS,
+      rl.Temp.Vector3$.val.Ref1(position).toJS,
       radiusTop.toJS,
       radiusBottom.toJS,
       height.toJS,
       slices.toJS,
-      rl.Temp.Color$.Ref1(color).toJS,
+      rl.Temp.Color$.val.Ref1(color).toJS,
     ),
   );
     
@@ -6237,12 +6234,12 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.DrawCylinderWiresEx(startPos, endPos, startRadius, endRadius, sides, color),
     () => rl.Core.DrawCylinderWiresEx.run6(
-      rl.Temp.Vector3$.Ref1(startPos).toJS,
-      rl.Temp.Vector3$.Ref2(endPos).toJS,
+      rl.Temp.Vector3$.val.Ref1(startPos).toJS,
+      rl.Temp.Vector3$.val.Ref2(endPos).toJS,
       startRadius.toJS,
       endRadius.toJS,
       sides.toJS,
-      rl.Temp.Color$.Ref1(color).toJS,
+      rl.Temp.Color$.val.Ref1(color).toJS,
     ),
   );
     
@@ -6257,12 +6254,12 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.DrawCapsule(startPos, endPos, radius, slices, rings, color),
     () => rl.Core.DrawCapsule.run6(
-      rl.Temp.Vector3$.Ref1(startPos).toJS,
-      rl.Temp.Vector3$.Ref2(endPos).toJS,
+      rl.Temp.Vector3$.val.Ref1(startPos).toJS,
+      rl.Temp.Vector3$.val.Ref2(endPos).toJS,
       radius.toJS,
       slices.toJS,
       rings.toJS,
-      rl.Temp.Color$.Ref1(color).toJS,
+      rl.Temp.Color$.val.Ref1(color).toJS,
     ),
   );
     
@@ -6277,12 +6274,12 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.DrawCapsuleWires(startPos, endPos, radius, slices, rings, color),
     () => rl.Core.DrawCapsuleWires.run6(
-      rl.Temp.Vector3$.Ref1(startPos).toJS,
-      rl.Temp.Vector3$.Ref2(endPos).toJS,
+      rl.Temp.Vector3$.val.Ref1(startPos).toJS,
+      rl.Temp.Vector3$.val.Ref2(endPos).toJS,
       radius.toJS,
       slices.toJS,
       rings.toJS,
-      rl.Temp.Color$.Ref1(color).toJS,
+      rl.Temp.Color$.val.Ref1(color).toJS,
     ),
   );
     
@@ -6294,9 +6291,9 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.DrawPlane(centerPos, size, color),
     () => rl.Core.DrawPlane.run3(
-      rl.Temp.Vector3$.Ref1(centerPos).toJS,
-      rl.Temp.Vector2$.Ref1(size).toJS,
-      rl.Temp.Color$.Ref1(color).toJS,
+      rl.Temp.Vector3$.val.Ref1(centerPos).toJS,
+      rl.Temp.Vector2$.val.Ref1(size).toJS,
+      rl.Temp.Color$.val.Ref1(color).toJS,
     ),
   );
     
@@ -6307,8 +6304,8 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.DrawRay(ray, color),
     () => rl.Core.DrawRay.run2(
-      rl.Temp.Ray$.Ref1(ray).toJS,
-      rl.Temp.Color$.Ref1(color).toJS,
+      rl.Temp.Ray$.val.Ref1(ray).toJS,
+      rl.Temp.Color$.val.Ref1(color).toJS,
     ),
   );
     
@@ -6329,7 +6326,7 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     String fileName,
   ) => run(
     () => RaylibDebugLabels.LoadModel(fileName),
-    () => rl.Temp.Model$.RefCapture(
+    () => rl.Temp.Model$.val.RefCapture(
       RaylibCaptureIds.LoadModel(fileName),
       (p) => rl.Core.LoadModel.run2(
         p.toJS,
@@ -6343,11 +6340,11 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     MeshD mesh,
   ) => run(
     () => RaylibDebugLabels.LoadModelFromMesh(mesh),
-    () => rl.Temp.Model$.RefCapture(
+    () => rl.Temp.Model$.val.RefCapture(
       RaylibCaptureIds.LoadModelFromMesh(mesh),
       (p) => rl.Core.LoadModelFromMesh.run2(
         p.toJS,
-        rl.Temp.Mesh$.Ref1(mesh).toJS,
+        rl.Temp.Mesh$.val.Ref1(mesh).toJS,
       ),
     ),
   );
@@ -6358,7 +6355,7 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.IsModelValid(model),
     () => rl.Core.IsModelValid.run1(
-      rl.Temp.Model$.Ref1(model).toJS,
+      rl.Temp.Model$.val.Ref1(model).toJS,
     ).toBool(),
   );
     
@@ -6377,10 +6374,10 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     ModelD model,
   ) => run(
     () => RaylibDebugLabels.GetModelBoundingBox(model),
-    () => rl.Temp.BoundingBox$.Extract1(
+    () => rl.Temp.BoundingBox$.val.Extract1(
       (p) => rl.Core.GetModelBoundingBox.run2(
         p.toJS,
-        rl.Temp.Model$.Ref1(model).toJS,
+        rl.Temp.Model$.val.Ref1(model).toJS,
       ),
     ),
   );
@@ -6394,10 +6391,10 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.DrawModel(model, position, scale, tint),
     () => rl.Core.DrawModel.run4(
-      rl.Temp.Model$.Ref1(model).toJS,
-      rl.Temp.Vector3$.Ref1(position).toJS,
+      rl.Temp.Model$.val.Ref1(model).toJS,
+      rl.Temp.Vector3$.val.Ref1(position).toJS,
       scale.toJS,
-      rl.Temp.Color$.Ref1(tint).toJS,
+      rl.Temp.Color$.val.Ref1(tint).toJS,
     ),
   );
     
@@ -6412,12 +6409,12 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.DrawModelEx(model, position, rotationAxis, rotationAngle, scale, tint),
     () => rl.Core.DrawModelEx.run6(
-      rl.Temp.Model$.Ref1(model).toJS,
-      rl.Temp.Vector3$.Ref1(position).toJS,
-      rl.Temp.Vector3$.Ref2(rotationAxis).toJS,
+      rl.Temp.Model$.val.Ref1(model).toJS,
+      rl.Temp.Vector3$.val.Ref1(position).toJS,
+      rl.Temp.Vector3$.val.Ref2(rotationAxis).toJS,
       rotationAngle.toJS,
-      rl.Temp.Vector3$.Ref3(scale).toJS,
-      rl.Temp.Color$.Ref1(tint).toJS,
+      rl.Temp.Vector3$.val.Ref3(scale).toJS,
+      rl.Temp.Color$.val.Ref1(tint).toJS,
     ),
   );
     
@@ -6430,10 +6427,10 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.DrawModelWires(model, position, scale, tint),
     () => rl.Core.DrawModelWires.run4(
-      rl.Temp.Model$.Ref1(model).toJS,
-      rl.Temp.Vector3$.Ref1(position).toJS,
+      rl.Temp.Model$.val.Ref1(model).toJS,
+      rl.Temp.Vector3$.val.Ref1(position).toJS,
       scale.toJS,
-      rl.Temp.Color$.Ref1(tint).toJS,
+      rl.Temp.Color$.val.Ref1(tint).toJS,
     ),
   );
     
@@ -6448,12 +6445,12 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.DrawModelWiresEx(model, position, rotationAxis, rotationAngle, scale, tint),
     () => rl.Core.DrawModelWiresEx.run6(
-      rl.Temp.Model$.Ref1(model).toJS,
-      rl.Temp.Vector3$.Ref1(position).toJS,
-      rl.Temp.Vector3$.Ref2(rotationAxis).toJS,
+      rl.Temp.Model$.val.Ref1(model).toJS,
+      rl.Temp.Vector3$.val.Ref1(position).toJS,
+      rl.Temp.Vector3$.val.Ref2(rotationAxis).toJS,
       rotationAngle.toJS,
-      rl.Temp.Vector3$.Ref3(scale).toJS,
-      rl.Temp.Color$.Ref1(tint).toJS,
+      rl.Temp.Vector3$.val.Ref3(scale).toJS,
+      rl.Temp.Color$.val.Ref1(tint).toJS,
     ),
   );
     
@@ -6464,8 +6461,8 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.DrawBoundingBox(box, color),
     () => rl.Core.DrawBoundingBox.run2(
-      rl.Temp.BoundingBox$.Ref1(box).toJS,
-      rl.Temp.Color$.Ref1(color).toJS,
+      rl.Temp.BoundingBox$.val.Ref1(box).toJS,
+      rl.Temp.Color$.val.Ref1(color).toJS,
     ),
   );
 
@@ -6479,11 +6476,11 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.DrawBillboard(camera, texture, position, scale, tint),
     () => rl.Core.DrawBillboard.run5(
-      rl.Temp.Camera3D$.Ref1(camera).toJS,
-      rl.Temp.Texture$.Ref1(texture).toJS,
-      rl.Temp.Vector3$.Ref1(position).toJS,
+      rl.Temp.Camera3D$.val.Ref1(camera).toJS,
+      rl.Temp.Texture$.val.Ref1(texture).toJS,
+      rl.Temp.Vector3$.val.Ref1(position).toJS,
       scale.toJS,
-      rl.Temp.Color$.Ref1(tint).toJS,
+      rl.Temp.Color$.val.Ref1(tint).toJS,
     ),
   );
 
@@ -6498,12 +6495,12 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.DrawBillboardRec(camera, texture, source, position, size, tint),
     () => rl.Core.DrawBillboardRec.run6(
-      rl.Temp.Camera3D$.Ref1(camera).toJS,
-      rl.Temp.Texture$.Ref1(texture).toJS,
-      rl.Temp.Rectangle$.Ref1(source).toJS,
-      rl.Temp.Vector3$.Ref1(position).toJS,
-      rl.Temp.Vector2$.Ref1(size).toJS,
-      rl.Temp.Color$.Ref1(tint).toJS,
+      rl.Temp.Camera3D$.val.Ref1(camera).toJS,
+      rl.Temp.Texture$.val.Ref1(texture).toJS,
+      rl.Temp.Rectangle$.val.Ref1(source).toJS,
+      rl.Temp.Vector3$.val.Ref1(position).toJS,
+      rl.Temp.Vector2$.val.Ref1(size).toJS,
+      rl.Temp.Color$.val.Ref1(tint).toJS,
     ),
   );
 
@@ -6521,15 +6518,15 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.DrawBillboardPro(camera, texture, source, position, up, size, origin, rotation, tint),
     () => rl.Core.DrawBillboardPro.run9(
-      rl.Temp.Camera3D$.Ref1(camera).toJS,
-      rl.Temp.Texture$.Ref1(texture).toJS,
-      rl.Temp.Rectangle$.Ref1(source).toJS,
-      rl.Temp.Vector3$.Ref1(position).toJS,
-      rl.Temp.Vector3$.Ref2(up).toJS,
-      rl.Temp.Vector2$.Ref1(size).toJS,
-      rl.Temp.Vector2$.Ref2(origin).toJS,
+      rl.Temp.Camera3D$.val.Ref1(camera).toJS,
+      rl.Temp.Texture$.val.Ref1(texture).toJS,
+      rl.Temp.Rectangle$.val.Ref1(source).toJS,
+      rl.Temp.Vector3$.val.Ref1(position).toJS,
+      rl.Temp.Vector3$.val.Ref2(up).toJS,
+      rl.Temp.Vector2$.val.Ref1(size).toJS,
+      rl.Temp.Vector2$.val.Ref2(origin).toJS,
       rotation.toJS,
-      rl.Temp.Color$.Ref1(tint).toJS,
+      rl.Temp.Color$.val.Ref1(tint).toJS,
     ),
   );
   
@@ -6539,7 +6536,7 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     bool dynamic,
   ) => run(
     () => RaylibDebugLabels.UploadMesh(mesh, dynamic),
-    () => rl.Temp.Mesh$.RefUpdate1(mesh,
+    () => rl.Temp.Mesh$.val.RefUpdate1(mesh,
       (p) => rl.Core.UploadMesh.run2(
         p.toJS,
         dynamic.toJS,
@@ -6556,7 +6553,7 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.UpdateMeshBuffer(mesh, index, data, offset),
     () => rl.Core.UpdateMeshBuffer.run5(
-      rl.Temp.Mesh$.Ref1(mesh).toJS,
+      rl.Temp.Mesh$.val.Ref1(mesh).toJS,
       index.toJS,
       rl.Temp.TypedDataList$.Array(data).toJS,
       data.length.toJS,
@@ -6570,7 +6567,7 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.UnloadMesh(mesh),
     () => rl.Core.UnloadMesh.run1(
-      rl.Temp.Mesh$.Ref1(mesh).toJS,
+      rl.Temp.Mesh$.val.Ref1(mesh).toJS,
     ),
   );
     
@@ -6582,9 +6579,9 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.DrawMesh(mesh, material, transform),
     () => rl.Core.DrawMesh.run3(
-      rl.Temp.Mesh$.Ref1(mesh).toJS,
-      rl.Temp.Material$.Ref1(material).toJS,
-      rl.Temp.Matrix$.Ref1(transform).toJS,
+      rl.Temp.Mesh$.val.Ref1(mesh).toJS,
+      rl.Temp.Material$.val.Ref1(material).toJS,
+      rl.Temp.Matrix$.val.Ref1(transform).toJS,
     ),
   );
     
@@ -6596,9 +6593,9 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.DrawMeshInstanced(mesh, material, transforms),
     () => rl.Core.DrawMeshInstanced.run4(
-      rl.Temp.Mesh$.Ref1(mesh).toJS,
-      rl.Temp.Material$.Ref1(material).toJS,
-      rl.Temp.Matrix$.Array(transforms).toJS,
+      rl.Temp.Mesh$.val.Ref1(mesh).toJS,
+      rl.Temp.Material$.val.Ref1(material).toJS,
+      rl.Temp.Matrix$.val.Array(transforms).toJS,
       transforms.length.toJS,
     ),
   );
@@ -6608,10 +6605,10 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     MeshD mesh,
   ) => run(
     () => RaylibDebugLabels.GetMeshBoundingBox(mesh),
-    () => rl.Temp.BoundingBox$.Extract1(
+    () => rl.Temp.BoundingBox$.val.Extract1(
       (p) => rl.Core.GetMeshBoundingBox.run2(
         p.toJS,
-        rl.Temp.Mesh$.Ref1(mesh).toJS,
+        rl.Temp.Mesh$.val.Ref1(mesh).toJS,
       ),
     ),
   );
@@ -6621,7 +6618,7 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     MeshD mesh,
   ) => run(
     () => RaylibDebugLabels.GenMeshTangents(mesh),
-    () => rl.Temp.Mesh$.RefUpdate1(mesh,
+    () => rl.Temp.Mesh$.val.RefUpdate1(mesh,
       (p) => rl.Core.GenMeshTangents.run1(
         p.toJS,
       ),
@@ -6635,7 +6632,7 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.ExportMesh(mesh, fileName),
     () => rl.Core.ExportMesh.run2(
-      rl.Temp.Mesh$.Ref1(mesh).toJS,
+      rl.Temp.Mesh$.val.Ref1(mesh).toJS,
       fileName.toJS,
     ).toBool(),
   );
@@ -6647,7 +6644,7 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.ExportMeshAsCode(mesh, fileName),
     () => rl.Core.ExportMeshAsCode.run2(
-      rl.Temp.Mesh$.Ref1(mesh).toJS,
+      rl.Temp.Mesh$.val.Ref1(mesh).toJS,
       fileName.toJS,
     ).toBool(),
   );
@@ -6658,7 +6655,7 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     num radius,
   ) => run(
     () => RaylibDebugLabels.GenMeshPoly(sides, radius),
-    () => rl.Temp.Mesh$.RefCapture(
+    () => rl.Temp.Mesh$.val.RefCapture(
       RaylibCaptureIds.GenMeshPoly(sides, radius),
       (p) => rl.Core.GenMeshPoly.run3(
         p.toJS,
@@ -6676,7 +6673,7 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     num resZ,
   ) => run(
     () => RaylibDebugLabels.GenMeshPlane(width, length, resX, resZ),
-    () => rl.Temp.Mesh$.RefCapture(
+    () => rl.Temp.Mesh$.val.RefCapture(
       RaylibCaptureIds.GenMeshPlane(width, length, resX, resZ),
       (p) => rl.Core.GenMeshPlane.run5(
         p.toJS,
@@ -6695,7 +6692,7 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     num length,
   ) => run(
     () => RaylibDebugLabels.GenMeshCube(width, height, length),
-    () => rl.Temp.Mesh$.RefCapture(
+    () => rl.Temp.Mesh$.val.RefCapture(
       RaylibCaptureIds.GenMeshCube(width, height, length),
       (p) => rl.Core.GenMeshCube.run4(
         p.toJS,
@@ -6713,7 +6710,7 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     num slices,
   ) => run(
     () => RaylibDebugLabels.GenMeshSphere(radius, rings, slices),
-    () => rl.Temp.Mesh$.RefCapture(
+    () => rl.Temp.Mesh$.val.RefCapture(
       RaylibCaptureIds.GenMeshSphere(radius, rings, slices),
       (p) => rl.Core.GenMeshSphere.run4(
         p.toJS,
@@ -6731,7 +6728,7 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     num slices,
   ) => run(
     () => RaylibDebugLabels.GenMeshHemiSphere(radius, rings, slices),
-    () => rl.Temp.Mesh$.RefCapture(
+    () => rl.Temp.Mesh$.val.RefCapture(
       RaylibCaptureIds.GenMeshHemiSphere(radius, rings, slices),
       (p) => rl.Core.GenMeshHemiSphere.run4(
         p.toJS,
@@ -6749,7 +6746,7 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     num slices,
   ) => run(
     () => RaylibDebugLabels.GenMeshCylinder(radius, height, slices),
-    () => rl.Temp.Mesh$.RefCapture(
+    () => rl.Temp.Mesh$.val.RefCapture(
       RaylibCaptureIds.GenMeshCylinder(radius, height, slices),
       (p) => rl.Core.GenMeshCylinder.run4(
         p.toJS,
@@ -6767,7 +6764,7 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     num slices,
   ) => run(
     () => RaylibDebugLabels.GenMeshCone(radius, height, slices),
-    () => rl.Temp.Mesh$.RefCapture(
+    () => rl.Temp.Mesh$.val.RefCapture(
       RaylibCaptureIds.GenMeshCone(radius, height, slices),
       (p) => rl.Core.GenMeshCone.run4(
         p.toJS,
@@ -6786,7 +6783,7 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     num sides,
   ) => run(
     () => RaylibDebugLabels.GenMeshTorus(radius, size, radSeg, sides),
-    () => rl.Temp.Mesh$.RefCapture(
+    () => rl.Temp.Mesh$.val.RefCapture(
       RaylibCaptureIds.GenMeshTorus(radius, size, radSeg, sides),
       (p) => rl.Core.GenMeshTorus.run5(
         p.toJS,
@@ -6806,7 +6803,7 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     num sides,
   ) => run(
     () => RaylibDebugLabels.GenMeshKnot(radius, size, radSeg, sides),
-    () => rl.Temp.Mesh$.RefCapture(
+    () => rl.Temp.Mesh$.val.RefCapture(
       RaylibCaptureIds.GenMeshKnot(radius, size, radSeg, sides),
       (p) => rl.Core.GenMeshKnot.run5(
         p.toJS,
@@ -6824,12 +6821,12 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     Vector3D size,
   ) => run(
     () => RaylibDebugLabels.GenMeshHeightmap(heightmap, size),
-    () => rl.Temp.Mesh$.RefCapture(
+    () => rl.Temp.Mesh$.val.RefCapture(
       RaylibCaptureIds.GenMeshHeightmap(heightmap, size),
       (p) => rl.Core.GenMeshHeightmap.run3(
         p.toJS,
-        rl.Temp.Image$.Ref1(heightmap).toJS,
-        rl.Temp.Vector3$.Ref1(size).toJS,
+        rl.Temp.Image$.val.Ref1(heightmap).toJS,
+        rl.Temp.Vector3$.val.Ref1(size).toJS,
       ),
     ),
   );
@@ -6840,12 +6837,12 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     Vector3D cubeSize,
   ) => run(
     () => RaylibDebugLabels.GenMeshCubicmap(cubicmap, cubeSize),
-    () => rl.Temp.Mesh$.RefCapture(
+    () => rl.Temp.Mesh$.val.RefCapture(
       RaylibCaptureIds.GenMeshCubicmap(cubicmap, cubeSize),
       (p) => rl.Core.GenMeshCubicmap.run3(
         p.toJS,
-        rl.Temp.Image$.Ref1(cubicmap).toJS,
-        rl.Temp.Vector3$.Ref1(cubeSize).toJS,
+        rl.Temp.Image$.val.Ref1(cubicmap).toJS,
+        rl.Temp.Vector3$.val.Ref1(cubeSize).toJS,
       ),
     ),
   );
@@ -6856,7 +6853,7 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.LoadMaterials(fileName),
     () {
-      final materialCountPtr = rl.Temp.Int32$.Ref1();
+      final materialCountPtr = rl.Temp.Int32$.val.Ref1();
       final materialsPtr = rl.Core.LoadMaterials.run2(
         fileName.toJS,
         materialCountPtr.toJS,
@@ -6868,7 +6865,7 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   @override
   MaterialD LoadMaterialDefault() => run(
     () => RaylibDebugLabels.LoadMaterialDefault(),
-    () => rl.Temp.Material$.RefCapture(
+    () => rl.Temp.Material$.val.RefCapture(
       RaylibCaptureIds.LoadMaterialDefault(),
       (p) => rl.Core.LoadMaterialDefault.run1(
         p.toJS,
@@ -6882,7 +6879,7 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.IsMaterialValid(material),
     () => rl.Core.IsMaterialValid.run1(
-      rl.Temp.Material$.Ref1(material).toJS,
+      rl.Temp.Material$.val.Ref1(material).toJS,
     ).toBool(),
   );
     
@@ -6892,7 +6889,7 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.UnloadMaterial(material),
     () => rl.Core.UnloadMaterial.run1(
-      rl.Temp.Material$.Ref1(material).toJS,
+      rl.Temp.Material$.val.Ref1(material).toJS,
     ),
   );
     
@@ -6932,7 +6929,7 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.LoadModelAnimations(fileName),
     () {
-      final animCountPtr = rl.Temp.Int32$.Ref1();
+      final animCountPtr = rl.Temp.Int32$.val.Ref1();
       final animsPtr = rl.Core.LoadModelAnimations.run2(
         fileName.toJS,
         animCountPtr.toJS,
@@ -6954,8 +6951,8 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.UpdateModelAnimation(model, anim, frame),
     () => rl.Core.UpdateModelAnimation.run3(
-      rl.Temp.Model$.Ref1(model).toJS,
-      rl.Temp.ModelAnimation$.Ref1(anim).toJS,
+      rl.Temp.Model$.val.Ref1(model).toJS,
+      rl.Temp.ModelAnimation$.val.Ref1(anim).toJS,
       frame.toJS,
     ),
   );
@@ -6971,10 +6968,10 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.UpdateModelAnimationEx(model, animA, frameA, animB, frameB, blend),
     () => rl.Core.UpdateModelAnimationEx.run6(
-      rl.Temp.Model$.Ref1(model).toJS,
-      rl.Temp.ModelAnimation$.Ref1(animA).toJS,
+      rl.Temp.Model$.val.Ref1(model).toJS,
+      rl.Temp.ModelAnimation$.val.Ref1(animA).toJS,
       frameA.toJS,
-      rl.Temp.ModelAnimation$.Ref2(animB).toJS,
+      rl.Temp.ModelAnimation$.val.Ref2(animB).toJS,
       frameB.toJS,
       blend.toJS,
     ),
@@ -6988,10 +6985,10 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     () {
       final slot = 'UnloadModelAnimations__animations';
       rl.Core.UnloadModelAnimations.run2(
-        rl.Temp.ModelAnimation$.Array(animations, key: slot).toJS,
+        rl.Temp.ModelAnimation$.val.Array(animations, key: slot).toJS,
         animations.length.toJS,
       );
-      rl.Temp.ModelAnimation$.Unslot(slot); // freed by raylib
+      rl.Temp.ModelAnimation$.val.Unslot(slot); // freed by raylib
     },
   );
     
@@ -7002,8 +6999,8 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.IsModelAnimationValid(model, anim),
     () => rl.Core.IsModelAnimationValid.run2(
-      rl.Temp.Model$.Ref1(model).toJS,
-      rl.Temp.ModelAnimation$.Ref1(anim).toJS,
+      rl.Temp.Model$.val.Ref1(model).toJS,
+      rl.Temp.ModelAnimation$.val.Ref1(anim).toJS,
     ).toBool(),
   );
     
@@ -7016,9 +7013,9 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.CheckCollisionSpheres(center1, radius1, center2, radius2),
     () => rl.Core.CheckCollisionSpheres.run4(
-      rl.Temp.Vector3$.Ref1(center1).toJS,
+      rl.Temp.Vector3$.val.Ref1(center1).toJS,
       radius1.toJS,
-      rl.Temp.Vector3$.Ref2(center2).toJS,
+      rl.Temp.Vector3$.val.Ref2(center2).toJS,
       radius2.toJS,
     ).toBool(),
   );
@@ -7030,8 +7027,8 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.CheckCollisionBoxes(box1, box2),
     () => rl.Core.CheckCollisionBoxes.run2(
-      rl.Temp.BoundingBox$.Ref1(box1).toJS,
-      rl.Temp.BoundingBox$.Ref2(box2).toJS,
+      rl.Temp.BoundingBox$.val.Ref1(box1).toJS,
+      rl.Temp.BoundingBox$.val.Ref2(box2).toJS,
     ).toBool(),
   );
     
@@ -7043,8 +7040,8 @@ class RaylibCoreD extends RaylibCoreModuleBase<
   ) => run(
     () => RaylibDebugLabels.CheckCollisionBoxSphere(box, center, radius),
     () => rl.Core.CheckCollisionBoxSphere.run3(
-      rl.Temp.BoundingBox$.Ref1(box).toJS,
-      rl.Temp.Vector3$.Ref1(center).toJS,
+      rl.Temp.BoundingBox$.val.Ref1(box).toJS,
+      rl.Temp.Vector3$.val.Ref1(center).toJS,
       radius.toJS,
     ).toBool(),
   );
@@ -7056,11 +7053,11 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     num radius,
   ) => run(
     () => RaylibDebugLabels.GetRayCollisionSphere(ray, center, radius),
-    () => rl.Temp.RayCollision$.Extract1(
+    () => rl.Temp.RayCollision$.val.Extract1(
       (p) => rl.Core.GetRayCollisionSphere.run4(
         p.toJS,
-        rl.Temp.Ray$.Ref1(ray).toJS,
-        rl.Temp.Vector3$.Ref1(center).toJS,
+        rl.Temp.Ray$.val.Ref1(ray).toJS,
+        rl.Temp.Vector3$.val.Ref1(center).toJS,
         radius.toJS,
       ),
     ),
@@ -7072,11 +7069,11 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     BoundingBoxD box,
   ) => run(
     () => RaylibDebugLabels.GetRayCollisionBox(ray, box),
-    () => rl.Temp.RayCollision$.Extract1(
+    () => rl.Temp.RayCollision$.val.Extract1(
       (p) => rl.Core.GetRayCollisionBox.run3(
         p.toJS,
-        rl.Temp.Ray$.Ref1(ray).toJS,
-        rl.Temp.BoundingBox$.Ref1(box).toJS,
+        rl.Temp.Ray$.val.Ref1(ray).toJS,
+        rl.Temp.BoundingBox$.val.Ref1(box).toJS,
       ),
     ),
   );
@@ -7088,12 +7085,12 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     MatrixD transform,
   ) => run(
     () => RaylibDebugLabels.GetRayCollisionMesh(ray, mesh, transform),
-    () => rl.Temp.RayCollision$.Extract1(
+    () => rl.Temp.RayCollision$.val.Extract1(
       (p) => rl.Core.GetRayCollisionMesh.run4(
         p.toJS,
-        rl.Temp.Ray$.Ref1(ray).toJS,
-        rl.Temp.Mesh$.Ref1(mesh).toJS,
-        rl.Temp.Matrix$.Ref1(transform).toJS,
+        rl.Temp.Ray$.val.Ref1(ray).toJS,
+        rl.Temp.Mesh$.val.Ref1(mesh).toJS,
+        rl.Temp.Matrix$.val.Ref1(transform).toJS,
       ),
     ),
   );
@@ -7106,13 +7103,13 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     Vector3D p3,
   ) => run(
     () => RaylibDebugLabels.GetRayCollisionTriangle(ray, p1, p2, p3),
-    () => rl.Temp.RayCollision$.Extract1(
+    () => rl.Temp.RayCollision$.val.Extract1(
       (p) => rl.Core.GetRayCollisionTriangle.run5(
         p.toJS,
-        rl.Temp.Ray$.Ref1(ray).toJS,
-        rl.Temp.Vector3$.Ref1(p1).toJS,
-        rl.Temp.Vector3$.Ref2(p2).toJS,
-        rl.Temp.Vector3$.Ref3(p3).toJS,
+        rl.Temp.Ray$.val.Ref1(ray).toJS,
+        rl.Temp.Vector3$.val.Ref1(p1).toJS,
+        rl.Temp.Vector3$.val.Ref2(p2).toJS,
+        rl.Temp.Vector3$.val.Ref3(p3).toJS,
       ),
     ),
   );
@@ -7126,14 +7123,14 @@ class RaylibCoreD extends RaylibCoreModuleBase<
     Vector3D p4,
   ) => run(
     () => RaylibDebugLabels.GetRayCollisionQuad(ray, p1, p2, p3, p4),
-    () => rl.Temp.RayCollision$.Extract1(
+    () => rl.Temp.RayCollision$.val.Extract1(
       (p) => rl.Core.GetRayCollisionQuad.run6(
         p.toJS,
-        rl.Temp.Ray$.Ref1(ray).toJS,
-        rl.Temp.Vector3$.Ref1(p1).toJS,
-        rl.Temp.Vector3$.Ref2(p2).toJS,
-        rl.Temp.Vector3$.Ref3(p3).toJS,
-        rl.Temp.Vector3$.Ref4(p4).toJS,
+        rl.Temp.Ray$.val.Ref1(ray).toJS,
+        rl.Temp.Vector3$.val.Ref1(p1).toJS,
+        rl.Temp.Vector3$.val.Ref2(p2).toJS,
+        rl.Temp.Vector3$.val.Ref3(p3).toJS,
+        rl.Temp.Vector3$.val.Ref4(p4).toJS,
       ),
     ),
   );

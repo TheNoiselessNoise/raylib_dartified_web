@@ -40,7 +40,7 @@ class WaveD extends StructDWeb<WaveD> with WaveBase<WaveD> {
     .sampleRate: WasmSize.Uint32,
     .sampleSize: WasmSize.Uint32,
     .channels:   WasmSize.Uint32,
-    .data:       WasmSize.AnyPointer,
+    .data:       WasmSize.Pointer,
   });
 
   static WasmStructPointer<WaveD> wasmPointer(int ptr) => .new(ptr, WaveD.new, byteSize);
@@ -89,9 +89,9 @@ class WaveD extends StructDWeb<WaveD> with WaveBase<WaveD> {
   @override
   void structAllocateInto(RaylibTemp temp, WasmStructPointer<WaveD> p, String key) {
     if (data.lengthInBytes > 0) _dataPtr = switch (sampleSize) {
-     8  => temp.Uint8$.Array(data.asUint8List(), key: '${key}_data').address,
-     16 => temp.Int16$.Array(data.asInt16List(), key: '${key}_data').address,
-     32 => temp.Float32$.Array(data.asFloat32List(), key: '${key}_data').address,
+     8  => temp.Uint8$.val.Array(data.asUint8List(), key: '${key}_data').address,
+     16 => temp.Int16$.val.Array(data.asInt16List(), key: '${key}_data').address,
+     32 => temp.Float32$.val.Array(data.asFloat32List(), key: '${key}_data').address,
       _  => throw UnsupportedError('Unexpected sampleSize: $sampleSize'),
     };
   }
@@ -119,9 +119,9 @@ class WaveD extends StructDWeb<WaveD> with WaveBase<WaveD> {
     _dataPtr = reader.pointer();
 
     if (_dataPtr > 0) data = switch (sampleSize) {
-      8  => reader.Uint8TypedArray(waveLength, _dataPtr).sublist(0).buffer,
-      16 => reader.Int16TypedArray(waveLength, _dataPtr).sublist(0).buffer,
-      32 => reader.Float32TypedArray(waveLength, _dataPtr).sublist(0).buffer,
+      8  => WasmReader(_dataPtr).Uint8TypedArray(waveLength).sublist(0).buffer,
+      16 => WasmReader(_dataPtr).Int16TypedArray(waveLength).sublist(0).buffer,
+      32 => WasmReader(_dataPtr).Float32TypedArray(waveLength).sublist(0).buffer,
       _  => throw UnsupportedError('Unexpected sampleSize: $sampleSize'),
     };
   }

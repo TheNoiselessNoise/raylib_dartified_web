@@ -53,12 +53,29 @@ class Raylib extends RaylibBase {
     _instance = this;
 
     _dartMain = (() {
+      _initBase();
       _init();
       dartMain(this);
     }).toJS;
   }
+  
+  WasmMemoryPointer<RVoid> _defaultFromBytes<T extends TypedDataList>(T data) {
+    final byteLength = data.lengthInBytes;
+    final asBytes = data.buffer.asUint8List(data.offsetInBytes, byteLength);
+    final addr = WasmMemory.malloc(byteLength);
+    WasmMemory.heapU8.setRange(addr, addr + byteLength, asBytes);
+    return .new(addr);
+  }
 
-  void _init() {
+  static WasmMemoryPointer<RUint8> _defaultFromString(String text) {
+    final bytes = utf8.encode(text);
+    final addr = WasmMemory.malloc(bytes.length + 1); // +1 for NUL
+    WasmMemory.heapU8.setRange(addr, addr + bytes.length, bytes);
+    WasmMemory.heapU8[addr + bytes.length] = 0;
+    return .new(addr);
+  } 
+
+  void _initBase() {
     RaylibMatrixFactories.createFactory = MatrixD.mat4;
     RaylibMatrixFactories.zeroFactory = MatrixD.zero;
     RaylibQuaternionFactories.createFactory = QuaternionD.quat;
@@ -69,7 +86,11 @@ class Raylib extends RaylibBase {
     RaylibVector3Factories.zeroFactory = Vector3D.zero;
     RaylibVector4Factories.createFactory = Vector4D.vec4;
     RaylibVector4Factories.zeroFactory = Vector4D.zero;
+    MemoryPointer.fromBytes = _defaultFromBytes;
+    MemoryPointer.fromString = _defaultFromString;
+  }
 
+  void _init() {
     // extensions
     registerModule(RaylibTemp(this, options: tempOptions)); Temp = module();
     registerModule(RaylibColors(this)); Color = module();
@@ -96,16 +117,33 @@ class Raylib extends RaylibBase {
   bool _canceled = false;
   void cancelMainLoop() => _canceled = true;
 
-  void setMainLoop(void Function() loop) {
-    void tick(JSAny _) {
+  void setMainLoop(FutureOr<void> Function() loop) {
+    late final void Function(JSAny) tick;
+
+    void scheduleNext() => _requestAnimationFrame(tick.toJS);
+
+    tick = (JSAny _) {
       if (_canceled) {
         _canceled = false;
         return;
       }
-      loop();
-      _requestAnimationFrame(tick.toJS);
-    }
-    _requestAnimationFrame(tick.toJS);
+
+      final result = loop();
+      
+      if (result is Future<void>) {
+        result.then((_) {
+          if (!_canceled) {
+            scheduleNext();
+          } else {
+            _canceled = false;
+          }
+        });
+      } else {
+        scheduleNext();
+      }
+    };
+
+    scheduleNext();
   }
 }
 
@@ -114,14 +152,14 @@ abstract class RaylibGame extends RaylibGameBase<Raylib> {}
 /// [nativeLibPath] is ignored on the web backend.
 void runRaylib(RaylibGame game, {String? nativeLibPath}) => Raylib((rl) {
   game.init(rl);
-  rl.setMainLoop(() {
+  rl.setMainLoop(() async {
     if (game.shouldClose(rl)) {
       rl.cancelMainLoop();
       game.close(rl);
       game.dispose(rl);
       return;
     } else {
-      game.loop(rl);
+      await game.loop(rl);
     }
   });
 });

@@ -9,7 +9,7 @@ class FilePathListD extends StructDViewWeb<FilePathListD> with FilePathListBase<
   static final byteSize = _o.byteSize;
   static final _Offsets<_FilePathListOffsets> _o = .fromMap({
     .count: WasmSize.Uint32,
-    .paths: WasmSize.AnyPointer,
+    .paths: WasmSize.Pointer,
   });
   
   static WasmStructPointer<FilePathListD> wasmPointer(int ptr) => .new(ptr, FilePathListD.new, byteSize);

@@ -90,11 +90,11 @@ class RaylibRlglD extends RaylibRlglModuleBase<
 
   @override
   void rlMultMatrixf(
-    List<double> matf,
+    List<num> matf,
   ) => run(
     () => RaylibDebugLabels.rlMultMatrixf(matf),
     () => rl.Rlgl.rlMultMatrixf.run1(
-      rl.Temp.Float32$.Array(matf).toJS,
+      rl.Temp.Float32$.val.Array(matf).toJS,
     ),
   );
 
@@ -904,7 +904,7 @@ class RaylibRlglD extends RaylibRlglModuleBase<
     num bufferElements,
   ) => run(
     () => RaylibDebugLabels.rlLoadRenderBatch(numBuffers, bufferElements),
-    () => rl.Temp.RlRenderBatch$.RefCapture(
+    () => rl.Temp.RlRenderBatch$.val.RefCapture(
       RaylibCaptureIds.rlLoadRenderBatch(numBuffers, bufferElements),
       (p) => rl.Rlgl.rlLoadRenderBatch.run3(
         p.toJS,
@@ -920,7 +920,7 @@ class RaylibRlglD extends RaylibRlglModuleBase<
   ) => run(
     () => RaylibDebugLabels.rlUnloadRenderBatch(batch),
     () => rl.Rlgl.rlUnloadRenderBatch.run1(
-      rl.Temp.RlRenderBatch$.Ref1(batch).toJS,
+      rl.Temp.RlRenderBatch$.val.Ref1(batch).toJS,
     ),
   );
 
@@ -929,7 +929,7 @@ class RaylibRlglD extends RaylibRlglModuleBase<
     RlRenderBatchD batch,
   ) => run(
     () => RaylibDebugLabels.rlDrawRenderBatch(batch),
-    () => rl.Temp.RlRenderBatch$.RefUpdate1(batch,
+    () => rl.Temp.RlRenderBatch$.val.RefUpdate1(batch,
       (pb) => rl.Rlgl.rlDrawRenderBatch.run1(
         pb.toJS,
       ),
@@ -937,11 +937,11 @@ class RaylibRlglD extends RaylibRlglModuleBase<
   );
 
   @override
-  void rlSetRenderBatchActive(
-    RlRenderBatchD batch,
-  ) => run(
+  void rlSetRenderBatchActive([
+    RlRenderBatchD? batch,
+  ]) => run(
     () => RaylibDebugLabels.rlSetRenderBatchActive(batch),
-    () => rl.Temp.RlRenderBatch$.RefUpdate1(batch,
+    () => rl.Temp.RlRenderBatch$.val.RefUpdate1(batch,
       (pb) => rl.Rlgl.rlSetRenderBatchActive.run1(
         pb.toJS,
       ),
@@ -1099,7 +1099,7 @@ class RaylibRlglD extends RaylibRlglModuleBase<
     () => RaylibDebugLabels.rlSetVertexAttributeDefault(locIndex, value, attribType),
     () => rl.Rlgl.rlSetVertexAttributeDefault.run4(
       locIndex.toJS,
-      rl.Temp.Float32$.FromTypedList(value).toJS,
+      rl.Temp.Float32$.val.FromTypedList(value).toJS,
       attribType.value.toJS,
       value.length.toJS,
     ),
@@ -1127,7 +1127,7 @@ class RaylibRlglD extends RaylibRlglModuleBase<
     () => rl.Rlgl.rlDrawVertexArrayElements.run3(
       offset.toJS,
       count.toJS,
-      rl.Temp.Uint16$.FromTypedList(buffer).toJS,
+      rl.Temp.Uint16$.val.FromTypedList(buffer).toJS,
     ),
   );
 
@@ -1156,7 +1156,7 @@ class RaylibRlglD extends RaylibRlglModuleBase<
     () => rl.Rlgl.rlDrawVertexArrayElementsInstanced.run4(
       offset.toJS,
       count.toJS,
-      rl.Temp.Uint16$.FromTypedList(buffer).toJS,
+      rl.Temp.Uint16$.val.FromTypedList(buffer).toJS,
       instances.toJS,
     ),
   );
@@ -1171,7 +1171,7 @@ class RaylibRlglD extends RaylibRlglModuleBase<
   ) => run(
     () => RaylibDebugLabels.rlLoadTexture(data, width, height, format, mipmapCount),
     () => rl.Rlgl.rlLoadTexture.run5(
-      (data == null ? 0 : rl.Temp.Uint8$.FromTypedList(data).address).toJS,
+      (data == null ? 0 : rl.Temp.Uint8$.val.FromTypedList(data).address).toJS,
       width.toJS,
       height.toJS,
       format.value.toJS,
@@ -1202,7 +1202,7 @@ class RaylibRlglD extends RaylibRlglModuleBase<
   ) => run(
     () => RaylibDebugLabels.rlLoadTextureCubemap(data, size, format, mipmapCount),
     () => rl.Rlgl.rlLoadTextureCubemap.run4(
-      (data == null ? 0 : rl.Temp.Uint8$.FromTypedList(data).address).toJS,
+      (data == null ? 0 : rl.Temp.Uint8$.val.FromTypedList(data).address).toJS,
       size.toJS,
       format.value.toJS,
       mipmapCount.toJS,
@@ -1227,7 +1227,7 @@ class RaylibRlglD extends RaylibRlglModuleBase<
       width.toJS,
       height.toJS,
       format.value.toJS,
-      rl.Temp.Uint8$.FromTypedList(data).toJS,
+      rl.Temp.Uint8$.val.FromTypedList(data).toJS,
     ),
   );
 
@@ -1237,9 +1237,9 @@ class RaylibRlglD extends RaylibRlglModuleBase<
   ) => run(
     () => RaylibDebugLabels.rlGetGlTextureFormats(format),
     () {
-      final glInternalFormatPtr = rl.Temp.Uint32$.Ref1();
-      final glFormatPtr = rl.Temp.Uint32$.Ref2();
-      final glTypePtr = rl.Temp.Uint32$.Ref3();
+      final glInternalFormatPtr = rl.Temp.Uint32$.val.Ref1();
+      final glFormatPtr = rl.Temp.Uint32$.val.Ref2();
+      final glTypePtr = rl.Temp.Uint32$.val.Ref3();
       rl.Rlgl.rlGetGlTextureFormats.run4(
         format.value.toJS,
         glInternalFormatPtr.toJS,
@@ -1282,7 +1282,7 @@ class RaylibRlglD extends RaylibRlglModuleBase<
   ) => run(
     () => RaylibDebugLabels.rlGenTextureMipmaps(id, width, height, format),
     () {
-      final mipmapsPtr = rl.Temp.Int32$.Ref1();
+      final mipmapsPtr = rl.Temp.Int32$.val.Ref1();
       rl.Rlgl.rlGenTextureMipmaps.run5(
         id.toJS,
         width.toJS,
@@ -1397,7 +1397,7 @@ class RaylibRlglD extends RaylibRlglModuleBase<
         );
       }
 
-      final pixels = rl.Temp.Uint8$.Sized(size);
+      final pixels = rl.Temp.Uint8$.val.Sized(size);
 
       rl.Rlgl.rlCopyFramebuffer.run6(
         x.toJS,
@@ -1529,18 +1529,18 @@ class RaylibRlglD extends RaylibRlglModuleBase<
         case .RL_SHADER_UNIFORM_VEC2:
         case .RL_SHADER_UNIFORM_VEC3:
         case .RL_SHADER_UNIFORM_VEC4:
-          ptr = rl.Temp.Float32$.FromTypedData(value);
+          ptr = rl.Temp.Float32$.val.FromTypedData(value);
         case .RL_SHADER_UNIFORM_INT:
         case .RL_SHADER_UNIFORM_IVEC2:
         case .RL_SHADER_UNIFORM_IVEC3:
         case .RL_SHADER_UNIFORM_IVEC4:
         case .RL_SHADER_UNIFORM_SAMPLER2D:
-          ptr = rl.Temp.Int32$.FromTypedData(value);
+          ptr = rl.Temp.Int32$.val.FromTypedData(value);
         case .RL_SHADER_UNIFORM_UINT:
         case .RL_SHADER_UNIFORM_UIVEC2:
         case .RL_SHADER_UNIFORM_UIVEC3:
         case .RL_SHADER_UNIFORM_UIVEC4:
-          ptr = rl.Temp.Uint32$.FromTypedData(value);
+          ptr = rl.Temp.Uint32$.val.FromTypedData(value);
       }
       rl.Rlgl.rlSetUniform.run4(
         locIndex.toJS,
@@ -1559,7 +1559,7 @@ class RaylibRlglD extends RaylibRlglModuleBase<
     () => RaylibDebugLabels.rlSetUniformMatrix(locIndex, mat),
     () => rl.Rlgl.rlSetUniformMatrix.run2(
       locIndex.toJS,
-      rl.Temp.Matrix$.Ref1(mat).toJS,
+      rl.Temp.Matrix$.val.Ref1(mat).toJS,
     ),
   );
 
@@ -1571,7 +1571,7 @@ class RaylibRlglD extends RaylibRlglModuleBase<
     () => RaylibDebugLabels.rlSetUniformMatrices(locIndex, mat),
     () => rl.Rlgl.rlSetUniformMatrices.run3(
       locIndex.toJS,
-      rl.Temp.Matrix$.Array(mat).toJS,
+      rl.Temp.Matrix$.val.Array(mat).toJS,
       mat.length.toJS,
     ),
   );
@@ -1596,7 +1596,7 @@ class RaylibRlglD extends RaylibRlglModuleBase<
     () => RaylibDebugLabels.rlSetShader(id, locs),
     () => rl.Rlgl.rlSetShader.run2(
       id.toJS,
-      rl.Temp.Int32$.Array(locs).toJS,
+      rl.Temp.Int32$.val.Array(locs).toJS,
     ),
   );
 
@@ -1673,7 +1673,7 @@ class RaylibRlglD extends RaylibRlglModuleBase<
   ) => run(
     () => RaylibDebugLabels.rlReadShaderBuffer(id, count, offset),
     () {
-      final valuesPtr = rl.Temp.Uint8$.Sized(count.toInt());
+      final valuesPtr = rl.Temp.Uint8$.val.Sized(count.toInt());
       rl.Rlgl.rlReadShaderBuffer.run4(
         id.toJS,
         valuesPtr.toJS,
@@ -1731,7 +1731,7 @@ class RaylibRlglD extends RaylibRlglModuleBase<
   @override
   MatrixD rlGetMatrixModelview() => run(
     () => RaylibDebugLabels.rlGetMatrixModelview(),
-    () => rl.Temp.Matrix$.Extract1(
+    () => rl.Temp.Matrix$.val.Extract1(
       (p) => rl.Rlgl.rlGetMatrixModelview.run1(
         p.toJS,
       ),
@@ -1741,7 +1741,7 @@ class RaylibRlglD extends RaylibRlglModuleBase<
   @override
   MatrixD rlGetMatrixProjection() => run(
     () => RaylibDebugLabels.rlGetMatrixProjection(),
-    () => rl.Temp.Matrix$.Extract1(
+    () => rl.Temp.Matrix$.val.Extract1(
       (p) => rl.Rlgl.rlGetMatrixProjection.run1(
         p.toJS,
       ),
@@ -1751,7 +1751,7 @@ class RaylibRlglD extends RaylibRlglModuleBase<
   @override
   MatrixD rlGetMatrixTransform() => run(
     () => RaylibDebugLabels.rlGetMatrixTransform(),
-    () => rl.Temp.Matrix$.Extract1(
+    () => rl.Temp.Matrix$.val.Extract1(
       (p) => rl.Rlgl.rlGetMatrixTransform.run1(
         p.toJS,
       ),
@@ -1763,7 +1763,7 @@ class RaylibRlglD extends RaylibRlglModuleBase<
     num eye,
   ) => run(
     () => RaylibDebugLabels.rlGetMatrixProjectionStereo(eye),
-    () => rl.Temp.Matrix$.Extract1(
+    () => rl.Temp.Matrix$.val.Extract1(
       (p) => rl.Rlgl.rlGetMatrixProjectionStereo.run2(
         p.toJS,
         eye.toJS,
@@ -1776,7 +1776,7 @@ class RaylibRlglD extends RaylibRlglModuleBase<
     num eye,
   ) => run(
     () => RaylibDebugLabels.rlGetMatrixViewOffsetStereo(eye),
-    () => rl.Temp.Matrix$.Extract1(
+    () => rl.Temp.Matrix$.val.Extract1(
       (p) => rl.Rlgl.rlGetMatrixViewOffsetStereo.run2(
         p.toJS,
         eye.toJS,
@@ -1790,7 +1790,7 @@ class RaylibRlglD extends RaylibRlglModuleBase<
   ) => run(
     () => RaylibDebugLabels.rlSetMatrixProjection(proj),
     () => rl.Rlgl.rlSetMatrixProjection.run1(
-      rl.Temp.Matrix$.Ref1(proj).toJS,
+      rl.Temp.Matrix$.val.Ref1(proj).toJS,
     ),
   );
 
@@ -1800,7 +1800,7 @@ class RaylibRlglD extends RaylibRlglModuleBase<
   ) => run(
     () => RaylibDebugLabels.rlSetMatrixModelview(view),
     () => rl.Rlgl.rlSetMatrixModelview.run1(
-      rl.Temp.Matrix$.Ref1(view).toJS,
+      rl.Temp.Matrix$.val.Ref1(view).toJS,
     ),
   );
 
@@ -1811,8 +1811,8 @@ class RaylibRlglD extends RaylibRlglModuleBase<
   ) => run(
     () => RaylibDebugLabels.rlSetMatrixProjectionStereo(right, left),
     () => rl.Rlgl.rlSetMatrixProjectionStereo.run2(
-      rl.Temp.Matrix$.Ref1(right).toJS,
-      rl.Temp.Matrix$.Ref2(left).toJS,
+      rl.Temp.Matrix$.val.Ref1(right).toJS,
+      rl.Temp.Matrix$.val.Ref2(left).toJS,
     ),
   );
 
@@ -1823,8 +1823,8 @@ class RaylibRlglD extends RaylibRlglModuleBase<
   ) => run(
     () => RaylibDebugLabels.rlSetMatrixViewOffsetStereo(right, left),
     () => rl.Rlgl.rlSetMatrixViewOffsetStereo.run2(
-      rl.Temp.Matrix$.Ref1(right).toJS,
-      rl.Temp.Matrix$.Ref2(left).toJS,
+      rl.Temp.Matrix$.val.Ref1(right).toJS,
+      rl.Temp.Matrix$.val.Ref2(left).toJS,
     ),
   );
 

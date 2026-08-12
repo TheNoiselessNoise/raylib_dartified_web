@@ -11,8 +11,8 @@ enum _AudioStreamOffsets with _WasmOffsets {
 class AudioStreamD extends StructDWeb<AudioStreamD> with AudioStreamBase<AudioStreamD> {
   static final byteSize = _o.byteSize;
   static final _Offsets<_AudioStreamOffsets> _o = .fromMap({
-    .buffer:     WasmSize.AnyPointer,
-    .processor:  WasmSize.AnyPointer,
+    .buffer:     WasmSize.Pointer,
+    .processor:  WasmSize.Pointer,
     .sampleRate: WasmSize.Uint32,
     .sampleSize: WasmSize.Uint32,
     .channels:   WasmSize.Uint32,

@@ -43,7 +43,7 @@ void main() => Raylib((rl) {
 
         DrawLineEx(center, end, 5.0, col);
 
-        final textPos = Vector2$.$3.set(
+        final Vector2D textPos = .vec2(
           center.x + math.cos(rad)*(lineLength + 20),
           center.y + math.sin(rad)*(lineLength + 20)
         );

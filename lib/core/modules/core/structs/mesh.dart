@@ -332,17 +332,17 @@ class MeshD extends StructDWeb<MeshD> with MeshBase<
 
   @override
   void structAllocateInto(RaylibTemp temp, WasmStructPointer<MeshD> p, String key) {
-    if (_vertices.isNotEmpty) _vertices.ptr = temp.Float32$.RawArray(_vertices.inner);
-    if (_texcoords.isNotEmpty) _texcoords.ptr = temp.Float32$.RawArray(_texcoords.inner);
-    if (_texcoords2.isNotEmpty) _texcoords2.ptr = temp.Float32$.RawArray(_texcoords2.inner);
-    if (_normals.isNotEmpty) _normals.ptr = temp.Float32$.RawArray(_normals.inner);
-    if (_tangents.isNotEmpty) _tangents.ptr = temp.Float32$.RawArray(_tangents.inner);
-    if (_colors.isNotEmpty) _colors.ptr = temp.Uint8$.RawArray(_colors.inner);
-    if (_indices.isNotEmpty) _indices.ptr = temp.Uint16$.RawArray(_indices.inner);
-    if (_boneIndices.isNotEmpty) _boneIndices.ptr = temp.Uint8$.RawArray(_boneIndices.inner);
-    if (_boneWeights.isNotEmpty) _boneWeights.ptr = temp.Float32$.RawArray(_boneWeights.inner);
-    if (_animVertices.isNotEmpty) _animVertices.ptr = temp.Float32$.RawArray(_animVertices.inner);
-    if (_animNormals.isNotEmpty) _animNormals.ptr = temp.Float32$.RawArray(_animNormals.inner);
+    if (_vertices.isNotEmpty) _vertices.ptr = temp.Float32$.val.RawArray(_vertices.inner);
+    if (_texcoords.isNotEmpty) _texcoords.ptr = temp.Float32$.val.RawArray(_texcoords.inner);
+    if (_texcoords2.isNotEmpty) _texcoords2.ptr = temp.Float32$.val.RawArray(_texcoords2.inner);
+    if (_normals.isNotEmpty) _normals.ptr = temp.Float32$.val.RawArray(_normals.inner);
+    if (_tangents.isNotEmpty) _tangents.ptr = temp.Float32$.val.RawArray(_tangents.inner);
+    if (_colors.isNotEmpty) _colors.ptr = temp.Uint8$.val.RawArray(_colors.inner);
+    if (_indices.isNotEmpty) _indices.ptr = temp.Uint16$.val.RawArray(_indices.inner);
+    if (_boneIndices.isNotEmpty) _boneIndices.ptr = temp.Uint8$.val.RawArray(_boneIndices.inner);
+    if (_boneWeights.isNotEmpty) _boneWeights.ptr = temp.Float32$.val.RawArray(_boneWeights.inner);
+    if (_animVertices.isNotEmpty) _animVertices.ptr = temp.Float32$.val.RawArray(_animVertices.inner);
+    if (_animNormals.isNotEmpty) _animNormals.ptr = temp.Float32$.val.RawArray(_animNormals.inner);
     _vboId.ptr = .nullptr();
   }
 
@@ -350,20 +350,20 @@ class MeshD extends StructDWeb<MeshD> with MeshBase<
   void wasmWriteInto(WasmWriter writer) {
     writer.Int32(_vertexCount);
     writer.Int32(_triangleCount);
-    writer.wasmptr(_vertices.ptr);
-    writer.wasmptr(_texcoords.ptr);
-    writer.wasmptr(_texcoords2.ptr);
-    writer.wasmptr(_normals.ptr);
-    writer.wasmptr(_tangents.ptr);
-    writer.wasmptr(_colors.ptr);
-    writer.wasmptr(_indices.ptr);
+    writer.wasmPointer(_vertices.ptr);
+    writer.wasmPointer(_texcoords.ptr);
+    writer.wasmPointer(_texcoords2.ptr);
+    writer.wasmPointer(_normals.ptr);
+    writer.wasmPointer(_tangents.ptr);
+    writer.wasmPointer(_colors.ptr);
+    writer.wasmPointer(_indices.ptr);
     writer.Int32(_boneCount);
-    writer.wasmptr(_boneIndices.ptr);
-    writer.wasmptr(_boneWeights.ptr);
-    writer.wasmptr(_animVertices.ptr);
-    writer.wasmptr(_animNormals.ptr);
+    writer.wasmPointer(_boneIndices.ptr);
+    writer.wasmPointer(_boneWeights.ptr);
+    writer.wasmPointer(_animVertices.ptr);
+    writer.wasmPointer(_animNormals.ptr);
     writer.Uint32(_vaoId);
-    writer.wasmptr(_vboId.ptr);
+    writer.wasmPointer(_vboId.ptr);
 
     _vertices.onPointer((p) => p.writeArray(_vertices.inner));
     _texcoords.onPointer((p) => p.writeArray(_texcoords.inner));

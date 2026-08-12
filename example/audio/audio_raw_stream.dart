@@ -1,6 +1,7 @@
 // Example dartified, see original for reference:
 // https://github.com/raysan5/raylib/blob/master/examples/audio/audio_raw_stream.c
 import 'dart:math' as math;
+import 'dart:typed_data';
 import '../base_dart.dart';
 
 const int screenWidth = 800;
@@ -27,7 +28,7 @@ void main() => Raylib((rl) {
     audioFrequency = frequency + (audioFrequency - frequency)*0.95;
 
     final incr = audioFrequency/44100.0;
-    final d = WasmInt16Pointer(buffer);
+    final d = buffer.asView<Int16List>(frames * 2);
 
     for (int i = 0; i < frames; i++)
     {
@@ -37,7 +38,7 @@ void main() => Raylib((rl) {
     }
   }));
 
-  final data = Short$.At('data', MAX_SAMPLES);
+  final data = Short$.val.At('data', MAX_SAMPLES);
 
   PlayAudioStream(stream);
 

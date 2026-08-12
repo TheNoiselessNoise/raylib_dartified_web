@@ -62,7 +62,7 @@ class RaylibAudioD extends RaylibAudioModuleBase<
     String fileName,
   ) => run(
     () => RaylibDebugLabels.LoadWave(fileName),
-    () => rl.Temp.Wave$.RefCapture(
+    () => rl.Temp.Wave$.val.RefCapture(
       RaylibCaptureIds.LoadWave(fileName),
       (p) => rl.Audio.LoadWave.run2(
         p.toJS,
@@ -77,12 +77,12 @@ class RaylibAudioD extends RaylibAudioModuleBase<
     Uint8List fileData,
   ) => run(
     () => RaylibDebugLabels.LoadWaveFromMemory(fileType, fileData),
-    () => rl.Temp.Wave$.RefCapture(
+    () => rl.Temp.Wave$.val.RefCapture(
       RaylibCaptureIds.LoadWaveFromMemory(fileType, fileData),
       (p) => rl.Audio.LoadWaveFromMemory.run4(
         p.toJS,
         fileType.toJS,
-        rl.Temp.Uint8$.Array(fileData).toJS,
+        rl.Temp.Uint8$.val.Array(fileData).toJS,
         fileData.length.toJS,
       ),
     ),
@@ -94,7 +94,7 @@ class RaylibAudioD extends RaylibAudioModuleBase<
   ) => run(
     () => RaylibDebugLabels.IsWaveValid(wave),
     () => rl.Audio.IsWaveValid.run1(
-      rl.Temp.Wave$.Ref1(wave).toJS,
+      rl.Temp.Wave$.val.Ref1(wave).toJS,
     ).toBool(),
   );
 
@@ -103,7 +103,7 @@ class RaylibAudioD extends RaylibAudioModuleBase<
     String fileName,
   ) => run(
     () => RaylibDebugLabels.LoadSound(fileName),
-    () => rl.Temp.Sound$.RefCapture(
+    () => rl.Temp.Sound$.val.RefCapture(
       RaylibCaptureIds.LoadSound(fileName),
       (p) => rl.Audio.LoadSound.run2(
         p.toJS,
@@ -117,11 +117,11 @@ class RaylibAudioD extends RaylibAudioModuleBase<
     WaveD wave,
   ) => run(
     () => RaylibDebugLabels.LoadSoundFromWave(wave),
-    () => rl.Temp.Sound$.RefCapture(
+    () => rl.Temp.Sound$.val.RefCapture(
       RaylibCaptureIds.LoadSoundFromWave(wave),
       (p) => rl.Audio.LoadSoundFromWave.run2(
         p.toJS,
-        rl.Temp.Wave$.Ref1(wave).toJS,
+        rl.Temp.Wave$.val.Ref1(wave).toJS,
       ),
     ),
   );
@@ -131,11 +131,11 @@ class RaylibAudioD extends RaylibAudioModuleBase<
     SoundD source,
   ) => run(
     () => RaylibDebugLabels.LoadSoundAlias(source),
-    () => rl.Temp.Sound$.RefCapture(
+    () => rl.Temp.Sound$.val.RefCapture(
       RaylibCaptureIds.LoadSoundAlias(source),
       (p) => rl.Audio.LoadSoundAlias.run2(
         p.toJS,
-        rl.Temp.Sound$.Ref1(source).toJS,
+        rl.Temp.Sound$.val.Ref1(source).toJS,
       ),
     ),
   );
@@ -146,7 +146,7 @@ class RaylibAudioD extends RaylibAudioModuleBase<
   ) => run(
     () => RaylibDebugLabels.IsSoundValid(sound),
     () => rl.Audio.IsSoundValid.run1(
-      rl.Temp.Sound$.Ref1(sound).toJS,
+      rl.Temp.Sound$.val.Ref1(sound).toJS,
     ).toBool(),
   );
 
@@ -157,7 +157,7 @@ class RaylibAudioD extends RaylibAudioModuleBase<
     num sampleCount,
   ) => run(
     () => RaylibDebugLabels.UpdateSound(sound, data, sampleCount),
-    () => rl.Temp.Sound$.RefUpdate1(sound,
+    () => rl.Temp.Sound$.val.RefUpdate1(sound,
       (p) => rl.Audio.UpdateSound.run3(
         p.toJS,
         rl.Temp.TypedDataList$.Array(data).toJS,
@@ -172,7 +172,7 @@ class RaylibAudioD extends RaylibAudioModuleBase<
   ) => run(
     () => RaylibDebugLabels.UnloadWave(wave),
     () => rl.Audio.UnloadWave.run1(
-      rl.Temp.Wave$.Ref1(wave).toJS,
+      rl.Temp.Wave$.val.Ref1(wave).toJS,
     ),
   );
 
@@ -182,7 +182,7 @@ class RaylibAudioD extends RaylibAudioModuleBase<
   ) => run(
     () => RaylibDebugLabels.UnloadSound(sound),
     () => rl.Audio.UnloadSound.run1(
-      rl.Temp.Sound$.Ref1(sound).toJS,
+      rl.Temp.Sound$.val.Ref1(sound).toJS,
     ),
   );
 
@@ -192,7 +192,7 @@ class RaylibAudioD extends RaylibAudioModuleBase<
   ) => run(
     () => RaylibDebugLabels.UnloadSoundAlias(alias),
     () => rl.Audio.UnloadSoundAlias.run1(
-      rl.Temp.Sound$.Ref1(alias).toJS,
+      rl.Temp.Sound$.val.Ref1(alias).toJS,
     ),
   );
 
@@ -203,7 +203,7 @@ class RaylibAudioD extends RaylibAudioModuleBase<
   ) => run(
     () => RaylibDebugLabels.ExportWave(wave, fileName),
     () => rl.Audio.ExportWave.run2(
-      rl.Temp.Wave$.Ref1(wave).toJS,
+      rl.Temp.Wave$.val.Ref1(wave).toJS,
       fileName.toJS,
     ).toBool(),
   );
@@ -215,7 +215,7 @@ class RaylibAudioD extends RaylibAudioModuleBase<
   ) => run(
     () => RaylibDebugLabels.ExportWaveAsCode(wave, fileName),
     () => rl.Audio.ExportWaveAsCode.run2(
-      rl.Temp.Wave$.Ref1(wave).toJS,
+      rl.Temp.Wave$.val.Ref1(wave).toJS,
       fileName.toJS,
     ).toBool(),
   );
@@ -226,7 +226,7 @@ class RaylibAudioD extends RaylibAudioModuleBase<
   ) => run(
     () => RaylibDebugLabels.PlaySound(sound),
     () => rl.Audio.PlaySound.run1(
-      rl.Temp.Sound$.Ref1(sound).toJS,
+      rl.Temp.Sound$.val.Ref1(sound).toJS,
     ),
   );
 
@@ -236,7 +236,7 @@ class RaylibAudioD extends RaylibAudioModuleBase<
   ) => run(
     () => RaylibDebugLabels.StopSound(sound),
     () => rl.Audio.StopSound.run1(
-      rl.Temp.Sound$.Ref1(sound).toJS,
+      rl.Temp.Sound$.val.Ref1(sound).toJS,
     ),
   );
 
@@ -246,7 +246,7 @@ class RaylibAudioD extends RaylibAudioModuleBase<
   ) => run(
     () => RaylibDebugLabels.PauseSound(sound),
     () => rl.Audio.PauseSound.run1(
-      rl.Temp.Sound$.Ref1(sound).toJS,
+      rl.Temp.Sound$.val.Ref1(sound).toJS,
     ),
   );
 
@@ -256,7 +256,7 @@ class RaylibAudioD extends RaylibAudioModuleBase<
   ) => run(
     () => RaylibDebugLabels.ResumeSound(sound),
     () => rl.Audio.ResumeSound.run1(
-      rl.Temp.Sound$.Ref1(sound).toJS,
+      rl.Temp.Sound$.val.Ref1(sound).toJS,
     ),
   );
 
@@ -266,7 +266,7 @@ class RaylibAudioD extends RaylibAudioModuleBase<
   ) => run(
     () => RaylibDebugLabels.IsSoundPlaying(sound),
     () => rl.Audio.IsSoundPlaying.run1(
-      rl.Temp.Sound$.Ref1(sound).toJS,
+      rl.Temp.Sound$.val.Ref1(sound).toJS,
     ).toBool(),
   );
 
@@ -277,7 +277,7 @@ class RaylibAudioD extends RaylibAudioModuleBase<
   ) => run(
     () => RaylibDebugLabels.SetSoundVolume(sound, volume),
     () => rl.Audio.SetSoundVolume.run2(
-      rl.Temp.Sound$.Ref1(sound).toJS,
+      rl.Temp.Sound$.val.Ref1(sound).toJS,
       volume.toJS,
     ),
   );
@@ -289,7 +289,7 @@ class RaylibAudioD extends RaylibAudioModuleBase<
   ) => run(
     () => RaylibDebugLabels.SetSoundPitch(sound, pitch),
     () => rl.Audio.SetSoundPitch.run2(
-      rl.Temp.Sound$.Ref1(sound).toJS,
+      rl.Temp.Sound$.val.Ref1(sound).toJS,
       pitch.toJS,
     ),
   );
@@ -301,7 +301,7 @@ class RaylibAudioD extends RaylibAudioModuleBase<
   ) => run(
     () => RaylibDebugLabels.SetSoundPan(sound, pan),
     () => rl.Audio.SetSoundPan.run2(
-      rl.Temp.Sound$.Ref1(sound).toJS,
+      rl.Temp.Sound$.val.Ref1(sound).toJS,
       pan.toJS,
     ),
   );
@@ -311,11 +311,11 @@ class RaylibAudioD extends RaylibAudioModuleBase<
     WaveD wave,
   ) => run(
     () => RaylibDebugLabels.WaveCopy(wave),
-    () => rl.Temp.Wave$.RefCapture(
+    () => rl.Temp.Wave$.val.RefCapture(
       RaylibCaptureIds.WaveCopy(wave),
       (p) => rl.Audio.WaveCopy.run2(
         p.toJS,
-        rl.Temp.Wave$.Ref1(wave).toJS,
+        rl.Temp.Wave$.val.Ref1(wave).toJS,
       ),
     ),
   );
@@ -327,7 +327,7 @@ class RaylibAudioD extends RaylibAudioModuleBase<
     num finalFrame,
   ) => run(
     () => RaylibDebugLabels.WaveCrop(wave, initFrame, finalFrame),
-    () => rl.Temp.Wave$.RefUpdate1(wave,
+    () => rl.Temp.Wave$.val.RefUpdate1(wave,
       (p) => rl.Audio.WaveCrop.run3(
         p.toJS,
         initFrame.toJS,
@@ -344,7 +344,7 @@ class RaylibAudioD extends RaylibAudioModuleBase<
     num channels,
   ) => run(
     () => RaylibDebugLabels.WaveFormat(wave, sampleRate, sampleSize, channels),
-    () => rl.Temp.Wave$.RefUpdate1(wave,
+    () => rl.Temp.Wave$.val.RefUpdate1(wave,
       (p) => rl.Audio.WaveFormat.run4(
         p.toJS,
         sampleRate.toJS,
@@ -361,7 +361,7 @@ class RaylibAudioD extends RaylibAudioModuleBase<
     () => RaylibDebugLabels.LoadWaveSamples(wave),
     () {
       final samplesPtr = rl.Audio.LoadWaveSamples.run1(
-        rl.Temp.Wave$.Ref1(wave).toJS,
+        rl.Temp.Wave$.val.Ref1(wave).toJS,
       ).toInt();
       try {
         return WasmFloat32Pointer(samplesPtr).readArray(wave.waveLength);
@@ -376,7 +376,7 @@ class RaylibAudioD extends RaylibAudioModuleBase<
     String fileName,
   ) => run(
     () => RaylibDebugLabels.LoadMusicStream(fileName),
-    () => rl.Temp.Music$.RefCapture(
+    () => rl.Temp.Music$.val.RefCapture(
       RaylibCaptureIds.LoadMusicStream(fileName),
       (p) => rl.Audio.LoadMusicStream.run2(
         p.toJS,
@@ -391,12 +391,12 @@ class RaylibAudioD extends RaylibAudioModuleBase<
     Uint8List data,
   ) => run(
     () => RaylibDebugLabels.LoadMusicStreamFromMemory(fileType, data),
-    () => rl.Temp.Music$.RefCapture(
+    () => rl.Temp.Music$.val.RefCapture(
       RaylibCaptureIds.LoadMusicStreamFromMemory(fileType, data),
       (p) => rl.Audio.LoadMusicStreamFromMemory.run4(
         p.toJS,
         fileType.toJS,
-        rl.Temp.Uint8$.Array(data).toJS,
+        rl.Temp.Uint8$.val.Array(data).toJS,
         data.length.toJS,
       ),
     ),
@@ -408,7 +408,7 @@ class RaylibAudioD extends RaylibAudioModuleBase<
   ) => run(
     () => RaylibDebugLabels.IsMusicValid(music),
     () => rl.Audio.IsMusicValid.run1(
-      rl.Temp.Music$.Ref1(music).toJS,
+      rl.Temp.Music$.val.Ref1(music).toJS,
     ).toBool(),
   );
 
@@ -418,7 +418,7 @@ class RaylibAudioD extends RaylibAudioModuleBase<
   ) => run(
     () => RaylibDebugLabels.UnloadMusicStream(music),
     () => rl.Audio.UnloadMusicStream.run1(
-      rl.Temp.Music$.Ref1(music).toJS,
+      rl.Temp.Music$.val.Ref1(music).toJS,
     ),
   );
 
@@ -428,7 +428,7 @@ class RaylibAudioD extends RaylibAudioModuleBase<
   ) => run(
     () => RaylibDebugLabels.PlayMusicStream(music),
     () => rl.Audio.PlayMusicStream.run1(
-      rl.Temp.Music$.Ref1(music).toJS,
+      rl.Temp.Music$.val.Ref1(music).toJS,
     ),
   );
 
@@ -438,7 +438,7 @@ class RaylibAudioD extends RaylibAudioModuleBase<
   ) => run(
     () => RaylibDebugLabels.IsMusicStreamPlaying(music),
     () => rl.Audio.IsMusicStreamPlaying.run1(
-      rl.Temp.Music$.Ref1(music).toJS,
+      rl.Temp.Music$.val.Ref1(music).toJS,
     ).toBool(),
   );
 
@@ -448,7 +448,7 @@ class RaylibAudioD extends RaylibAudioModuleBase<
   ) => run(
     () => RaylibDebugLabels.UpdateMusicStream(music),
     () => rl.Audio.UpdateMusicStream.run1(
-      rl.Temp.Music$.Ref1(music).toJS,
+      rl.Temp.Music$.val.Ref1(music).toJS,
     ),
   );
 
@@ -458,7 +458,7 @@ class RaylibAudioD extends RaylibAudioModuleBase<
   ) => run(
     () => RaylibDebugLabels.StopMusicStream(music),
     () => rl.Audio.StopMusicStream.run1(
-      rl.Temp.Music$.Ref1(music).toJS,
+      rl.Temp.Music$.val.Ref1(music).toJS,
     ),
   );
 
@@ -468,7 +468,7 @@ class RaylibAudioD extends RaylibAudioModuleBase<
   ) => run(
     () => RaylibDebugLabels.PauseMusicStream(music),
     () => rl.Audio.PauseMusicStream.run1(
-      rl.Temp.Music$.Ref1(music).toJS,
+      rl.Temp.Music$.val.Ref1(music).toJS,
     ),
   );
 
@@ -478,7 +478,7 @@ class RaylibAudioD extends RaylibAudioModuleBase<
   ) => run(
     () => RaylibDebugLabels.ResumeMusicStream(music),
     () => rl.Audio.ResumeMusicStream.run1(
-      rl.Temp.Music$.Ref1(music).toJS,
+      rl.Temp.Music$.val.Ref1(music).toJS,
     ),
   );
 
@@ -489,7 +489,7 @@ class RaylibAudioD extends RaylibAudioModuleBase<
   ) => run(
     () => RaylibDebugLabels.SeekMusicStream(music, position),
     () => rl.Audio.SeekMusicStream.run2(
-      rl.Temp.Music$.Ref1(music).toJS,
+      rl.Temp.Music$.val.Ref1(music).toJS,
       position.toJS,
     ),
   );
@@ -501,7 +501,7 @@ class RaylibAudioD extends RaylibAudioModuleBase<
   ) => run(
     () => RaylibDebugLabels.SetMusicVolume(music, volume),
     () => rl.Audio.SetMusicVolume.run2(
-      rl.Temp.Music$.Ref1(music).toJS,
+      rl.Temp.Music$.val.Ref1(music).toJS,
       volume.toJS,
     ),
   );
@@ -513,7 +513,7 @@ class RaylibAudioD extends RaylibAudioModuleBase<
   ) => run(
     () => RaylibDebugLabels.SetMusicPitch(music, pitch),
     () => rl.Audio.SetMusicPitch.run2(
-      rl.Temp.Music$.Ref1(music).toJS,
+      rl.Temp.Music$.val.Ref1(music).toJS,
       pitch.toJS,
     ),
   );
@@ -525,7 +525,7 @@ class RaylibAudioD extends RaylibAudioModuleBase<
   ) => run(
     () => RaylibDebugLabels.SetMusicPan(music, pan),
     () => rl.Audio.SetMusicPan.run2(
-      rl.Temp.Music$.Ref1(music).toJS,
+      rl.Temp.Music$.val.Ref1(music).toJS,
       pan.toJS,
     ),
   );
@@ -536,7 +536,7 @@ class RaylibAudioD extends RaylibAudioModuleBase<
   ) => run(
     () => RaylibDebugLabels.GetMusicTimeLength(music),
     () => rl.Audio.GetMusicTimeLength.run1(
-      rl.Temp.Music$.Ref1(music).toJS,
+      rl.Temp.Music$.val.Ref1(music).toJS,
     ).toDouble(),
   );
 
@@ -546,7 +546,7 @@ class RaylibAudioD extends RaylibAudioModuleBase<
   ) => run(
     () => RaylibDebugLabels.GetMusicTimePlayed(music),
     () => rl.Audio.GetMusicTimePlayed.run1(
-      rl.Temp.Music$.Ref1(music).toJS,
+      rl.Temp.Music$.val.Ref1(music).toJS,
     ).toDouble(),
   );
 
@@ -557,7 +557,7 @@ class RaylibAudioD extends RaylibAudioModuleBase<
     num channels,
   ) => run(
     () => RaylibDebugLabels.LoadAudioStream(sampleRate, sampleSize, channels),
-    () => rl.Temp.AudioStream$.RefCapture(
+    () => rl.Temp.AudioStream$.val.RefCapture(
       RaylibCaptureIds.LoadAudioStream(sampleRate, sampleSize, channels),
       (p) => rl.Audio.LoadAudioStream.run4(
         p.toJS,
@@ -574,7 +574,7 @@ class RaylibAudioD extends RaylibAudioModuleBase<
   ) => run(
     () => RaylibDebugLabels.IsAudioStreamValid(stream),
     () => rl.Audio.IsAudioStreamValid.run1(
-      rl.Temp.AudioStream$.Ref1(stream).toJS,
+      rl.Temp.AudioStream$.val.Ref1(stream).toJS,
     ).toBool(),
   );
 
@@ -584,7 +584,7 @@ class RaylibAudioD extends RaylibAudioModuleBase<
   ) => run(
     () => RaylibDebugLabels.UnloadAudioStream(stream),
     () => rl.Audio.UnloadAudioStream.run1(
-      rl.Temp.AudioStream$.Ref1(stream).toJS,
+      rl.Temp.AudioStream$.val.Ref1(stream).toJS,
     ),
   );
 
@@ -594,7 +594,7 @@ class RaylibAudioD extends RaylibAudioModuleBase<
     TypedDataList data,
   ) => run(
     () => RaylibDebugLabels.UpdateAudioStream(stream, data),
-    () => rl.Temp.AudioStream$.RefUpdate1(stream,
+    () => rl.Temp.AudioStream$.val.RefUpdate1(stream,
       (p) => rl.Audio.UpdateAudioStream.run3(
         p.toJS,
         rl.Temp.TypedDataList$.Array(data).toJS,
@@ -609,7 +609,7 @@ class RaylibAudioD extends RaylibAudioModuleBase<
   ) => run(
     () => RaylibDebugLabels.IsAudioStreamProcessed(stream),
     () => rl.Audio.IsAudioStreamProcessed.run1(
-      rl.Temp.AudioStream$.Ref1(stream).toJS,
+      rl.Temp.AudioStream$.val.Ref1(stream).toJS,
     ).toBool(),
   );
 
@@ -619,7 +619,7 @@ class RaylibAudioD extends RaylibAudioModuleBase<
   ) => run(
     () => RaylibDebugLabels.PlayAudioStream(stream),
     () => rl.Audio.PlayAudioStream.run1(
-      rl.Temp.AudioStream$.Ref1(stream).toJS,
+      rl.Temp.AudioStream$.val.Ref1(stream).toJS,
     ),
   );
 
@@ -629,7 +629,7 @@ class RaylibAudioD extends RaylibAudioModuleBase<
   ) => run(
     () => RaylibDebugLabels.PauseAudioStream(stream),
     () => rl.Audio.PauseAudioStream.run1(
-      rl.Temp.AudioStream$.Ref1(stream).toJS,
+      rl.Temp.AudioStream$.val.Ref1(stream).toJS,
     ),
   );
 
@@ -639,7 +639,7 @@ class RaylibAudioD extends RaylibAudioModuleBase<
   ) => run(
     () => RaylibDebugLabels.ResumeAudioStream(stream),
     () => rl.Audio.ResumeAudioStream.run1(
-      rl.Temp.AudioStream$.Ref1(stream).toJS,
+      rl.Temp.AudioStream$.val.Ref1(stream).toJS,
     ),
   );
 
@@ -649,7 +649,7 @@ class RaylibAudioD extends RaylibAudioModuleBase<
   ) => run(
     () => RaylibDebugLabels.IsAudioStreamPlaying(stream),
     () => rl.Audio.IsAudioStreamPlaying.run1(
-      rl.Temp.AudioStream$.Ref1(stream).toJS,
+      rl.Temp.AudioStream$.val.Ref1(stream).toJS,
     ).toBool(),
   );
 
@@ -659,7 +659,7 @@ class RaylibAudioD extends RaylibAudioModuleBase<
   ) => run(
     () => RaylibDebugLabels.StopAudioStream(stream),
     () => rl.Audio.StopAudioStream.run1(
-      rl.Temp.AudioStream$.Ref1(stream).toJS,
+      rl.Temp.AudioStream$.val.Ref1(stream).toJS,
     ),
   );
 
@@ -670,7 +670,7 @@ class RaylibAudioD extends RaylibAudioModuleBase<
   ) => run(
     () => RaylibDebugLabels.SetAudioStreamVolume(stream, volume),
     () => rl.Audio.SetAudioStreamVolume.run2(
-      rl.Temp.AudioStream$.Ref1(stream).toJS,
+      rl.Temp.AudioStream$.val.Ref1(stream).toJS,
       volume.toJS,
     ),
   );
@@ -682,7 +682,7 @@ class RaylibAudioD extends RaylibAudioModuleBase<
   ) => run(
     () => RaylibDebugLabels.SetAudioStreamPitch(stream, pitch),
     () => rl.Audio.SetAudioStreamPitch.run2(
-      rl.Temp.AudioStream$.Ref1(stream).toJS,
+      rl.Temp.AudioStream$.val.Ref1(stream).toJS,
       pitch.toJS,
     ),
   );
@@ -694,7 +694,7 @@ class RaylibAudioD extends RaylibAudioModuleBase<
   ) => run(
     () => RaylibDebugLabels.SetAudioStreamPan(stream, pan),
     () => rl.Audio.SetAudioStreamPan.run2(
-      rl.Temp.AudioStream$.Ref1(stream).toJS,
+      rl.Temp.AudioStream$.val.Ref1(stream).toJS,
       pan.toJS,
     ),
   );
@@ -716,7 +716,7 @@ class RaylibAudioD extends RaylibAudioModuleBase<
   ) => run(
     () => RaylibDebugLabels.SetAudioStreamCallback(stream, callback),
     () => rl.Audio.SetAudioStreamCallback.run2(
-      rl.Temp.AudioStream$.Ref1(stream).toJS,
+      rl.Temp.AudioStream$.val.Ref1(stream).toJS,
       callback.attach().toJS,
     ),
   );
@@ -728,7 +728,7 @@ class RaylibAudioD extends RaylibAudioModuleBase<
   ) => run(
     () => RaylibDebugLabels.AttachAudioStreamProcessor(stream, callback),
     () => rl.Audio.AttachAudioStreamProcessor.run2(
-      rl.Temp.AudioStream$.Ref1(stream).toJS,
+      rl.Temp.AudioStream$.val.Ref1(stream).toJS,
       callback.attach().toJS,
     ),
   );
@@ -741,7 +741,7 @@ class RaylibAudioD extends RaylibAudioModuleBase<
   ) => run(
     () => RaylibDebugLabels.DetachAudioStreamProcessor(stream, callback, keepAlive: keepAlive),
     () => rl.Audio.DetachAudioStreamProcessor.run2(
-      rl.Temp.AudioStream$.Ref1(stream).toJS,
+      rl.Temp.AudioStream$.val.Ref1(stream).toJS,
       callback.detach(keepAlive).toJS,
     ),
   );

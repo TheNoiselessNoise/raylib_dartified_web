@@ -168,11 +168,11 @@ class ModelD extends StructDWeb<ModelD> with ModelBase<
 
   @override
   void structAllocateInto(RaylibTemp temp, WasmStructPointer<ModelD> p, String key) {
-    if (meshes.isNotEmpty) _meshes.ptr = temp.Mesh$.Array(_meshes.inner, key: '${key}_meshes');
-    if (materials.isNotEmpty) _materials.ptr = temp.Material$.Array(_materials.inner, key: '${key}_materials');
-    if (meshMaterial.isNotEmpty) _meshMaterial.ptr = temp.Int32$.Array(_meshMaterial.inner, key: '${key}_meshMaterial');
-    if (currentPose.isNotEmpty) _currentPose.ptr = temp.Transform$.Array(_currentPose.inner, key: '${key}_currentPose');
-    if (boneMatrices.isNotEmpty) _boneMatrices.ptr = temp.Matrix$.Array(_boneMatrices.inner, key: '${key}_boneMatrices');
+    if (meshes.isNotEmpty) _meshes.ptr = temp.Mesh$.val.Array(_meshes.inner, key: '${key}_meshes');
+    if (materials.isNotEmpty) _materials.ptr = temp.Material$.val.Array(_materials.inner, key: '${key}_materials');
+    if (meshMaterial.isNotEmpty) _meshMaterial.ptr = temp.Int32$.val.Array(_meshMaterial.inner, key: '${key}_meshMaterial');
+    if (currentPose.isNotEmpty) _currentPose.ptr = temp.Transform$.val.Array(_currentPose.inner, key: '${key}_currentPose');
+    if (boneMatrices.isNotEmpty) _boneMatrices.ptr = temp.Matrix$.val.Array(_boneMatrices.inner, key: '${key}_boneMatrices');
   }
 
   @override
@@ -180,12 +180,12 @@ class ModelD extends StructDWeb<ModelD> with ModelBase<
     writer.struct(_transform);
     writer.Int32(_meshes.length);
     writer.Int32(_materials.length);
-    writer.wasmptr(_meshes.ptr);
-    writer.wasmptr(_materials.ptr);
-    writer.wasmptr(_meshMaterial.ptr);
+    writer.wasmPointer(_meshes.ptr);
+    writer.wasmPointer(_materials.ptr);
+    writer.wasmPointer(_meshMaterial.ptr);
     writer.struct(_skeleton);
-    writer.wasmptr(_currentPose.ptr);
-    writer.wasmptr(_boneMatrices.ptr);
+    writer.wasmPointer(_currentPose.ptr);
+    writer.wasmPointer(_boneMatrices.ptr);
 
     _meshes.onPointer((p) => p.writeArray(_meshes.inner));
     _materials.onPointer((p) => p.writeArray(_materials.inner));

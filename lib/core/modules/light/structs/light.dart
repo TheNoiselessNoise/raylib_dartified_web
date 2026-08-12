@@ -26,7 +26,7 @@ class LightD extends StructDWeb<LightD> with LightBase<
   static final byteSize = _o.byteSize;
   static final _Offsets<_LightOffsets> _o = .fromMap({
     .type:           WasmSize.Int32,
-    .enabled:        WasmSize.Boolean,
+    .enabled:        WasmSize.Bool,
     .position:       Vector3D.byteSize,
     .target:         Vector3D.byteSize,
     .color:          ColorD.byteSize,

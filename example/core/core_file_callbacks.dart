@@ -1,10 +1,10 @@
 // Custom example, there's no original equivalent
-import 'package:raylib_dartified_web/raylib_dartified_web.dart';
+// Run it: dart run core_file_callbacks.dart
+import 'dart:typed_data';
+import '../base_dart.dart';
 
 const int screenWidth = 800;
 const int screenHeight = 450;
-
-Raylib get rl => Raylib.instance;
 
 class TestResult {
   final String name;
@@ -25,24 +25,20 @@ final results = <TestResult>[];
 // LoadFileData: returns 8 bytes [1,1,1,1,0,0,0,0]
 final TestResult lfdResult = TestResult('LoadFileData');
 TestResult testLoadFileData() {
-  rl.CoreD.SetLoadFileDataCallback(.function((fileNamePtr, dataSizePtr) {
-    final fileName = WasmStringPointer(fileNamePtr).ref;
+  SetLoadFileDataCallback(.friendly((fileName, dataSize) {
     lfdResult.assertIt(fileName == 'LoadFileData');
     const dummyDataSize = 8;
-
-    WasmInt32Pointer(dataSizePtr).value = dummyDataSize;
-
-    final List<int> data = .filled(dummyDataSize, 0);
+    dataSize.value = dummyDataSize;
+    final data = Uint8List(dummyDataSize);
     for (int i = 0; i < dummyDataSize ~/ 2; i++) data[i] = 1;
-
-    return rl.Temp.Uint8$.Array(key: 'lfd_$fileName', data).address;
+    return .fromBytes(data).cast();
   }));
 
-  final data = rl.CoreD.LoadFileData('LoadFileData');
-  lfdResult.assertIt(data.length == 8, 'expected size 8, got ${data.length}');
-  lfdResult.assertIt(data.join(',') == '1,1,1,1,0,0,0,0', 'unexpected bytes: ${data.join(",")}');
+  final bytes = LoadFileData('LoadFileData');
+  lfdResult.assertIt(bytes.length == 8, 'expected size 8, got ${bytes.length}');
+  lfdResult.assertIt(bytes.join(',') == '1,1,1,1,0,0,0,0', 'unexpected bytes: ${bytes.join(",")}');
 
-  rl.CoreD.SetLoadFileDataCallback(null);
+  SetLoadFileDataCallback(null);
   return lfdResult;
 }
 
@@ -51,44 +47,40 @@ int _savedDataSize = 0;
 List<int> _savedDataBytes = [];
 final TestResult sfdResult = TestResult('SaveFileData');
 TestResult testSaveFileData() {
-  rl.CoreD.SetSaveFileDataCallback(.function((fileNamePtr, dataPtr, dataSize) {
-    final fileName = WasmStringPointer(fileNamePtr).ref;
-
+  SetSaveFileDataCallback(.friendly((fileName, data, dataSize) {
     sfdResult.assertIt(fileName == 'SaveFileData');
     _savedDataSize = dataSize;
-    _savedDataBytes = WasmUint8Pointer(dataPtr).readArray(dataSize);
-    return 1;
-  }));
+    final bytes = data.to<Uint8List>(dataSize);
+    _savedDataBytes = .generate(dataSize, (i) => bytes[i]);
+    return true;
+  },));
 
   const count = 6;
-  final List<int> buf = .generate(count, (i) => (i + 1) * 10);
+  final buf = Uint8List(count);
+  for (int i = 0; i < count; i++) buf[i] = (i + 1) * 10;
 
-  final ok = rl.CoreD.SaveFileData('SaveFileData', .fromList(buf));
+  final ok = SaveFileData('SaveFileData', buf);
 
   sfdResult.assertIt(ok, 'SaveFileData returned false');
   sfdResult.assertIt(_savedDataSize == count, 'expected size $count, got $_savedDataSize');
   sfdResult.assertIt(_savedDataBytes.join(',') == '10,20,30,40,50,60', 'unexpected bytes: ${_savedDataBytes.join(",")}');
 
-  rl.CoreD.SetSaveFileDataCallback(null);
+  SetSaveFileDataCallback(null);
   return sfdResult;
 }
 
 // LoadFileText: returns a fixed null-terminated C string
 final TestResult lftResult = TestResult('LoadFileText');
 TestResult testLoadFileText() {
-  rl.CoreD.SetLoadFileTextCallback(.function((fileNamePtr) {
-    final fileName = WasmStringPointer(fileNamePtr).ref;
-
+  SetLoadFileTextCallback(.friendly((fileName) {
     lftResult.assertIt(fileName == 'LoadFileText');
-    const text = 'hello raylib';
-    return rl.Temp.String$.ValueAt('lft_$fileName', text).address;
-  }));
+    return 'hello raylib';
+  },));
 
-  final text = rl.CoreD.LoadFileText('LoadFileText');
-
+  final text = LoadFileText('LoadFileText');
   lftResult.assertIt(text == 'hello raylib', 'expected "hello raylib", got "$text"');
 
-  rl.CoreD.SetLoadFileTextCallback(null);
+  SetLoadFileTextCallback(null);
   return lftResult;
 }
 
@@ -96,28 +88,24 @@ TestResult testLoadFileText() {
 String _savedText = '';
 final TestResult sftResult = TestResult('SaveFileText');
 TestResult testSaveFileText() {
-  rl.CoreD.SetSaveFileTextCallback(.function((fileNamePtr, textPtr) {
-    final fileName = WasmStringPointer(fileNamePtr).ref;
-    final text = WasmStringPointer(textPtr).ref;
-
+  SetSaveFileTextCallback(.friendly((fileName, text) {
     sftResult.assertIt(fileName == 'SaveFileText');
     _savedText = text;
-    return 1;
+    return true;
   }));
 
-  final ok = rl.CoreD.SaveFileText('SaveFileText', 'greetings');
+  final ok = SaveFileText('SaveFileText', 'greetings');
 
   sftResult.assertIt(ok, 'SaveFileText returned false');
   sftResult.assertIt(_savedText == 'greetings', 'expected "greetings", got "$_savedText"');
 
-  rl.CoreD.SetSaveFileTextCallback(null);
+  SetSaveFileTextCallback(null);
   return sftResult;
 }
 
 void main() => Raylib((rl) {
-  rl.CoreD.InitWindow(screenWidth, screenHeight, 'core_file_callbacks');
-  rl.CoreD.SetWindowMonitor(0);
-  rl.CoreD.SetTargetFPS(60);
+  InitWindow(screenWidth, screenHeight, "core_file_callbacks");
+  SetTargetFPS(60);
 
   results.add(testLoadFileData());
   results.add(testSaveFileData());
@@ -131,12 +119,12 @@ void main() => Raylib((rl) {
   results.add(failedTest);
 
   rl.setMainLoop(() {
-    rl.CoreD.BeginDrawing();
-    rl.CoreD.ClearBackground(.RAYWHITE);
+    BeginDrawing();
+    ClearBackground(.RAYWHITE);
 
     DrawTestResults(allPassed);
 
-    rl.CoreD.EndDrawing();
+    EndDrawing();
   });
 });
 
@@ -150,9 +138,9 @@ void DrawTestResults(bool allPassed) {
 
   final ColorD headerColor = allPassed ? .DARKGREEN : .MAROON;
   final headerText  = allPassed ? 'ALL TESTS PASSED' : 'SOME TESTS FAILED';
-  rl.CoreD.DrawText(headerText, padX, padY, 24, headerColor);
+  DrawText(headerText, padX, padY, 24, headerColor);
 
-  rl.CoreD.DrawLine(padX, padY + 34, screenWidth - padX, padY + 34, .LIGHTGRAY);
+  DrawLine(padX, padY + 34, screenWidth - padX, padY + 34, .LIGHTGRAY);
 
   for (int i = 0; i < results.length; i++) {
     final r   = results[i];
@@ -160,10 +148,10 @@ void DrawTestResults(bool allPassed) {
     final ColorD bg  = r.passed ? .color(220, 255, 220, 255) : .color(255, 220, 220, 255);
     final ColorD dot = r.passed ? .GREEN : .RED;
 
-    rl.CoreD.DrawRectangle(padX, y, screenWidth - padX * 2, rowH - 4, bg);
-    rl.CoreD.DrawRectangleLines(padX, y, screenWidth - padX * 2, rowH - 4, dot);
+    DrawRectangle(padX, y, screenWidth - padX * 2, rowH - 4, bg);
+    DrawRectangleLines(padX, y, screenWidth - padX * 2, rowH - 4, dot);
 
-    rl.CoreD.DrawCircle(padX + iconW ~/ 2, y + (rowH - 4) ~/ 2, 13, dot);
+    DrawCircle(padX + iconW ~/ 2, y + (rowH - 4) ~/ 2, 13, dot);
 
     final signSize = 20;
     final signX = padX + iconW ~/ 2 - signSize ~/ 2;
@@ -175,20 +163,20 @@ void DrawTestResults(bool allPassed) {
       DrawXSign(signX, signY, signSize, .WHITE);
     }
 
-    rl.CoreD.DrawText(r.name, padX + iconW + 10, y + 7, fontSize, .BLACK);
+    DrawText(r.name, padX + iconW + 10, y + 7, fontSize, .BLACK);
 
     final detail = r.detail.length > 72 ? '${r.detail.substring(0, 69)}...' : r.detail;
-    rl.CoreD.DrawText(detail, padX + iconW + 10, y + 28, smallFont, .DARKGRAY);
+    DrawText(detail, padX + iconW + 10, y + 28, smallFont, .DARKGRAY);
   }
 }
 
 void DrawCheckmark(int x, int y, int size, ColorD color) {
-  rl.CoreD.DrawLineEx(
+  DrawLineEx(
     .vec2(x + size * 0.15, y + size * 0.50),
     .vec2(x + size * 0.40, y + size * 0.75),
     size * 0.15, color,
   );
-  rl.CoreD.DrawLineEx(
+  DrawLineEx(
     .vec2(x + size * 0.40, y + size * 0.75),
     .vec2(x + size * 0.85, y + size * 0.20),
     size * 0.15, color,
@@ -196,12 +184,12 @@ void DrawCheckmark(int x, int y, int size, ColorD color) {
 }
 
 void DrawXSign(int x, int y, int size, ColorD color) {
-  rl.CoreD.DrawLineEx(
+  DrawLineEx(
     .vec2(x + size * 0.20, y + size * 0.20),
     .vec2(x + size * 0.80, y + size * 0.80),
     size * 0.15, color,
   );
-  rl.CoreD.DrawLineEx(
+  DrawLineEx(
     .vec2(x + size * 0.80, y + size * 0.20),
     .vec2(x + size * 0.20, y + size * 0.80),
     size * 0.15, color,

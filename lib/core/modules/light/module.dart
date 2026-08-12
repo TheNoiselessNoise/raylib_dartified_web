@@ -45,7 +45,7 @@ class RaylibLightD extends RaylibLightModuleBase<
       light.colorLoc = rl.CoreD.GetShaderLocation(shader, "lights[$index].color");
       UpdateLightValues(shader, light);
 
-      rl.Temp.Light$.PointerTo(light, '_RaylibLight_$index');
+      rl.Temp.Light$.val.PointerTo(light, '_RaylibLight_$index');
 
       return light;
     },

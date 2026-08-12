@@ -131,8 +131,8 @@ class FontD extends StructDWeb<FontD> with FontBase<
 
   @override
   void structAllocateInto(RaylibTemp temp, WasmStructPointer<FontD> p, String key) {
-    if (recs.isNotEmpty) _recs.ptr = temp.Rectangle$.Raw(recs.length);
-    if (glyphs.isNotEmpty) _glyphs.ptr = temp.GlyphInfo$.Raw(glyphs.length);
+    if (recs.isNotEmpty) _recs.ptr = temp.Rectangle$.val.Raw(recs.length);
+    if (glyphs.isNotEmpty) _glyphs.ptr = temp.GlyphInfo$.val.Raw(glyphs.length);
   }
 
   @override
@@ -141,8 +141,8 @@ class FontD extends StructDWeb<FontD> with FontBase<
     writer.Int32(glyphCount);
     writer.Int32(glyphPadding);
     writer.struct(texture);
-    writer.wasmptr(_recs.ptr);
-    writer.wasmptr(_glyphs.ptr);
+    writer.wasmPointer(_recs.ptr);
+    writer.wasmPointer(_glyphs.ptr);
 
     _recs.onPointer((p) => p.writeArray(_recs.inner));
     _glyphs.onPointer((p) => p.writeArray(_glyphs.inner));

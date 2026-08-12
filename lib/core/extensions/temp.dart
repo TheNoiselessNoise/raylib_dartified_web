@@ -1,9 +1,112 @@
 part of '../raylib_dartified_web.dart';
 
-abstract class WasmPointer<T> {
-  // final _reader = WasmReader();
-  // final _writer = WasmWriter();
+class WasmMemoryPointer<X extends RType> implements MemoryPointer<X> {
+  final int _addr;
 
+  WasmMemoryPointer(this._addr);
+
+  @override
+  WasmMemoryPointer<Y> cast<Y extends RType>() => .new(_addr);
+
+  @override
+  bool get isNull => _addr == 0;
+
+  @override
+  void free() { if (!isNull) WasmMemory.free(_addr); }
+
+  @override
+  int get address => _addr;
+
+  @override
+  T to<T extends TypedDataList>(int length) {
+    return switch (T) {
+      const (Uint8List) => Uint8List.fromList(WasmMemory.heapU8.sublist(_addr, _addr + length)) as T,
+      const (Int8List) => Int8List.fromList(WasmMemory.heapI8.sublist(_addr, _addr + length)) as T,
+      const (Uint16List) => Uint16List.fromList(WasmMemory.heapU16.sublist(_addr ~/ 2, _addr ~/ 2 + length)) as T,
+      const (Int16List) => Int16List.fromList(WasmMemory.heapI16.sublist(_addr ~/ 2, _addr ~/ 2 + length)) as T,
+      const (Uint32List) => Uint32List.fromList(WasmMemory.heapU32.sublist(_addr ~/ 4, _addr ~/ 4 + length)) as T,
+      const (Int32List) => Int32List.fromList(WasmMemory.heapI32.sublist(_addr ~/ 4, _addr ~/ 4 + length)) as T,
+      const (Uint64List) => Uint64List.fromList(WasmMemory.heapU64.sublist(_addr ~/ 8, _addr ~/ 8 + length)) as T,
+      const (Int64List) => Int64List.fromList(WasmMemory.heapI64.sublist(_addr ~/ 8, _addr ~/ 8 + length)) as T,
+      const (Float32List) => Float32List.fromList(WasmMemory.heapF32.sublist(_addr ~/ 4, _addr ~/ 4 + length)) as T,
+      const (Float64List) => Float64List.fromList(WasmMemory.heapF64.sublist(_addr ~/ 8, _addr ~/ 8 + length)) as T,
+      _ => throw UnsupportedError('WasmMemPtr.to<$T> not implemented'),
+    };
+  }
+
+  @override
+  T asView<T extends TypedDataList>(int length) {
+    return switch (T) {
+      const (Uint8List) => WasmMemory.heapU8.buffer.asUint8List(_addr, length) as T,
+      const (Int8List) => WasmMemory.heapI8.buffer.asInt8List(_addr, length) as T,
+      const (Uint16List) => WasmMemory.heapU16.buffer.asUint16List(_addr, length) as T,
+      const (Int16List) => WasmMemory.heapI16.buffer.asInt16List(_addr, length) as T,
+      const (Uint32List) => WasmMemory.heapU32.buffer.asUint32List(_addr, length) as T,
+      const (Int32List) => WasmMemory.heapI32.buffer.asInt32List(_addr, length) as T,
+      const (Uint64List) => WasmMemory.heapU64.buffer.asUint64List(_addr, length) as T,
+      const (Int64List) => WasmMemory.heapI64.buffer.asInt64List(_addr, length) as T,
+      const (Float32List) => WasmMemory.heapF32.buffer.asFloat32List(_addr, length) as T,
+      const (Float64List) => WasmMemory.heapF64.buffer.asFloat64List(_addr, length) as T,
+      _ => throw UnsupportedError('WasmMemPtr.asView<$T> not implemented'),
+    };
+  }
+
+  @override
+  String toDartString() => WasmMemory.readString(_addr);
+
+  @override
+  String toDartStringBounded(int maxLength) => WasmMemory.readString(_addr, maxLength);
+
+  @override
+  MemoryPointer<Y> readPointer<Y extends RType>([int byteOffset = 0])
+    => WasmMemoryPointer<Y>(WasmMemory.readUint32(_addr, byteOffset));
+
+  @override
+  void writePointer(MemoryPointer<RType> value, [int byteOffset = 0])
+    => WasmMemory.writeUint32(_addr, byteOffset, value.address);
+
+  @override bool         readBool([int byteOffset = 0]) => WasmMemory.readBool(_addr, byteOffset);
+  @override int          readInt8([int byteOffset = 0]) => WasmMemory.readInt8(_addr, byteOffset);
+  @override int         readUint8([int byteOffset = 0]) => WasmMemory.readUint8(_addr, byteOffset);
+  @override int         readInt16([int byteOffset = 0]) => WasmMemory.readInt16(_addr, byteOffset);
+  @override int        readUint16([int byteOffset = 0]) => WasmMemory.readUint16(_addr, byteOffset);
+  @override int         readInt32([int byteOffset = 0]) => WasmMemory.readInt32(_addr, byteOffset);
+  @override int        readUint32([int byteOffset = 0]) => WasmMemory.readUint32(_addr, byteOffset);
+  @override int         readInt64([int byteOffset = 0]) => WasmMemory.readInt64(_addr, byteOffset);
+  @override int        readUint64([int byteOffset = 0]) => WasmMemory.readUint64(_addr, byteOffset);
+  @override double    readFloat32([int byteOffset = 0]) => WasmMemory.readFloat32(_addr, byteOffset);
+  @override double    readFloat64([int byteOffset = 0]) => WasmMemory.readFloat64(_addr, byteOffset);
+  @override int          readChar([int byteOffset = 0]) => WasmMemory.readChar(_addr, byteOffset);
+  @override int  readUnsignedChar([int byteOffset = 0]) => WasmMemory.readUnsignedChar(_addr, byteOffset);
+  @override int         readShort([int byteOffset = 0]) => WasmMemory.readShort(_addr, byteOffset);
+  @override int readUnsignedShort([int byteOffset = 0]) => WasmMemory.readUnsignedShort(_addr, byteOffset);
+  @override int           readInt([int byteOffset = 0]) => WasmMemory.readInt(_addr, byteOffset);
+  @override int   readUnsignedInt([int byteOffset = 0]) => WasmMemory.readUnsignedInt(_addr, byteOffset);
+  @override double      readFloat([int byteOffset = 0]) => WasmMemory.readFloat(_addr, byteOffset);
+  @override double     readDouble([int byteOffset = 0]) => WasmMemory.readDouble(_addr, byteOffset);
+
+  @override void          writeBool(bool value,   [int byteOffset = 0]) => WasmMemory.writeBool(_addr, value, byteOffset);
+  @override void          writeInt8(int value,    [int byteOffset = 0]) => WasmMemory.writeInt8(_addr, value, byteOffset);
+  @override void         writeUint8(int value,    [int byteOffset = 0]) => WasmMemory.writeUint8(_addr, value, byteOffset);
+  @override void         writeInt16(int value,    [int byteOffset = 0]) => WasmMemory.writeInt16(_addr, value, byteOffset);
+  @override void        writeUint16(int value,    [int byteOffset = 0]) => WasmMemory.writeUint16(_addr, value, byteOffset);
+  @override void         writeInt32(int value,    [int byteOffset = 0]) => WasmMemory.writeInt32(_addr, value, byteOffset);
+  @override void        writeUint32(int value,    [int byteOffset = 0]) => WasmMemory.writeUint32(_addr, value, byteOffset);
+  @override void         writeInt64(int value,    [int byteOffset = 0]) => WasmMemory.writeInt64(_addr, value, byteOffset);
+  @override void        writeUint64(int value,    [int byteOffset = 0]) => WasmMemory.writeUint64(_addr, value, byteOffset);
+  @override void       writeFloat32(double value, [int byteOffset = 0]) => WasmMemory.writeFloat32(_addr, value, byteOffset);
+  @override void       writeFloat64(double value, [int byteOffset = 0]) => WasmMemory.writeFloat64(_addr, value, byteOffset);
+  @override void          writeChar(int value,    [int byteOffset = 0]) => WasmMemory.writeChar(_addr, value, byteOffset);
+  @override void  writeUnsignedChar(int value,    [int byteOffset = 0]) => WasmMemory.writeUnsignedChar(_addr, value, byteOffset);
+  @override void         writeShort(int value,    [int byteOffset = 0]) => WasmMemory.writeShort(_addr, value, byteOffset);
+  @override void writeUnsignedShort(int value,    [int byteOffset = 0]) => WasmMemory.writeUnsignedShort(_addr, value, byteOffset);
+  @override void           writeInt(int value,    [int byteOffset = 0]) => WasmMemory.writeInt(_addr, value, byteOffset);
+  @override void   writeUnsignedInt(int value,    [int byteOffset = 0]) => WasmMemory.writeUnsignedInt(_addr, value, byteOffset);
+  @override void         writeFloat(double value, [int byteOffset = 0]) => WasmMemory.writeFloat(_addr, value, byteOffset);
+  @override void        writeDouble(double value, [int byteOffset = 0]) => WasmMemory.writeDouble(_addr, value, byteOffset);
+}
+
+abstract class WasmPointer<T> {
   final int address;
 
   WasmPointer(this.address);
@@ -29,9 +132,6 @@ abstract class WasmSizedPointer<T> extends WasmPointer<T> {
   
   WasmSizedPointer(super.address, {required this.byteSize});
 
-  // WasmReader _readerAt([int index = 0]) => _reader..reset(offset(index));
-  // WasmWriter _writerAt([int index = 0]) => _writer..reset(offset(index));
-
   T get defaultValue;
 
   T get value => isNull ? defaultValue : ref;
@@ -53,7 +153,7 @@ class WasmSizedPointerPointer<X, T extends WasmSizedPointer<X>> extends WasmSize
   final T Function(int ptr) innerPointerAt;
 
   WasmSizedPointerPointer(super.address, this.innerPointerAt) : super(
-    byteSize: WasmSize.AnyPointer
+    byteSize: WasmSize.Pointer
   );
 
   @override
@@ -83,16 +183,12 @@ class WasmSizedPointerPointer<X, T extends WasmSizedPointer<X>> extends WasmSize
   }
 }
 
-class WasmLiteralTypedPointerPointer<T, L extends TypedDataList> extends WasmSizedPointerPointer<T, WasmLiteralTypedPointer<T, L>> {
-  WasmLiteralTypedPointerPointer(super.address, super.innerPointerAt);
-}
-
-abstract class WasmLiteralTypedPointer<T, L extends TypedDataList> extends WasmSizedPointer<T> {
+abstract class WasmLitTypedPointer<T, L extends TypedDataList> extends WasmSizedPointer<T> {
   final T Function(WasmReader reader) readerFunc;
   final void Function(WasmWriter writer, T value) writerFunc;
   final T Function() defaultFunc;
 
-  WasmLiteralTypedPointer(super.address, {
+  WasmLitTypedPointer(super.address, {
     required super.byteSize,
     required this.readerFunc,
     required this.writerFunc,
@@ -123,7 +219,28 @@ abstract class WasmLiteralTypedPointer<T, L extends TypedDataList> extends WasmS
   void setAll(List<T> values) => typedHeap.setAll(address ~/ byteSize, values);
 }
 
-class WasmInt8Pointer extends WasmLiteralTypedPointer<int, Int8List> {
+class WasmBoolPointer extends WasmSizedPointer<bool> {
+  WasmBoolPointer(super.address) : super(byteSize: WasmSize.Uint8);
+
+  factory WasmBoolPointer.nullptr() => .new(0);
+
+  @override
+  bool get defaultValue => false;
+
+  @override
+  bool get ref => WasmReader(address).Bool();
+
+  @override
+  set ref(bool v) => WasmWriter(address).Bool(v);
+
+  @override
+  bool operator [](int index) => WasmReader(offset(index)).Bool();
+
+  @override
+  void operator []=(int index, bool v) => WasmWriter(offset(index)).Bool(v);
+}
+
+class WasmInt8Pointer extends WasmLitTypedPointer<int, Int8List> {
   WasmInt8Pointer(super.address) : super(
     byteSize: WasmSize.Int8,
     readerFunc: (reader) => reader.Int8(),
@@ -143,67 +260,7 @@ class WasmInt8Pointer extends WasmLiteralTypedPointer<int, Int8List> {
   Int8List view(int length) => .view(typedHeap.buffer, address, length);
 }
 
-class WasmInt16Pointer extends WasmLiteralTypedPointer<int, Int16List> {
-  WasmInt16Pointer(super.address) : super(
-    byteSize: WasmSize.Int16,
-    readerFunc: (reader) => reader.Int16(),
-    writerFunc: (writer, v) => writer.Int16(v),
-    defaultFunc: () => 0,
-  );
-
-  factory WasmInt16Pointer.nullptr() => .new(0);
-
-  @override
-  Int16List readTypedArray(int count) => .fromList(readArray(count));
-
-  @override
-  Int16List get typedHeap => WasmMemory.heapI16;
-
-  @override
-  Int16List view(int length) => .view(typedHeap.buffer, address, length);
-}
-
-class WasmInt32Pointer extends WasmLiteralTypedPointer<int, Int32List> {
-  WasmInt32Pointer(super.address) : super(
-    byteSize: WasmSize.Int32,
-    readerFunc: (reader) => reader.Int32(),
-    writerFunc: (writer, v) => writer.Int32(v),
-    defaultFunc: () => 0,
-  );
-
-  factory WasmInt32Pointer.nullptr() => .new(0);
-
-  @override
-  Int32List readTypedArray(int count) => .fromList(readArray(count));
-
-  @override
-  Int32List get typedHeap => WasmMemory.heapI32;
-
-  @override
-  Int32List view(int length) => .view(typedHeap.buffer, address, length);
-}
-
-class WasmInt64Pointer extends WasmLiteralTypedPointer<int, Int64List> {
-  WasmInt64Pointer(super.address) : super(
-    byteSize: WasmSize.Int64,
-    readerFunc: (reader) => reader.Int64(),
-    writerFunc: (writer, v) => writer.Int64(v),
-    defaultFunc: () => 0,
-  );
-
-  factory WasmInt64Pointer.nullptr() => .new(0);
-
-  @override
-  Int64List readTypedArray(int count) => .fromList(readArray(count));
-
-  @override
-  Int64List get typedHeap => WasmMemory.heapI64;
-
-  @override
-  Int64List view(int length) => .view(typedHeap.buffer, address, length);
-}
-
-class WasmUint8Pointer extends WasmLiteralTypedPointer<int, Uint8List> {
+class WasmUint8Pointer extends WasmLitTypedPointer<int, Uint8List> {
   WasmUint8Pointer(super.address) : super(
     byteSize: WasmSize.Uint8,
     readerFunc: (reader) => reader.Uint8(),
@@ -223,7 +280,27 @@ class WasmUint8Pointer extends WasmLiteralTypedPointer<int, Uint8List> {
   Uint8List view(int length) => .view(typedHeap.buffer, address, length);
 }
 
-class WasmUint16Pointer extends WasmLiteralTypedPointer<int, Uint16List> {
+class WasmInt16Pointer extends WasmLitTypedPointer<int, Int16List> {
+  WasmInt16Pointer(super.address) : super(
+    byteSize: WasmSize.Int16,
+    readerFunc: (reader) => reader.Int16(),
+    writerFunc: (writer, v) => writer.Int16(v),
+    defaultFunc: () => 0,
+  );
+
+  factory WasmInt16Pointer.nullptr() => .new(0);
+
+  @override
+  Int16List readTypedArray(int count) => .fromList(readArray(count));
+
+  @override
+  Int16List get typedHeap => WasmMemory.heapI16;
+
+  @override
+  Int16List view(int length) => .view(typedHeap.buffer, address, length);
+}
+
+class WasmUint16Pointer extends WasmLitTypedPointer<int, Uint16List> {
   WasmUint16Pointer(super.address) : super(
     byteSize: WasmSize.Uint16,
     readerFunc: (reader) => reader.Uint16(),
@@ -232,6 +309,7 @@ class WasmUint16Pointer extends WasmLiteralTypedPointer<int, Uint16List> {
   );
 
   factory WasmUint16Pointer.nullptr() => .new(0);
+
   @override
   Uint16List readTypedArray(int count) => .fromList(readArray(count));
 
@@ -242,7 +320,27 @@ class WasmUint16Pointer extends WasmLiteralTypedPointer<int, Uint16List> {
   Uint16List view(int length) => .view(typedHeap.buffer, address, length);
 }
 
-class WasmUint32Pointer extends WasmLiteralTypedPointer<int, Uint32List> {
+class WasmInt32Pointer extends WasmLitTypedPointer<int, Int32List> {
+  WasmInt32Pointer(super.address) : super(
+    byteSize: WasmSize.Int32,
+    readerFunc: (reader) => reader.Int32(),
+    writerFunc: (writer, v) => writer.Int32(v),
+    defaultFunc: () => 0,
+  );
+
+  factory WasmInt32Pointer.nullptr() => .new(0);
+
+  @override
+  Int32List readTypedArray(int count) => .fromList(readArray(count));
+
+  @override
+  Int32List get typedHeap => WasmMemory.heapI32;
+
+  @override
+  Int32List view(int length) => .view(typedHeap.buffer, address, length);
+}
+
+class WasmUint32Pointer extends WasmLitTypedPointer<int, Uint32List> {
   WasmUint32Pointer(super.address) : super(
     byteSize: WasmSize.Uint32,
     readerFunc: (reader) => reader.Uint32(),
@@ -251,6 +349,7 @@ class WasmUint32Pointer extends WasmLiteralTypedPointer<int, Uint32List> {
   );
 
   factory WasmUint32Pointer.nullptr() => .new(0);
+  
   @override
   Uint32List readTypedArray(int count) => .fromList(readArray(count));
 
@@ -261,7 +360,27 @@ class WasmUint32Pointer extends WasmLiteralTypedPointer<int, Uint32List> {
   Uint32List view(int length) => .view(typedHeap.buffer, address, length);
 }
 
-class WasmUint64Pointer extends WasmLiteralTypedPointer<int, Uint64List> {
+class WasmInt64Pointer extends WasmLitTypedPointer<int, Int64List> {
+  WasmInt64Pointer(super.address) : super(
+    byteSize: WasmSize.Int64,
+    readerFunc: (reader) => reader.Int64(),
+    writerFunc: (writer, v) => writer.Int64(v),
+    defaultFunc: () => 0,
+  );
+
+  factory WasmInt64Pointer.nullptr() => .new(0);
+
+  @override
+  Int64List readTypedArray(int count) => .fromList(readArray(count));
+
+  @override
+  Int64List get typedHeap => WasmMemory.heapI64;
+
+  @override
+  Int64List view(int length) => .view(typedHeap.buffer, address, length);
+}
+
+class WasmUint64Pointer extends WasmLitTypedPointer<int, Uint64List> {
   WasmUint64Pointer(super.address) : super(
     byteSize: WasmSize.Uint64,
     readerFunc: (reader) => reader.Uint64(),
@@ -281,7 +400,7 @@ class WasmUint64Pointer extends WasmLiteralTypedPointer<int, Uint64List> {
   Uint64List view(int length) => .view(typedHeap.buffer, address, length);
 }
 
-class WasmFloat32Pointer extends WasmLiteralTypedPointer<double, Float32List> {
+class WasmFloat32Pointer extends WasmLitTypedPointer<double, Float32List> {
   WasmFloat32Pointer(super.address) : super(
     byteSize: WasmSize.Float32,
     readerFunc: (reader) => reader.Float32(),
@@ -301,7 +420,7 @@ class WasmFloat32Pointer extends WasmLiteralTypedPointer<double, Float32List> {
   Float32List view(int length) => .view(typedHeap.buffer, address, length);
 }
 
-class WasmFloat64Pointer extends WasmLiteralTypedPointer<double, Float64List> {
+class WasmFloat64Pointer extends WasmLitTypedPointer<double, Float64List> {
   WasmFloat64Pointer(super.address) : super(
     byteSize: WasmSize.Float64,
     readerFunc: (reader) => reader.Float64(),
@@ -321,25 +440,124 @@ class WasmFloat64Pointer extends WasmLiteralTypedPointer<double, Float64List> {
   Float64List view(int length) => .view(typedHeap.buffer, address, length);
 }
 
-class WasmBoolPointer extends WasmSizedPointer<bool> {
-  WasmBoolPointer(super.address) : super(byteSize: WasmSize.Int32);
+class WasmCharPointer extends WasmLitTypedPointer<int, Int8List> {
+  WasmCharPointer(super.address) : super(
+    byteSize: WasmSize.Char,
+    readerFunc: (reader) => reader.Char(),
+    writerFunc: (writer, v) => writer.Char(v),
+    defaultFunc: () => 0,
+  );
 
-  factory WasmBoolPointer.nullptr() => .new(0);
-
-  @override
-  bool get defaultValue => false;
-
-  @override
-  bool get ref => WasmReader(address).boolean();
-
-  @override
-  set ref(bool v) => WasmWriter(address).boolean(v);
+  factory WasmCharPointer.nullptr() => .new(0);
 
   @override
-  bool operator [](int index) => WasmReader(offset(index)).boolean();
+  Int8List readTypedArray(int count) => .fromList(readArray(count));
 
   @override
-  void operator []=(int index, bool v) => WasmWriter(offset(index)).boolean(v);
+  Int8List get typedHeap => WasmMemory.heapI8;
+
+  @override
+  Int8List view(int length) => .view(typedHeap.buffer, address, length);
+}
+
+class WasmUnsignedCharPointer extends WasmLitTypedPointer<int, Uint8List> {
+  WasmUnsignedCharPointer(super.address) : super(
+    byteSize: WasmSize.UnsignedChar,
+    readerFunc: (reader) => reader.UnsignedChar(),
+    writerFunc: (writer, v) => writer.UnsignedChar(v),
+    defaultFunc: () => 0,
+  );
+
+  factory WasmUnsignedCharPointer.nullptr() => .new(0);
+
+  @override
+  Uint8List readTypedArray(int count) => .fromList(readArray(count));
+
+  @override
+  Uint8List get typedHeap => WasmMemory.heapU8;
+
+  @override
+  Uint8List view(int length) => .view(typedHeap.buffer, address, length);
+}
+
+class WasmShortPointer extends WasmLitTypedPointer<int, Int16List> {
+  WasmShortPointer(super.address) : super(
+    byteSize: WasmSize.Short,
+    readerFunc: (reader) => reader.Short(),
+    writerFunc: (writer, v) => writer.Short(v),
+    defaultFunc: () => 0,
+  );
+
+  factory WasmShortPointer.nullptr() => .new(0);
+
+  @override
+  Int16List readTypedArray(int count) => .fromList(readArray(count));
+
+  @override
+  Int16List get typedHeap => WasmMemory.heapI16;
+
+  @override
+  Int16List view(int length) => .view(typedHeap.buffer, address, length);
+}
+
+class WasmUnsignedShortPointer extends WasmLitTypedPointer<int, Uint16List> {
+  WasmUnsignedShortPointer(super.address) : super(
+    byteSize: WasmSize.UnsignedShort,
+    readerFunc: (reader) => reader.UnsignedShort(),
+    writerFunc: (writer, v) => writer.UnsignedShort(v),
+    defaultFunc: () => 0,
+  );
+
+  factory WasmUnsignedShortPointer.nullptr() => .new(0);
+
+  @override
+  Uint16List readTypedArray(int count) => .fromList(readArray(count));
+
+  @override
+  Uint16List get typedHeap => WasmMemory.heapU16;
+
+  @override
+  Uint16List view(int length) => .view(typedHeap.buffer, address, length);
+}
+
+class WasmIntPointer extends WasmLitTypedPointer<int, Int32List> {
+  WasmIntPointer(super.address) : super(
+    byteSize: WasmSize.Int,
+    readerFunc: (reader) => reader.Int(),
+    writerFunc: (writer, v) => writer.Int(v),
+    defaultFunc: () => 0,
+  );
+
+  factory WasmIntPointer.nullptr() => .new(0);
+
+  @override
+  Int32List readTypedArray(int count) => .fromList(readArray(count));
+
+  @override
+  Int32List get typedHeap => WasmMemory.heapI32;
+
+  @override
+  Int32List view(int length) => .view(typedHeap.buffer, address, length);
+}
+
+class WasmUnsignedIntPointer extends WasmLitTypedPointer<int, Uint32List> {
+  WasmUnsignedIntPointer(super.address) : super(
+    byteSize: WasmSize.UnsignedInt,
+    readerFunc: (reader) => reader.UnsignedInt(),
+    writerFunc: (writer, v) => writer.UnsignedInt(v),
+    defaultFunc: () => 0,
+  );
+
+  factory WasmUnsignedIntPointer.nullptr() => .new(0);
+
+  @override
+  Uint32List readTypedArray(int count) => .fromList(readArray(count));
+
+  @override
+  Uint32List get typedHeap => WasmMemory.heapU32;
+
+  @override
+  Uint32List view(int length) => .view(typedHeap.buffer, address, length);
 }
 
 class WasmStructPointerPointer<T extends StructDWeb<T>> extends WasmSizedPointerPointer<T, WasmStructPointer<T>> {
@@ -422,7 +640,7 @@ class WasmStringPointer extends WasmSizedPointer<String> {
 
 class WasmStringPointerPointer extends WasmSizedPointer<WasmStringPointer> {
   WasmStringPointerPointer(super.address) : super(
-    byteSize: WasmSize.AnyPointer
+    byteSize: WasmSize.Pointer
   );
 
   factory WasmStringPointerPointer.nullptr() => .new(0);
@@ -431,16 +649,16 @@ class WasmStringPointerPointer extends WasmSizedPointer<WasmStringPointer> {
   WasmStringPointer get defaultValue => .nullptr();
 
   @override
-  WasmStringPointer get ref => .new(WasmReader(address).Uint32());
+  WasmStringPointer get ref => .new(WasmReader(address).pointer());
 
   @override
   set ref(WasmStringPointer v) => WasmWriter(address).Uint32(v.address);
 
   @override
-  WasmStringPointer operator [](int index) => .new(WasmReader(offset(index)).Uint32());
+  WasmStringPointer operator [](int index) => .new(WasmReader(offset(index)).pointer());
 
   @override
-  void operator []=(int index, WasmStringPointer v) => WasmWriter(offset(index)).Uint32(v.address);
+  void operator []=(int index, WasmStringPointer v) => WasmWriter(offset(index)).pointer(v.address);
 
   // convenience, skip the pointer layer
   List<String> readStrings(int count) => readArray(count).map((p) => p.value).toList();
@@ -457,10 +675,9 @@ abstract class WasmAlloc<
 > extends RaylibTempAllocatorBase<
   RaylibTemp, P, int
 > {
-  WasmAlloc(super.temp, super.name, {
+  WasmAlloc(super.temp, {
     required super.byteSize,
     required super.pointerFactory,
-    required super.printerFunc,
   }) : super(
     allocatorFunc: ([count = 1]) => WasmMemory.malloc(byteSize*count),
     freeFunc: (ptr) => WasmMemory.free(ptr),
@@ -479,19 +696,17 @@ class WasmLitAlloc<
 > {
   
   @override
-  late Function(P ptr, int i, X value) indexSetterFunc;
+  Function(P ptr, int i, X value) get indexSetterFunc
+    => (ptr, i, value) => ptr[i] = value;
 
   @override
-  late Function(P ptr, X value) literalSetterFunc;
+  Function(P ptr, X value) get literalSetterFunc
+    => (ptr, value) => ptr.value = value;
   
-  WasmLitAlloc(super.temp, super.name, {
+  WasmLitAlloc(super.temp, {
     required super.byteSize,
     required super.pointerFactory,
-    required super.printerFunc,
-  }) {
-    indexSetterFunc = (ptr, i, value) => ptr[i] = value;
-    literalSetterFunc = (ptr, value) => ptr.value = value;
-  }
+  });
 }
 
 class WasmLitTypedListAlloc<
@@ -503,10 +718,12 @@ class WasmLitTypedListAlloc<
 > {
 
   @override
-  late final List<D> Function(int ptr, int length) asDartList;
+  List<D> Function(int ptr, int length) get asDartList
+    => (ptr, length) => asView(ptr, length).toList().cast();
 
   @override
-  late final L Function(int ptr, int length) asTypedList;
+  L Function(int ptr, int length) get asTypedList
+    => (ptr, length) => fromList(asDartList(ptr, length));
 
   @override
   final L Function(Iterable<D> list) fromList;
@@ -517,18 +734,13 @@ class WasmLitTypedListAlloc<
   @override
   final L Function(ByteBuffer buffer, int offsetInBytes, int length) fromBuffer;
 
-  WasmLitTypedListAlloc(super.temp, super.name, {
+  WasmLitTypedListAlloc(super.temp, {
     required super.byteSize,
     required super.pointerFactory,
     required this.fromList,
     required this.asView,
     required this.fromBuffer,
-  }) : super(
-    printerFunc: (ptr) => ptr.value.toString(),
-  ) {
-    asDartList = (ptr, length) => asView(ptr, length).toList().cast();
-    asTypedList = (ptr, length) => fromList(asDartList(ptr, length));
-  }
+  });
 }
 
 class WasmLitIntAlloc<
@@ -538,7 +750,7 @@ class WasmLitIntAlloc<
 > with RaylibTempLiteralIntAllocatorBase<
   RaylibTemp, L, P, int
 > {
-  WasmLitIntAlloc(super.temp, super.name, {
+  WasmLitIntAlloc(super.temp, {
     required super.byteSize,
     required super.pointerFactory,
     required super.fromList,
@@ -554,7 +766,7 @@ class WasmLitFloatAlloc<
 > with RaylibTempLiteralFloatAllocatorBase<
   RaylibTemp, L, P, int
 > {
-  WasmLitFloatAlloc(super.temp, super.name, {
+  WasmLitFloatAlloc(super.temp, {
     required super.byteSize,
     required super.pointerFactory,
     required super.fromList,
@@ -574,17 +786,13 @@ class WasmLitPtrAlloc<
   final WasmSizedPointer<X> Function(List<X> array) rawArrayFunc;
 
   @override
-  late final Function(PP ptrptr, int i, WasmSizedPointer<X> ptr) indexSetterFunc;
+  Function(PP ptrptr, int i, WasmSizedPointer<X> ptr) get indexSetterFunc
+    => (ptrptr, i, ptr) => ptrptr[i] = ptr;
 
-  WasmLitPtrAlloc(super.temp, super.name, {
+  WasmLitPtrAlloc(super.temp, {
     required super.pointerFactory,
     required this.rawArrayFunc,
-  }) : super(
-    byteSize: WasmSize.AnyPointer,
-    printerFunc: (ptr) => 'We can\'t print Pointer<Pointer<$X>> at this level',
-  ) {
-    indexSetterFunc = (ptrptr, i, ptr) => ptrptr[i] = ptr;
-  }
+  }) : super(byteSize: WasmSize.Pointer);
 }
 
 class WasmStructAlloc<
@@ -597,49 +805,47 @@ class WasmStructAlloc<
   final T Function() factory;
 
   @override
-  late final T Function(WasmStructPointer<T> ptr) refFunc;
+  T Function(WasmStructPointer<T> ptr) get refFunc
+    => (ptr) => ptr.ref;
 
   @override
-  late final WasmStructPointer<T> Function(WasmStructPointer<T> ptr, T value) setRefFunc;
+  WasmStructPointer<T> Function(WasmStructPointer<T> ptr, T v) get setRefFunc
+    => (ptr, v) => ptr..ref = v;
 
   @override
-  late final void Function(WasmStructPointer<T> ptr, int i, T value) writeIntoIndexedFunc;
+  void Function(WasmStructPointer<T> ptr, int i, T value) get writeIntoIndexedFunc
+    => (ptr, i, value) => ptr[i] = value;
   
   @override
-  late final void Function(WasmStructPointer<T> ptr, T value) writeIntoFunc;
+  void Function(WasmStructPointer<T> ptr, T value) get writeIntoFunc
+    => (ptr, value) => ptr.ref = value;
 
   @override
-  late final void Function(WasmStructPointer<T> ptr, int i, T value) setCFunc;
+  void Function(WasmStructPointer<T> ptr, int i, T v) get setCFunc
+    => (ptr, i, v) => ptr[i] = v;
   
   @override
-  late final T Function(WasmStructPointer<T> ptr, int i) indexerFunc;
+  T Function(WasmStructPointer<T> ptr, int i) get indexerFunc
+    => (ptr, i) => ptr[i];
   
   @override
-  late final void Function(WasmStructPointer<T> ptr, int i, T value) indexSetterFunc;
+  void Function(WasmStructPointer<T> ptr, int i, T v) get indexSetterFunc
+    => (ptr, i, v) => ptr[i] = v;
 
   @override
-  late final T Function(WasmStructPointer<T> ptr) pointerToStruct;
+  T Function(WasmStructPointer<T> ptr) get pointerToStruct
+    => (ptr) => ptr.ref;
 
   @override
-  late final void Function(WasmStructPointer<T> ptr, T source) updateFunc;
+  void Function(WasmStructPointer<T> ptr, T source) get updateFunc
+    => (ptr, source) => source.wasmReadFrom(WasmReader(ptr.address));
 
-  WasmStructAlloc(super.temp, super.name, {
+  WasmStructAlloc(super.temp, {
     required super.byteSize,
     required this.factory,
   }) : super(
     pointerFactory: (ptr) => .new(ptr, factory, byteSize),
-    printerFunc: (ptr) => ptr.ref.signature(),
-  ) {
-    refFunc = (ptr) => ptr.ref;
-    setRefFunc = (ptr, value) => ptr..ref = value;
-    writeIntoIndexedFunc = (ptr, i, v) => ptr[i] = v;
-    writeIntoFunc = (ptr, v) => ptr.ref = v;
-    setCFunc = (ptr, i, value) => ptr[i] = value;
-    indexerFunc = (ptr, i) => ptr[i];
-    indexSetterFunc = (ptr, i, value) => ptr[i] = value;
-    pointerToStruct = (ptr) => ptr.ref;
-    updateFunc = (ptr, source) => source.wasmReadFrom(WasmReader(ptr.address));
-  }
+  );
 
   /// Fixed scratch slot holding a zero-initialized [T] struct, by pointer.
   ///
@@ -715,18 +921,14 @@ class WasmStructPtrAlloc<
   final WasmStructPointer<T> Function(List<T> array) rawArrayFunc;
 
   @override
-  late final void Function(WasmStructPointerPointer<T> ptr, int i, WasmStructPointer<T> value) indexSetterFunc;
+  void Function(WasmStructPointerPointer<T> ptr, int i, WasmStructPointer<T> value) get indexSetterFunc
+    => (ptr, i, value) => ptr[i] = value;
 
-  WasmStructPtrAlloc(super.temp, super.name, {
+  WasmStructPtrAlloc(super.temp, {
     required this.valueFunc,
     required this.rawArrayFunc,
     required super.pointerFactory,
-  }) : super(
-    byteSize: WasmSize.AnyPointer,
-    printerFunc: (ptr) => 'We can\'t print Pointer<Pointer<$T>> at this level',
-  ) {
-    indexSetterFunc = (ptr, i, value) => ptr[i] = value;
-  }
+  }) : super(byteSize: WasmSize.Pointer);
 }
 
 class WasmStringAlloc extends WasmAlloc<
@@ -737,39 +939,30 @@ class WasmStringAlloc extends WasmAlloc<
   @override final int slotCount;
 
   @override
-  int get ptrByteSize => WasmSize.AnyPointer;
+  int get ptrByteSize => WasmSize.Pointer;
 
   @override
-  late final void Function(WasmStringPointerPointer ptr) freePPFunc;
+  void Function(WasmStringPointerPointer ptr) get freePPFunc
+    => (ptr) => WasmMemory.free(ptr.address);
 
   @override
-  late final WasmStringPointer Function(String text, [int? bufferSize]) strAllocatorFunc;
+  WasmStringPointer Function(String text, [int? bufferSize]) get strAllocatorFunc
+    => (text, [bufferSize]) => .new(WasmMemory.allocString(text, bufferSize));
 
   @override
-  late final WasmStringPointerPointer Function(int count) ptrAllocatorFunc;
+  WasmStringPointerPointer Function(int count) get ptrAllocatorFunc
+    => (count) => .new(WasmMemory.malloc(ptrByteSize*count));
 
   @override
-  late final void Function(WasmStringPointerPointer ptrptr, int i, WasmStringPointer ptr) indexSetterFunc;
+  void Function(WasmStringPointerPointer ptrptr, int i, WasmStringPointer ptr) get indexSetterFunc
+    => (ptrptr, i, ptr) => ptrptr[i] = ptr;
 
-  WasmStringAlloc(super.temp, super.name, {
+  WasmStringAlloc(super.temp, {
     required this.slotCount,
   }) : super(
-    byteSize: WasmSize.AnyPointer,
+    byteSize: WasmSize.Pointer,
     pointerFactory: WasmStringPointer.new,
-    printerFunc: (ptr) => ptr.ref,
-  ) {
-    reset();
-    freePPFunc = (ptr) => WasmMemory.free(ptr.address);
-    ptrAllocatorFunc = (count) => .new(WasmMemory.malloc(ptrByteSize*count));
-    strAllocatorFunc = (text, [bufferSize]) {
-      final len = _module.lengthBytesUTF8(text.toJS) + 1; // +1 for NUL
-      final bufSize = bufferSize != null && bufferSize > len ? bufferSize : len;
-      final ptr = WasmMemory.malloc(bufSize);
-      _module.stringToUTF8(text.toJS, ptr, bufSize);
-      return .new(ptr);
-    };
-    indexSetterFunc = (ptrptr, i, ptr) => ptrptr[i] = ptr;
-  }
+  ) { reset(); }
 
   @override
   int Length(String text, [int? bufferSize]) {
@@ -787,39 +980,92 @@ class WasmStringAlloc extends WasmAlloc<
   }
 }
 
+class WasmType<T extends Object> {
+  final int size;
+  final int shift;
+  final List<T> Function() heap;
+
+  const WasmType(this.size, this.shift, this.heap);
+}
+
+class WasmTypes {
+  static final Int8    =    WasmType<int>(WasmSize.Int8,    0, () => WasmMemory.heapI8);
+  static final Uint8   =    WasmType<int>(WasmSize.Uint8,   0, () => WasmMemory.heapU8);
+  static final Int16   =    WasmType<int>(WasmSize.Int16,   1, () => WasmMemory.heapI16);
+  static final Uint16  =    WasmType<int>(WasmSize.Uint16,  1, () => WasmMemory.heapU16);
+  static final Int32   =    WasmType<int>(WasmSize.Int32,   2, () => WasmMemory.heapI32);
+  static final Uint32  =    WasmType<int>(WasmSize.Uint32,  2, () => WasmMemory.heapU32);
+  static final Int64   =    WasmType<int>(WasmSize.Int64,   3, () => WasmMemory.heapI64);
+  static final Uint64  =    WasmType<int>(WasmSize.Uint64,  3, () => WasmMemory.heapU64);
+  static final Float32 = WasmType<double>(WasmSize.Float32, 2, () => WasmMemory.heapF32);
+  static final Float64 = WasmType<double>(WasmSize.Float64, 3, () => WasmMemory.heapF64);
+
+  // C-name aliases share the same underlying descriptor
+  static final Char = Int8, UnsignedChar = Uint8;
+  static final Short = Int16, UnsignedShort = Uint16;
+  static final Int = Int32, UnsignedInt = Uint32;
+  static final Float = Float32, Double = Float64;
+}
+
 class WasmWriter {
   int _cur;
   int get cursor => _cur;
   WasmWriter([int ptr = 0]) : _cur = ptr;
+  void reset(int addr) => _cur = addr;
 
-  void reset([int? ptr]) => _cur = ptr ?? _cur;
+  void _write<T extends Object>(WasmType<T> t, T v) {
+    t.heap()[_cur >> t.shift] = v;
+    _cur += t.size;
+  }
 
-  void    Int8(int    v, [int? at]) { reset(at); WasmMemory.heapI8 [_cur     ] = v; _cur += WasmSize.Int8; }
-  void   Uint8(int    v, [int? at]) { reset(at); WasmMemory.heapU8 [_cur     ] = v; _cur += WasmSize.Uint8; }
-  void   Int16(int    v, [int? at]) { reset(at); WasmMemory.heapI16[_cur >> 1] = v; _cur += WasmSize.Int16; }
-  void  Uint16(int    v, [int? at]) { reset(at); WasmMemory.heapU16[_cur >> 1] = v; _cur += WasmSize.Uint16; }
-  void   Int32(int    v, [int? at]) { reset(at); WasmMemory.heapI32[_cur >> 2] = v; _cur += WasmSize.Int32; }
-  void  Uint32(int    v, [int? at]) { reset(at); WasmMemory.heapU32[_cur >> 2] = v; _cur += WasmSize.Uint32; }
-  void   Int64(int    v, [int? at]) { reset(at); WasmMemory.heapI64[_cur >> 3] = v; _cur += WasmSize.Int64; }
-  void  Uint64(int    v, [int? at]) { reset(at); WasmMemory.heapU64[_cur >> 3] = v; _cur += WasmSize.Uint64; }
-  void Float32(double v, [int? at]) { reset(at); WasmMemory.heapF32[_cur >> 2] = v; _cur += WasmSize.Float32; }
-  void Float64(double v, [int? at]) { reset(at); WasmMemory.heapF64[_cur >> 3] = v; _cur += WasmSize.Float64; }
+  void _writeArray<T extends Object>(WasmType<T> t, Iterable<T> v) {
+    t.heap().setAll(_cur >> t.shift, v);
+    _cur += v.length * t.size;
+  }
 
-  void    Int8Array(List<int>    v, [int? at]) { reset(at); WasmMemory.heapI8 .setAll(_cur,      v); _cur += v.length * WasmSize.Int8; }
-  void   Uint8Array(List<int>    v, [int? at]) { reset(at); WasmMemory.heapU8 .setAll(_cur,      v); _cur += v.length * WasmSize.Uint8; }
-  void   Int16Array(List<int>    v, [int? at]) { reset(at); WasmMemory.heapI16.setAll(_cur >> 1, v); _cur += v.length * WasmSize.Int16; }
-  void  Uint16Array(List<int>    v, [int? at]) { reset(at); WasmMemory.heapU16.setAll(_cur >> 1, v); _cur += v.length * WasmSize.Uint16; }
-  void   Int32Array(List<int>    v, [int? at]) { reset(at); WasmMemory.heapI32.setAll(_cur >> 2, v); _cur += v.length * WasmSize.Int32; }
-  void  Uint32Array(List<int>    v, [int? at]) { reset(at); WasmMemory.heapU32.setAll(_cur >> 2, v); _cur += v.length * WasmSize.Uint32; }
-  void   Int64Array(List<int>    v, [int? at]) { reset(at); WasmMemory.heapI64.setAll(_cur >> 3, v); _cur += v.length * WasmSize.Int64; }
-  void  Uint64Array(List<int>    v, [int? at]) { reset(at); WasmMemory.heapU64.setAll(_cur >> 3, v); _cur += v.length * WasmSize.Uint64; }
-  void Float32Array(List<double> v, [int? at]) { reset(at); WasmMemory.heapF32.setAll(_cur >> 2, v); _cur += v.length * WasmSize.Float32; }
-  void Float64Array(List<double> v, [int? at]) { reset(at); WasmMemory.heapF64.setAll(_cur >> 3, v); _cur += v.length * WasmSize.Float64; }
+  void          Bool(bool   v) => Uint8(v ? 1 : 0);
+  void          Int8(int    v) => _write(WasmTypes.Int8, v);
+  void         Uint8(int    v) => _write(WasmTypes.Uint8, v);
+  void         Int16(int    v) => _write(WasmTypes.Int16, v);
+  void        Uint16(int    v) => _write(WasmTypes.Uint16, v);
+  void         Int32(int    v) => _write(WasmTypes.Int32, v);
+  void        Uint32(int    v) => _write(WasmTypes.Uint32, v);
+  void         Int64(int    v) => _write(WasmTypes.Int64, v);
+  void        Uint64(int    v) => _write(WasmTypes.Uint64, v);
+  void       Float32(double v) => _write(WasmTypes.Float32, v);
+  void       Float64(double v) => _write(WasmTypes.Float64, v);
+  void          Char(int    v) => _write(WasmTypes.Char, v);
+  void  UnsignedChar(int    v) => _write(WasmTypes.UnsignedChar, v);
+  void         Short(int    v) => _write(WasmTypes.Short, v);
+  void UnsignedShort(int    v) => _write(WasmTypes.UnsignedShort, v);
+  void           Int(int    v) => _write(WasmTypes.Int, v);
+  void   UnsignedInt(int    v) => _write(WasmTypes.UnsignedInt, v);
+  void         Float(double v) => Float32(v);
+  void        Double(double v) => Float64(v);
 
-  void wasmptr([WasmPointer? ptr]) => Uint32(ptr?.address ?? 0);
+  void          BoolArray(Iterable<bool>   v) => Uint8Array(v.map((x) => x ? 1 : 0));
+  void          Int8Array(Iterable<int>    v) => _writeArray(WasmTypes.Int8, v);
+  void         Uint8Array(Iterable<int>    v) => _writeArray(WasmTypes.Uint8, v);
+  void         Int16Array(Iterable<int>    v) => _writeArray(WasmTypes.Int16, v);
+  void        Uint16Array(Iterable<int>    v) => _writeArray(WasmTypes.Uint16, v);
+  void         Int32Array(Iterable<int>    v) => _writeArray(WasmTypes.Int32, v);
+  void        Uint32Array(Iterable<int>    v) => _writeArray(WasmTypes.Uint32, v);
+  void         Int64Array(Iterable<int>    v) => _writeArray(WasmTypes.Int64, v);
+  void        Uint64Array(Iterable<int>    v) => _writeArray(WasmTypes.Uint64, v);
+  void       Float32Array(Iterable<double> v) => _writeArray(WasmTypes.Float32, v);
+  void       Float64Array(Iterable<double> v) => _writeArray(WasmTypes.Float64, v);
+  void          CharArray(Iterable<int>    v) => _writeArray(WasmTypes.Char, v);
+  void  UnsignedCharArray(Iterable<int>    v) => _writeArray(WasmTypes.UnsignedChar, v);
+  void         ShortArray(Iterable<int>    v) => _writeArray(WasmTypes.Short, v);
+  void UnsignedShortArray(Iterable<int>    v) => _writeArray(WasmTypes.UnsignedShort, v);
+  void           IntArray(Iterable<int>    v) => _writeArray(WasmTypes.Int, v);
+  void   UnsignedIntArray(Iterable<int>    v) => _writeArray(WasmTypes.UnsignedInt, v);
+  void         FloatArray(Iterable<double> v) => Float32Array(v);
+  void        DoubleArray(Iterable<double> v) => Float64Array(v);
+
+  void wasmPointer([WasmPointer? ptr]) => pointer(ptr?.address ?? 0);
+  
   void pointer(int ptr) => Uint32(ptr);
-
-  void boolean(bool v) => Int32(v ? 1 : 0);
 
   void struct<T extends StructDWeb<T>>(T v) => v.wasmWriteInto(this);
 
@@ -850,56 +1096,100 @@ class WasmReader {
   int _cur;
   int get cursor => _cur;
   WasmReader([int ptr = 0]) : _cur = ptr;
+  void reset(int addr) => _cur = addr;
 
-  void reset([int? ptr]) => _cur = ptr ?? _cur;
+  T _read<T extends Object>(WasmType<T> t) {
+    final value = t.heap()[_cur >> t.shift];
+    _cur += t.size;
+    return value;
+  }
 
-  int       Int8([int? at]) { reset(at); final v = WasmMemory.heapI8 [_cur     ]; _cur += WasmSize.Int8; return v; }
-  int      Uint8([int? at]) { reset(at); final v = WasmMemory.heapU8 [_cur     ]; _cur += WasmSize.Uint8; return v; }
-  int      Int16([int? at]) { reset(at); final v = WasmMemory.heapI16[_cur >> 1]; _cur += WasmSize.Int16; return v; }
-  int     Uint16([int? at]) { reset(at); final v = WasmMemory.heapU16[_cur >> 1]; _cur += WasmSize.Uint16; return v; }
-  int      Int32([int? at]) { reset(at); final v = WasmMemory.heapI32[_cur >> 2]; _cur += WasmSize.Int32; return v; }
-  int     Uint32([int? at]) { reset(at); final v = WasmMemory.heapU32[_cur >> 2]; _cur += WasmSize.Uint32; return v; }
-  int      Int64([int? at]) { reset(at); final v = WasmMemory.heapI64[_cur >> 3]; _cur += WasmSize.Int64; return v; }
-  int     Uint64([int? at]) { reset(at); final v = WasmMemory.heapU64[_cur >> 3]; _cur += WasmSize.Uint64; return v; }
-  double Float32([int? at]) { reset(at); final v = WasmMemory.heapF32[_cur >> 2]; _cur += WasmSize.Float32; return v; }
-  double Float64([int? at]) { reset(at); final v = WasmMemory.heapF64[_cur >> 3]; _cur += WasmSize.Float64; return v; }
+  List<T> _readArray<T extends Object>(WasmType<T> t, int length) {
+    final value = t.heap().sublist(_cur >> t.shift, _cur >> t.shift + length);
+    _cur += length * t.size;
+    return value;
+  }
 
-  List<int>       Int8Array(int n, [int? at]) { reset(at); final v = WasmMemory.heapI8 .sublist(_cur,       _cur + n      ); _cur += n * WasmSize.Int8; return v; }
-  List<int>      Uint8Array(int n, [int? at]) { reset(at); final v = WasmMemory.heapU8 .sublist(_cur,       _cur + n      ); _cur += n * WasmSize.Uint8; return v; }
-  List<int>      Int16Array(int n, [int? at]) { reset(at); final v = WasmMemory.heapI16.sublist(_cur >> 1, (_cur >> 1) + n); _cur += n * WasmSize.Int16; return v; }
-  List<int>     Uint16Array(int n, [int? at]) { reset(at); final v = WasmMemory.heapU16.sublist(_cur >> 1, (_cur >> 1) + n); _cur += n * WasmSize.Uint16; return v; }
-  List<int>      Int32Array(int n, [int? at]) { reset(at); final v = WasmMemory.heapI32.sublist(_cur >> 2, (_cur >> 2) + n); _cur += n * WasmSize.Int32; return v; }
-  List<int>     Uint32Array(int n, [int? at]) { reset(at); final v = WasmMemory.heapU32.sublist(_cur >> 2, (_cur >> 2) + n); _cur += n * WasmSize.Uint32; return v; }
-  List<int>      Int64Array(int n, [int? at]) { reset(at); final v = WasmMemory.heapI64.sublist(_cur >> 3, (_cur >> 3) + n); _cur += n * WasmSize.Int64; return v; }
-  List<int>     Uint64Array(int n, [int? at]) { reset(at); final v = WasmMemory.heapU64.sublist(_cur >> 3, (_cur >> 3) + n); _cur += n * WasmSize.Uint64; return v; }
-  List<double> Float32Array(int n, [int? at]) { reset(at); final v = WasmMemory.heapF32.sublist(_cur >> 2, (_cur >> 2) + n); _cur += n * WasmSize.Float32; return v; }
-  List<double> Float64Array(int n, [int? at]) { reset(at); final v = WasmMemory.heapF64.sublist(_cur >> 3, (_cur >> 3) + n); _cur += n * WasmSize.Float64; return v; }
+  bool         Bool() => Uint8() != 0;
+  int          Int8() => _read(WasmTypes.Int8);
+  int         Uint8() => _read(WasmTypes.Uint8);
+  int         Int16() => _read(WasmTypes.Int16);
+  int        Uint16() => _read(WasmTypes.Uint16);
+  int         Int32() => _read(WasmTypes.Int32);
+  int        Uint32() => _read(WasmTypes.Uint32);
+  int         Int64() => _read(WasmTypes.Int64);
+  int        Uint64() => _read(WasmTypes.Uint64);
+  double    Float32() => _read(WasmTypes.Float32);
+  double    Float64() => _read(WasmTypes.Float64);
+  int          Char() => _read(WasmTypes.Char);
+  int  UnsignedChar() => _read(WasmTypes.UnsignedChar);
+  int         Short() => _read(WasmTypes.Short);
+  int UnsignedShort() => _read(WasmTypes.UnsignedShort);
+  int           Int() => _read(WasmTypes.Int);
+  int   UnsignedInt() => _read(WasmTypes.UnsignedInt);
+  double      Float() => Float32();
+  double     Double() => Float64();
 
-  Int8List       Int8TypedArray(int n, [int? at]) { reset(at); final v = Int8List.fromList   (WasmMemory.heapI8 .sublist(_cur,       _cur + n      )); _cur += n * WasmSize.Int8; return v; }
-  Uint8List     Uint8TypedArray(int n, [int? at]) { reset(at); final v = Uint8List.fromList  (WasmMemory.heapU8 .sublist(_cur,       _cur + n      )); _cur += n * WasmSize.Uint8; return v; }
-  Int16List     Int16TypedArray(int n, [int? at]) { reset(at); final v = Int16List.fromList  (WasmMemory.heapI16.sublist(_cur >> 1, (_cur >> 1) + n)); _cur += n * WasmSize.Int16; return v; }
-  Uint16List   Uint16TypedArray(int n, [int? at]) { reset(at); final v = Uint16List.fromList (WasmMemory.heapU16.sublist(_cur >> 1, (_cur >> 1) + n)); _cur += n * WasmSize.Uint16; return v; }
-  Int32List     Int32TypedArray(int n, [int? at]) { reset(at); final v = Int32List.fromList  (WasmMemory.heapI32.sublist(_cur >> 2, (_cur >> 2) + n)); _cur += n * WasmSize.Int32; return v; }
-  Uint32List   Uint32TypedArray(int n, [int? at]) { reset(at); final v = Uint32List.fromList (WasmMemory.heapU32.sublist(_cur >> 2, (_cur >> 2) + n)); _cur += n * WasmSize.Uint32; return v; }
-  Int64List     Int64TypedArray(int n, [int? at]) { reset(at); final v = Int64List.fromList  (WasmMemory.heapI64.sublist(_cur >> 3, (_cur >> 3) + n)); _cur += n * WasmSize.Int64; return v; }
-  Uint64List   Uint64TypedArray(int n, [int? at]) { reset(at); final v = Uint64List.fromList (WasmMemory.heapU64.sublist(_cur >> 3, (_cur >> 3) + n)); _cur += n * WasmSize.Uint64; return v; }
-  Float32List Float32TypedArray(int n, [int? at]) { reset(at); final v = Float32List.fromList(WasmMemory.heapF32.sublist(_cur >> 2, (_cur >> 2) + n)); _cur += n * WasmSize.Float32; return v; }
-  Float64List Float64TypedArray(int n, [int? at]) { reset(at); final v = Float64List.fromList(WasmMemory.heapF64.sublist(_cur >> 3, (_cur >> 3) + n)); _cur += n * WasmSize.Float64; return v; }
+  List<bool>         BoolArray(int n) => Uint8Array(n).map((x) => x != 0).toList();
+  List<int>          Int8Array(int n) => _readArray(WasmTypes.Int8, n);
+  List<int>         Uint8Array(int n) => _readArray(WasmTypes.Uint8, n);
+  List<int>         Int16Array(int n) => _readArray(WasmTypes.Int16, n);
+  List<int>        Uint16Array(int n) => _readArray(WasmTypes.Uint16, n);
+  List<int>         Int32Array(int n) => _readArray(WasmTypes.Int32, n);
+  List<int>        Uint32Array(int n) => _readArray(WasmTypes.Uint32, n);
+  List<int>         Int64Array(int n) => _readArray(WasmTypes.Int64, n);
+  List<int>        Uint64Array(int n) => _readArray(WasmTypes.Uint64, n);
+  List<double>    Float32Array(int n) => _readArray(WasmTypes.Float32, n);
+  List<double>    Float64Array(int n) => _readArray(WasmTypes.Float64, n);
+  List<int>          CharArray(int n) => _readArray(WasmTypes.Char, n);
+  List<int>  UnsignedCharArray(int n) => _readArray(WasmTypes.UnsignedChar, n);
+  List<int>         ShortArray(int n) => _readArray(WasmTypes.Short, n);
+  List<int> UnsignedShortArray(int n) => _readArray(WasmTypes.UnsignedShort, n);
+  List<int>           IntArray(int n) => _readArray(WasmTypes.Int, n);
+  List<int>   UnsignedIntArray(int n) => _readArray(WasmTypes.UnsignedInt, n);
+  List<double>      FloatArray(int n) => Float32Array(n);
+  List<double>     DoubleArray(int n) => Float64Array(n);
 
-  WasmInt8Pointer       Int8Pointer() => .new(pointer());
-  WasmUint8Pointer     Uint8Pointer() => .new(pointer());
-  WasmInt16Pointer     Int16Pointer() => .new(pointer());
-  WasmUint16Pointer   Uint16Pointer() => .new(pointer());
-  WasmInt32Pointer     Int32Pointer() => .new(pointer());
-  WasmUint32Pointer   Uint32Pointer() => .new(pointer());
-  WasmInt64Pointer     Int64Pointer() => .new(pointer());
-  WasmUint64Pointer   Uint64Pointer() => .new(pointer());
-  WasmFloat32Pointer Float32Pointer() => .new(pointer());
-  WasmFloat64Pointer Float64Pointer() => .new(pointer());
+  Int8List            Int8TypedArray(int n) => .fromList(Int8Array(n));
+  Uint8List          Uint8TypedArray(int n) => .fromList(Uint8Array(n));
+  Int16List          Int16TypedArray(int n) => .fromList(Int16Array(n));
+  Uint16List        Uint16TypedArray(int n) => .fromList(Uint16Array(n));
+  Int32List          Int32TypedArray(int n) => .fromList(Int32Array(n));
+  Uint32List        Uint32TypedArray(int n) => .fromList(Uint32Array(n));
+  Int64List          Int64TypedArray(int n) => .fromList(Int64Array(n));
+  Uint64List        Uint64TypedArray(int n) => .fromList(Uint64Array(n));
+  Float32List      Float32TypedArray(int n) => .fromList(Float32Array(n));
+  Float64List      Float64TypedArray(int n) => .fromList(Float64Array(n));
+  Int8List            CharTypedArray(int n) => .fromList(CharArray(n));
+  Uint8List   UnsignedCharTypedArray(int n) => .fromList(UnsignedCharArray(n));
+  Int16List          ShortTypedArray(int n) => .fromList(ShortArray(n));
+  Uint16List UnsignedShortTypedArray(int n) => .fromList(UnsignedShortArray(n));
+  Int32List            IntTypedArray(int n) => .fromList(IntArray(n));
+  Uint32List   UnsignedIntTypedArray(int n) => .fromList(UnsignedIntArray(n));
+  Float32List        FloatTypedArray(int n) => .fromList(FloatArray(n));
+  Float64List       DoubleTypedArray(int n) => .fromList(DoubleArray(n));
+
+  WasmBoolPointer                   BoolPointer() => .new(pointer());
+  WasmInt8Pointer                   Int8Pointer() => .new(pointer());
+  WasmUint8Pointer                 Uint8Pointer() => .new(pointer());
+  WasmInt16Pointer                 Int16Pointer() => .new(pointer());
+  WasmUint16Pointer               Uint16Pointer() => .new(pointer());
+  WasmInt32Pointer                 Int32Pointer() => .new(pointer());
+  WasmUint32Pointer               Uint32Pointer() => .new(pointer());
+  WasmInt64Pointer                 Int64Pointer() => .new(pointer());
+  WasmUint64Pointer               Uint64Pointer() => .new(pointer());
+  WasmFloat32Pointer             Float32Pointer() => .new(pointer());
+  WasmFloat64Pointer             Float64Pointer() => .new(pointer());
+  WasmCharPointer                   CharPointer() => .new(pointer());
+  WasmUnsignedCharPointer   UnsignedCharPointer() => .new(pointer());
+  WasmShortPointer                 ShortPointer() => .new(pointer());
+  WasmUnsignedShortPointer UnsignedShortPointer() => .new(pointer());
+  WasmIntPointer                     IntPointer() => .new(pointer());
+  WasmUnsignedIntPointer     UnsignedIntPointer() => .new(pointer());
+  WasmFloat32Pointer               FloatPointer() => Float32Pointer();
+  WasmFloat64Pointer              DoublePointer() => Float64Pointer();
 
   int pointer() => Uint32();
-
-  bool boolean() => Int32() != 0;
 
   void struct<T extends StructDWeb<T>>(T v) => v.wasmReadFrom(this);
 
@@ -916,8 +1206,8 @@ class WasmReader {
   }
 
   List<String> stringArray(int count) {
-    final ptr = WasmStringPointer(Uint32());
-    return .generate(count, (i) => ptr[i]);
+    final ptr = WasmStringPointerPointer(pointer());
+    return .generate(count, (i) => ptr[i].ref);
   }
 
   String charArray(int length) {
@@ -930,34 +1220,48 @@ class WasmReader {
 }
 
 class WasmSize {
-  static const int Int8    = 1;
-  static const int Uint8   = 1;
-  static const int Int16   = 2;
-  static const int Uint16  = 2;
-  static const int Int32   = 4;
-  static const int Uint32  = 4;
-  static const int Int64   = 8;
-  static const int Uint64  = 8;
-  static const int Float32 = 4;
-  static const int Float64 = 8;
-  static const int Char    = Uint8;
-  static const int Boolean = Int32;
+  static const int Bool          = Uint8;
+  static const int Int8          = 1;
+  static const int Uint8         = 1;
+  static const int Int16         = 2;
+  static const int Uint16        = 2;
+  static const int Int32         = 4;
+  static const int Uint32        = 4;
+  static const int Int64         = 8;
+  static const int Uint64        = 8;
+  static const int Float32       = 4;
+  static const int Float64       = 8;
+  static const int Char          = Int8;
+  static const int UnsignedChar  = Uint8;
+  static const int Short         = Int16;
+  static const int UnsignedShort = Uint16;
+  static const int Int           = Int32;
+  static const int UnsignedInt   = Uint32;
+  static const int Float         = Float32;
+  static const int Double        = Float64;
 
   // just for better readability
-  static const int AnyPointer     = Uint32;
-  static const int StructPointer  = Uint32;
-  static const int Int8Pointer    = Uint32;
-  static const int Uint8Pointer   = Uint32;
-  static const int Int16Pointer   = Uint32;
-  static const int Uint16Pointer  = Uint32;
-  static const int Int32Pointer   = Uint32;
-  static const int Uint32Pointer  = Uint32;
-  static const int Int64Pointer   = Uint32;
-  static const int Uint64Pointer  = Uint32;
-  static const int Float32Pointer = Uint32;
-  static const int Float64Pointer = Uint32;
-  static const int CharPointer    = Uint32;
-  static const int BooleanPointer = Uint32;
+  static const int BoolPointer          = Uint32;
+  static const int Pointer              = Uint32;
+  static const int StructPointer        = Uint32;
+  static const int Int8Pointer          = Uint32;
+  static const int Uint8Pointer         = Uint32;
+  static const int Int16Pointer         = Uint32;
+  static const int Uint16Pointer        = Uint32;
+  static const int Int32Pointer         = Uint32;
+  static const int Uint32Pointer        = Uint32;
+  static const int Int64Pointer         = Uint32;
+  static const int Uint64Pointer        = Uint32;
+  static const int Float32Pointer       = Uint32;
+  static const int Float64Pointer       = Uint32;
+  static const int CharPointer          = Uint32;
+  static const int UnsignedCharPointer  = Uint32;
+  static const int ShortPointer         = Uint32;
+  static const int UnsignedShortPointer = Uint32;
+  static const int IntPointer           = Uint32;
+  static const int UnsignedIntPointer   = Uint32;
+  static const int FloatPointer         = Uint32;
+  static const int DoublePointer        = Uint32;
 }
 
 class WasmMemory {
@@ -972,87 +1276,87 @@ class WasmMemory {
   static Float32List get heapF32 => .view(_heapf32.buffer.toDart);
   static Float64List get heapF64 => .view(_heapf64.buffer.toDart);
 
-  static void    writeInt8(int ptr, int offset, int value)    => heapI8[ptr + offset] = value;
-  static void   writeUint8(int ptr, int offset, int value)    => heapU8[ptr + offset] = value;
-  static void   writeInt16(int ptr, int offset, int value)    => heapI16[(ptr >> 1) + offset] = value;
-  static void  writeUint16(int ptr, int offset, int value)    => heapU16[(ptr >> 1) + offset] = value;
-  static void   writeInt32(int ptr, int offset, int value)    => heapI32[(ptr >> 2) + offset] = value;
-  static void  writeUint32(int ptr, int offset, int value)    => heapU32[(ptr >> 2) + offset] = value;
-  static void   writeInt64(int ptr, int offset, int value)    => heapI64[(ptr >> 3) + offset] = value;
-  static void  writeUint64(int ptr, int offset, int value)    => heapU64[(ptr >> 3) + offset] = value;
-  static void writeFloat32(int ptr, int offset, double value) => heapF32[(ptr >> 2) + offset] = value;
-  static void writeFloat64(int ptr, int offset, double value) => heapF64[(ptr >> 3) + offset] = value;
+  static void write<T extends Object>(WasmType<T> t, int ptr, T value, [int offset = 0])
+    => t.heap()[(ptr >> t.shift) + offset] = value;
 
-  static int       readInt8(int ptr, [int offset = 0]) => heapI8[ptr + offset];
-  static int      readUint8(int ptr, [int offset = 0]) => heapU8[ptr + offset];
-  static int      readInt16(int ptr, [int offset = 0]) => heapI16[(ptr >> 1) + offset];
-  static int     readUint16(int ptr, [int offset = 0]) => heapU16[(ptr >> 1) + offset];
-  static int      readInt32(int ptr, [int offset = 0]) => heapI32[(ptr >> 2) + offset];
-  static int     readUint32(int ptr, [int offset = 0]) => heapU32[(ptr >> 2) + offset];
-  static int      readInt64(int ptr, [int offset = 0]) => heapI64[(ptr >> 3) + offset];
-  static int     readUint64(int ptr, [int offset = 0]) => heapU64[(ptr >> 3) + offset];
-  static double readFloat32(int ptr, [int offset = 0]) => heapF32[(ptr >> 2) + offset];
-  static double readFloat64(int ptr, [int offset = 0]) => heapF64[(ptr >> 3) + offset];
+  static T read<T extends Object>(WasmType<T> t, int ptr, [int offset = 0])
+    => t.heap()[(ptr >> t.shift) + offset];
 
-  static void dumpHex(TypedDataList heap, int ptr, int count, {int? before, int? after}) {
-    final start = ptr - (before ?? 0);
-    final end   = ptr + count + (after ?? 0);
-    final bytes = heap.sublist(start, end);
+  static int readPointer(int ptr, [int offset = 0]) => readUint32(ptr, offset);
+  static void writePointer(int ptr, int value, [int offset = 0]) => writeUint32(ptr, value, offset);
 
-    final sb = StringBuffer();
-    for (var i = 0; i < bytes.length; i += 16) {
-      // Address
-      final addr = start + i;
-      sb.write('0x${addr.toRadixString(16).padLeft(8, '0')}  ');
+  static void          writeBool(int ptr, bool value,   [int offset = 0]) => write<int>(WasmTypes.Uint8, ptr, value ? 1 : 0, offset);
+  static void          writeInt8(int ptr, int value,    [int offset = 0]) => write(WasmTypes.Int8, ptr, value, offset);
+  static void         writeUint8(int ptr, int value,    [int offset = 0]) => write(WasmTypes.Uint8, ptr, value, offset);
+  static void         writeInt16(int ptr, int value,    [int offset = 0]) => write(WasmTypes.Int16, ptr, value, offset);
+  static void        writeUint16(int ptr, int value,    [int offset = 0]) => write(WasmTypes.Uint16, ptr, value, offset);
+  static void         writeInt32(int ptr, int value,    [int offset = 0]) => write(WasmTypes.Int32, ptr, value, offset);
+  static void        writeUint32(int ptr, int value,    [int offset = 0]) => write(WasmTypes.Uint32, ptr, value, offset);
+  static void         writeInt64(int ptr, int value,    [int offset = 0]) => write(WasmTypes.Int64, ptr, value, offset);
+  static void        writeUint64(int ptr, int value,    [int offset = 0]) => write(WasmTypes.Uint64, ptr, value, offset);
+  static void       writeFloat32(int ptr, double value, [int offset = 0]) => write(WasmTypes.Float32, ptr, value, offset);
+  static void       writeFloat64(int ptr, double value, [int offset = 0]) => write(WasmTypes.Float64, ptr, value, offset);
+  static void          writeChar(int ptr, int value,    [int offset = 0]) => write(WasmTypes.Char, ptr, value, offset);
+  static void  writeUnsignedChar(int ptr, int value,    [int offset = 0]) => write(WasmTypes.UnsignedChar, ptr, value, offset);
+  static void         writeShort(int ptr, int value,    [int offset = 0]) => write(WasmTypes.Short, ptr, value, offset);
+  static void writeUnsignedShort(int ptr, int value,    [int offset = 0]) => write(WasmTypes.UnsignedShort, ptr, value, offset);
+  static void           writeInt(int ptr, int value,    [int offset = 0]) => write(WasmTypes.Int, ptr, value, offset);
+  static void   writeUnsignedInt(int ptr, int value,    [int offset = 0]) => write(WasmTypes.UnsignedInt, ptr, value, offset);
+  static void         writeFloat(int ptr, double value, [int offset = 0]) => write(WasmTypes.Float, ptr, value, offset);
+  static void        writeDouble(int ptr, double value, [int offset = 0]) => write(WasmTypes.Double, ptr, value, offset);
 
-      // Hex bytes
-      for (var j = 0; j < 16; j++) {
-        if (i + j < bytes.length) {
-          final byte = bytes[i + j];
-          if (byte is double) {
-            sb.write(byte.toInt().toRadixString(16).padLeft(2, '0'));
-          } else if (byte is int) {
-            sb.write(byte.toRadixString(16).padLeft(2, '0'));
-          } else {
-            sb.write('??');
-          }
-          sb.write(' ');
-        } else {
-          sb.write('   '); // padding for incomplete last row
-        }
-        if (j == 7) sb.write(' '); // extra space at midpoint
-      }
+  static bool         readBool(int ptr, [int offset = 0]) => read<int>(WasmTypes.Uint8, ptr, offset) != 0;
+  static int          readInt8(int ptr, [int offset = 0]) => read(WasmTypes.Int8, ptr, offset);
+  static int         readUint8(int ptr, [int offset = 0]) => read(WasmTypes.Uint8, ptr, offset);
+  static int         readInt16(int ptr, [int offset = 0]) => read(WasmTypes.Int16, ptr, offset);
+  static int        readUint16(int ptr, [int offset = 0]) => read(WasmTypes.Uint16, ptr, offset);
+  static int         readInt32(int ptr, [int offset = 0]) => read(WasmTypes.Int32, ptr, offset);
+  static int        readUint32(int ptr, [int offset = 0]) => read(WasmTypes.Uint32, ptr, offset);
+  static int         readInt64(int ptr, [int offset = 0]) => read(WasmTypes.Int64, ptr, offset);
+  static int        readUint64(int ptr, [int offset = 0]) => read(WasmTypes.Uint64, ptr, offset);
+  static double    readFloat32(int ptr, [int offset = 0]) => read(WasmTypes.Float32, ptr, offset);
+  static double    readFloat64(int ptr, [int offset = 0]) => read(WasmTypes.Float64, ptr, offset);
+  static int          readChar(int ptr, [int offset = 0]) => read(WasmTypes.Char, ptr, offset);
+  static int  readUnsignedChar(int ptr, [int offset = 0]) => read(WasmTypes.UnsignedChar, ptr, offset);
+  static int         readShort(int ptr, [int offset = 0]) => read(WasmTypes.Short, ptr, offset);
+  static int readUnsignedShort(int ptr, [int offset = 0]) => read(WasmTypes.UnsignedShort, ptr, offset);
+  static int           readInt(int ptr, [int offset = 0]) => read(WasmTypes.Int, ptr, offset);
+  static int   readUnsignedInt(int ptr, [int offset = 0]) => read(WasmTypes.UnsignedInt, ptr, offset);
+  static double      readFloat(int ptr, [int offset = 0]) => read(WasmTypes.Float, ptr, offset);
+  static double     readDouble(int ptr, [int offset = 0]) => read(WasmTypes.Double, ptr, offset);
 
-      sb.write(' |');
-
-      // ASCII sidebar
-      for (var j = 0; j < 16 && i + j < bytes.length; j++) {
-        final b = bytes[i + j];
-        sb.write((b >= 32 && b < 127) ? String.fromCharCode(b) : '.');
-      }
-
-      sb.write('|');
-      console.log(sb.toString());
-      sb.clear();
-    }
-  }
-
-  static int malloc(int size) => _module._malloc(size);
+  static int malloc(int size)
+    => _module._malloc(size);
   
-  static void free(int ptr) => _module._free(ptr);
+  static void free(int ptr)
+    => _module._free(ptr);
 
-  static void stringToUTF8(String str, int ptr, int maxLen) => _module.stringToUTF8(str.toJS, ptr, maxLen);
-  static int lengthBytesUTF8(String str) => _module.lengthBytesUTF8(str.toJS);
-  static String readString(int ptr) {
+  static void stringToUTF8(String str, int ptr, int maxLen)
+    => _module.stringToUTF8(str.toJS, ptr, maxLen);
+  
+  static int lengthBytesUTF8(String str)
+    => _module.lengthBytesUTF8(str.toJS);
+  
+  static String readString(int ptr, [int? maxLength]) {
     if (ptr == 0) return '';
     final heap = heapU8;
     int end = ptr;
-    while (end < heap.length && heap[end] != 0) end++;
+    final limit = maxLength != null ? ptr + maxLength : heap.length;
+    while (end < heap.length && end < limit && heap[end] != 0) end++;
     return utf8.decode(Uint8List.sublistView(heap, ptr, end));
   }
+  
   static void writeString(int ptr, String str) {
     final len = WasmMemory.lengthBytesUTF8(str);
     WasmMemory.stringToUTF8(str, ptr, len + 1); // +1 for null terminator
+  }
+  
+  static int allocString(String text, [int? bufferSize]) {
+    final len = _module.lengthBytesUTF8(text.toJS) + 1; // +1 for NUL
+    final bufSize = bufferSize != null && bufferSize > len ? bufferSize : len;
+    final ptr = WasmMemory.malloc(bufSize);
+    _module.stringToUTF8(text.toJS, ptr, bufSize);
+    return ptr;
   }
 }
 
@@ -1195,134 +1499,135 @@ class WasmRaylibTempUtils extends RaylibTempUtilsBase<RaylibTemp, int> {
   }
 }
 
+class WasmLitAllocators<
+  X, P extends WasmSizedPointer<X>
+> extends RaylibTempLitAllocators<
+  WasmLitAlloc<X, P>, WasmLitPtrAlloc<X, WasmSizedPointerPointer<X, P>>
+> {
+  WasmLitAllocators(WasmLitAlloc<X, P> val) : super(
+    val: val,
+    ptr: .new(val.temp,
+      pointerFactory: (ptr) => .new(ptr, val.pointerFactory),
+      rawArrayFunc: val.RawArray,
+    ),
+  );
+}
+
+class WasmLitIntAllocators<
+  L extends TypedDataList, P extends WasmSizedPointer<int>
+> extends RaylibTempLitIntAllocators<
+  WasmLitIntAlloc<L, P>, WasmLitPtrAlloc<int, WasmSizedPointerPointer<int, P>>
+> {
+  WasmLitIntAllocators(WasmLitIntAlloc<L, P> val) : super(
+    val: val,
+    ptr: .new(val.temp,
+      pointerFactory: (ptr) => .new(ptr, val.pointerFactory),
+      rawArrayFunc: val.RawArray,
+    ),
+  );
+}
+
+class WasmLitFloatAllocators<
+  L extends TypedDataList, P extends WasmSizedPointer<double>
+> extends RaylibTempLitFloatAllocators<
+  WasmLitFloatAlloc<L, P>, WasmLitPtrAlloc<double, WasmSizedPointerPointer<double, P>>
+> {
+  WasmLitFloatAllocators(WasmLitFloatAlloc<L, P> val) : super(
+    val: val,
+    ptr: .new(val.temp,
+      pointerFactory: (ptr) => .new(ptr, val.pointerFactory),
+      rawArrayFunc: val.RawArray,
+    ),
+  );
+}
+
+class WasmStructAllocators<
+  D extends StructDWeb<D>
+> extends RaylibTempStructAllocators<
+  WasmStructAlloc<D>, WasmStructPtrAlloc<D>
+> {
+  WasmStructAllocators(WasmStructAlloc<D> val) : super(
+    val: val,
+    ptr: .new(val.temp,
+      pointerFactory: (ptr) => .new(ptr, val.pointerFactory),
+      valueFunc: val.Value,
+      rawArrayFunc: val.RawArray,
+    ),
+  );
+}
+
 class RaylibTemp extends RaylibTempBase<Raylib> {
   RaylibTemp(super.rl, { super.options });
 
   @override late WasmRaylibTempUtils Utils;
 
+  // special
   @override late WasmTypedDataListAlloc TypedDataList$;
-
   @override late WasmStringAlloc String$;
 
-  @override late WasmLitAlloc<bool, WasmBoolPointer> Bool$;
-  @override late WasmLitPtrAlloc<bool, WasmSizedPointerPointer<bool, WasmBoolPointer>> Ptr$Bool$;
+  // literals
+  @override late WasmLitAllocators<bool, WasmBoolPointer> Bool$;
+  @override late WasmLitIntAllocators<Int8List, WasmInt8Pointer> Int8$;
+  @override late WasmLitIntAllocators<Uint8List, WasmUint8Pointer> Uint8$;
+  @override late WasmLitIntAllocators<Int16List, WasmInt16Pointer> Int16$;
+  @override late WasmLitIntAllocators<Uint16List, WasmUint16Pointer> Uint16$;
+  @override late WasmLitIntAllocators<Int32List, WasmInt32Pointer> Int32$;
+  @override late WasmLitIntAllocators<Uint32List, WasmUint32Pointer> Uint32$;
+  @override late WasmLitIntAllocators<Int64List, WasmInt64Pointer> Int64$;
+  @override late WasmLitIntAllocators<Uint64List, WasmUint64Pointer> Uint64$;
+  @override late WasmLitFloatAllocators<Float32List, WasmFloat32Pointer> Float32$;
+  @override late WasmLitFloatAllocators<Float64List, WasmFloat64Pointer> Float64$;
+  @override late WasmLitIntAllocators<Int8List, WasmCharPointer> Char$;
+  @override late WasmLitIntAllocators<Uint8List, WasmUnsignedCharPointer> UnsignedChar$;
+  @override late WasmLitIntAllocators<Int16List, WasmShortPointer> Short$;
+  @override late WasmLitIntAllocators<Uint16List, WasmUnsignedShortPointer> UnsignedShort$;
+  @override late WasmLitIntAllocators<Int32List, WasmIntPointer> Int$;
+  @override late WasmLitIntAllocators<Uint32List, WasmUnsignedIntPointer> UnsignedInt$;
+  @override WasmLitFloatAllocators<Float32List, WasmFloat32Pointer> get Float$ => Float32$;
+  @override WasmLitFloatAllocators<Float64List, WasmFloat64Pointer> get Double$ => Float64$;
 
-  @override late WasmLitIntAlloc<Int8List, WasmInt8Pointer> Int8$;
-  @override late WasmLitPtrAlloc<int, WasmSizedPointerPointer<int, WasmInt8Pointer>> Ptr$Int8$;
-  @override late WasmLitIntAlloc<Uint8List, WasmUint8Pointer> Uint8$;
-  @override late WasmLitPtrAlloc<int, WasmSizedPointerPointer<int, WasmUint8Pointer>> Ptr$Uint8$;
-  @override late WasmLitIntAlloc<Int16List, WasmInt16Pointer> Int16$;
-  @override late WasmLitPtrAlloc<int, WasmSizedPointerPointer<int, WasmInt16Pointer>> Ptr$Int16$;
-  @override late WasmLitIntAlloc<Uint16List, WasmUint16Pointer> Uint16$;
-  @override late WasmLitPtrAlloc<int, WasmSizedPointerPointer<int, WasmUint16Pointer>> Ptr$Uint16$;
-  @override late WasmLitIntAlloc<Int32List, WasmInt32Pointer> Int32$;
-  @override late WasmLitPtrAlloc<int, WasmSizedPointerPointer<int, WasmInt32Pointer>> Ptr$Int32$;
-  @override late WasmLitIntAlloc<Uint32List, WasmUint32Pointer> Uint32$;
-  @override late WasmLitPtrAlloc<int, WasmSizedPointerPointer<int, WasmUint32Pointer>> Ptr$Uint32$;
-  @override late WasmLitIntAlloc<Int64List, WasmInt64Pointer> Int64$;
-  @override late WasmLitPtrAlloc<int, WasmSizedPointerPointer<int, WasmInt64Pointer>> Ptr$Int64$;
-  @override late WasmLitIntAlloc<Uint64List, WasmUint64Pointer> Uint64$;
-  @override late WasmLitPtrAlloc<int, WasmSizedPointerPointer<int, WasmUint64Pointer>> Ptr$Uint64$;
-  @override late WasmLitFloatAlloc<Float32List, WasmFloat32Pointer> Float32$;
-  @override late WasmLitPtrAlloc<double, WasmSizedPointerPointer<double, WasmFloat32Pointer>> Ptr$Float32$;
-  @override late WasmLitFloatAlloc<Float64List, WasmFloat64Pointer> Float64$;
-  @override late WasmLitPtrAlloc<double, WasmSizedPointerPointer<double, WasmFloat64Pointer>> Ptr$Float64$;
-
-  @override late WasmLitIntAlloc<Int32List, WasmInt32Pointer> Int$;
-  @override late WasmLitPtrAlloc<int, WasmSizedPointerPointer<int, WasmInt32Pointer>> Ptr$Int$;
-  @override late WasmLitIntAlloc<Uint32List, WasmUint32Pointer> UnsignedInt$;
-  @override late WasmLitPtrAlloc<int, WasmSizedPointerPointer<int, WasmUint32Pointer>> Ptr$UnsignedInt$;
-  @override late WasmLitIntAlloc<Int8List, WasmInt8Pointer> Char$;
-  @override late WasmLitPtrAlloc<int, WasmSizedPointerPointer<int, WasmInt8Pointer>> Ptr$Char$;
-  @override late WasmLitIntAlloc<Uint8List, WasmUint8Pointer> UnsignedChar$;
-  @override late WasmLitPtrAlloc<int, WasmSizedPointerPointer<int, WasmUint8Pointer>> Ptr$UnsignedChar$;
-  @override late WasmLitIntAlloc<Int16List, WasmInt16Pointer> Short$;
-  @override late WasmLitPtrAlloc<int, WasmSizedPointerPointer<int, WasmInt16Pointer>> Ptr$Short$;
-  @override late WasmLitIntAlloc<Uint16List, WasmUint16Pointer> UnsignedShort$;
-  @override late WasmLitPtrAlloc<int, WasmSizedPointerPointer<int, WasmUint16Pointer>> Ptr$UnsignedShort$;
-
-  @override late WasmStructAlloc<AutomationEventListD> AutomationEventList$;
-  @override late WasmStructPtrAlloc<AutomationEventListD> Ptr$AutomationEventList$;
-  @override late WasmStructAlloc<AutomationEventD> AutomationEvent$;
-  @override late WasmStructPtrAlloc<AutomationEventD> Ptr$AutomationEvent$;
-  @override late WasmStructAlloc<AudioStreamD> AudioStream$;
-  @override late WasmStructPtrAlloc<AudioStreamD> Ptr$AudioStream$;
-  @override late WasmStructAlloc<BoneInfoD> BoneInfo$;
-  @override late WasmStructPtrAlloc<BoneInfoD> Ptr$BoneInfo$;
-  @override late WasmStructAlloc<BoundingBoxD> BoundingBox$;
-  @override late WasmStructPtrAlloc<BoundingBoxD> Ptr$BoundingBox$;
-  @override late WasmStructAlloc<Camera2DD> Camera2D$;
-  @override late WasmStructPtrAlloc<Camera2DD> Ptr$Camera2D$;
-  @override late WasmStructAlloc<Camera3DD> Camera3D$;
-  @override late WasmStructPtrAlloc<Camera3DD> Ptr$Camera3D$;
-  @override late WasmStructAlloc<ColorD> Color$;
-  @override late WasmStructPtrAlloc<ColorD> Ptr$Color$;
-  @override late WasmStructAlloc<FilePathListD> FilePathList$;
-  @override late WasmStructPtrAlloc<FilePathListD> Ptr$FilePathList$;
-  @override late WasmStructAlloc<FontD> Font$;
-  @override late WasmStructPtrAlloc<FontD> Ptr$Font$;
-  @override late WasmStructAlloc<GestureEventD> GestureEvent$;
-  @override late WasmStructPtrAlloc<GestureEventD> Ptr$GestureEvent$;
-  @override late WasmStructAlloc<GlyphInfoD> GlyphInfo$;
-  @override late WasmStructPtrAlloc<GlyphInfoD> Ptr$GlyphInfo$;
-  @override late WasmStructAlloc<ImageD> Image$;
-  @override late WasmStructPtrAlloc<ImageD> Ptr$Image$;
-  @override late WasmStructAlloc<LightD> Light$;
-  @override late WasmStructPtrAlloc<LightD> Ptr$Light$;
-  @override late WasmStructAlloc<MaterialD> Material$;
-  @override late WasmStructPtrAlloc<MaterialD> Ptr$Material$;
-  @override late WasmStructAlloc<MaterialMapD> MaterialMap$;
-  @override late WasmStructPtrAlloc<MaterialMapD> Ptr$MaterialMap$;
-  @override late WasmStructAlloc<MatrixD> Matrix$;
-  @override late WasmStructPtrAlloc<MatrixD> Ptr$Matrix$;
-  @override late WasmStructAlloc<MeshD> Mesh$;
-  @override late WasmStructPtrAlloc<MeshD> Ptr$Mesh$;
-  @override late WasmStructAlloc<ModelD> Model$;
-  @override late WasmStructPtrAlloc<ModelD> Ptr$Model$;
-  @override late WasmStructAlloc<ModelAnimationD> ModelAnimation$;
-  @override late WasmStructPtrAlloc<ModelAnimationD> Ptr$ModelAnimation$;
-  @override late WasmStructAlloc<ModelSkeletonD> ModelSkeleton$;
-  @override late WasmStructPtrAlloc<ModelSkeletonD> Ptr$ModelSkeleton$;
-  @override late WasmStructAlloc<MusicD> Music$;
-  @override late WasmStructPtrAlloc<MusicD> Ptr$Music$;
-  @override late WasmStructAlloc<NPatchInfoD> NPatchInfo$;
-  @override late WasmStructPtrAlloc<NPatchInfoD> Ptr$NPatchInfo$;
-  @override late WasmStructAlloc<QuaternionD> Quaternion$;
-  @override late WasmStructPtrAlloc<QuaternionD> Ptr$Quaternion$;
-  @override late WasmStructAlloc<RectangleD> Rectangle$;
-  @override late WasmStructPtrAlloc<RectangleD> Ptr$Rectangle$;
-  @override late WasmStructAlloc<RlDrawCallD> RlDrawCall$;
-  @override late WasmStructPtrAlloc<RlDrawCallD> Ptr$RlDrawCall$;
-  @override late WasmStructAlloc<RlRenderBatchD> RlRenderBatch$;
-  @override late WasmStructPtrAlloc<RlRenderBatchD> Ptr$RlRenderBatch$;
-  @override late WasmStructAlloc<RlVertexBufferD> RlVertexBuffer$;
-  @override late WasmStructPtrAlloc<RlVertexBufferD> Ptr$RlVertexBuffer$;
-  @override late WasmStructAlloc<RayD> Ray$;
-  @override late WasmStructPtrAlloc<RayD> Ptr$Ray$;
-  @override late WasmStructAlloc<RayCollisionD> RayCollision$;
-  @override late WasmStructPtrAlloc<RayCollisionD> Ptr$RayCollision$;
-  @override late WasmStructAlloc<RenderTextureD> RenderTexture$;
-  @override late WasmStructPtrAlloc<RenderTextureD> Ptr$RenderTexture$;
-  @override late WasmStructAlloc<ShaderD> Shader$;
-  @override late WasmStructPtrAlloc<ShaderD> Ptr$Shader$;
-  @override late WasmStructAlloc<SoundD> Sound$;
-  @override late WasmStructPtrAlloc<SoundD> Ptr$Sound$;
-  @override late WasmStructAlloc<TextureD> Texture$;
-  @override late WasmStructPtrAlloc<TextureD> Ptr$Texture$;
-  @override late WasmStructAlloc<TransformD> Transform$;
-  @override late WasmStructPtrAlloc<TransformD> Ptr$Transform$;
-  @override late WasmStructAlloc<Vector2D> Vector2$;
-  @override late WasmStructPtrAlloc<Vector2D> Ptr$Vector2$;
-  @override late WasmStructAlloc<Vector3D> Vector3$;
-  @override late WasmStructPtrAlloc<Vector3D> Ptr$Vector3$;
-  @override late WasmStructAlloc<Vector4D> Vector4$;
-  @override late WasmStructPtrAlloc<Vector4D> Ptr$Vector4$;
-  @override late WasmStructAlloc<VrDeviceInfoD> VrDeviceInfo$;
-  @override late WasmStructPtrAlloc<VrDeviceInfoD> Ptr$VrDeviceInfo$;
-  @override late WasmStructAlloc<VrStereoConfigD> VrStereoConfig$;
-  @override late WasmStructPtrAlloc<VrStereoConfigD> Ptr$VrStereoConfig$;
-  @override late WasmStructAlloc<WaveD> Wave$;
-  @override late WasmStructPtrAlloc<WaveD> Ptr$Wave$;
+  // structs
+  @override late WasmStructAllocators<AutomationEventListD> AutomationEventList$;
+  @override late WasmStructAllocators<AutomationEventD> AutomationEvent$;
+  @override late WasmStructAllocators<AudioStreamD> AudioStream$;
+  @override late WasmStructAllocators<BoneInfoD> BoneInfo$;
+  @override late WasmStructAllocators<BoundingBoxD> BoundingBox$;
+  @override late WasmStructAllocators<Camera2DD> Camera2D$;
+  @override late WasmStructAllocators<Camera3DD> Camera3D$;
+  @override late WasmStructAllocators<ColorD> Color$;
+  @override late WasmStructAllocators<FilePathListD> FilePathList$;
+  @override late WasmStructAllocators<FontD> Font$;
+  @override late WasmStructAllocators<GestureEventD> GestureEvent$;
+  @override late WasmStructAllocators<GlyphInfoD> GlyphInfo$;
+  @override late WasmStructAllocators<ImageD> Image$;
+  @override late WasmStructAllocators<LightD> Light$;
+  @override late WasmStructAllocators<MaterialD> Material$;
+  @override late WasmStructAllocators<MaterialMapD> MaterialMap$;
+  @override late WasmStructAllocators<MatrixD> Matrix$;
+  @override late WasmStructAllocators<MeshD> Mesh$;
+  @override late WasmStructAllocators<ModelD> Model$;
+  @override late WasmStructAllocators<ModelAnimationD> ModelAnimation$;
+  @override late WasmStructAllocators<ModelSkeletonD> ModelSkeleton$;
+  @override late WasmStructAllocators<MusicD> Music$;
+  @override late WasmStructAllocators<NPatchInfoD> NPatchInfo$;
+  @override late WasmStructAllocators<QuaternionD> Quaternion$;
+  @override late WasmStructAllocators<RectangleD> Rectangle$;
+  @override late WasmStructAllocators<RlDrawCallD> RlDrawCall$;
+  @override late WasmStructAllocators<RlRenderBatchD> RlRenderBatch$;
+  @override late WasmStructAllocators<RlVertexBufferD> RlVertexBuffer$;
+  @override late WasmStructAllocators<RayD> Ray$;
+  @override late WasmStructAllocators<RayCollisionD> RayCollision$;
+  @override late WasmStructAllocators<RenderTextureD> RenderTexture$;
+  @override late WasmStructAllocators<ShaderD> Shader$;
+  @override late WasmStructAllocators<SoundD> Sound$;
+  @override late WasmStructAllocators<TextureD> Texture$;
+  @override late WasmStructAllocators<TransformD> Transform$;
+  @override late WasmStructAllocators<Vector2D> Vector2$;
+  @override late WasmStructAllocators<Vector3D> Vector3$;
+  @override late WasmStructAllocators<Vector4D> Vector4$;
+  @override late WasmStructAllocators<VrDeviceInfoD> VrDeviceInfo$;
+  @override late WasmStructAllocators<VrStereoConfigD> VrStereoConfig$;
+  @override late WasmStructAllocators<WaveD> Wave$;
 
   @override
   void load() {
@@ -1330,678 +1635,353 @@ class RaylibTemp extends RaylibTempBase<Raylib> {
 
     TypedDataList$ = .new(this);
 
-    String$ = .new(this, 'String\$',
+    String$ = .new(this,
       slotCount: options.stringCount,
     );
 
-    Bool$ = .new(this, 'Bool\$',
-      byteSize: WasmSize.Int32,
+    _initLiteralAllocators();
+    _initStructAllocators();
+  }
+
+  void _initLiteralAllocators() {
+    Bool$ = .new(.new(this,
+      byteSize: WasmSize.Bool,
       pointerFactory: WasmBoolPointer.new,
-      printerFunc: (ptr) => ptr.value.toString(),
-    );
+    ));
 
-    Ptr$Bool$ = .new(this, 'Ptr\$Bool\$',
-      pointerFactory: (ptr) => .new(ptr, Bool$.pointerFactory),
-      rawArrayFunc: Bool$.RawArray,
-    );
-
-    Int8$ = WasmLitIntAlloc(this, 'Int8\$',
+    Int8$ = .new(.new(this,
       byteSize: WasmSize.Int8,
       pointerFactory: WasmInt8Pointer.new,
       fromList: (list) => .fromList(list.cast<int>().toList()),
       asView: (ptr, len) => WasmMemory.heapI8.buffer.asInt8List(ptr, len),
       fromBuffer: (buf, offset, len) => buf.asInt8List(offset, len),
-    );
+    ));
 
-    Ptr$Int8$ = .new(this, 'Ptr\$Int8\$',
-      pointerFactory: (ptr) => .new(ptr, Int8$.pointerFactory),
-      rawArrayFunc: Int8$.RawArray,
-    );
-
-    Uint8$ = WasmLitIntAlloc(this, 'Uint8\$',
+    Uint8$ = .new(.new(this,
       byteSize: WasmSize.Uint8,
       pointerFactory: WasmUint8Pointer.new,
       fromList: (list) => .fromList(list.cast<int>().toList()),
       asView: (ptr, len) => WasmMemory.heapU8.buffer.asUint8List(ptr, len),
       fromBuffer: (buf, offset, len) => buf.asUint8List(offset, len),
-    );
+    ));
 
-    Ptr$Uint8$ = .new(this, 'Ptr\$Uint8\$',
-      pointerFactory: (ptr) => .new(ptr, Uint8$.pointerFactory),
-      rawArrayFunc: Uint8$.RawArray,
-    );
-
-    Int16$ = WasmLitIntAlloc(this, 'Int16\$',
+    Int16$ = .new(.new(this,
       byteSize: WasmSize.Int16,
       pointerFactory: WasmInt16Pointer.new,
       fromList: (list) => .fromList(list.cast<int>().toList()),
       asView: (ptr, len) => WasmMemory.heapI16.buffer.asInt16List(ptr, len),
       fromBuffer: (buf, offset, len) => buf.asInt16List(offset, len),
-    );
+    ));
 
-    Ptr$Int16$ = .new(this, 'Ptr\$Int16\$',
-      pointerFactory: (ptr) => .new(ptr, Int16$.pointerFactory),
-      rawArrayFunc: Int16$.RawArray,
-    );
-
-    Uint16$ = WasmLitIntAlloc(this, 'Uint16\$',
+    Uint16$ = .new(.new(this,
       byteSize: WasmSize.Uint16,
       pointerFactory: WasmUint16Pointer.new,
       fromList: (list) => .fromList(list.cast<int>().toList()),
       asView: (ptr, len) => WasmMemory.heapU16.buffer.asUint16List(ptr, len),
       fromBuffer: (buf, offset, len) => buf.asUint16List(offset, len),
-    );
+    ));
 
-    Ptr$Uint16$ = .new(this, 'Ptr\$Uint16\$',
-      pointerFactory: (ptr) => .new(ptr, Uint16$.pointerFactory),
-      rawArrayFunc: Uint16$.RawArray,
-    );
-
-    Int32$ = WasmLitIntAlloc(this, 'Int32\$',
+    Int32$ = .new(.new(this,
       byteSize: WasmSize.Int32,
       pointerFactory: WasmInt32Pointer.new,
       fromList: (list) => .fromList(list.cast<int>().toList()),
       asView: (ptr, len) => WasmMemory.heapI32.buffer.asInt32List(ptr, len),
       fromBuffer: (buf, offset, len) => buf.asInt32List(offset, len),
-    );
+    ));
 
-    Ptr$Int32$ = .new(this, 'Ptr\$Int32\$',
-      pointerFactory: (ptr) => .new(ptr, Int32$.pointerFactory),
-      rawArrayFunc: Int32$.RawArray,
-    );
-
-    Uint32$ = WasmLitIntAlloc(this, 'Uint32\$',
+    Uint32$ = .new(.new(this,
       byteSize: WasmSize.Uint32,
       pointerFactory: WasmUint32Pointer.new,
       fromList: (list) => .fromList(list.cast<int>().toList()),
       asView: (ptr, len) => WasmMemory.heapU32.buffer.asUint32List(ptr, len),
       fromBuffer: (buf, offset, len) => buf.asUint32List(offset, len),
-    );
-    
-    Ptr$Uint32$ = .new(this, 'Ptr\$Uint32\$',
-      pointerFactory: (ptr) => .new(ptr, Uint32$.pointerFactory),
-      rawArrayFunc: Uint32$.RawArray,
-    );
+    ));
 
-    Int64$ = WasmLitIntAlloc(this, 'Int64\$',
+    Int64$ = .new(.new(this,
       byteSize: WasmSize.Int64,
       pointerFactory: WasmInt64Pointer.new,
       fromList: (list) => .fromList(list.cast<int>().toList()),
       asView: (ptr, len) => WasmMemory.heapI64.buffer.asInt64List(ptr, len),
       fromBuffer: (buf, offset, len) => buf.asInt64List(offset, len),
-    );
+    ));
 
-    Ptr$Int64$ = .new(this, 'Ptr\$Int64\$',
-      pointerFactory: (ptr) => .new(ptr, Int64$.pointerFactory),
-      rawArrayFunc: Int64$.RawArray,
-    );
-
-    Uint64$ = WasmLitIntAlloc(this, 'Uint64\$',
+    Uint64$ = .new(.new(this,
       byteSize: WasmSize.Uint64,
       pointerFactory: WasmUint64Pointer.new,
       fromList: (list) => .fromList(list.cast<int>().toList()),
       asView: (ptr, len) => WasmMemory.heapU64.buffer.asUint64List(ptr, len),
       fromBuffer: (buf, offset, len) => buf.asUint64List(offset, len),
-    );
+    ));
 
-    Ptr$Uint64$ = .new(this, 'Ptr\$Uint64\$',
-      pointerFactory: (ptr) => .new(ptr, Uint64$.pointerFactory),
-      rawArrayFunc: Uint64$.RawArray,
-    );
-
-    Float32$ = WasmLitFloatAlloc(this, 'Float32\$',
+    Float32$ =.new( WasmLitFloatAlloc(this,
       byteSize: WasmSize.Float32,
       pointerFactory: WasmFloat32Pointer.new,
       fromList: (list) => .fromList(list.cast<double>().toList()),
       asView: (ptr, len) => WasmMemory.heapF32.buffer.asFloat32List(ptr, len),
       fromBuffer: (buf, offset, len) => buf.asFloat32List(offset, len),
-    );
+    ));
 
-    Ptr$Float32$ = .new(this, 'Ptr\$Float32\$',
-      pointerFactory: (ptr) => .new(ptr, Float32$.pointerFactory),
-      rawArrayFunc: Float32$.RawArray,
-    );
-
-    Float64$ = WasmLitFloatAlloc(this, 'Float64\$',
+    Float64$ =.new( WasmLitFloatAlloc(this,
       byteSize: WasmSize.Float64,
       pointerFactory: WasmFloat64Pointer.new,
       fromList: (list) => .fromList(list.cast<double>().toList()),
       asView: (ptr, len) => WasmMemory.heapF64.buffer.asFloat64List(ptr, len),
       fromBuffer: (buf, offset, len) => buf.asFloat64List(offset, len),
-    );
+    ));
 
-    Ptr$Float64$ = .new(this, 'Ptr\$Float64\$',
-      pointerFactory: (ptr) => .new(ptr, Float64$.pointerFactory),
-      rawArrayFunc: Float64$.RawArray,
-    );
-
-    Int$ = .new(this, 'Int\$',
-      byteSize: WasmSize.Int32,
-      pointerFactory: WasmInt32Pointer.new,
-      fromList: (list) => .fromList(list.cast<int>().toList()),
-      asView: (ptr, len) => WasmMemory.heapI32.buffer.asInt32List(ptr, len),
-      fromBuffer: (buf, offset, len) => buf.asInt32List(offset, len),
-    );
-
-    Ptr$Int$ = .new(this, 'Ptr\$Int\$',
-      pointerFactory: (ptr) => .new(ptr, Int$.pointerFactory),
-      rawArrayFunc: Int$.RawArray,
-    );
-
-    UnsignedInt$ = .new(this, 'UnsignedInt\$',
-      byteSize: WasmSize.Uint32,
-      pointerFactory: WasmUint32Pointer.new,
-      fromList: (list) => .fromList(list.cast<int>().toList()),
-      asView: (ptr, len) => WasmMemory.heapU32.buffer.asUint32List(ptr, len),
-      fromBuffer: (buf, offset, len) => buf.asUint32List(offset, len),
-    );
-
-    Ptr$UnsignedInt$ = .new(this, 'Ptr\$UnsignedInt\$',
-      pointerFactory: (ptr) => .new(ptr, UnsignedInt$.pointerFactory),
-      rawArrayFunc: UnsignedInt$.RawArray,
-    );
-
-    Char$ = .new(this, 'Char\$',
+    Char$ = .new(.new(this,
       byteSize: WasmSize.Int8,
-      pointerFactory: WasmInt8Pointer.new,
+      pointerFactory: WasmCharPointer.new,
       fromList: (list) => .fromList(list.cast<int>().toList()),
       asView: (ptr, len) => WasmMemory.heapI8.buffer.asInt8List(ptr, len),
       fromBuffer: (buf, offset, len) => buf.asInt8List(offset, len),
-    );
+    ));
 
-    Ptr$Char$ = .new(this, 'Ptr\$Char\$',
-      pointerFactory: (ptr) => .new(ptr, Char$.pointerFactory),
-      rawArrayFunc: Char$.RawArray,
-    );
-
-    UnsignedChar$ = .new(this, 'UnsignedChar\$',
+    UnsignedChar$ = .new(.new(this,
       byteSize: WasmSize.Uint8,
-      pointerFactory: WasmUint8Pointer.new,
+      pointerFactory: WasmUnsignedCharPointer.new,
       fromList: (list) => .fromList(list.cast<int>().toList()),
       asView: (ptr, len) => WasmMemory.heapU8.buffer.asUint8List(ptr, len),
       fromBuffer: (buf, offset, len) => buf.asUint8List(offset, len),
-    );
+    ));
 
-    Ptr$UnsignedChar$ = .new(this, 'Ptr\$UnsignedChar\$',
-      pointerFactory: (ptr) => .new(ptr, UnsignedChar$.pointerFactory),
-      rawArrayFunc: UnsignedChar$.RawArray,
-    );
-
-    Short$ = .new(this, 'Short\$',
+    Short$ = .new(.new(this,
       byteSize: WasmSize.Int16,
-      pointerFactory: WasmInt16Pointer.new,
+      pointerFactory: WasmShortPointer.new,
       fromList: (list) => .fromList(list.cast<int>().toList()),
       asView: (ptr, len) => WasmMemory.heapI16.buffer.asInt16List(ptr, len),
       fromBuffer: (buf, offset, len) => buf.asInt16List(offset, len),
-    );
+    ));
 
-    Ptr$Short$ = .new(this, 'Ptr\$Short\$',
-      pointerFactory: (ptr) => .new(ptr, Short$.pointerFactory),
-      rawArrayFunc: Short$.RawArray,
-    );
-
-    UnsignedShort$ = .new(this, 'UnsignedShort\$',
+    UnsignedShort$ = .new(.new(this,
       byteSize: WasmSize.Uint16,
-      pointerFactory: WasmUint16Pointer.new,
+      pointerFactory: WasmUnsignedShortPointer.new,
       fromList: (list) => .fromList(list.cast<int>().toList()),
       asView: (ptr, len) => WasmMemory.heapU16.buffer.asUint16List(ptr, len),
       fromBuffer: (buf, offset, len) => buf.asUint16List(offset, len),
-    );
+    ));
 
-    Ptr$UnsignedShort$ = .new(this, 'Ptr\$UnsignedShort\$',
-      pointerFactory: (ptr) => .new(ptr, UnsignedShort$.pointerFactory),
-      rawArrayFunc: UnsignedShort$.RawArray,
-    );
+    Int$ = .new(.new(this,
+      byteSize: WasmSize.Int32,
+      pointerFactory: WasmIntPointer.new,
+      fromList: (list) => .fromList(list.cast<int>().toList()),
+      asView: (ptr, len) => WasmMemory.heapI32.buffer.asInt32List(ptr, len),
+      fromBuffer: (buf, offset, len) => buf.asInt32List(offset, len),
+    ));
 
-    AudioStream$ = .new(this, 'AudioStream\$',
-      byteSize: AudioStreamD.byteSize,
-      factory: AudioStreamD.new
-    );
+    UnsignedInt$ = .new(.new(this,
+      byteSize: WasmSize.Uint32,
+      pointerFactory: WasmUnsignedIntPointer.new,
+      fromList: (list) => .fromList(list.cast<int>().toList()),
+      asView: (ptr, len) => WasmMemory.heapU32.buffer.asUint32List(ptr, len),
+      fromBuffer: (buf, offset, len) => buf.asUint32List(offset, len),
+    ));
+  }
 
-    Ptr$AudioStream$ = .new(this, 'Ptr\$AudioStream\$',
-      pointerFactory: (ptr) => .new(ptr, AudioStream$.pointerFactory),
-      valueFunc: AudioStream$.Value,
-      rawArrayFunc: AudioStream$.RawArray,
-    );
-
-    AutomationEventList$ = .new(this, 'AutomationEventList\$',
+  void _initStructAllocators() {
+    AutomationEventList$ = .new(.new(this,
       byteSize: AutomationEventListD.byteSize,
       factory: AutomationEventListD.new
-    );
+    ));
 
-    Ptr$AutomationEventList$ = .new(this, 'Ptr\$AutomationEventList\$',
-      pointerFactory: (ptr) => .new(ptr, AutomationEventList$.pointerFactory),
-      valueFunc: AutomationEventList$.Value,
-      rawArrayFunc: AutomationEventList$.RawArray,
-    );
-
-    AutomationEvent$ = .new(this, 'AutomationEvent\$',
+    AutomationEvent$ = .new(.new(this,
       byteSize: AutomationEventD.byteSize,
       factory: AutomationEventD.new
-    );
+    ));
 
-    Ptr$AutomationEvent$ = .new(this, 'Ptr\$AutomationEvent\$',
-      pointerFactory: (ptr) => .new(ptr, AutomationEvent$.pointerFactory),
-      valueFunc: AutomationEvent$.Value,
-      rawArrayFunc: AutomationEvent$.RawArray,
-    );
+    AudioStream$ = .new(.new(this,
+      byteSize: AudioStreamD.byteSize,
+      factory: AudioStreamD.new
+    ));
 
-    BoneInfo$ = .new(this, 'BoneInfo\$',
+    BoneInfo$ = .new(.new(this,
       byteSize: BoneInfoD.byteSize,
       factory: BoneInfoD.new
-    );
+    ));
 
-    Ptr$BoneInfo$ = .new(this, 'Ptr\$BoneInfo\$',
-      pointerFactory: (ptr) => .new(ptr, BoneInfo$.pointerFactory),
-      valueFunc: BoneInfo$.Value,
-      rawArrayFunc: BoneInfo$.RawArray,
-    );
-
-    BoundingBox$ = .new(this, 'BoundingBox\$',
+    BoundingBox$ = .new(.new(this,
       byteSize: BoundingBoxD.byteSize,
       factory: BoundingBoxD.new
-    );
+    ));
 
-    Ptr$BoundingBox$ = .new(this, 'Ptr\$BoundingBox\$',
-      pointerFactory: (ptr) => .new(ptr, BoundingBox$.pointerFactory),
-      valueFunc: BoundingBox$.Value,
-      rawArrayFunc: BoundingBox$.RawArray,
-    );
-
-    Camera2D$ = .new(this, 'Camera2D\$',
+    Camera2D$ = .new(.new(this,
       byteSize: Camera2DD.byteSize,
       factory: Camera2DD.new
-    );
+    ));
 
-    Ptr$Camera2D$ = .new(this, 'Ptr\$Camera2D\$',
-      pointerFactory: (ptr) => .new(ptr, Camera2D$.pointerFactory),
-      valueFunc: Camera2D$.Value,
-      rawArrayFunc: Camera2D$.RawArray,
-    );
-
-    Camera3D$ = .new(this, 'Camera3D\$',
+    Camera3D$ = .new(.new(this,
       byteSize: Camera3DD.byteSize,
       factory: Camera3DD.new
-    );
+    ));
 
-    Ptr$Camera3D$ = .new(this, 'Ptr\$Camera3D\$',
-      pointerFactory: (ptr) => .new(ptr, Camera3D$.pointerFactory),
-      valueFunc: Camera3D$.Value,
-      rawArrayFunc: Camera3D$.RawArray,
-    );
-
-    Color$ = .new(this, 'Color\$',
+    Color$ = .new(.new(this,
       byteSize: ColorD.byteSize,
       factory: ColorD.new
-    );
+    ));
 
-    Ptr$Color$ = .new(this, 'Ptr\$Color\$',
-      pointerFactory: (ptr) => .new(ptr, Color$.pointerFactory),
-      valueFunc: Color$.Value,
-      rawArrayFunc: Color$.RawArray,
-    );
-
-    FilePathList$ = .new(this, 'FilePathList\$',
+    FilePathList$ = .new(.new(this,
       byteSize: FilePathListD.byteSize,
       factory: FilePathListD.new
-    );
+    ));
 
-    Ptr$FilePathList$ = .new(this, 'Ptr\$FilePathList\$',
-      pointerFactory: (ptr) => .new(ptr, FilePathList$.pointerFactory),
-      valueFunc: FilePathList$.Value,
-      rawArrayFunc: FilePathList$.RawArray,
-    );
-
-    Font$ = .new(this, 'Font\$',
+    Font$ = .new(.new(this,
       byteSize: FontD.byteSize,
       factory: FontD.new
-    );
+    ));
 
-    Ptr$Font$ = .new(this, 'Ptr\$Font\$',
-      pointerFactory: (ptr) => .new(ptr, Font$.pointerFactory),
-      valueFunc: Font$.Value,
-      rawArrayFunc: Font$.RawArray,
-    );
-    
-    GestureEvent$ = .new(this, 'GestureEvent\$',
+    GestureEvent$ = .new(.new(this,
       byteSize: GestureEventD.byteSize,
       factory: GestureEventD.new
-    );
+    ));
 
-    Ptr$GestureEvent$ = .new(this, 'Ptr\$GestureEvent\$',
-      pointerFactory: (ptr) => .new(ptr, GestureEvent$.pointerFactory),
-      valueFunc: GestureEvent$.Value,
-      rawArrayFunc: GestureEvent$.RawArray,
-    );
-
-    GlyphInfo$ = .new(this, 'GlyphInfo\$',
+    GlyphInfo$ = .new(.new(this,
       byteSize: GlyphInfoD.byteSize,
       factory: GlyphInfoD.new
-    );
+    ));
 
-    Ptr$GlyphInfo$ = .new(this, 'Ptr\$GlyphInfo\$',
-      pointerFactory: (ptr) => .new(ptr, GlyphInfo$.pointerFactory),
-      valueFunc: GlyphInfo$.Value,
-      rawArrayFunc: GlyphInfo$.RawArray,
-    );
-
-    Image$ = .new(this, 'Image\$',
+    Image$ = .new(.new(this,
       byteSize: ImageD.byteSize,
       factory: ImageD.new
-    );
+    ));
 
-    Ptr$Image$ = .new(this, 'Ptr\$Image\$',
-      pointerFactory: (ptr) => .new(ptr, Image$.pointerFactory),
-      valueFunc: Image$.Value,
-      rawArrayFunc: Image$.RawArray,
-    );
-
-    Light$ = .new(this, 'Light\$',
+    Light$ = .new(.new(this,
       byteSize: LightD.byteSize,
       factory: LightD.new
-    );
+    ));
 
-    Ptr$Light$ = .new(this, 'Ptr\$Light\$',
-      pointerFactory: (ptr) => .new(ptr, Light$.pointerFactory),
-      valueFunc: Light$.Value,
-      rawArrayFunc: Light$.RawArray,
-    );
-
-    MaterialMap$ = .new(this, 'MaterialMap\$',
+    MaterialMap$ = .new(.new(this,
       byteSize: MaterialMapD.byteSize,
       factory: MaterialMapD.new
-    );
+    ));
 
-    Ptr$MaterialMap$ = .new(this, 'Ptr\$MaterialMap\$',
-      pointerFactory: (ptr) => .new(ptr, MaterialMap$.pointerFactory),
-      valueFunc: MaterialMap$.Value,
-      rawArrayFunc: MaterialMap$.RawArray,
-    );
-
-    Material$ = .new(this, 'Material\$',
+    Material$ = .new(.new(this,
       byteSize: MaterialD.byteSize,
       factory: MaterialD.new
-    );
+    ));
 
-    Ptr$Material$ = .new(this, 'Ptr\$Material\$',
-      pointerFactory: (ptr) => .new(ptr, Material$.pointerFactory),
-      valueFunc: Material$.Value,
-      rawArrayFunc: Material$.RawArray,
-    );
-
-    Matrix$ = .new(this, 'Matrix\$',
+    Matrix$ = .new(.new(this,
       byteSize: MatrixD.byteSize,
       factory: MatrixD.new
-    );
+    ));
 
-    Ptr$Matrix$ = .new(this, 'Ptr\$Matrix\$',
-      pointerFactory: (ptr) => .new(ptr, Matrix$.pointerFactory),
-      valueFunc: Matrix$.Value,
-      rawArrayFunc: Matrix$.RawArray,
-    );
-
-    Mesh$ = .new(this, 'Mesh\$',
+    Mesh$ = .new(.new(this,
       byteSize: MeshD.byteSize,
       factory: MeshD.new
-    );
+    ));
 
-    Ptr$Mesh$ = .new(this, 'Ptr\$Mesh\$',
-      pointerFactory: (ptr) => .new(ptr, Mesh$.pointerFactory),
-      valueFunc: Mesh$.Value,
-      rawArrayFunc: Mesh$.RawArray,
-    );
-
-    ModelAnimation$ = .new(this, 'ModelAnimation\$',
+    ModelAnimation$ = .new(.new(this,
       byteSize: ModelAnimationD.byteSize,
       factory: ModelAnimationD.new
-    );
+    ));
 
-    Ptr$ModelAnimation$ = .new(this, 'Ptr\$ModelAnimation\$',
-      pointerFactory: (ptr) => .new(ptr, ModelAnimation$.pointerFactory),
-      valueFunc: ModelAnimation$.Value,
-      rawArrayFunc: ModelAnimation$.RawArray,
-    );
-
-    ModelSkeleton$ = .new(this, 'ModelSkeleton\$',
+    ModelSkeleton$ = .new(.new(this,
       byteSize: ModelSkeletonD.byteSize,
       factory: ModelSkeletonD.new
-    );
+    ));
 
-    Ptr$ModelSkeleton$ = .new(this, 'Ptr\$ModelSkeleton\$',
-      pointerFactory: (ptr) => .new(ptr, ModelSkeleton$.pointerFactory),
-      valueFunc: ModelSkeleton$.Value,
-      rawArrayFunc: ModelSkeleton$.RawArray,
-    );
-
-    Model$ = .new(this, 'Model\$',
+    Model$ = .new(.new(this,
       byteSize: ModelD.byteSize,
       factory: ModelD.new
-    );
+    ));
 
-    Ptr$Model$ = .new(this, 'Ptr\$Model\$',
-      pointerFactory: (ptr) => .new(ptr, Model$.pointerFactory),
-      valueFunc: Model$.Value,
-      rawArrayFunc: Model$.RawArray,
-    );
-
-    Music$ = .new(this, 'Music\$',
+    Music$ = .new(.new(this,
       byteSize: MusicD.byteSize,
       factory: MusicD.new
-    );
+    ));
 
-    Ptr$Music$ = .new(this, 'Ptr\$Music\$',
-      pointerFactory: (ptr) => .new(ptr, Music$.pointerFactory),
-      valueFunc: Music$.Value,
-      rawArrayFunc: Music$.RawArray,
-    );
-
-    NPatchInfo$ = .new(this, 'NPatchInfo\$',
+    NPatchInfo$ = .new(.new(this,
       byteSize: NPatchInfoD.byteSize,
       factory: NPatchInfoD.new
-    );
+    ));
 
-    Ptr$NPatchInfo$ = .new(this, 'Ptr\$NPatchInfo\$',
-      pointerFactory: (ptr) => .new(ptr, NPatchInfo$.pointerFactory),
-      valueFunc: NPatchInfo$.Value,
-      rawArrayFunc: NPatchInfo$.RawArray,
-    );
-
-    Quaternion$ = .new(this, 'Quaternion\$',
+    Quaternion$ = .new(.new(this,
       byteSize: QuaternionD.byteSize,
       factory: QuaternionD.new
-    );
+    ));
 
-    Ptr$Quaternion$ = .new(this, 'Ptr\$Quaternion\$',
-      pointerFactory: (ptr) => .new(ptr, Quaternion$.pointerFactory),
-      valueFunc: Quaternion$.Value,
-      rawArrayFunc: Quaternion$.RawArray,
-    );
-
-    RayCollision$ = .new(this, 'RayCollision\$',
+    RayCollision$ = .new(.new(this,
       byteSize: RayCollisionD.byteSize,
       factory: RayCollisionD.new
-    );
+    ));
 
-    Ptr$RayCollision$ = .new(this, 'Ptr\$RayCollision\$',
-      pointerFactory: (ptr) => .new(ptr, RayCollision$.pointerFactory),
-      valueFunc: RayCollision$.Value,
-      rawArrayFunc: RayCollision$.RawArray,
-    );
-
-    Ray$ = .new(this, 'Ray\$',
+    Ray$ = .new(.new(this,
       byteSize: RayD.byteSize,
       factory: RayD.new
-    );
+    ));
 
-    Ptr$Ray$ = .new(this, 'Ptr\$Ray\$',
-      pointerFactory: (ptr) => .new(ptr, Ray$.pointerFactory),
-      valueFunc: Ray$.Value,
-      rawArrayFunc: Ray$.RawArray,
-    );
-
-    Rectangle$ = .new(this, 'Rectangle\$',
+    Rectangle$ = .new(.new(this,
       byteSize: RectangleD.byteSize,
       factory: RectangleD.new
-    );
+    ));
 
-    Ptr$Rectangle$ = .new(this, 'Ptr\$Rectangle\$',
-      pointerFactory: (ptr) => .new(ptr, Rectangle$.pointerFactory),
-      valueFunc: Rectangle$.Value,
-      rawArrayFunc: Rectangle$.RawArray,
-    );
-
-    RlDrawCall$ = .new(this, 'RlDrawCall\$',
+    RlDrawCall$ = .new(.new(this,
       byteSize: RlDrawCallD.byteSize,
       factory: RlDrawCallD.new
-    );
+    ));
 
-    Ptr$RlDrawCall$ = .new(this, 'Ptr\$RlDrawCall\$',
-      pointerFactory: (ptr) => .new(ptr, RlDrawCall$.pointerFactory),
-      valueFunc: RlDrawCall$.Value,
-      rawArrayFunc: RlDrawCall$.RawArray,
-    );
-
-    RlRenderBatch$ = .new(this, 'RlRenderBatch\$',
+    RlRenderBatch$ = .new(.new(this,
       byteSize: RlRenderBatchD.byteSize,
       factory: RlRenderBatchD.new
-    );
+    ));
 
-    Ptr$RlRenderBatch$ = .new(this, 'Ptr\$RlRenderBatch\$',
-      pointerFactory: (ptr) => .new(ptr, RlRenderBatch$.pointerFactory),
-      valueFunc: RlRenderBatch$.Value,
-      rawArrayFunc: RlRenderBatch$.RawArray,
-    );
-
-    RlVertexBuffer$ = .new(this, 'RlVertexBuffer\$',
+    RlVertexBuffer$ = .new(.new(this,
       byteSize: RlVertexBufferD.byteSize,
       factory: RlVertexBufferD.new
-    );
+    ));
 
-    Ptr$RlVertexBuffer$ = .new(this, 'Ptr\$RlVertexBuffer\$',
-      pointerFactory: (ptr) => .new(ptr, RlVertexBuffer$.pointerFactory),
-      valueFunc: RlVertexBuffer$.Value,
-      rawArrayFunc: RlVertexBuffer$.RawArray,
-    );
-
-    RenderTexture$ = .new(this, 'RenderTexture\$',
+    RenderTexture$ = .new(.new(this,
       byteSize: RenderTextureD.byteSize,
       factory: RenderTextureD.new
-    );
+    ));
 
-    Ptr$RenderTexture$ = .new(this, 'Ptr\$RenderTexture\$',
-      pointerFactory: (ptr) => .new(ptr, RenderTexture$.pointerFactory),
-      valueFunc: RenderTexture$.Value,
-      rawArrayFunc: RenderTexture$.RawArray,
-    );
-
-    Shader$ = .new(this, 'Shader\$',
+    Shader$ = .new(.new(this,
       byteSize: ShaderD.byteSize,
       factory: ShaderD.new
-    );
+    ));
 
-    Ptr$Shader$ = .new(this, 'Ptr\$Shader\$',
-      pointerFactory: (ptr) => .new(ptr, Shader$.pointerFactory),
-      valueFunc: Shader$.Value,
-      rawArrayFunc: Shader$.RawArray,
-    );
-
-    Sound$ = .new(this, 'Sound\$',
+    Sound$ = .new(.new(this,
       byteSize: SoundD.byteSize,
       factory: SoundD.new
-    );
+    ));
 
-    Ptr$Sound$ = .new(this, 'Ptr\$Sound\$',
-      pointerFactory: (ptr) => .new(ptr, Sound$.pointerFactory),
-      valueFunc: Sound$.Value,
-      rawArrayFunc: Sound$.RawArray,
-    );
-
-    Texture$ = .new(this, 'Texture\$',
+    Texture$ = .new(.new(this,
       byteSize: TextureD.byteSize,
       factory: TextureD.new
-    );
+    ));
 
-    Ptr$Texture$ = .new(this, 'Ptr\$Texture\$',
-      pointerFactory: (ptr) => .new(ptr, Texture$.pointerFactory),
-      valueFunc: Texture$.Value,
-      rawArrayFunc: Texture$.RawArray,
-    );
-
-    Transform$ = .new(this, 'Transform\$',
+    Transform$ = .new(.new(this,
       byteSize: TransformD.byteSize,
       factory: TransformD.new
-    );
+    ));
 
-    Ptr$Transform$ = .new(this, 'Ptr\$Transform\$',
-      pointerFactory: (ptr) => .new(ptr, Transform$.pointerFactory),
-      valueFunc: Transform$.Value,
-      rawArrayFunc: Transform$.RawArray,
-    );
-
-    Vector2$ = .new(this, 'Vector2\$',
+    Vector2$ = .new(.new(this,
       byteSize: Vector2D.byteSize,
       factory: Vector2D.new
-    );
+    ));
 
-    Ptr$Vector2$ = .new(this, 'Ptr\$Vector2\$',
-      pointerFactory: (ptr) => .new(ptr, Vector2$.pointerFactory),
-      valueFunc: Vector2$.Value,
-      rawArrayFunc: Vector2$.RawArray,
-    );
-
-    Vector3$ = .new(this, 'Vector3\$',
+    Vector3$ = .new(.new(this,
       byteSize: Vector3D.byteSize,
       factory: Vector3D.new
-    );
+    ));
 
-    Ptr$Vector3$ = .new(this, 'Ptr\$Vector3\$',
-      pointerFactory: (ptr) => .new(ptr, Vector3$.pointerFactory),
-      valueFunc: Vector3$.Value,
-      rawArrayFunc: Vector3$.RawArray,
-    );
-
-    Vector4$ = .new(this, 'Vector4\$',
+    Vector4$ = .new(.new(this,
       byteSize: Vector4D.byteSize,
       factory: Vector4D.new
-    );
+    ));
 
-    Ptr$Vector4$ = .new(this, 'Ptr\$Vector4\$',
-      pointerFactory: (ptr) => .new(ptr, Vector4$.pointerFactory),
-      valueFunc: Vector4$.Value,
-      rawArrayFunc: Vector4$.RawArray,
-    );
-
-    VrDeviceInfo$ = .new(this, 'VrDeviceInfo\$',
+    VrDeviceInfo$ = .new(.new(this,
       byteSize: VrDeviceInfoD.byteSize,
       factory: VrDeviceInfoD.new
-    );
+    ));
 
-    Ptr$VrDeviceInfo$ = .new(this, 'Ptr\$VrDeviceInfo\$',
-      pointerFactory: (ptr) => .new(ptr, VrDeviceInfo$.pointerFactory),
-      valueFunc: VrDeviceInfo$.Value,
-      rawArrayFunc: VrDeviceInfo$.RawArray,
-    );
-
-    VrStereoConfig$ = .new(this, 'VrStereoConfig\$',
+    VrStereoConfig$ = .new(.new(this,
       byteSize: VrStereoConfigD.byteSize,
       factory: VrStereoConfigD.new
-    );
+    ));
 
-    Ptr$VrStereoConfig$ = .new(this, 'Ptr\$VrStereoConfig\$',
-      pointerFactory: (ptr) => .new(ptr, VrStereoConfig$.pointerFactory),
-      valueFunc: VrStereoConfig$.Value,
-      rawArrayFunc: VrStereoConfig$.RawArray,
-    );
-
-    Wave$ = .new(this, 'Wave\$',
+    Wave$ = .new(.new(this,
       byteSize: WaveD.byteSize,
       factory: WaveD.new
-    );
-
-    Ptr$Wave$ = .new(this, 'Ptr\$Wave\$',
-      pointerFactory: (ptr) => .new(ptr, Wave$.pointerFactory),
-      valueFunc: Wave$.Value,
-      rawArrayFunc: Wave$.RawArray,
-    );
+    ));
   }
 }

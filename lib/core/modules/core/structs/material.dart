@@ -84,20 +84,15 @@ class MaterialD extends StructDWeb<MaterialD> with MaterialBase<
     return this;
   }
 
-  void doDevDebug() {
-    print('mapsCount: $mapsCount');
-    print('_maps.inner.length: ${_maps.inner.length}');
-  }
-
   @override
   void structAllocateInto(RaylibTemp temp, WasmStructPointer<MaterialD> p, String key) {
-    if (_maps.isNotEmpty) _maps.ptr = temp.MaterialMap$.Array(maps, key: '${key}_maps');
+    if (_maps.isNotEmpty) _maps.ptr = temp.MaterialMap$.val.Array(maps, key: '${key}_maps');
   }
 
   @override
   void wasmWriteInto(WasmWriter writer) {
     writer.struct(_shader);
-    writer.wasmptr(_maps.ptr);
+    writer.wasmPointer(_maps.ptr);
     writer.Float32Array(_params.inner);
 
     _maps.onPointer((p) => p.writeArray(_maps.inner));

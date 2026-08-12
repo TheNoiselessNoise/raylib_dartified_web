@@ -273,13 +273,6 @@ abstract class WasmLiveList<T, P extends WasmSizedPointer> extends RaylibLiveLis
   void onPointer(void Function(P) fn) {
     final p = ptr;
     if (p == null || !isPointerValid) return;
-    final len = inner.length * (p.byteSize);
-    final start = p.address;
-    final end = start + len;
-    if (1583000 < end && 1583008 > start) {
-      print('!!! OVERLAP: writing [$start, $end) covers target. inner.length=${inner.length}, stride=${p.byteSize}, runtimeType=$runtimeType');
-      print(StackTrace.current);
-    }
     fn(p);
   }
 
@@ -372,9 +365,9 @@ class WasmLiveListPointerPointerStruct<D extends StructDWeb<D>> extends WasmLive
   );
 }
 
-typedef _WasmLiveListIntegerArray<X, L extends TypedDataList<X>, P extends WasmLiteralTypedPointer<int, L>> = _WasmLiveListIntegerPointer<X, L, P>;
+typedef _WasmLiveListIntegerArray<X, L extends TypedDataList<X>, P extends WasmLitTypedPointer<int, L>> = _WasmLiveListIntegerPointer<X, L, P>;
 
-abstract class _WasmLiveListIntegerPointer<X, L extends TypedDataList<X>, P extends WasmLiteralTypedPointer<int, L>> extends WasmLiveList<int, P> {
+abstract class _WasmLiveListIntegerPointer<X, L extends TypedDataList<X>, P extends WasmLitTypedPointer<int, L>> extends WasmLiveList<int, P> {
   _WasmLiveListIntegerPointer(super.inner, [super.ptr]);
 
   @override
@@ -390,9 +383,9 @@ abstract class _WasmLiveListIntegerPointer<X, L extends TypedDataList<X>, P exte
   void _arraySetter(P ptr, List<int> array) => ptr.setAll(array);
 }
 
-typedef _WasmLiveListDoubleArray<X, L extends TypedDataList<X>, P extends WasmLiteralTypedPointer<double, L>> = _WasmLiveListDoublePointer<X, L, P>;
+typedef _WasmLiveListDoubleArray<X, L extends TypedDataList<X>, P extends WasmLitTypedPointer<double, L>> = _WasmLiveListDoublePointer<X, L, P>;
 
-abstract class _WasmLiveListDoublePointer<X, L extends TypedDataList<X>, P extends WasmLiteralTypedPointer<double, L>> extends WasmLiveList<double, P> {
+abstract class _WasmLiveListDoublePointer<X, L extends TypedDataList<X>, P extends WasmLitTypedPointer<double, L>> extends WasmLiveList<double, P> {
   _WasmLiveListDoublePointer(super.inner, [super.ptr]);
 
   @override

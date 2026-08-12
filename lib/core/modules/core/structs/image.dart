@@ -11,7 +11,7 @@ enum _ImageOffsets with _WasmOffsets {
 class ImageD extends StructDWeb<ImageD> with ImageBase<ImageD> {
   static final byteSize = _o.byteSize;
   static final _Offsets<_ImageOffsets> _o = .fromMap({
-    .data:    WasmSize.AnyPointer,
+    .data:    WasmSize.Pointer,
     .width:   WasmSize.Int32,
     .height:  WasmSize.Int32,
     .mipmaps: WasmSize.Int32,
@@ -117,12 +117,12 @@ class ImageD extends StructDWeb<ImageD> with ImageBase<ImageD> {
 
   @override
   void structAllocateInto(RaylibTemp temp, WasmStructPointer<ImageD> p, String key) {
-    _dataPtr = temp.Uint8$.RawArray(data);
+    _dataPtr = temp.Uint8$.val.RawArray(data);
   }
 
   @override
   void wasmWriteInto(WasmWriter writer) {
-    writer.wasmptr(_dataPtr);
+    writer.wasmPointer(_dataPtr);
     writer.Int32(width);
     writer.Int32(height);
     writer.Int32(mipmaps);

@@ -20,7 +20,7 @@ class ModelAnimationD extends StructDWeb<ModelAnimationD> with ModelAnimationBas
     .name:          WasmSize.Char * ModelAnimationBase.BASE_nameLength,
     .boneCount:     WasmSize.Int32,
     .keyframeCount: WasmSize.Int32,
-    .keyframePoses: WasmSize.AnyPointer,
+    .keyframePoses: WasmSize.Pointer,
   });
 
   static WasmStructPointer<ModelAnimationD> wasmPointer(int ptr) => .new(ptr, ModelAnimationD.new, byteSize);
@@ -91,7 +91,7 @@ class ModelAnimationD extends StructDWeb<ModelAnimationD> with ModelAnimationBas
     writer.charArray(name, nameLength);
     writer.Int32(_boneCount);
     writer.Int32(keyframeCount);
-    writer.wasmptr(_keyframePoses.ptr);
+    writer.wasmPointer(_keyframePoses.ptr);
 
     _keyframePoses.onPointer((p) => p.writeMatrix(_keyframePoses.inner));
   }

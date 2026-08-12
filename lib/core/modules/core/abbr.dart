@@ -1592,7 +1592,7 @@ bool ExportImage(
 ) => _module.ExportImage(image, fileName);
 
 /// See [RaylibCoreD.ExportImageToMemory].
-(int dataPtr, int dataSize) ExportImageToMemory(
+(WasmMemoryPointer<RUint8> dataPtr, int dataSize) ExportImageToMemory(
   ImageD image,
   String fileType,
 ) => _module.ExportImageToMemory(image, fileType);
