@@ -4,6 +4,19 @@ Reference: [raylib C cheatsheet](https://www.raylib.com/cheatsheet/cheatsheet.ht
 
 ---
 
+Emscripten's [function signatures](https://emscripten.org/docs/porting/connecting_cpp_and_javascript/Interacting-with-code.html#function-signatures):
+
+```
+'v': void type (only return type = first letter in the signature)
+'i': 32-bit integer type
+'j': 64-bit integer type
+'f': 32-bit float type
+'d': 64-bit float type
+'p': 32-bit or 64-bit pointer (MEMORY64)
+```
+
+---
+
 ## 01 Callbacks
 
 ### Class form - stateful

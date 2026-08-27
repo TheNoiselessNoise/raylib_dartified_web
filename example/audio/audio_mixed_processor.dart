@@ -17,7 +17,7 @@ void main() => Raylib((rl) {
 
   InitAudioDevice();
 
-  AttachAudioMixedProcessor(.function((buffer, frames) {
+  AttachAudioMixedProcessor(AudioCallbackD.function((buffer, frames) {
     final samples = buffer.asView<Float32List>(frames * 2);
     double average = 0.0;
 

@@ -1,12 +1,31 @@
 part of 'raylib_dartified_web.dart';
 
+// TODO: split the func_list into files (core,gui,...) and provide arguments for them in `build` command
+
 @JS('dartMain')
 external set _dartMain(JSFunction f);
 
 @JS('requestAnimationFrame')
 external void _requestAnimationFrame(JSFunction callback);
 
-class Raylib extends RaylibBase {
+WasmMemoryPointer<RVoid> _wasmFromBytes<T extends TypedDataList>(T data) {
+  final byteLength = data.lengthInBytes;
+  final asBytes = data.buffer.asUint8List(data.offsetInBytes, byteLength);
+  final addr = WasmMemory.malloc(byteLength);
+  WasmMemory.heapU8.setRange(addr, addr + byteLength, asBytes);
+  return .new(addr);
+}
+
+WasmMemoryPointer<RUint8> _wasmFromString(String text, [int? bufferSize])
+  => .new(WasmMemory.allocString(text, bufferSize));
+
+WasmMemoryPointer<Y> _wasmNullptrFactory<Y extends RType>()
+  => .new(0);
+
+WasmMemoryPointer<Y> _wasmMalloc<Y extends RType>(int size)
+  => .new(WasmMemory.malloc(size));
+
+class Raylib extends RaylibBase<Raylib> {
   static Raylib? _instance;
   static Raylib get instance {
     if (_instance == null) throw StateError('Raylib not initialized.');
@@ -22,96 +41,65 @@ class Raylib extends RaylibBase {
   @override
   void logError(Object? message) => console.error('[Raylib] $message');
 
-  @override late RaylibTemp Temp;
-  @override late RaylibColors Color;
-  @override late RaylibEasings Ease;
-  @override late RaylibQuaternions Quat;
-  @override late RaylibMatrices Matrix;
-  @override late RaylibVectors Vector;
-
   late RaylibAudio Audio;
-  @override late RaylibAudioD AudioD;
+  @override late RaylibAudioFlat AudioFlat;
+  
   late RaylibCamera Camera;
-  @override late RaylibCameraD CameraD;
+  @override late RaylibCameraFlat CameraFlat;
+  
   late RaylibCore Core;
-  @override late RaylibCoreD CoreD;
+  @override late RaylibCoreFlat CoreFlat;
+
   late RaylibGui Gui;
-  @override late RaylibGuiD GuiD;
-  @override late RaylibLightD LightD;
+  @override late RaylibGuiFlat GuiFlat;
+  
+  late RaylibLight Light;
+
+  late RaylibMsfGif MsfGif;
+  @override late RaylibMsfGifFlat MsfGifFlat;
+
   late RaylibRlgl Rlgl;
-  @override late RaylibRlglD RlglD;
-  @override late RaylibUtils Utils;
+  @override late RaylibRlglFlat RlglFlat;
 
   Raylib(void Function(Raylib) dartMain, {
     super.tempOptions,
     super.random,
-  }) {
-    if (_instance != null) {
-      throw StateError("There can only be one instance of a $runtimeType!");
-    }
-
-    _instance = this;
-
+  }) : super(
+    initializer: () {
+      RType.nativeWordSize = WasmSize.Pointer;
+      MemoryPointer.fromBytes = _wasmFromBytes;
+      MemoryPointer.fromString = _wasmFromString;
+      MemoryPointer.nullptrFactory = _wasmNullptrFactory;
+      MemoryPointer.malloc = _wasmMalloc;
+    },
+  ) {
     _dartMain = (() {
-      _initBase();
       _init();
       dartMain(this);
     }).toJS;
   }
-  
-  WasmMemoryPointer<RVoid> _defaultFromBytes<T extends TypedDataList>(T data) {
-    final byteLength = data.lengthInBytes;
-    final asBytes = data.buffer.asUint8List(data.offsetInBytes, byteLength);
-    final addr = WasmMemory.malloc(byteLength);
-    WasmMemory.heapU8.setRange(addr, addr + byteLength, asBytes);
-    return .new(addr);
-  }
-
-  static WasmMemoryPointer<RUint8> _defaultFromString(String text) {
-    final bytes = utf8.encode(text);
-    final addr = WasmMemory.malloc(bytes.length + 1); // +1 for NUL
-    WasmMemory.heapU8.setRange(addr, addr + bytes.length, bytes);
-    WasmMemory.heapU8[addr + bytes.length] = 0;
-    return .new(addr);
-  } 
-
-  void _initBase() {
-    RaylibMatrixFactories.createFactory = MatrixD.mat4;
-    RaylibMatrixFactories.zeroFactory = MatrixD.zero;
-    RaylibQuaternionFactories.createFactory = QuaternionD.quat;
-    RaylibQuaternionFactories.zeroFactory = QuaternionD.zero;
-    RaylibVector2Factories.createFactory = Vector2D.vec2;
-    RaylibVector2Factories.zeroFactory = Vector2D.zero;
-    RaylibVector3Factories.createFactory = Vector3D.vec3;
-    RaylibVector3Factories.zeroFactory = Vector3D.zero;
-    RaylibVector4Factories.createFactory = Vector4D.vec4;
-    RaylibVector4Factories.zeroFactory = Vector4D.zero;
-    MemoryPointer.fromBytes = _defaultFromBytes;
-    MemoryPointer.fromString = _defaultFromString;
-  }
 
   void _init() {
-    // extensions
-    registerModule(RaylibTemp(this, options: tempOptions)); Temp = module();
-    registerModule(RaylibColors(this)); Color = module();
-    registerModule(RaylibEasings(this)); Ease = module();
-    registerModule(RaylibQuaternions(this)); Quat = module();
-    registerModule(RaylibMatrices(this)); Matrix = module();
-    registerModule(RaylibVectors(this)); Vector = module();
-
     // modules
-    registerModule(RaylibAudio(this)); Audio = module();
-    registerModule(RaylibAudioD(this)); AudioD = module();
-    registerModule(RaylibCamera(this)); Camera = module();
-    registerModule(RaylibCameraD(this)); CameraD = module();
-    registerModule(RaylibCore(this)); Core = module();
-    registerModule(RaylibCoreD(this)); CoreD = module();
-    registerModule(RaylibGui(this)); Gui = module();
-    registerModule(RaylibGuiD(this)); GuiD = module();
-    registerModule(RaylibLightD(this)); LightD = module();
-    registerModule(RaylibRlgl(this)); Rlgl = module();
-    registerModule(RaylibRlglD(this)); RlglD = module();
-    registerModule(RaylibUtils(this)); Utils = module();
+    registerModule(Audio = RaylibAudio(this));
+    registerModule(AudioFlat = RaylibAudioFlat(this));
+
+    registerModule(Camera = RaylibCamera(this));
+    registerModule(CameraFlat = RaylibCameraFlat(this));
+    
+    registerModule(Core = RaylibCore(this));
+    registerModule(CoreFlat = RaylibCoreFlat(this));
+    
+    registerModule(Gui = RaylibGui(this));
+    registerModule(GuiFlat = RaylibGuiFlat(this));
+
+    registerModule(Light = RaylibLight(this));
+
+    registerModule(MsfGif = RaylibMsfGif(this));
+    registerModule(MsfGifFlat = RaylibMsfGifFlat(this));
+    
+    registerModule(Rlgl = RaylibRlgl(this));
+    registerModule(RlglFlat = RaylibRlglFlat(this));
   }
 
   bool _canceled = false;

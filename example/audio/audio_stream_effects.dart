@@ -7,7 +7,7 @@ import '../base_dart.dart';
 const int screenWidth = 800;
 const int screenHeight = 450;
 
-late WasmFloat32Pointer delayBuffer;
+late MemoryPointer<RFloat32> delayBuffer;
 int delayBufferSize = 0;
 int delayReadIndex = 2;
 int delayWriteIndex = 0;
@@ -57,7 +57,7 @@ void main() => Raylib((rl) {
   final music = LoadMusicStream("../resources/country.mp3");
 
   delayBufferSize = 48000*2;
-  delayBuffer = Float32$.val.At('delayBuffer', delayBufferSize);
+  delayBuffer = Float32$.At('delayBuffer', delayBufferSize);
 
   PlayMusicStream(music);
 

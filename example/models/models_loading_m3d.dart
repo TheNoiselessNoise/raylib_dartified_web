@@ -76,7 +76,7 @@ void main() => Raylib((rl) {
 
         if (drawSkeleton)
         {
-          for (int i = 0; i < model.boneCount - 1; i++)
+          for (int i = 0; i < model.skeleton.boneCount - 1; i++)
           {
             if (!animPlaying || anims.isEmpty)
             {

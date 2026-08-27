@@ -98,8 +98,9 @@ extension type _EmscriptenModule._(JSObject _) implements JSObject {
   external int addFunction(JSFunction func, JSString signature);
 
   @JS('removeFunction')
-  external int _removeFunction(JSNumber index);
-  int removeFunction(int index) => _removeFunction(index.toJS);
+  external int removeFunction(JSNumber index);
+
+  int getGlobalAddress(String name) => (getProperty(name.toJS) as JSNumber).toDartInt;
 
   JSFunction dwrap(String name, [List<String> argTypes = const [], String? returnType]) {
     final wasmArgTypes = JSArray<JSString>();
@@ -114,41 +115,7 @@ extension JSFunctionUtilExtension on JSFunction {
     JSAny? thisArg, JSAny? arg1, JSAny? arg2, JSAny? arg3, JSAny? arg4, JSAny? arg5, JSAny? arg6, JSAny? arg7, JSAny? arg8, JSAny? arg9,
   ]);
 
-  JSAny? get run => callAsFunction(null);
-
-  JSAny? run1([
-    JSAny? arg1,
-  ]) => callAsFunction(null, arg1);
-
-  JSAny? run2([
-    JSAny? arg1, JSAny? arg2,
-  ]) => callAsFunction(null, arg1, arg2);
-
-  JSAny? run3([
-    JSAny? arg1, JSAny? arg2, JSAny? arg3,
-  ]) => callAsFunction(null, arg1, arg2, arg3);
-
-  JSAny? run4([
-    JSAny? arg1, JSAny? arg2, JSAny? arg3, JSAny? arg4,
-  ]) => callAsFunction(null, arg1, arg2, arg3, arg4);
-
-  JSAny? run5([
-    JSAny? arg1, JSAny? arg2, JSAny? arg3, JSAny? arg4, JSAny? arg5,
-  ]) => callAsFunction(null, arg1, arg2, arg3, arg4, arg5);
-
-  JSAny? run6([
-    JSAny? arg1, JSAny? arg2, JSAny? arg3, JSAny? arg4, JSAny? arg5, JSAny? arg6,
-  ]) => callAsFunction(null, arg1, arg2, arg3, arg4, arg5, arg6);
-
-  JSAny? run7([
-    JSAny? arg1, JSAny? arg2, JSAny? arg3, JSAny? arg4, JSAny? arg5, JSAny? arg6, JSAny? arg7,
-  ]) => callAsFunction(null, arg1, arg2, arg3, arg4, arg5, arg6, arg7);
-
-  JSAny? run8([
-    JSAny? arg1, JSAny? arg2, JSAny? arg3, JSAny? arg4, JSAny? arg5, JSAny? arg6, JSAny? arg7, JSAny? arg8,
-  ]) => callAsFunction(null, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8);
-
-  JSAny? run9([
+  JSAny? run([
     JSAny? arg1, JSAny? arg2, JSAny? arg3, JSAny? arg4, JSAny? arg5, JSAny? arg6, JSAny? arg7, JSAny? arg8, JSAny? arg9,
   ]) => callAsFunction(null, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9);
 }

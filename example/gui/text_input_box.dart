@@ -1,21 +1,21 @@
 // Custom example, there's no original equivalent
-import 'package:raylib_dartified_web/raylib_dartified_web.dart';
+import '../base_dart.dart';
 
 void main() => Raylib((rl) {
-  rl.CoreD.InitWindow(800, 450, "text_input_box");
-  rl.CoreD.SetWindowMonitor(0);
-  rl.CoreD.SetTargetFPS(60);
+  InitWindow(800, 450, "text_input_box");
+  SetWindowMonitor(0);
+  SetTargetFPS(60);
 
   String value = 'Hello, World!';
 
   bool? secretViewActive = false;
 
   rl.setMainLoop(() {
-    rl.CoreD.BeginDrawing();
+    BeginDrawing();
 
-      rl.CoreD.ClearBackground(.WHITE);
+      ClearBackground(.WHITE);
 
-      final (result, newValue, newSecretViewActive) = rl.GuiD.GuiTextInputBox(
+      final (result, newValue, newSecretViewActive) = GuiTextInputBox(
         .rect(50, 50, 200, 120),
         'Title', // title, can be null
         'Some message', // message, can be null
@@ -27,9 +27,9 @@ void main() => Raylib((rl) {
       value = newValue;
       secretViewActive = newSecretViewActive;
 
-      rl.CoreD.DrawText("RESULT: $result (0 = X button, 1 = OK button)", 50, 200, 20, .BLACK);
-      rl.CoreD.DrawText("VALUE: $value", 50, 230, 20, .BLACK);
+      DrawText("RESULT: $result (0 = X button, 1 = OK button)", 50, 200, 20, .BLACK);
+      DrawText("VALUE: $value", 50, 230, 20, .BLACK);
 
-    rl.CoreD.EndDrawing();
+    EndDrawing();
   });
 });
