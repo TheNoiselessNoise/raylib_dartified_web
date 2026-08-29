@@ -16,7 +16,7 @@ void testStringArray() {
   final list = <String>['foo', 'bar', 'baz'];
 
   // storing
-  final arrayPtr = WasmMemory.malloc(WasmSize.Pointer * list.length);
+  final arrayPtr = WasmMemory.malloc(WasmSize.IntPtr * list.length);
 
   for (final (i, s) in list.indexed) {
     final sPtr = WasmMemory.allocString(s);

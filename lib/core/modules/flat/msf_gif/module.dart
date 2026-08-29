@@ -15,11 +15,11 @@ class RaylibMsfGifFlat extends RaylibMsfGifFlatModule<Raylib> {
     StructPointer<MsfGifStateD> handle,
     int width,
     int height,
-  ) => rl.MsfGif.msf_gif_begin.run(
+  ) => rl.MsfGif.msf_gif_begin.run([
     handle.toJS,
     width.toJS,
     height.toJS,
-  ).toInt();
+  ]).toInt();
 
   @override
   int msf_gif_frame(
@@ -28,30 +28,30 @@ class RaylibMsfGifFlat extends RaylibMsfGifFlatModule<Raylib> {
     int centiSecondsPerFame,
     int maxBitDepth,
     int pitchInBytes,
-  ) => rl.MsfGif.msf_gif_frame.run(
+  ) => rl.MsfGif.msf_gif_frame.run([
     handle.toJS,
     pixelData.toJS,
     centiSecondsPerFame.toJS,
     maxBitDepth.toJS,
     pitchInBytes.toJS,
-  ).toInt();
+  ]).toInt();
 
   @override
   MsfGifResultD msf_gif_end(
     StructPointer<MsfGifStateD> handle,
   ) => rl.Temp.MsfGifResult$.RefCapture(
     RaylibCaptureIds.msf_gif_end,
-    (p) => rl.MsfGif.msf_gif_end.run(
+    (p) => rl.MsfGif.msf_gif_end.run([
       p.toJS,
-    ),
+    ]),
   );
 
   @override
   void msf_gif_free(
     MsfGifResultD result,
-  ) => rl.MsfGif.msf_gif_free.run(
+  ) => rl.MsfGif.msf_gif_free.run([
     result.getOpAndDispose().toJS,
-  );
+  ]);
 
   @override
   int msf_gif_begin_to_file(
@@ -60,13 +60,13 @@ class RaylibMsfGifFlat extends RaylibMsfGifFlatModule<Raylib> {
     int height,
     MemoryPointer<RFunction> func,
     MemoryPointer<RVoid> filePointer,
-  ) => rl.MsfGif.msf_gif_begin_to_file.run(
+  ) => rl.MsfGif.msf_gif_begin_to_file.run([
     handle.toJS,
     width.toJS,
     height.toJS,
     func.toJS,
     filePointer.toJS,
-  ).toInt();
+  ]).toInt();
 
   @override
   int msf_gif_frame_to_file(
@@ -75,18 +75,18 @@ class RaylibMsfGifFlat extends RaylibMsfGifFlatModule<Raylib> {
     int centiSecondsPerFame,
     int maxBitDepth,
     int pitchInBytes,
-  ) => rl.MsfGif.msf_gif_frame_to_file.run(
+  ) => rl.MsfGif.msf_gif_frame_to_file.run([
     handle.toJS,
     pixelData.toJS,
     centiSecondsPerFame.toJS,
     maxBitDepth.toJS,
     pitchInBytes.toJS,
-  ).toInt();
+  ]).toInt();
 
   @override
   int msf_gif_end_to_file(
     StructPointer<MsfGifStateD> handle,
-  ) => rl.MsfGif.msf_gif_end_to_file.run(
+  ) => rl.MsfGif.msf_gif_end_to_file.run([
     handle.toJS,
-  ).toInt();
+  ]).toInt();
 }

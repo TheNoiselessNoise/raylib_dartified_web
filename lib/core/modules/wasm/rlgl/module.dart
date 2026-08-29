@@ -250,7 +250,7 @@ class RaylibRlgl extends RaylibModuleWasm with RaylibRlglModuleExtras<Raylib> {
     rlglInit                           = _module.dwrap('rlglInit',                           [n, n]);
     rlglClose                          = _module.dwrap('rlglClose',                          []);
     rlLoadExtensions                   = _module.dwrap('rlLoadExtensions',                   [n]);
-    rlGetProcAddress                   = _module.dwrap('rlGetProcAddress',                   [s], n);
+    rlGetProcAddress                   = _module.dwrap('rlGetProcAddress',                   [n], n);
     rlGetVersion                       = _module.dwrap('rlGetVersion',                       [], n);
     rlSetFramebufferWidth              = _module.dwrap('rlSetFramebufferWidth',              [n]);
     rlGetFramebufferWidth              = _module.dwrap('rlGetFramebufferWidth',              [], n);
@@ -296,14 +296,14 @@ class RaylibRlgl extends RaylibModuleWasm with RaylibRlglModuleExtras<Raylib> {
     rlUnloadFramebuffer                = _module.dwrap('rlUnloadFramebuffer',                [n]);
     rlCopyFramebuffer                  = _module.dwrap('rlCopyFramebuffer',                  [n, n, n, n, n, n]);
     rlResizeFramebuffer                = _module.dwrap('rlResizeFramebuffer',                [n, n]);
-    rlLoadShader                       = _module.dwrap('rlLoadShader',                       [s, n], n);
-    rlLoadShaderProgram                = _module.dwrap('rlLoadShaderProgram',                [s, s], n);
+    rlLoadShader                       = _module.dwrap('rlLoadShader',                       [n, n], n);
+    rlLoadShaderProgram                = _module.dwrap('rlLoadShaderProgram',                [n, n], n);
     rlLoadShaderProgramEx              = _module.dwrap('rlLoadShaderProgramEx',              [n, n], n);
     rlLoadShaderProgramCompute         = _module.dwrap('rlLoadShaderProgramCompute',         [n], n);
     rlUnloadShader                     = _module.dwrap('rlUnloadShader',                     [n]);
     rlUnloadShaderProgram              = _module.dwrap('rlUnloadShaderProgram',              [n]);
-    rlGetLocationUniform               = _module.dwrap('rlGetLocationUniform',               [n, s]);
-    rlGetLocationAttrib                = _module.dwrap('rlGetLocationAttrib',                [n, s], n);
+    rlGetLocationUniform               = _module.dwrap('rlGetLocationUniform',               [n, n]);
+    rlGetLocationAttrib                = _module.dwrap('rlGetLocationAttrib',                [n, n], n);
     rlSetUniform                       = _module.dwrap('rlSetUniform',                       [n, n, n, n]);
     rlSetUniformMatrix                 = _module.dwrap('rlSetUniformMatrix',                 [n, n]);
     rlSetUniformMatrices               = _module.dwrap('rlSetUniformMatrices',               [n, n, n]);

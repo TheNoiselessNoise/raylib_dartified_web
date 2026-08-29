@@ -22,16 +22,16 @@ class RaylibGuiFlat extends RaylibGuiFlatModule<Raylib> {
   @override
   void GuiSetAlpha(
     double alpha,
-  ) => rl.Gui.GuiSetAlpha.run(
+  ) => rl.Gui.GuiSetAlpha.run([
     alpha.toJS,
-  );
+  ]);
 
   @override
   void GuiSetState(
     int state,
-  ) => rl.Gui.GuiSetState.run(
+  ) => rl.Gui.GuiSetState.run([
     state.toJS,
-  );
+  ]);
 
   @override
   int GuiGetState() => rl.Gui.GuiGetState.run().toInt();
@@ -39,16 +39,16 @@ class RaylibGuiFlat extends RaylibGuiFlatModule<Raylib> {
   @override
   void GuiSetFont(
     FontD font,
-  ) => rl.Gui.GuiSetFont.run(
+  ) => rl.Gui.GuiSetFont.run([
     rl.Temp.Font$.Ref1(font).toJS,
-  );
+  ]);
 
   @override
   FontD GuiGetFont() => rl.Temp.Font$.RefCapture(
     RaylibCaptureIds.GuiGetFont,
-    (p) => rl.Gui.GuiGetFont.run(
+    (p) => rl.Gui.GuiGetFont.run([
       p.toJS,
-    ),
+    ]),
   );
 
   @override
@@ -56,27 +56,27 @@ class RaylibGuiFlat extends RaylibGuiFlatModule<Raylib> {
     int control,
     int property,
     int value,
-  ) => rl.Gui.GuiSetStyle.run(
+  ) => rl.Gui.GuiSetStyle.run([
     control.toJS,
     property.toJS,
     value.toJS,
-  );
+  ]);
 
   @override
   int GuiGetStyle(
     int control,
     int property,
-  ) => rl.Gui.GuiGetStyle.run(
+  ) => rl.Gui.GuiGetStyle.run([
     control.toJS,
     property.toJS,
-  ).toInt();
+  ]).toInt();
 
   @override
   void GuiLoadStyle(
     MemoryPointer<RChar> fileName,
-  ) => rl.Gui.GuiLoadStyle.run(
+  ) => rl.Gui.GuiLoadStyle.run([
     fileName.toJS,
-  );
+  ]);
 
   @override
   void GuiLoadStyleDefault() => rl.Gui.GuiLoadStyleDefault.run;
@@ -90,25 +90,25 @@ class RaylibGuiFlat extends RaylibGuiFlatModule<Raylib> {
   @override
   void GuiSetTooltip(
     MemoryPointer<RChar> tooltip,
-  ) => rl.Gui.GuiSetTooltip.run(
+  ) => rl.Gui.GuiSetTooltip.run([
     tooltip.toJS,
-  );
+  ]);
 
   @override
   WasmMemoryPointer<RChar> GuiIconText(
     int iconId,
     MemoryPointer<RChar> text,
-  ) => rl.Gui.GuiIconText.run(
+  ) => rl.Gui.GuiIconText.run([
     iconId.toJS,
     text.toJS,
-  ).asMemoryPointer();
+  ]).asMemoryPointer();
 
   @override
   void GuiSetIconScale(
     int scale,
-  ) => rl.Gui.GuiSetIconScale.run(
+  ) => rl.Gui.GuiSetIconScale.run([
     scale.toJS,
-  );
+  ]);
 
   @override
   WasmMemoryPointer<RUnsignedInt> GuiGetIcons() => rl.Gui.GuiGetIcons.run().asMemoryPointer();
@@ -117,10 +117,10 @@ class RaylibGuiFlat extends RaylibGuiFlatModule<Raylib> {
   WasmMemoryPointer<RPointer<RChar>> GuiLoadIcons(
     MemoryPointer<RChar> fileName,
     bool loadIconsName,
-  ) => rl.Gui.GuiLoadIcons.run(
+  ) => rl.Gui.GuiLoadIcons.run([
     fileName.toJS,
     loadIconsName.toJS,
-  ).asMemoryPointer();
+  ]).asMemoryPointer();
 
   @override
   void GuiDrawIcon(
@@ -129,56 +129,56 @@ class RaylibGuiFlat extends RaylibGuiFlatModule<Raylib> {
     int posY,
     int pixelSize,
     ColorD color,
-  ) => rl.Gui.GuiDrawIcon.run(
+  ) => rl.Gui.GuiDrawIcon.run([
     iconId.toJS,
     posX.toJS,
     posY.toJS,
     pixelSize.toJS,
     rl.Temp.Color$.Ref1(color).toJS,
-  );
+  ]);
 
   @override
   int GuiGetTextWidth(
     MemoryPointer<RChar> text,
-  ) => rl.Gui.GuiGetTextWidth.run(
+  ) => rl.Gui.GuiGetTextWidth.run([
     text.toJS,
-  ).toInt();
+  ]).toInt();
 
   @override
   int GuiWindowBox(
     RectangleD bounds,
     MemoryPointer<RChar> title,
-  ) => rl.Gui.GuiWindowBox.run(
+  ) => rl.Gui.GuiWindowBox.run([
     rl.Temp.Rectangle$.Ref1(bounds).toJS,
     title.toJS,
-  ).toInt();
+  ]).toInt();
 
   @override
   int GuiGroupBox(
     RectangleD bounds,
     MemoryPointer<RChar> text,
-  ) => rl.Gui.GuiGroupBox.run(
+  ) => rl.Gui.GuiGroupBox.run([
     rl.Temp.Rectangle$.Ref1(bounds).toJS,
     text.toJS,
-  ).toInt();
+  ]).toInt();
 
   @override
   int GuiLine(
     RectangleD bounds,
     MemoryPointer<RChar> text,
-  ) => rl.Gui.GuiLine.run(
+  ) => rl.Gui.GuiLine.run([
     rl.Temp.Rectangle$.Ref1(bounds).toJS,
     text.toJS,
-  ).toInt();
+  ]).toInt();
 
   @override
   int GuiPanel(
     RectangleD bounds,
     MemoryPointer<RChar> text,
-  ) => rl.Gui.GuiPanel.run(
+  ) => rl.Gui.GuiPanel.run([
     rl.Temp.Rectangle$.Ref1(bounds).toJS,
     text.toJS,
-  ).toInt();
+  ]).toInt();
 
   @override
   int GuiTabBar(
@@ -186,12 +186,12 @@ class RaylibGuiFlat extends RaylibGuiFlatModule<Raylib> {
     MemoryPointer<RPointer<RChar>> text,
     int count,
     MemoryPointer<RInt> active,
-  ) => rl.Gui.GuiTabBar.run(
+  ) => rl.Gui.GuiTabBar.run([
     rl.Temp.Rectangle$.Ref1(bounds).toJS,
     text.toJS,
     count.toJS,
     active.toJS,
-  ).toInt();
+  ]).toInt();
 
   @override
   int GuiScrollPanel(
@@ -200,95 +200,95 @@ class RaylibGuiFlat extends RaylibGuiFlatModule<Raylib> {
     RectangleD content,
     StructPointer<Vector2D> scroll,
     StructPointer<RectangleD> view,
-  ) => rl.Gui.GuiScrollPanel.run(
+  ) => rl.Gui.GuiScrollPanel.run([
     rl.Temp.Rectangle$.Ref1(bounds).toJS,
     text.toJS,
     rl.Temp.Rectangle$.Ref2(content).toJS,
     scroll.toJS,
     view.toJS,
-  ).toInt();
+  ]).toInt();
 
   @override
   int GuiLabel(
     RectangleD bounds,
     MemoryPointer<RChar> text,
-  ) => rl.Gui.GuiLabel.run(
+  ) => rl.Gui.GuiLabel.run([
     rl.Temp.Rectangle$.Ref1(bounds).toJS,
     text.toJS,
-  ).toInt();
+  ]).toInt();
 
   @override
   int GuiButton(
     RectangleD bounds,
     MemoryPointer<RChar> text,
-  ) => rl.Gui.GuiButton.run(
+  ) => rl.Gui.GuiButton.run([
     rl.Temp.Rectangle$.Ref1(bounds).toJS,
     text.toJS,
-  ).toInt();
+  ]).toInt();
 
   @override
   int GuiLabelButton(
     RectangleD bounds,
     MemoryPointer<RChar> text,
-  ) => rl.Gui.GuiLabelButton.run(
+  ) => rl.Gui.GuiLabelButton.run([
     rl.Temp.Rectangle$.Ref1(bounds).toJS,
     text.toJS,
-  ).toInt();
+  ]).toInt();
 
   @override
   int GuiToggle(
     RectangleD bounds,
     MemoryPointer<RChar> text,
     MemoryPointer<RBool> active,
-  ) => rl.Gui.GuiToggle.run(
+  ) => rl.Gui.GuiToggle.run([
     rl.Temp.Rectangle$.Ref1(bounds).toJS,
     text.toJS,
     active.toJS,
-  ).toInt();
+  ]).toInt();
 
   @override
   int GuiToggleGroup(
     RectangleD bounds,
     MemoryPointer<RChar> text,
     MemoryPointer<RInt> active,
-  ) => rl.Gui.GuiToggleGroup.run(
+  ) => rl.Gui.GuiToggleGroup.run([
     rl.Temp.Rectangle$.Ref1(bounds).toJS,
     text.toJS,
     active.toJS,
-  ).toInt();
+  ]).toInt();
 
   @override
   int GuiToggleSlider(
     RectangleD bounds,
     MemoryPointer<RChar> text,
     MemoryPointer<RInt> active,
-  ) => rl.Gui.GuiToggleSlider.run(
+  ) => rl.Gui.GuiToggleSlider.run([
     rl.Temp.Rectangle$.Ref1(bounds).toJS,
     text.toJS,
     active.toJS,
-  ).toInt();
+  ]).toInt();
 
   @override
   int GuiCheckBox(
     RectangleD bounds,
     MemoryPointer<RChar> text,
     MemoryPointer<RBool> checked,
-  ) => rl.Gui.GuiCheckBox.run(
+  ) => rl.Gui.GuiCheckBox.run([
     rl.Temp.Rectangle$.Ref1(bounds).toJS,
     text.toJS,
     checked.toJS,
-  ).toInt();
+  ]).toInt();
 
   @override
   int GuiComboBox(
     RectangleD bounds,
     MemoryPointer<RChar> text,
     MemoryPointer<RInt> active,
-  ) => rl.Gui.GuiComboBox.run(
+  ) => rl.Gui.GuiComboBox.run([
     rl.Temp.Rectangle$.Ref1(bounds).toJS,
     text.toJS,
     active.toJS,
-  ).toInt();
+  ]).toInt();
 
   @override
   int GuiDropdownBox(
@@ -296,12 +296,12 @@ class RaylibGuiFlat extends RaylibGuiFlatModule<Raylib> {
     MemoryPointer<RChar> text,
     MemoryPointer<RInt> active,
     bool editMode,
-  ) => rl.Gui.GuiDropdownBox.run(
+  ) => rl.Gui.GuiDropdownBox.run([
     rl.Temp.Rectangle$.Ref1(bounds).toJS,
     text.toJS,
     active.toJS,
     editMode.toJS,
-  ).toInt();
+  ]).toInt();
 
   @override
   int GuiSpinner(
@@ -311,14 +311,14 @@ class RaylibGuiFlat extends RaylibGuiFlatModule<Raylib> {
     int minValue,
     int maxValue,
     bool editMode,
-  ) => rl.Gui.GuiSpinner.run(
+  ) => rl.Gui.GuiSpinner.run([
     rl.Temp.Rectangle$.Ref1(bounds).toJS,
     text.toJS,
     value.toJS,
     minValue.toJS,
     maxValue.toJS,
     editMode.toJS,
-  ).toInt();
+  ]).toInt();
 
   @override
   int GuiValueBox(
@@ -328,14 +328,14 @@ class RaylibGuiFlat extends RaylibGuiFlatModule<Raylib> {
     int minValue,
     int maxValue,
     bool editMode,
-  ) => rl.Gui.GuiValueBox.run(
+  ) => rl.Gui.GuiValueBox.run([
     rl.Temp.Rectangle$.Ref1(bounds).toJS,
     text.toJS,
     value.toJS,
     minValue.toJS,
     maxValue.toJS,
     editMode.toJS,
-  ).toInt();
+  ]).toInt();
 
   @override
   int GuiValueBoxFloat(
@@ -344,13 +344,13 @@ class RaylibGuiFlat extends RaylibGuiFlatModule<Raylib> {
     MemoryPointer<RChar> textValue,
     MemoryPointer<RFloat> value,
     bool editMode,
-  ) => rl.Gui.GuiValueBoxFloat.run(
+  ) => rl.Gui.GuiValueBoxFloat.run([
     rl.Temp.Rectangle$.Ref1(bounds).toJS,
     text.toJS,
     textValue.toJS,
     value.toJS,
     editMode.toJS,
-  ).toInt();
+  ]).toInt();
 
   @override
   int GuiTextBox(
@@ -358,12 +358,12 @@ class RaylibGuiFlat extends RaylibGuiFlatModule<Raylib> {
     MemoryPointer<RChar> text,
     int textSize,
     bool editMode,
-  ) => rl.Gui.GuiTextBox.run(
+  ) => rl.Gui.GuiTextBox.run([
     rl.Temp.Rectangle$.Ref1(bounds).toJS,
     text.toJS,
     textSize.toJS,
     editMode.toJS,
-  ).toInt();
+  ]).toInt();
 
   @override
   int GuiSlider(
@@ -373,14 +373,14 @@ class RaylibGuiFlat extends RaylibGuiFlatModule<Raylib> {
     MemoryPointer<RFloat> value,
     double minValue,
     double maxValue,
-  ) => rl.Gui.GuiSlider.run(
+  ) => rl.Gui.GuiSlider.run([
     rl.Temp.Rectangle$.Ref1(bounds).toJS,
     textLeft.toJS,
     textRight.toJS,
     value.toJS,
     minValue.toJS,
     maxValue.toJS,
-  ).toInt();
+  ]).toInt();
 
   @override
   int GuiSliderBar(
@@ -390,14 +390,14 @@ class RaylibGuiFlat extends RaylibGuiFlatModule<Raylib> {
     MemoryPointer<RFloat> value,
     double minValue,
     double maxValue,
-  ) => rl.Gui.GuiSliderBar.run(
+  ) => rl.Gui.GuiSliderBar.run([
     rl.Temp.Rectangle$.Ref1(bounds).toJS,
     textLeft.toJS,
     textRight.toJS,
     value.toJS,
     minValue.toJS,
     maxValue.toJS,
-  ).toInt();
+  ]).toInt();
 
   @override
   int GuiProgressBar(
@@ -407,32 +407,32 @@ class RaylibGuiFlat extends RaylibGuiFlatModule<Raylib> {
     MemoryPointer<RFloat> value,
     double minValue,
     double maxValue,
-  ) => rl.Gui.GuiProgressBar.run(
+  ) => rl.Gui.GuiProgressBar.run([
     rl.Temp.Rectangle$.Ref1(bounds).toJS,
     textLeft.toJS,
     textRight.toJS,
     value.toJS,
     minValue.toJS,
     maxValue.toJS,
-  ).toInt();
+  ]).toInt();
 
   @override
   int GuiStatusBar(
     RectangleD bounds,
     MemoryPointer<RChar> text,
-  ) => rl.Gui.GuiStatusBar.run(
+  ) => rl.Gui.GuiStatusBar.run([
     rl.Temp.Rectangle$.Ref1(bounds).toJS,
     text.toJS,
-  ).toInt();
+  ]).toInt();
 
   @override
   int GuiDummyRec(
     RectangleD bounds,
     MemoryPointer<RChar> text,
-  ) => rl.Gui.GuiDummyRec.run(
+  ) => rl.Gui.GuiDummyRec.run([
     rl.Temp.Rectangle$.Ref1(bounds).toJS,
     text.toJS,
-  ).toInt();
+  ]).toInt();
 
   @override
   int GuiGrid(
@@ -441,13 +441,13 @@ class RaylibGuiFlat extends RaylibGuiFlatModule<Raylib> {
     double spacing,
     int subdivs,
     StructPointer<Vector2D> mouseCell,
-  ) => rl.Gui.GuiGrid.run(
+  ) => rl.Gui.GuiGrid.run([
     rl.Temp.Rectangle$.Ref1(bounds).toJS,
     text.toJS,
     spacing.toJS,
     subdivs.toJS,
     mouseCell.toJS,
-  ).toInt();
+  ]).toInt();
 
   @override
   int GuiListView(
@@ -455,12 +455,12 @@ class RaylibGuiFlat extends RaylibGuiFlatModule<Raylib> {
     MemoryPointer<RChar> text,
     MemoryPointer<RInt> scrollIndex,
     MemoryPointer<RInt> active,
-  ) => rl.Gui.GuiListView.run(
+  ) => rl.Gui.GuiListView.run([
     rl.Temp.Rectangle$.Ref1(bounds).toJS,
     text.toJS,
     scrollIndex.toJS,
     active.toJS,
-  ).toInt();
+  ]).toInt();
 
   @override
   int GuiListViewEx(
@@ -470,14 +470,14 @@ class RaylibGuiFlat extends RaylibGuiFlatModule<Raylib> {
     MemoryPointer<RInt> scrollIndex,
     MemoryPointer<RInt> active,
     MemoryPointer<RInt> focus,
-  ) => rl.Gui.GuiListViewEx.run(
+  ) => rl.Gui.GuiListViewEx.run([
     rl.Temp.Rectangle$.Ref1(bounds).toJS,
     text.toJS,
     count.toJS,
     scrollIndex.toJS,
     active.toJS,
     focus.toJS,
-  ).toInt();
+  ]).toInt();
 
   @override
   int GuiMessageBox(
@@ -485,12 +485,12 @@ class RaylibGuiFlat extends RaylibGuiFlatModule<Raylib> {
     MemoryPointer<RChar> title,
     MemoryPointer<RChar> message,
     MemoryPointer<RChar> buttons,
-  ) => rl.Gui.GuiMessageBox.run(
+  ) => rl.Gui.GuiMessageBox.run([
     rl.Temp.Rectangle$.Ref1(bounds).toJS,
     title.toJS,
     message.toJS,
     buttons.toJS,
-  ).toInt();
+  ]).toInt();
 
   @override
   int GuiTextInputBox(
@@ -501,7 +501,7 @@ class RaylibGuiFlat extends RaylibGuiFlatModule<Raylib> {
     MemoryPointer<RChar> text,
     int textMaxSize,
     MemoryPointer<RBool> secretViewActive,
-  ) => rl.Gui.GuiTextInputBox.run(
+  ) => rl.Gui.GuiTextInputBox.run([
     rl.Temp.Rectangle$.Ref1(bounds).toJS,
     title.toJS,
     message.toJS,
@@ -509,71 +509,71 @@ class RaylibGuiFlat extends RaylibGuiFlatModule<Raylib> {
     text.toJS,
     textMaxSize.toJS,
     secretViewActive.toJS,
-  ).toInt();
+  ]).toInt();
 
   @override
   int GuiColorPicker(
     RectangleD bounds,
     MemoryPointer<RChar> text,
     StructPointer<ColorD> color,
-  ) => rl.Gui.GuiColorPicker.run(
+  ) => rl.Gui.GuiColorPicker.run([
     rl.Temp.Rectangle$.Ref1(bounds).toJS,
     text.toJS,
     color.toJS,
-  ).toInt();
+  ]).toInt();
 
   @override
   int GuiColorPanel(
     RectangleD bounds,
     MemoryPointer<RChar> text,
     StructPointer<ColorD> color,
-  ) => rl.Gui.GuiColorPanel.run(
+  ) => rl.Gui.GuiColorPanel.run([
     rl.Temp.Rectangle$.Ref1(bounds).toJS,
     text.toJS,
     color.toJS,
-  ).toInt();
+  ]).toInt();
 
   @override
   int GuiColorBarAlpha(
     RectangleD bounds,
     MemoryPointer<RChar> text,
     MemoryPointer<RFloat> alpha,
-  ) => rl.Gui.GuiColorBarAlpha.run(
+  ) => rl.Gui.GuiColorBarAlpha.run([
     rl.Temp.Rectangle$.Ref1(bounds).toJS,
     text.toJS,
     alpha.toJS,
-  ).toInt();
+  ]).toInt();
 
   @override
   int GuiColorBarHue(
     RectangleD bounds,
     MemoryPointer<RChar> text,
     MemoryPointer<RFloat> value,
-  ) => rl.Gui.GuiColorBarHue.run(
+  ) => rl.Gui.GuiColorBarHue.run([
     rl.Temp.Rectangle$.Ref1(bounds).toJS,
     text.toJS,
     value.toJS,
-  ).toInt();
+  ]).toInt();
 
   @override
   int GuiColorPickerHSV(
     RectangleD bounds,
     MemoryPointer<RChar> text,
     StructPointer<Vector3D> colorHsv,
-  ) => rl.Gui.GuiColorPickerHSV.run(
+  ) => rl.Gui.GuiColorPickerHSV.run([
     rl.Temp.Rectangle$.Ref1(bounds).toJS,
     text.toJS,
     colorHsv.toJS,
-  ).toInt();
+  ]).toInt();
 
   @override
   int GuiColorPanelHSV(
     RectangleD bounds,
     MemoryPointer<RChar> text,
     StructPointer<Vector3D> colorHsv,
-  ) => rl.Gui.GuiColorPanelHSV.run(
+  ) => rl.Gui.GuiColorPanelHSV.run([
     rl.Temp.Rectangle$.Ref1(bounds).toJS,
     text.toJS,
     colorHsv.toJS,
-  ).toInt();
+  ]).toInt();
 }

@@ -42,7 +42,8 @@ void main() => Raylib((rl) {
   rl.setMainLoop(() {
     UpdateCamera(camera, .CAMERA_FREE);
 
-    if (rl.Core.IsKeyPressed.run('Z'.ch.toJS).toBool()) camera.target.set(0.0, 0.5, 0.0);
+    if (rl.Core.IsKeyPressed.run(['Z'.ch.toJS]).toBool())
+      camera.target.set(0.0, 0.5, 0.0);
 
     BeginDrawing();
     

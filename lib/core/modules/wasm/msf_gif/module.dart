@@ -12,8 +12,8 @@ class RaylibMsfGif extends RaylibModuleWasm {
   late final JSFunction msf_gif_end_to_file;
 
   RaylibMsfGif(super.rl) {
-    msf_gif_alpha_threshold = .new(_module.getGlobalAddress('msf_gif_alpha_threshold'));
-    msf_gif_bgra_flag       = .new(_module.getGlobalAddress('msf_gif_bgra_flag'));
+    msf_gif_alpha_threshold = _module.symbol('msf_gif_alpha_threshold');
+    msf_gif_bgra_flag       = _module.symbol('msf_gif_bgra_flag');
     
     msf_gif_begin         = _module.dwrap('msf_gif_begin',         [n, n, n], n);
     msf_gif_frame         = _module.dwrap('msf_gif_frame',         [n, n, n, n, n], n);

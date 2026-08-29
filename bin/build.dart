@@ -4,8 +4,30 @@ import '_paths.dart';
 import 'package:args/args.dart';
 import 'package:path/path.dart' as p;
 import 'assets/html_index.dart' as html_index show template;
-import 'assets/raylib_func_list.dart' as raylib_func_list show template;
+import 'assets/raylib_func_lists.dart' show
+  EmscriptenFuncList, // core
+  AudioFuncList, // core
+  CameraFuncList, // core
+  CoreFuncList, // core
+  GuiFuncList,
+  LightFuncList, // core
+  MsfGifFuncList,
+  RlglFuncList; // core
 import 'assets/raylib_c.dart' as raylib_c show template;
+import 'package:raylib_dartified_base/raylib_dartified_base.dart' show RaylibSupportedLibs;
+
+final Map<RaylibSupportedLibs, String> funcListTemplates = {
+  .raylib: <String>[
+    EmscriptenFuncList,
+    AudioFuncList,
+    CameraFuncList,
+    CoreFuncList,
+    LightFuncList,
+    RlglFuncList,
+  ].join(),
+  .gui: GuiFuncList,
+  .msf_gif: MsfGifFuncList,
+};
 
 final cwd = Directory.current;
 final buildDir = Directory(p.join(cwd.path, 'build'));
@@ -17,6 +39,7 @@ const String FLAG_HELP = 'help';
 const String OPT_ENTRY = 'entry';
 const String OPT_RAYLIB_C = 'raylib-c';
 const String OPT_RAYLIB_FUNC_LIST = 'raylib-func-list';
+const String OPT_RAYLIB_MODULES = 'raylib-modules';
 const String OPT_RESOURCES = 'raylib-resources';
 const String OPT_STACK_SIZE = 'stack-size';
 const String OPT_EMCC_SETTING = 'emcc-setting';
@@ -34,6 +57,12 @@ ArgParser setupParser(List<String> args) {
 
   parser.addOption(OPT_RAYLIB_C, valueHelp: 'path', help: 'Path to custom raylib.c (default: package builtin)');
   parser.addOption(OPT_RAYLIB_FUNC_LIST, valueHelp: 'path', help: 'Path to custom raylib function list file (default: package builtin)');
+  parser.addMultiOption(
+    OPT_RAYLIB_MODULES,
+    valueHelp: 'name',
+    help: 'What optional modules to include (default: *)',
+    allowed: RaylibSupportedLibs.values.map((e) => e.id).skip(1),
+  );
   parser.addOption(OPT_RESOURCES, valueHelp: 'path', help: 'Path to resources/ directory (default: ./resources)');
   parser.addOption(OPT_STACK_SIZE, valueHelp: 'bytes', help: 'emcc STACK_SIZE in bytes', defaultsTo: _defaultStackSize);
 
@@ -103,7 +132,20 @@ Future<void> main(List<String> args) async {
   final emccExtraArgs = parsedArgs.multiOption(OPT_EMCC_ARG);
 
   if (raylibC == null) _builtinRaylibC.writeAsStringSync(raylib_c.template);
-  if (raylibFuncList == null) _builtinFuncList.writeAsStringSync(raylib_func_list.template);
+
+  final raylibOptionalModules = parsedArgs.multiOption(OPT_RAYLIB_MODULES);
+
+  final allowedModules = raylibOptionalModules.isEmpty
+    ? RaylibSupportedLibs.values.skip(1)
+    : raylibOptionalModules.map(RaylibSupportedLibs.byId);
+
+  if (raylibFuncList == null) {
+    String funcList = funcListTemplates[RaylibSupportedLibs.raylib]!;
+
+    allowedModules.forEach((m) => funcList += funcListTemplates[m]!);
+
+    _builtinFuncList.writeAsStringSync(funcList);
+  }
 
   _checkEnv();
   _checkSetupDone();
@@ -244,6 +286,7 @@ Future<void> _emccLink({
     '-I${toEmccPath(rayguiInclude)}',
     ...settingArgs,
     if (raylibFuncList != null) ...['-s', 'EXPORTED_FUNCTIONS=@${toEmccPath(raylibFuncList.path)}'],
+    // if (raylibSymbolList != null) ...['-s', 'EXPORTED_SYMBOLS=@${toEmccPath(raylibSymbolList.path)}'],
     if (hasResources) ...['--preload-file', '${toEmccPath(resourcesDir.path)}@/resources'],
     '-s', "EXPORTED_RUNTIME_METHODS=["
       '"wasmExports","wasmTable","cwrap","ccall",'

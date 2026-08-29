@@ -74,10 +74,10 @@ class RaylibAudio extends RaylibModuleWasm {
     IsAudioDeviceReady              = _module.dwrap('IsAudioDeviceReady',              [], n);
     SetMasterVolume                 = _module.dwrap('SetMasterVolume',                 [n]);
     GetMasterVolume                 = _module.dwrap('GetMasterVolume',                 [], n);
-    LoadWave                        = _module.dwrap('LoadWave',                        [n, s]);
-    LoadWaveFromMemory              = _module.dwrap('LoadWaveFromMemory',              [n, s, n, n]);
+    LoadWave                        = _module.dwrap('LoadWave',                        [n, n]);
+    LoadWaveFromMemory              = _module.dwrap('LoadWaveFromMemory',              [n, n, n, n]);
     IsWaveValid                     = _module.dwrap('IsWaveValid',                     [n], n);
-    LoadSound                       = _module.dwrap('LoadSound',                       [n, s]);
+    LoadSound                       = _module.dwrap('LoadSound',                       [n, n]);
     LoadSoundFromWave               = _module.dwrap('LoadSoundFromWave',               [n, n]);
     LoadSoundAlias                  = _module.dwrap('LoadSoundAlias',                  [n, n]);
     IsSoundValid                    = _module.dwrap('IsSoundValid',                    [n], n);
@@ -85,8 +85,8 @@ class RaylibAudio extends RaylibModuleWasm {
     UnloadWave                      = _module.dwrap('UnloadWave',                      [n]);
     UnloadSound                     = _module.dwrap('UnloadSound',                     [n]);
     UnloadSoundAlias                = _module.dwrap('UnloadSoundAlias',                [n]);
-    ExportWave                      = _module.dwrap('ExportWave',                      [n, s], n);
-    ExportWaveAsCode                = _module.dwrap('ExportWaveAsCode',                [n, s], n);
+    ExportWave                      = _module.dwrap('ExportWave',                      [n, n], n);
+    ExportWaveAsCode                = _module.dwrap('ExportWaveAsCode',                [n, n], n);
     PlaySound                       = _module.dwrap('PlaySound',                       [n]);
     StopSound                       = _module.dwrap('StopSound',                       [n]);
     PauseSound                      = _module.dwrap('PauseSound',                      [n]);
@@ -100,8 +100,8 @@ class RaylibAudio extends RaylibModuleWasm {
     WaveFormat                      = _module.dwrap('WaveFormat',                      [n, n, n, n]);
     LoadWaveSamples                 = _module.dwrap('LoadWaveSamples',                 [n], n);
     UnloadWaveSamples               = _module.dwrap('UnloadWaveSamples',               [n]);
-    LoadMusicStream                 = _module.dwrap('LoadMusicStream',                 [n, s]);
-    LoadMusicStreamFromMemory       = _module.dwrap('LoadMusicStreamFromMemory',       [n, s, n, n]);
+    LoadMusicStream                 = _module.dwrap('LoadMusicStream',                 [n, n]);
+    LoadMusicStreamFromMemory       = _module.dwrap('LoadMusicStreamFromMemory',       [n, n, n, n]);
     IsMusicValid                    = _module.dwrap('IsMusicValid',                    [n], n);
     UnloadMusicStream               = _module.dwrap('UnloadMusicStream',               [n]);
     PlayMusicStream                 = _module.dwrap('PlayMusicStream',                 [n]);

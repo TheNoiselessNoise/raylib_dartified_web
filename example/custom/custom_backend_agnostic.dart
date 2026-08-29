@@ -1,7 +1,7 @@
 import 'dart:typed_data';
 import '../base_dart.dart';
 
-class BackendAgnostic extends RaylibGame {
+class BackendAgnostic extends RaylibGameBase<Raylib> {
   final int screenWidth;
   final int screenHeight;
   final String title;

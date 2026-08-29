@@ -71,15 +71,9 @@ class WasmMemoryPointer<X extends RType> extends MemoryPointer<X> {
   }
 
   @override
-  String toDartString() {
-    _p('toDartString');
-    return WasmMemory.readString(_addr);
-  }
-
-  @override
-  String toDartStringBounded(int maxLength) {
-    _p('toDartStringBounded', maxLength);
-    return WasmMemory.readString(_addr, maxLength);
+  Uint8List readBytes(int byteOffset, int length) {
+    _p('readBytes', byteOffset, length);
+    return .sublistView(WasmMemory.heapU8, _addr + byteOffset, _addr + byteOffset + length);
   }
 
   @override
@@ -94,7 +88,7 @@ class WasmMemoryPointer<X extends RType> extends MemoryPointer<X> {
   @override
   void writePtr(MemoryPointer<RType>? value, [int byteOffset = 0]) {
     _p('writePtr', value?.address, byteOffset);
-    return WasmMemory.writePtr(_addr, byteOffset, value?.address ?? 0);
+    return WasmMemory.writePtr(_addr, value?.address ?? 0, byteOffset);
   }
 
   @override int readSize([int byteOffset = 0]) { _p('readSize', byteOffset); return WasmMemory.readSize(_addr, byteOffset); }
@@ -180,7 +174,7 @@ class WasmTypes {
 }
 
 class WasmSize {
-  static const int Pointer       = Uint32;
+  static const int IntPtr        = Uint32;
   static   int get Size          => RType.isNative32Bit ? Uint32 : Uint64;
   static const int Bool          = Uint8;
   static const int Int8          = 1;
@@ -216,35 +210,12 @@ class WasmMemory {
   static Float64List get heapF64 => .view(_heapf64.buffer.toDart);
 
   static void write<T extends Object>(WasmType<T> t, int ptr, T value, [int offset = 0])
-    => t.heap()[(ptr >> t.shift) + offset] = value;
+    => t.heap()[(ptr + offset) >> t.shift] = value;
 
   static T read<T extends Object>(WasmType<T> t, int ptr, [int offset = 0])
-    => t.heap()[(ptr >> t.shift) + offset];
+    => t.heap()[(ptr + offset) >> t.shift];
 
   static int readPtr(int ptr, [int offset = 0]) => readUint32(ptr, offset);
-  static void writePtr(int ptr, int value, [int offset = 0]) => writeUint32(ptr, value, offset);
-
-  static void writeSize(int ptr, int value, [int offset = 0]) => RType.isNative32Bit ? writeUint32(ptr, value, offset) : writeUint64(ptr, value, offset);
-  static void writeBool(int ptr, bool value, [int offset = 0]) => write<int>(WasmTypes.Uint8, ptr, value ? 1 : 0, offset);
-  static void writeInt8(int ptr, int value, [int offset = 0]) => write(WasmTypes.Int8, ptr, value, offset);
-  static void writeUint8(int ptr, int value, [int offset = 0]) => write(WasmTypes.Uint8, ptr, value, offset);
-  static void writeInt16(int ptr, int value, [int offset = 0]) => write(WasmTypes.Int16, ptr, value, offset);
-  static void writeUint16(int ptr, int value, [int offset = 0]) => write(WasmTypes.Uint16, ptr, value, offset);
-  static void writeInt32(int ptr, int value, [int offset = 0]) => write(WasmTypes.Int32, ptr, value, offset);
-  static void writeUint32(int ptr, int value, [int offset = 0]) => write(WasmTypes.Uint32, ptr, value, offset);
-  static void writeInt64(int ptr, int value, [int offset = 0]) => write(WasmTypes.Int64, ptr, value, offset);
-  static void writeUint64(int ptr, int value, [int offset = 0]) => write(WasmTypes.Uint64, ptr, value, offset);
-  static void writeFloat32(int ptr, double value, [int offset = 0]) => write(WasmTypes.Float32, ptr, value, offset);
-  static void writeFloat64(int ptr, double value, [int offset = 0]) => write(WasmTypes.Float64, ptr, value, offset);
-  static void writeChar(int ptr, int value, [int offset = 0]) => write(WasmTypes.Char, ptr, value, offset);
-  static void writeUnsignedChar(int ptr, int value, [int offset = 0]) => write(WasmTypes.UnsignedChar, ptr, value, offset);
-  static void writeShort(int ptr, int value, [int offset = 0]) => write(WasmTypes.Short, ptr, value, offset);
-  static void writeUnsignedShort(int ptr, int value, [int offset = 0]) => write(WasmTypes.UnsignedShort, ptr, value, offset);
-  static void writeInt(int ptr, int value, [int offset = 0]) => write(WasmTypes.Int, ptr, value, offset);
-  static void writeUnsignedInt(int ptr, int value, [int offset = 0]) => write(WasmTypes.UnsignedInt, ptr, value, offset);
-  static void writeFloat(int ptr, double value, [int offset = 0]) => write(WasmTypes.Float, ptr, value, offset);
-  static void writeDouble(int ptr, double value, [int offset = 0]) => write(WasmTypes.Double, ptr, value, offset);
-
   static int readSize(int ptr, [int offset = 0]) => RType.isNative32Bit ? readUint32(ptr, offset) : readUint64(ptr, offset);
   static bool readBool(int ptr, [int offset = 0]) => read<int>(WasmTypes.Uint8, ptr, offset) != 0;
   static int readInt8(int ptr, [int offset = 0]) => read(WasmTypes.Int8, ptr, offset);
@@ -265,6 +236,28 @@ class WasmMemory {
   static int readUnsignedInt(int ptr, [int offset = 0]) => read(WasmTypes.UnsignedInt, ptr, offset);
   static double readFloat(int ptr, [int offset = 0]) => read(WasmTypes.Float, ptr, offset);
   static double readDouble(int ptr, [int offset = 0]) => read(WasmTypes.Double, ptr, offset);
+
+  static void writePtr(int ptr, int value, [int offset = 0]) => writeUint32(ptr, value, offset);
+  static void writeSize(int ptr, int value, [int offset = 0]) => RType.isNative32Bit ? writeUint32(ptr, value, offset) : writeUint64(ptr, value, offset);
+  static void writeBool(int ptr, bool value, [int offset = 0]) => write<int>(WasmTypes.Uint8, ptr, value ? 1 : 0, offset);
+  static void writeInt8(int ptr, int value, [int offset = 0]) => write(WasmTypes.Int8, ptr, value, offset);
+  static void writeUint8(int ptr, int value, [int offset = 0]) => write(WasmTypes.Uint8, ptr, value, offset);
+  static void writeInt16(int ptr, int value, [int offset = 0]) => write(WasmTypes.Int16, ptr, value, offset);
+  static void writeUint16(int ptr, int value, [int offset = 0]) => write(WasmTypes.Uint16, ptr, value, offset);
+  static void writeInt32(int ptr, int value, [int offset = 0]) => write(WasmTypes.Int32, ptr, value, offset);
+  static void writeUint32(int ptr, int value, [int offset = 0]) => write(WasmTypes.Uint32, ptr, value, offset);
+  static void writeInt64(int ptr, int value, [int offset = 0]) => write(WasmTypes.Int64, ptr, value, offset);
+  static void writeUint64(int ptr, int value, [int offset = 0]) => write(WasmTypes.Uint64, ptr, value, offset);
+  static void writeFloat32(int ptr, double value, [int offset = 0]) => write(WasmTypes.Float32, ptr, value, offset);
+  static void writeFloat64(int ptr, double value, [int offset = 0]) => write(WasmTypes.Float64, ptr, value, offset);
+  static void writeChar(int ptr, int value, [int offset = 0]) => write(WasmTypes.Char, ptr, value, offset);
+  static void writeUnsignedChar(int ptr, int value, [int offset = 0]) => write(WasmTypes.UnsignedChar, ptr, value, offset);
+  static void writeShort(int ptr, int value, [int offset = 0]) => write(WasmTypes.Short, ptr, value, offset);
+  static void writeUnsignedShort(int ptr, int value, [int offset = 0]) => write(WasmTypes.UnsignedShort, ptr, value, offset);
+  static void writeInt(int ptr, int value, [int offset = 0]) => write(WasmTypes.Int, ptr, value, offset);
+  static void writeUnsignedInt(int ptr, int value, [int offset = 0]) => write(WasmTypes.UnsignedInt, ptr, value, offset);
+  static void writeFloat(int ptr, double value, [int offset = 0]) => write(WasmTypes.Float, ptr, value, offset);
+  static void writeDouble(int ptr, double value, [int offset = 0]) => write(WasmTypes.Double, ptr, value, offset);
 
   static int malloc(int size)
     => _module._malloc(size);

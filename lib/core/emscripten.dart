@@ -107,15 +107,14 @@ extension type _EmscriptenModule._(JSObject _) implements JSObject {
     argTypes.forEach((a) => wasmArgTypes.add(a.toJS));
     return cwrap(name.toJS, returnType?.toJS, wasmArgTypes);
   }
+
+  WasmMemoryPointer<R> symbol<R extends RType>(String name)
+    => .new(getGlobalAddress('_$name'));
 }
 
 extension JSFunctionUtilExtension on JSFunction {
-  @JS('call')
-  external JSAny? callAsFunction([
-    JSAny? thisArg, JSAny? arg1, JSAny? arg2, JSAny? arg3, JSAny? arg4, JSAny? arg5, JSAny? arg6, JSAny? arg7, JSAny? arg8, JSAny? arg9,
-  ]);
+  @JS('apply')
+  external JSAny? _applyFn(JSAny? thisArg, JSArray<JSAny?> args);
 
-  JSAny? run([
-    JSAny? arg1, JSAny? arg2, JSAny? arg3, JSAny? arg4, JSAny? arg5, JSAny? arg6, JSAny? arg7, JSAny? arg8, JSAny? arg9,
-  ]) => callAsFunction(null, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9);
+  JSAny? run([List<JSAny?> args = const []]) => _applyFn(null, args.toJS);
 }

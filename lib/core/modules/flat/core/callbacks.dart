@@ -57,7 +57,7 @@ class _TraceLogCallbackFriendlyD extends TraceLogCallbackD {
   _TraceLogCallbackFriendlyD(this._f, {String? name}) : super(name);
 
   @override
-  TraceLogCallbackFunction get function => (int logLevel, MemoryPointer text, MemoryPointer args) {
+  TraceLogCallbackFunction get function => (logLevel, text, args) {
     return _f(.fromValue(logLevel), text.toDartString());
   };
 }
@@ -120,7 +120,7 @@ class _LoadFileDataCallbackFriendlyD extends LoadFileDataCallbackD {
   _LoadFileDataCallbackFriendlyD(this._f, {String? name}) : super(name);
 
   @override
-  LoadFileDataCallbackFunction get function => (MemoryPointer<RInt8> fileName, MemoryPointer<RInt32> dataSize) {
+  LoadFileDataCallbackFunction get function => (fileName, dataSize) {
     return _f(fileName.toDartString(), dataSize);
   };
 }
@@ -183,7 +183,7 @@ class _SaveFileDataCallbackFriendlyD extends SaveFileDataCallbackD {
   _SaveFileDataCallbackFriendlyD(this._f, {String? name}) : super(name);
 
   @override
-  SaveFileDataCallbackFunction get function => (MemoryPointer<RInt8> fileName, MemoryPointer<RVoid> data, int dataSize) {
+  SaveFileDataCallbackFunction get function => (fileName, data, dataSize) {
     return _f(fileName.toDartString(), data, dataSize);
   };
 }
@@ -245,7 +245,7 @@ class _LoadFileTextCallbackFriendlyD extends LoadFileTextCallbackD {
   _LoadFileTextCallbackFriendlyD(this._f, {String? name}) : super(name);
 
   @override
-  LoadFileTextCallbackFunction get function => (MemoryPointer<RInt8> fileName) {
+  LoadFileTextCallbackFunction get function => (fileName) {
     return WasmMemoryPointer(WasmMemory.allocString(_f(fileName.toDartString())));
   };
 }
@@ -306,7 +306,7 @@ class _SaveFileTextCallbackFriendlyD extends SaveFileTextCallbackD {
   _SaveFileTextCallbackFriendlyD(this._f, {String? name}) : super(name);
 
   @override
-  SaveFileTextCallbackFunction get function => (MemoryPointer<RInt8> fileName, MemoryPointer<RInt8> text) {
+  SaveFileTextCallbackFunction get function => (fileName, text) {
     return _f(fileName.toDartString(), text.toDartString());
   };
 }

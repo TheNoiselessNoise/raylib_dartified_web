@@ -33,7 +33,7 @@ void main() => Raylib((rl) {
 
       UpdateTexture(
         texScarfyAnim,
-        imScarfyAnim.data.sublist(nextFrameDataOffset, nextFrameDataOffset + frameSize),
+        .fromList(imScarfyAnim.data.sublist(nextFrameDataOffset, nextFrameDataOffset + frameSize)),
       );
 
       frameCounter = 0;

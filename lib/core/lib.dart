@@ -1,7 +1,5 @@
 part of 'raylib_dartified_web.dart';
 
-// TODO: split the func_list into files (core,gui,...) and provide arguments for them in `build` command
-
 @JS('dartMain')
 external set _dartMain(JSFunction f);
 
@@ -26,12 +24,8 @@ WasmMemoryPointer<Y> _wasmMalloc<Y extends RType>(int size)
   => .new(WasmMemory.malloc(size));
 
 class Raylib extends RaylibBase<Raylib> {
-  static Raylib? _instance;
-  static Raylib get instance {
-    if (_instance == null) throw StateError('Raylib not initialized.');
-    return _instance!;
-  }
-
+  static Raylib get instance => RaylibBase.getInstance();
+  
   @override
   void logInfo(Object? message) => console.log('[Raylib] $message');
   
@@ -64,19 +58,22 @@ class Raylib extends RaylibBase<Raylib> {
   Raylib(void Function(Raylib) dartMain, {
     super.tempOptions,
     super.random,
-  }) : super(
-    initializer: () {
-      RType.nativeWordSize = WasmSize.Pointer;
-      MemoryPointer.fromBytes = _wasmFromBytes;
-      MemoryPointer.fromString = _wasmFromString;
-      MemoryPointer.nullptrFactory = _wasmNullptrFactory;
-      MemoryPointer.malloc = _wasmMalloc;
-    },
-  ) {
+    super.silent,
+  }) {
     _dartMain = (() {
+      _boot();
       _init();
       dartMain(this);
     }).toJS;
+  }
+
+  void _boot() {
+    RType.nativeWordSize = WasmSize.IntPtr;
+    MemoryPointer.fromBytes = _wasmFromBytes;
+    MemoryPointer.fromString = _wasmFromString;
+    MemoryPointer.nullptrFactory = _wasmNullptrFactory;
+    MemoryPointer.malloc = _wasmMalloc;
+    boot();
   }
 
   void _init() {
@@ -135,10 +132,11 @@ class Raylib extends RaylibBase<Raylib> {
   }
 }
 
-abstract class RaylibGame extends RaylibGameBase<Raylib> {}
-
 /// [nativeLibPath] is ignored on the web backend.
-void runRaylib(RaylibGame game, {String? nativeLibPath}) => Raylib((rl) {
+void runRaylib(RaylibGameBase<Raylib> game, {
+  String? nativeLibPath,
+  bool silent = false,
+}) => Raylib(silent: silent, (rl) {
   game.init(rl);
   rl.setMainLoop(() async {
     if (game.shouldClose(rl)) {

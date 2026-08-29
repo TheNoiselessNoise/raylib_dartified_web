@@ -1,10 +1,31 @@
 // Example dartified, see original for reference:
 // https://github.com/raysan5/raylib/blob/master/examples/shaders/shaders_shadowmap_rendering.c
 // WARNING: expects resources from the raylib source
+// NOTE: This example is currently broken in WASM/WebGL2.
+//
+// The root cause is that Raylib's rlLoadTextureDepth() uses GL_DEPTH_COMPONENT
+// (unsized internal format, 0x1902) when creating the depth texture, which is
+// valid in desktop OpenGL but rejected by WebGL2, which requires a sized format
+// such as GL_DEPTH_COMPONENT24 or GL_DEPTH_COMPONENT32F.
+//
+// This results in the depth texture being created with no storage, causing the
+// shadow map FBO to be incomplete or the depth attachment to have no dimensions.
+//
+// Attempts to work around this via JS interop (manually calling texImage2D with
+// GL_DEPTH_COMPONENT24 on the already-allocated texture object) partially work,
+// the FBO reports complete, but WebGL2 then throws a feedback loop error:
+//   "Texture level 0 would be read by TEXTURE_2D unit 1, but written by
+//    framebuffer attachment DEPTH_ATTACHMENT"
+// meaning it considers the depth texture simultaneously attached to the FBO and
+// bound for sampling, even after explicit detach/reattach attempts via
+// framebufferTexture2D and bindFramebuffer.
+//
+// The underlying issue is that rlgl's WASM backend does not expose enough control
+// over framebuffer and texture state to implement shadowmapping correctly, and
+// Raylib's own EndTextureMode() does not fully clean up depth-only FBO state in
+// a way that satisfies WebGL2's feedback loop validation.
 import 'dart:typed_data';
 import '../base_dart.dart';
-
-// TODO: fix this example
 
 const String GLSL_VERSION = '300es';
 const int screenWidth = 800;
