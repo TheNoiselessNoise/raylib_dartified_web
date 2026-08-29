@@ -43,6 +43,7 @@ class RaylibMsfGifFlat extends RaylibMsfGifFlatModule<Raylib> {
     RaylibCaptureIds.msf_gif_end,
     (p) => rl.MsfGif.msf_gif_end.run([
       p.toJS,
+      handle.toJS,
     ]),
   );
 

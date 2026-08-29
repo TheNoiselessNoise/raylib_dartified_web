@@ -1,5 +1,4 @@
 // Custom example, there's no original equivalent
-// Run it: dart run core_file_callbacks.dart
 import 'dart:typed_data';
 import '../base_dart.dart';
 

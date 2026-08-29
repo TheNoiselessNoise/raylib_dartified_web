@@ -1,6 +1,5 @@
 // Example dartified, see original for reference:
 // https://github.com/raysan5/raylib/blob/master/examples/text/text_inline_styling.c
-// WARNING: expects resources from the raylib source
 import '../base_dart.dart';
 
 const int screenWidth = 800;

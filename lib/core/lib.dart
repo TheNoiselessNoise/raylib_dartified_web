@@ -25,7 +25,7 @@ WasmMemoryPointer<Y> _wasmMalloc<Y extends RType>(int size)
 
 class Raylib extends RaylibBase<Raylib> {
   static Raylib get instance => RaylibBase.getInstance();
-  
+
   @override
   void logInfo(Object? message) => console.log('[Raylib] $message');
   
@@ -48,6 +48,7 @@ class Raylib extends RaylibBase<Raylib> {
   @override late RaylibGuiFlat GuiFlat;
   
   late RaylibLight Light;
+  @override late RaylibLightFlat LightFlat;
 
   late RaylibMsfGif MsfGif;
   @override late RaylibMsfGifFlat MsfGifFlat;
@@ -61,6 +62,7 @@ class Raylib extends RaylibBase<Raylib> {
     super.silent,
   }) {
     _dartMain = (() {
+      _registerEmscriptenHelpers();
       _boot();
       _init();
       dartMain(this);
@@ -91,6 +93,7 @@ class Raylib extends RaylibBase<Raylib> {
     registerModule(GuiFlat = RaylibGuiFlat(this));
 
     registerModule(Light = RaylibLight(this));
+    registerModule(LightFlat = RaylibLightFlat(this));
 
     registerModule(MsfGif = RaylibMsfGif(this));
     registerModule(MsfGifFlat = RaylibMsfGifFlat(this));

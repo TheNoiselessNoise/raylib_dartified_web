@@ -366,6 +366,13 @@ const String template = r"""
         console.log(...args);
       },
       canvas: document.getElementById('canvas'),
+      getContextAttributes: function() {
+        return {
+          preserveDrawingBuffer: true,
+          // alpha: false,
+          // antialias: true
+        };
+      },
       setStatus,
       totalDependencies: 0,
       monitorRunDependencies(left) {

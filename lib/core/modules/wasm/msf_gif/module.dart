@@ -17,7 +17,7 @@ class RaylibMsfGif extends RaylibModuleWasm {
     
     msf_gif_begin         = _module.dwrap('msf_gif_begin',         [n, n, n], n);
     msf_gif_frame         = _module.dwrap('msf_gif_frame',         [n, n, n, n, n], n);
-    msf_gif_end           = _module.dwrap('msf_gif_end',           [n], n);
+    msf_gif_end           = _module.dwrap('msf_gif_end',           [n, n]);
     msf_gif_free          = _module.dwrap('msf_gif_free',          [n]);
     msf_gif_begin_to_file = _module.dwrap('msf_gif_begin_to_file', [n, n, n, n, n], n);
     msf_gif_frame_to_file = _module.dwrap('msf_gif_frame_to_file', [n, n, n, n, n], n);

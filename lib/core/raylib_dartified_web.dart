@@ -8,6 +8,7 @@ import 'dart:typed_data';
 import 'package:raylib_dartified_base/raylib_dartified_base.dart';
 
 part 'base.dart';
+part 'emscripten_helpers.dart';
 part 'emscripten.dart';
 part 'lib.dart';
 part 'wasm.dart';
@@ -36,6 +37,8 @@ part 'modules/flat/gui/module.dart';
 
 // ===== LIGHT MODULE =====
 part 'modules/wasm/light/module.dart';
+
+part 'modules/flat/light/module.dart';
 
 // ===== MSF_GIF MODULE =====
 part 'modules/wasm/msf_gif/module.dart';
