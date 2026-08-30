@@ -13,9 +13,24 @@ import 'assets/raylib_func_lists.dart' show
   LightFuncList, // core
   MsfGifFuncList,
   RlglFuncList; // core
-import 'assets/raylib_c.dart' as raylib_c show template;
+import 'assets/raylib_c.dart' show
+  headerTemplate, // core
+  CoreTemplate, // core
+  GuiTemplate,
+  MsfGifTemplate;
 import 'package:raylib_dartified_base/raylib_dartified_base.dart' show RaylibSupportedLibs;
 
+// NOTE: for building final `.c` entry file for compilation from selected modules
+final Map<RaylibSupportedLibs, String> entryTemplates = {
+  .raylib: <String>[
+    headerTemplate,
+    CoreTemplate
+  ].join(),
+  .gui: GuiTemplate,
+  .msf_gif: MsfGifTemplate,
+};
+
+// NOTE: for building final function list for `EXPORTED_FUNCTIONS` from selected modules
 final Map<RaylibSupportedLibs, String> funcListTemplates = {
   .raylib: <String>[
     EmscriptenFuncList,
@@ -39,13 +54,30 @@ const String FLAG_HELP = 'help';
 const String OPT_ENTRY = 'entry';
 const String OPT_RAYLIB_C = 'raylib-c';
 const String OPT_RAYLIB_FUNC_LIST = 'raylib-func-list';
-const String OPT_RAYLIB_MODULES = 'raylib-modules';
+const String OPT_RAYLIB_MODULES = 'raylib-module';
+const String OPT_INCLUDE_ALL_RAYLIB_MODULES = 'include-all-raylib-modules';
 const String OPT_RESOURCES = 'raylib-resources';
-const String OPT_STACK_SIZE = 'stack-size';
 const String OPT_EMCC_SETTING = 'emcc-setting';
 const String OPT_EMCC_ARG = 'emcc-arg';
 
-const _defaultStackSize = '1048576';
+const defaultEmccSettings = <String, String>{
+  'STACK_SIZE': '1048576',
+  'USE_GLFW': '3',
+  'ALLOW_MEMORY_GROWTH': '1',
+  'ALLOW_TABLE_GROWTH': '1',
+  'FULL_ES3': '1',
+  'MAX_WEBGL_VERSION': '2',
+  'MIN_WEBGL_VERSION': '2',
+};
+
+const defaultExportedRuntimeMethods = <String>[
+  'wasmExports', 'wasmTable', 'cwrap', 'ccall',
+  'UTF8ToString', 'stringToUTF8', 'lengthBytesUTF8',
+  'addFunction', 'removeFunction',
+  'HEAP8', 'HEAPU8', 'HEAP16', 'HEAPU16',
+  'HEAP32', 'HEAPU32', 'HEAP64', 'HEAPU64',
+  'HEAPF32', 'HEAPF64',
+];
 
 ArgParser setupParser(List<String> args) {
   final parser = ArgParser(allowTrailingOptions: true);
@@ -57,14 +89,11 @@ ArgParser setupParser(List<String> args) {
 
   parser.addOption(OPT_RAYLIB_C, valueHelp: 'path', help: 'Path to custom raylib.c (default: package builtin)');
   parser.addOption(OPT_RAYLIB_FUNC_LIST, valueHelp: 'path', help: 'Path to custom raylib function list file (default: package builtin)');
-  parser.addMultiOption(
-    OPT_RAYLIB_MODULES,
-    valueHelp: 'name',
-    help: 'What optional modules to include (default: *)',
-    allowed: RaylibSupportedLibs.values.map((e) => e.id).skip(1),
+  parser.addMultiOption(OPT_RAYLIB_MODULES, valueHelp: 'name', help: 'What optional modules to include',
+    allowed: RaylibSupportedLibs.values.map((e) => e.id).skip(1), // don't include the "core"
   );
+  parser.addFlag(OPT_INCLUDE_ALL_RAYLIB_MODULES, abbr: 'a', help: 'Includes all supported modules.', defaultsTo: false);
   parser.addOption(OPT_RESOURCES, valueHelp: 'path', help: 'Path to resources/ directory (default: ./resources)');
-  parser.addOption(OPT_STACK_SIZE, valueHelp: 'bytes', help: 'emcc STACK_SIZE in bytes', defaultsTo: _defaultStackSize);
 
   parser.addSeparator('ADVANCED');
 
@@ -123,27 +152,25 @@ Future<void> main(List<String> args) async {
     if (!resourcesDir.existsSync()) logDie('$resourcesDirPath is not a valid resources/ path');
   }
 
-  final stackSize = parsedArgs.option(OPT_STACK_SIZE)!;
-  if (int.tryParse(stackSize) == null) {
-    logDie('--$OPT_STACK_SIZE must be an integer number of bytes, got "$stackSize"');
-  }
-
   final emccSettings = _parseEmccSettings(parsedArgs.multiOption(OPT_EMCC_SETTING));
   final emccExtraArgs = parsedArgs.multiOption(OPT_EMCC_ARG);
 
-  if (raylibC == null) _builtinRaylibC.writeAsStringSync(raylib_c.template);
-
+  final includeAllModules = parsedArgs.flag(OPT_INCLUDE_ALL_RAYLIB_MODULES);
   final raylibOptionalModules = parsedArgs.multiOption(OPT_RAYLIB_MODULES);
 
-  final allowedModules = raylibOptionalModules.isEmpty
-    ? RaylibSupportedLibs.values.skip(1)
+  final allowedModules = includeAllModules
+    ? RaylibSupportedLibs.values.skip(1) // don't include the "core"
     : raylibOptionalModules.map(RaylibSupportedLibs.byId);
+
+  if (raylibC == null) {
+    String entry = entryTemplates[RaylibSupportedLibs.raylib]!;
+    allowedModules.forEach((m) => entry += entryTemplates[m]!);
+    _builtinRaylibC.writeAsStringSync(entry);
+  }
 
   if (raylibFuncList == null) {
     String funcList = funcListTemplates[RaylibSupportedLibs.raylib]!;
-
     allowedModules.forEach((m) => funcList += funcListTemplates[m]!);
-
     _builtinFuncList.writeAsStringSync(funcList);
   }
 
@@ -156,7 +183,6 @@ Future<void> main(List<String> args) async {
     raylibFuncList: raylibFuncList ?? _builtinFuncList,
     resourcesDir: resourcesDir ?? Directory(p.join(cwd.path, 'resources')),
     buildDir: buildDir,
-    stackSize: stackSize,
     extraSettings: emccSettings,
     extraArgs: emccExtraArgs,
   );
@@ -234,7 +260,6 @@ Future<void> _emccLink({
   required Directory resourcesDir,
   File? raylibFuncList,
   required Directory buildDir,
-  required String stackSize,
   required Map<String, String> extraSettings,
   required List<String> extraArgs,
 }) async {
@@ -261,13 +286,7 @@ Future<void> _emccLink({
   // will see them. --emcc-setting=KEY=VALUE (extraSettings) can override any
   // of these, or add settings this file has never heard of.
   final settings = <String, String>{
-    'STACK_SIZE': stackSize,
-    'USE_GLFW': '3',
-    'ALLOW_MEMORY_GROWTH': '1',
-    'ALLOW_TABLE_GROWTH': '1',
-    'FULL_ES3': '1',
-    'MAX_WEBGL_VERSION': '2',
-    'MIN_WEBGL_VERSION': '2',
+    ...defaultEmccSettings,
     ...extraSettings,
   };
 
@@ -286,16 +305,8 @@ Future<void> _emccLink({
     '-I${toEmccPath(rayguiInclude)}',
     ...settingArgs,
     if (raylibFuncList != null) ...['-s', 'EXPORTED_FUNCTIONS=@${toEmccPath(raylibFuncList.path)}'],
-    // if (raylibSymbolList != null) ...['-s', 'EXPORTED_SYMBOLS=@${toEmccPath(raylibSymbolList.path)}'],
     if (hasResources) ...['--preload-file', '${toEmccPath(resourcesDir.path)}@/resources'],
-    '-s', "EXPORTED_RUNTIME_METHODS=["
-      '"wasmExports","wasmTable","cwrap","ccall",'
-      '"UTF8ToString","stringToUTF8","lengthBytesUTF8",'
-      '"addFunction","removeFunction",'
-      '"HEAP8","HEAPU8","HEAP16","HEAPU16",'
-      '"HEAP32","HEAPU32","HEAP64","HEAPU64",'
-      '"HEAPF32","HEAPF64"'
-    ']',
+    '-s', 'EXPORTED_RUNTIME_METHODS=[${defaultExportedRuntimeMethods.map((m) => '"$m"').join(',')}]',
     ...extraArgs,
     '-o', outputHtml,
   ];

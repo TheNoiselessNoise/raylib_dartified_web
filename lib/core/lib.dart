@@ -136,7 +136,7 @@ class Raylib extends RaylibBase<Raylib> {
 }
 
 /// [nativeLibPath] is ignored on the web backend.
-void runRaylib(RaylibGameBase<Raylib> game, {
+void runRaylib(RaylibAppBase<Raylib> game, {
   String? nativeLibPath,
   bool silent = false,
 }) => Raylib(silent: silent, (rl) {

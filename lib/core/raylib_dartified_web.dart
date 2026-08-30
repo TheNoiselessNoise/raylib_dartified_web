@@ -43,6 +43,7 @@ part 'modules/flat/light/module.dart';
 // ===== MSF_GIF MODULE =====
 part 'modules/wasm/msf_gif/module.dart';
 
+part 'modules/flat/msf_gif/callbacks.dart';
 part 'modules/flat/msf_gif/module.dart';
 
 // ===== RLGL MODULE =====
