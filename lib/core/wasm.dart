@@ -261,9 +261,15 @@ class WasmMemory {
 
   static int malloc(int size)
     => _module._malloc(size);
+
+  static int calloc(int nmemb, int size)
+    => _module._calloc(nmemb, size);
   
   static void free(int ptr)
     => _module._free(ptr);
+
+  static void memset(int ptr, int value, int num)
+    => _module._memset(ptr, value, num);
 
   static void stringToUTF8(String str, int ptr, int maxLen)
     => _module.stringToUTF8(str.toJS, ptr, maxLen);

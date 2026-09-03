@@ -74,7 +74,7 @@ void main() => Raylib((rl) {
 
     // NOTE: see that we don't use:
     // previousPosition = currentPosition;
-    previousPosition.setD(currentPosition);
+    previousPosition.setDart(currentPosition);
 
     BeginDrawing();
 

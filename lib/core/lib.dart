@@ -23,6 +23,9 @@ WasmMemoryPointer<Y> _wasmNullptrFactory<Y extends RType>()
 WasmMemoryPointer<Y> _wasmMalloc<Y extends RType>(int size)
   => .new(WasmMemory.malloc(size));
 
+WasmMemoryPointer<Y> _wasmCalloc<Y extends RType>(int nmemb, int size)
+  => .new(WasmMemory.calloc(nmemb, size));
+
 class Raylib extends RaylibBase<Raylib> {
   static Raylib get instance => RaylibBase.getInstance();
 
@@ -75,6 +78,7 @@ class Raylib extends RaylibBase<Raylib> {
     MemoryPointer.fromString = _wasmFromString;
     MemoryPointer.nullptrFactory = _wasmNullptrFactory;
     MemoryPointer.malloc = _wasmMalloc;
+    MemoryPointer.calloc = _wasmCalloc;
     boot();
   }
 

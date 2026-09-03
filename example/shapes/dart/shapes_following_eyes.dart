@@ -34,8 +34,8 @@ void main() => Raylib((rl) {
   double dx = 0.0, dy = 0.0, dxx = 0.0, dyy = 0.0;
 
   rl.setMainLoop(() {
-    irisLeftPosition.setD(GetMousePosition());
-    irisRightPosition.setD(GetMousePosition());
+    irisLeftPosition.setDart(GetMousePosition());
+    irisRightPosition.setDart(GetMousePosition());
 
     if (!CheckCollisionPointCircle(irisLeftPosition, scleraLeftPosition, scleraRadius - irisRadius))
     {

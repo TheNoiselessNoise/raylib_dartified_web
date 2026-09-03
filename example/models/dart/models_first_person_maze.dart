@@ -35,7 +35,7 @@ void main() => Raylib((rl) {
   UnloadImage(imMap);
 
   rl.setMainLoop(() {
-    oldCamPos.setD(camera.position);
+    oldCamPos.setDart(camera.position);
 
     UpdateCamera(camera, .CAMERA_FIRST_PERSON);
 
@@ -69,7 +69,7 @@ void main() => Raylib((rl) {
               ),
             ))
           ) {
-            camera.position.setD(oldCamPos);
+            camera.position.setDart(oldCamPos);
           }
         }
       }

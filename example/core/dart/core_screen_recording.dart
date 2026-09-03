@@ -43,7 +43,7 @@ void main() => Raylib((rl) {
       {
         gifRecording = false;
         final result = msf_gif_end(gifState);
-        SaveFileData("${GetApplicationDirectory()}/screenrecording.gif", result.data);
+        SaveFileData("${GetApplicationDirectory()}/screenrecording.gif", result.dataView);
         msf_gif_free(result);
         TraceLog(.LOG_INFO, "Finish animated GIF recording");
       }

@@ -30,14 +30,14 @@ void main() => Raylib((rl) {
 
     if (moveStartPoint)
     {
-      startPoint.setD(mouse);
+      startPoint.setDart(mouse);
       if (IsMouseButtonReleased(.MOUSE_BUTTON_LEFT))
         moveStartPoint = false;
     }
 
     if (moveEndPoint)
     {
-      endPoint.setD(mouse);
+      endPoint.setDart(mouse);
       if (IsMouseButtonReleased(.MOUSE_BUTTON_LEFT))
         moveEndPoint = false;
     }

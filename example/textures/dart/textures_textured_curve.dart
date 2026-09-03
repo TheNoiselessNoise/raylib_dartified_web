@@ -49,7 +49,7 @@ void main() => Raylib((rl) {
     if (!IsMouseButtonDown(.MOUSE_BUTTON_LEFT)) curveSelectedPoint = null;
 
     if (curveSelectedPoint case Vector2D point) {
-      point.setD(point.add(GetMouseDelta()));
+      point.setDart(point.add(GetMouseDelta()));
     }
 
     final mouse = GetMousePosition();
@@ -150,7 +150,7 @@ void DrawTexturedCurve()
 
     if (!tangentSet)
     {
-      previousTangent.setD(normal);
+      previousTangent.setDart(normal);
       tangentSet = true;
     }
 
@@ -178,8 +178,8 @@ void DrawTexturedCurve()
       rlVertex2f(currentNegNormal.x, currentNegNormal.y);
     rlEnd();
 
-    previous.setD(current);
-    previousTangent.setD(normal);
+    previous.setDart(current);
+    previousTangent.setDart(normal);
     previousV = v;
   }
 }

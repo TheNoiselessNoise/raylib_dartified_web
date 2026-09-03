@@ -1,6 +1,8 @@
 const String EmscriptenFuncList = r"""
 _malloc
+_calloc
 _free
+_memset
 """;
 
 const String AudioFuncList = r"""

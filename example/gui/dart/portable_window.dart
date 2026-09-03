@@ -18,7 +18,7 @@ void main() => Raylib((rl) {
   SetTargetFPS(60);
 
   rl.setMainLoop(() {
-    mousePosition.setD(GetMousePosition());
+    mousePosition.setDart(GetMousePosition());
 
     if (
       IsMouseButtonDown(.MOUSE_BUTTON_LEFT) &&
@@ -28,14 +28,14 @@ void main() => Raylib((rl) {
         mousePosition,
         .rect(0, 0, screenWidth, 20)
       )) {
-        windowPosition.setD(GetWindowPosition());
+        windowPosition.setDart(GetWindowPosition());
         dragWindow = true;
-        panOffset.setD(mousePosition);
+        panOffset.setDart(mousePosition);
       }
     }
 
     if (dragWindow) {
-      windowPosition.setD(windowPosition.add(mousePosition.sub(panOffset)));
+      windowPosition.setDart(windowPosition.add(mousePosition.sub(panOffset)));
 
       SetWindowPosition(windowPosition.x, windowPosition.y);
 

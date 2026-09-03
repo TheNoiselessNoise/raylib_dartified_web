@@ -54,8 +54,8 @@ void main() => Raylib((rl) {
     if (IsKeyDown(.KEY_SPACE)) currentFont = 1;
     else currentFont = 0;
 
-    if (currentFont == 0) textSize.setD(MeasureTextEx(fontDefault, msg, fontSize, 0));
-    else textSize.setD(MeasureTextEx(fontSDF, msg, fontSize, 0));
+    if (currentFont == 0) textSize.setDart(MeasureTextEx(fontDefault, msg, fontSize, 0));
+    else textSize.setDart(MeasureTextEx(fontSDF, msg, fontSize, 0));
 
     fontPosition.x = GetScreenWidth()/2 - textSize.x/2;
     fontPosition.y = GetScreenHeight()/2 - textSize.y/2 + 80;

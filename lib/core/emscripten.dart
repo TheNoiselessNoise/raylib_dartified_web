@@ -86,10 +86,12 @@ extension type _HEAPF64._(JSObject _) implements JSObject {
 extension type _EmscriptenModule._(JSObject _) implements JSObject {
   external JSFunction cwrap(JSString name, JSAny? returnType, JSArray argTypes);
   external int _malloc(int size);
+  external int _calloc(int nmemb, int size);
   external void _free(int ptr);
+  external int _memset(int ptr, int value, int size);
   external void stringToUTF8(JSString str, int ptr, int maxLen);
   external int lengthBytesUTF8(JSString str);
-  
+
   @JS('print')
   external void _print(JSAny? value);
   void print(List<Object?> values) => _print(values.map((o) => o.toString()).join(' ').toJS);
