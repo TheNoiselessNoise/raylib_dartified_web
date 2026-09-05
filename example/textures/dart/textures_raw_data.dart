@@ -32,7 +32,7 @@ void main() => Raylib((rl) {
   }
 
   final checkedIm = ImageD(
-    data: .fromList(pixels.expand((p) => [p.r, p.g, p.b, p.a]).toList()),
+    data: .fromList(pixels.expand((p) => p.toArray()).toList()),
     width: width,
     height: height,
     format: .PIXELFORMAT_UNCOMPRESSED_R8G8B8A8,

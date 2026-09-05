@@ -101,13 +101,11 @@ class RaylibAudioFlat extends RaylibAudioFlatModule<Raylib> {
     SoundD sound,
     MemoryPointer<RVoid> data,
     int sampleCount,
-  ) => rl.Temp.Sound$.RefUpdate1(sound,
-    (p) => rl.Audio.UpdateSound.run([
-      p.toJS,
-      data.toJS,
-      sampleCount.toJS,
-    ]),
-  );
+  ) => rl.Audio.UpdateSound.run([
+    rl.Temp.Sound$.Ref1(sound).toJS,
+    data.toJS,
+    sampleCount.toJS,
+  ]);
   
   @override
   void UnloadWave(

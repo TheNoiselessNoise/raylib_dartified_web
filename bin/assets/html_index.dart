@@ -300,14 +300,14 @@ const String template = r"""
                  document.msFullscreenElement;
 
       if (fsEl) {
-        // Emscripten fullscreened some element (usually the canvas) — adopt our
+        // Emscripten fullscreened some element (usually the canvas), adopt our
         // overlay nodes into it so they sit above the canvas in the FS layer.
         fsEl.appendChild(fsToggleBtn);
         fsEl.appendChild(fsOutputWrap);
         fsToggleBtn.style.display = 'block';
         fsOutputWrap.style.display = 'block';
       } else {
-        // Exiting fullscreen — move overlays back to their original home.
+        // Exiting fullscreen, move overlays back to their original home.
         fsOverlayOriginalParent.appendChild(fsToggleBtn);
         fsOverlayOriginalParent.appendChild(fsOutputWrap);
         fsToggleBtn.style.display = 'none';

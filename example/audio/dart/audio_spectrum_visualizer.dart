@@ -120,7 +120,7 @@ void main() => Raylib((rl) {
 
     CaptureFrame(fft, audioSamples);
     RenderFrame(fft, fftImage);
-    UpdateTexture(fftTexture, .fromList(fftImage.data));
+    UpdateTexture(fftTexture, .fromList(fftImage.dataView));
 
     BeginDrawing();
 

@@ -89,7 +89,7 @@ void main() => Raylib((rl) {
       }
     }
 
-    UpdateTexture(screenTexture, .fromList(screenImage.data));
+    UpdateTexture(screenTexture, .fromList(screenImage.dataView));
 
     BeginDrawing();
 

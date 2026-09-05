@@ -82,7 +82,7 @@ void main() => Raylib((rl) {
       worldWidth/2.0, worldHeight/2.0,
       startPattern.width, startPattern.height
     ),
-    .fromList(startPattern.data),
+    .fromList(startPattern.dataView),
   );
   UnloadImage(startPattern);
 
@@ -185,7 +185,7 @@ void main() => Raylib((rl) {
             offsetX.floorToDouble(), offsetY.floorToDouble(),
             sizeInWorldX, sizeInWorldY,
           ),
-          .fromList(imageToDraw!.data),
+          .fromList(imageToDraw!.dataView),
         );
       }
       else firstColor = -1;
@@ -220,7 +220,7 @@ void main() => Raylib((rl) {
             pattern.width,
             pattern.height,
           ),
-          .fromList(pattern.data),
+          .fromList(pattern.dataView),
         );
       } else {
         pattern = GenImageColor(worldWidth~/randomTiles, worldHeight~/randomTiles, .RAYWHITE);
@@ -243,7 +243,7 @@ void main() => Raylib((rl) {
                 pattern.width*i, pattern.height*j,
                 pattern.width, pattern.height,
               ),
-              .fromList(pattern.data),
+              .fromList(pattern.dataView),
             );
           }
         }

@@ -140,7 +140,7 @@ bool _repoMatchesVersion(
   logInfo(
     clonedVersion == null
         ? 'Existing clone has no version marker, re-cloning as $version.'
-        : 'Existing clone is $clonedVersion, want $version — re-cloning.',
+        : 'Existing clone is $clonedVersion, want $version, re-cloning.',
   );
   repoDir.deleteSync(recursive: true);
   for (final dir in alsoCleanOnMismatch) {
@@ -199,7 +199,7 @@ Future<void> _buildRaylibForWasm() async {
   ).replaceAll(r'\', '/');
 
   // Config.h flags (e.g. SUPPORT_FILEFORMAT_HDR=1) get pre-defined here
-  // rather than edited into config.h — config.h's own #ifndef guard means
+  // rather than edited into config.h, config.h's own #ifndef guard means
   // a compiler-line -D wins over its internal #define.
   final configDefines = raylibDefines.entries.map((e) => '-D${e.key}=${e.value}').join(' ');
   final cFlags = [

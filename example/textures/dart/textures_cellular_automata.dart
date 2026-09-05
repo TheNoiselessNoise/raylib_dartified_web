@@ -99,7 +99,7 @@ void main() => Raylib((rl) {
 
       line += linesUpdatedPerFrame;
 
-      UpdateTexture(texture, .fromList(image.data));
+      UpdateTexture(texture, .fromList(image.dataView));
     }
 
     BeginDrawing();
