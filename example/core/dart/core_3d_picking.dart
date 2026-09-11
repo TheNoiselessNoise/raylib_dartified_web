@@ -20,8 +20,8 @@ void main() => Raylib((rl) {
   final Vector3D cubePosition = .vec3(0, 1, 0);
   final Vector3D cubeSize = .vec3(2, 2, 2);
 
-  final ray = RayD();
-  final collision = RayCollisionD();
+  RayD ray = .zero();
+  RayCollisionD collision = .zero();
 
   rl.setMainLoop(() {
     if (IsCursorHidden())
@@ -37,7 +37,7 @@ void main() => Raylib((rl) {
     {
       if (!collision.hit)
       {
-        ray.setDart(GetScreenToWorldRay(GetMousePosition(), camera));
+        ray = GetScreenToWorldRay(GetMousePosition(), camera);
 
         final BoundingBoxD bbox = .new(
           min: cubePosition.sub(cubeSize.divideBy(2)),
@@ -45,7 +45,7 @@ void main() => Raylib((rl) {
         );
 
         // Check collision between ray and box
-        collision.setDart(GetRayCollisionBox(ray, bbox));
+        collision = GetRayCollisionBox(ray, bbox);
       }
       else collision.hit = false;
     }

@@ -32,12 +32,12 @@ void main() => Raylib((rl) {
   int gameWidth = 64;
   int gameHeight = 64;
 
-  final RenderTextureD target = .zero();
+  RenderTextureD target = .zero();
   final RectangleD sourceRect = .zero();
   final RectangleD destRect = .zero();
 
   ViewportType viewportType = .KEEP_ASPECT_INTEGER;
-  (screenWidth, screenHeight) = ResizeRenderSize(viewportType, gameWidth, gameHeight, sourceRect, destRect, target);
+  (screenWidth, screenHeight, target) = ResizeRenderSize(viewportType, gameWidth, gameHeight, sourceRect, destRect, target);
 
   final RectangleD decreaseResolutionButton = .rect(200, 30, 10, 10);
   final RectangleD increaseResolutionButton = .rect(215, 30, 10, 10);
@@ -45,7 +45,7 @@ void main() => Raylib((rl) {
   final RectangleD increaseTypeButton = .rect(215, 45, 10, 10);
 
   rl.setMainLoop(() {
-    if (IsWindowResized()) (screenWidth, screenHeight) = ResizeRenderSize(viewportType, gameWidth, gameHeight, sourceRect, destRect, target);
+    if (IsWindowResized()) (screenWidth, screenHeight, target) = ResizeRenderSize(viewportType, gameWidth, gameHeight, sourceRect, destRect, target);
 
     final mousePosition = GetMousePosition();
     bool mousePressed = IsMouseButtonPressed(.MOUSE_BUTTON_LEFT);
@@ -56,7 +56,7 @@ void main() => Raylib((rl) {
       resolutionIndex = (resolutionIndex + resolutionList.length - 1)%resolutionList.length;
       gameWidth = resolutionList[resolutionIndex].x.toInt();
       gameHeight = resolutionList[resolutionIndex].y.toInt();
-      (screenWidth, screenHeight) = ResizeRenderSize(viewportType, gameWidth, gameHeight, sourceRect, destRect, target);
+      (screenWidth, screenHeight, target) = ResizeRenderSize(viewportType, gameWidth, gameHeight, sourceRect, destRect, target);
     }
 
     if (CheckCollisionPointRec(mousePosition, increaseResolutionButton) && mousePressed)
@@ -64,19 +64,19 @@ void main() => Raylib((rl) {
       resolutionIndex = (resolutionIndex + 1)%resolutionList.length;
       gameWidth = resolutionList[resolutionIndex].x.toInt();
       gameHeight = resolutionList[resolutionIndex].y.toInt();
-      (screenWidth, screenHeight) = ResizeRenderSize(viewportType, gameWidth, gameHeight, sourceRect, destRect, target);
+      (screenWidth, screenHeight, target) = ResizeRenderSize(viewportType, gameWidth, gameHeight, sourceRect, destRect, target);
     }
 
     if (CheckCollisionPointRec(mousePosition, decreaseTypeButton) && mousePressed)
     {
       viewportType = ViewportType.values[(viewportType.index + ViewportType.values.length - 1)%ViewportType.values.length];
-      (screenWidth, screenHeight) = ResizeRenderSize(viewportType, gameWidth, gameHeight, sourceRect, destRect, target);
+      (screenWidth, screenHeight, target) = ResizeRenderSize(viewportType, gameWidth, gameHeight, sourceRect, destRect, target);
     }
 
     if (CheckCollisionPointRec(mousePosition, increaseTypeButton) && mousePressed)
     {
       viewportType = ViewportType.values[(viewportType.index + 1)%ViewportType.values.length];
-      (screenWidth, screenHeight) = ResizeRenderSize(viewportType, gameWidth, gameHeight, sourceRect, destRect, target);
+      (screenWidth, screenHeight, target) = ResizeRenderSize(viewportType, gameWidth, gameHeight, sourceRect, destRect, target);
     }
 
     final textureMousePosition = Screen2RenderTexturePosition(mousePosition, sourceRect, destRect);
@@ -213,7 +213,7 @@ void KeepWidthCentered(int screenWidth, int screenHeight, int gameWidth, int gam
   sourceRect.height *= -1.0;
 }
 
-(int screenWidth, int screenHeight) ResizeRenderSize(
+(int screenWidth, int screenHeight, RenderTextureD target) ResizeRenderSize(
   ViewportType viewportType,
   int gameWidth,
   int gameHeight,
@@ -236,9 +236,9 @@ void KeepWidthCentered(int screenWidth, int screenHeight, int gameWidth, int gam
 
   UnloadRenderTexture(target);
 
-  target.setDart(LoadRenderTexture(sourceRect.width, -sourceRect.height));
+  final newTarget = LoadRenderTexture(sourceRect.width, -sourceRect.height);
 
-  return (screenWidth, screenHeight);
+  return (screenWidth, screenHeight, newTarget);
 }
 
 Vector2D Screen2RenderTexturePosition(Vector2D point, RectangleD textureRect, RectangleD scaledRect)

@@ -1,16 +1,6 @@
 # Raylib for Dart (WASM)
 
-A **Dart-first**, modular **WASM binding for [raylib](https://www.raylib.com/)** via Emscripten.
-
-> &nbsp;
-> ⚠️ **Stability warning**
->
-> You should **not rely on regular git pulls or updates** to be non-breaking. If you use this project, consider vendoring or pinning a specific commit.
->
-> The API is **not stabilized**. Method signatures, type names, and module boundaries are subject to change without deprecation cycles. This applies especially to the `D` (Dart) layer, which is newer and less battle-tested than the raw WASM bindings.
->
-> In particular, the `D` (Dart) layer may still contain **undetected memory safety issues** - incorrect struct serialization, ownership ambiguity, or linear memory misuse that has not yet surfaced. The fact that all provided examples run correctly is not proof that the `D` layer is safe or correct in general. If you are doing anything non-trivial, audit the relevant `D` wrappers before trusting them.
-> &nbsp;
+A **Dart-first**, modular **WASM bindings for [raylib](https://www.raylib.com/)** via Emscripten.
 
 This project exposes raylib in an idiomatic Dart API targeting the browser via WebAssembly. Raylib is compiled with Emscripten and bridged to Dart through JS interop and a shared linear memory interface.
 
@@ -60,7 +50,7 @@ This package provides three API layers. They all expose the same underlying rayl
 |-----|--------|---------|-------|
 | **Dart** | Managed by Dart layer | Native + Web | Idiomatic Dart |
 | **Flat** | Manual | Native + Web | Close to raylib C API |
-| **Raw WASM** | Manual | Web only | Direct WASM |
+| **WASM** | Manual | Web only | Direct WASM |
 
 ---
 
@@ -141,7 +131,7 @@ Use Flat when you want:
 - minimal abstraction over the C API;
 - the ability to run the same code on native and web/WASM.
 
-If you want to play with actual raw WASM side, use the WASM API instead.
+If you want to play with actual WASM side, use the WASM API instead.
 
 See any `flat` example in `example/<category>/flat/`.
 
@@ -167,7 +157,7 @@ This layer exposes raylib's native signatures essentially 1:1:
 The trade-off is that this layer is **web-only** and ties your code directly
 to the WASM memory implementation.
 
-If you do not specifically need raw WASM pointers, **prefer the Flat API
+If you do not specifically need WASM pointers, **prefer the Flat API
 instead**.
 
 See any `wasm` example in `example/<category>/wasm/`.
@@ -193,19 +183,14 @@ Pick **one** per file. Mixing abbreviated APIs in the same scope will cause name
 ### Dart
 
 ```dart
-import 'package:raylib_dartified/raylib_dartified.dart';
-import 'package:raylib_dartified/abbr/dart.dart';
+import 'package:raylib_dartified_web/abbr/dart.dart';
 
-void main() {
-  findRaylib('path/to/raylib');
-
+void main() => Raylib((_) {
   InitWindow(800, 600, 'Title');
   SetTargetFPS(60);
 
   // ... and so on, exactly like the raylib C API
-
-  disposeRaylib();
-}
+});
 ```
 
 ### Flat
@@ -213,12 +198,9 @@ void main() {
 The same raylib-style API, but with backend-independent memory:
 
 ```dart
-import 'package:raylib_dartified/raylib_dartified.dart';
-import 'package:raylib_dartified/abbr/flat.dart';
+import 'package:raylib_dartified_web/abbr/flat.dart';
 
-void main() {
-  findRaylib('path/to/raylib');
-
+void main() => Raylib((_) {
   InitWindow(800, 600, 'Title'.toC);
   SetTargetFPS(60);
 
@@ -226,32 +208,28 @@ void main() {
   ptr.free();
 
   // ... and so on
-
-  disposeRaylib();
-}
+});
 ```
 
-### FFI
+### WASM
 
-The same API directly against the native FFI layer:
+The same API directly against the WASM layer:
 
 ```dart
-import 'package:raylib_dartified/raylib_dartified.dart';
-import 'package:raylib_dartified/abbr/raw.dart';
+import 'dart:js_interop';
+import 'package:raylib_dartified_web/abbr/wasm.dart';
 
-void main() {
-  findRaylib('path/to/raylib');
+void main() => Raylib((_) {
+  final title = WasmMemory.allocString('Title');
+  InitWindow.run([800.toJS, 600.toJS, title.toJS]);
+  SetTargetFPS.run([60.toJS]);
 
-  InitWindow(800, 600, 'Title'.toNativeUtf8().cast());
-  SetTargetFPS(60);
-
-  final ptr = calloc<Int32>()..value = 42;
-  calloc.free(ptr);
+  final ptr = WasmMemory.malloc(WasmSize.Int32);
+  WasmMemory.writeInt32(ptr, 42);
+  WasmMemory.free(ptr);
 
   // ... and so on
-
-  disposeRaylib();
-}
+});
 ```
 
 ## Build

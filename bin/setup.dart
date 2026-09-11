@@ -3,7 +3,7 @@ import '_log.dart';
 import '_paths.dart';
 import 'package:path/path.dart' as p;
 
-const _defaultRaylibVersion = '5.5';
+const _defaultRaylibVersion = '6.0';
 const _supportedRaylibVersions = ['5.5', '6.0'];
 
 /// Matches raylib config.h-style defines, e.g. SUPPORT_FILEFORMAT_HDR=1

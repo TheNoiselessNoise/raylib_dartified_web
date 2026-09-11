@@ -5,29 +5,17 @@ class WasmMemoryPointer<X extends RType> extends MemoryPointer<X> {
 
   WasmMemoryPointer(this._addr);
 
-  void _f() => throw StateError('MemoryPointer has been freed.');
-
-  void _fd(String method, List<Object?> args)
-    => throw StateError('Tried to do `$method(${args.join(', ')})` on freed pointer.');
-
-  void _p(String method, [Object? arg1, Object? arg2]) {
-    if (!_isFreed) return;
-    MemoryPointer.debug ? _fd(method, [arg1, arg2]) : _f();
-  }
-
   @override
   WasmMemoryPointer<Y> cast<Y extends RType>() => .new(_addr);
 
   @override
-  bool get isNull => _isFreed || _addr == 0;
-
-  bool _isFreed = false;
+  bool get isNull => isFreed || _addr == 0;
 
   @override
   void free() {
     if (_addr == 0) return;
-    _p('free');
-    _isFreed = true;
+    MemoryDebug.checkPointer(this, 'free');
+    isFreed = true;
     WasmMemory.free(_addr);
   }
 
@@ -36,7 +24,7 @@ class WasmMemoryPointer<X extends RType> extends MemoryPointer<X> {
 
   @override
   T to<T extends TypedDataList>(int length) {
-    _p('to', T, length);
+    MemoryDebug.checkPointer(this, 'to', T, length);
     return switch (T) {
       const (Uint8List) => Uint8List.fromList(WasmMemory.heapU8.sublist(_addr, _addr + length)) as T,
       const (Int8List) => Int8List.fromList(WasmMemory.heapI8.sublist(_addr, _addr + length)) as T,
@@ -54,7 +42,7 @@ class WasmMemoryPointer<X extends RType> extends MemoryPointer<X> {
 
   @override
   T asView<T extends TypedDataList>(int length) {
-    _p('asView', T, length);
+    MemoryDebug.checkPointer(this, 'asView', T, length);
     return switch (T) {
       const (Uint8List) => WasmMemory.heapU8.buffer.asUint8List(_addr, length) as T,
       const (Int8List) => WasmMemory.heapI8.buffer.asInt8List(_addr, length) as T,
@@ -72,7 +60,7 @@ class WasmMemoryPointer<X extends RType> extends MemoryPointer<X> {
 
   @override
   Uint8List readBytes(int byteOffset, int length) {
-    _p('readBytes', byteOffset, length);
+    MemoryDebug.checkPointer(this, 'readBytes', byteOffset, length);
     return .sublistView(WasmMemory.heapU8, _addr + byteOffset, _addr + byteOffset + length);
   }
 
@@ -81,57 +69,57 @@ class WasmMemoryPointer<X extends RType> extends MemoryPointer<X> {
 
   @override
   WasmMemoryPointer<Y> readPtr<Y extends RType>([int byteOffset = 0]) {
-    _p('readPtr', Y, byteOffset);
+    MemoryDebug.checkPointer(this, 'readPtr', Y, byteOffset);
     return .new(WasmMemory.readPtr(_addr, byteOffset));
   }
 
   @override
-  void writePtr(MemoryPointer<RType>? value, [int byteOffset = 0]) {
-    _p('writePtr', value?.address, byteOffset);
+  void writePtr(MemoryPointer? value, [int byteOffset = 0]) {
+    MemoryDebug.checkPointer(this, 'writePtr', value?.address, byteOffset);
     return WasmMemory.writePtr(_addr, value?.address ?? 0, byteOffset);
   }
 
-  @override int readSize([int byteOffset = 0]) { _p('readSize', byteOffset); return WasmMemory.readSize(_addr, byteOffset); }
-  @override bool readBool([int byteOffset = 0]) { _p('readBool', byteOffset); return WasmMemory.readBool(_addr, byteOffset); }
-  @override int readInt8([int byteOffset = 0]) { _p('readInt8', byteOffset); return WasmMemory.readInt8(_addr, byteOffset); }
-  @override int readUint8([int byteOffset = 0]) { _p('readUint8', byteOffset); return WasmMemory.readUint8(_addr, byteOffset); }
-  @override int readInt16([int byteOffset = 0]) { _p('readInt16', byteOffset); return WasmMemory.readInt16(_addr, byteOffset); }
-  @override int readUint16([int byteOffset = 0]) { _p('readUint16', byteOffset); return WasmMemory.readUint16(_addr, byteOffset); }
-  @override int readInt32([int byteOffset = 0]) { _p('readInt32', byteOffset); return WasmMemory.readInt32(_addr, byteOffset); }
-  @override int readUint32([int byteOffset = 0]) { _p('readUint32', byteOffset); return WasmMemory.readUint32(_addr, byteOffset); }
-  @override int readInt64([int byteOffset = 0]) { _p('readInt64', byteOffset); return WasmMemory.readInt64(_addr, byteOffset); }
-  @override int readUint64([int byteOffset = 0]) { _p('readUint64', byteOffset); return WasmMemory.readUint64(_addr, byteOffset); }
-  @override double readFloat32([int byteOffset = 0]) { _p('readFloat32', byteOffset); return WasmMemory.readFloat32(_addr, byteOffset); }
-  @override double readFloat64([int byteOffset = 0]) { _p('readFloat64', byteOffset); return WasmMemory.readFloat64(_addr, byteOffset); }
-  @override int readChar([int byteOffset = 0]) { _p('readChar', byteOffset); return WasmMemory.readChar(_addr, byteOffset); }
-  @override int readUnsignedChar([int byteOffset = 0]) { _p('readUnsignedChar', byteOffset); return WasmMemory.readUnsignedChar(_addr, byteOffset); }
-  @override int readShort([int byteOffset = 0]) { _p('readShort', byteOffset); return WasmMemory.readShort(_addr, byteOffset); }
-  @override int readUnsignedShort([int byteOffset = 0]) { _p('readUnsignedShort', byteOffset); return WasmMemory.readUnsignedShort(_addr, byteOffset); }
-  @override int readInt([int byteOffset = 0]) { _p('readInt', byteOffset); return WasmMemory.readInt(_addr, byteOffset); }
-  @override int readUnsignedInt([int byteOffset = 0]) { _p('readUnsignedInt', byteOffset); return WasmMemory.readUnsignedInt(_addr, byteOffset); }
-  @override double readFloat([int byteOffset = 0]) { _p('readFloat', byteOffset); return WasmMemory.readFloat(_addr, byteOffset); }
-  @override double readDouble([int byteOffset = 0]) { _p('readDouble', byteOffset); return WasmMemory.readDouble(_addr, byteOffset); }
+  @override int readSize([int byteOffset = 0]) { MemoryDebug.checkPointer(this, 'readSize', byteOffset); final value = WasmMemory.readSize(_addr, byteOffset); MemoryTrace.checkRead(_addr + byteOffset, 'Size', value); return value; }
+  @override bool readBool([int byteOffset = 0]) { MemoryDebug.checkPointer(this, 'readBool', byteOffset); final value = WasmMemory.readBool(_addr, byteOffset); MemoryTrace.checkRead(_addr + byteOffset, 'Bool', value); return value; }
+  @override int readInt8([int byteOffset = 0]) { MemoryDebug.checkPointer(this, 'readInt8', byteOffset); final value = WasmMemory.readInt8(_addr, byteOffset); MemoryTrace.checkRead(_addr + byteOffset, 'Int8', value); return value; }
+  @override int readUint8([int byteOffset = 0]) { MemoryDebug.checkPointer(this, 'readUint8', byteOffset); final value = WasmMemory.readUint8(_addr, byteOffset); MemoryTrace.checkRead(_addr + byteOffset, 'Uint8', value); return value; }
+  @override int readInt16([int byteOffset = 0]) { MemoryDebug.checkPointer(this, 'readInt16', byteOffset); final value = WasmMemory.readInt16(_addr, byteOffset); MemoryTrace.checkRead(_addr + byteOffset, 'Int16', value); return value; }
+  @override int readUint16([int byteOffset = 0]) { MemoryDebug.checkPointer(this, 'readUint16', byteOffset); final value = WasmMemory.readUint16(_addr, byteOffset); MemoryTrace.checkRead(_addr + byteOffset, 'Uint16', value); return value; }
+  @override int readInt32([int byteOffset = 0]) { MemoryDebug.checkPointer(this, 'readInt32', byteOffset); final value = WasmMemory.readInt32(_addr, byteOffset); MemoryTrace.checkRead(_addr + byteOffset, 'Int32', value); return value; }
+  @override int readUint32([int byteOffset = 0]) { MemoryDebug.checkPointer(this, 'readUint32', byteOffset); final value = WasmMemory.readUint32(_addr, byteOffset); MemoryTrace.checkRead(_addr + byteOffset, 'Uint32', value); return value; }
+  @override int readInt64([int byteOffset = 0]) { MemoryDebug.checkPointer(this, 'readInt64', byteOffset); final value = WasmMemory.readInt64(_addr, byteOffset); MemoryTrace.checkRead(_addr + byteOffset, 'Int64', value); return value; }
+  @override int readUint64([int byteOffset = 0]) { MemoryDebug.checkPointer(this, 'readUint64', byteOffset); final value = WasmMemory.readUint64(_addr, byteOffset); MemoryTrace.checkRead(_addr + byteOffset, 'Uint64', value); return value; }
+  @override double readFloat32([int byteOffset = 0]) { MemoryDebug.checkPointer(this, 'readFloat32', byteOffset); final value = WasmMemory.readFloat32(_addr, byteOffset); MemoryTrace.checkRead(_addr + byteOffset, 'Float32', value); return value; }
+  @override double readFloat64([int byteOffset = 0]) { MemoryDebug.checkPointer(this, 'readFloat64', byteOffset); final value = WasmMemory.readFloat64(_addr, byteOffset); MemoryTrace.checkRead(_addr + byteOffset, 'Float64', value); return value; }
+  @override int readChar([int byteOffset = 0]) { MemoryDebug.checkPointer(this, 'readChar', byteOffset); final value = WasmMemory.readChar(_addr, byteOffset); MemoryTrace.checkRead(_addr + byteOffset, 'Char', value); return value; }
+  @override int readUnsignedChar([int byteOffset = 0]) { MemoryDebug.checkPointer(this, 'readUnsignedChar', byteOffset); final value = WasmMemory.readUnsignedChar(_addr, byteOffset); MemoryTrace.checkRead(_addr + byteOffset, 'UnsignedChar', value); return value; }
+  @override int readShort([int byteOffset = 0]) { MemoryDebug.checkPointer(this, 'readShort', byteOffset); final value = WasmMemory.readShort(_addr, byteOffset); MemoryTrace.checkRead(_addr + byteOffset, 'Short', value); return value; }
+  @override int readUnsignedShort([int byteOffset = 0]) { MemoryDebug.checkPointer(this, 'readUnsignedShort', byteOffset); final value = WasmMemory.readUnsignedShort(_addr, byteOffset); MemoryTrace.checkRead(_addr + byteOffset, 'UnsignedShort', value); return value; }
+  @override int readInt([int byteOffset = 0]) { MemoryDebug.checkPointer(this, 'readInt', byteOffset); final value = WasmMemory.readInt(_addr, byteOffset); MemoryTrace.checkRead(_addr + byteOffset, 'Int', value); return value; }
+  @override int readUnsignedInt([int byteOffset = 0]) { MemoryDebug.checkPointer(this, 'readUnsignedInt', byteOffset); final value = WasmMemory.readUnsignedInt(_addr, byteOffset); MemoryTrace.checkRead(_addr + byteOffset, 'UnsignedInt', value); return value; }
+  @override double readFloat([int byteOffset = 0]) { MemoryDebug.checkPointer(this, 'readFloat', byteOffset); final value = WasmMemory.readFloat(_addr, byteOffset); MemoryTrace.checkRead(_addr + byteOffset, 'Float', value); return value; }
+  @override double readDouble([int byteOffset = 0]) { MemoryDebug.checkPointer(this, 'readDouble', byteOffset); final value = WasmMemory.readDouble(_addr, byteOffset); MemoryTrace.checkRead(_addr + byteOffset, 'Double', value); return value; }
 
-  @override void writeSize(int value, [int byteOffset = 0]) { _p('writeSize', value, byteOffset); WasmMemory.writeSize(_addr, value, byteOffset); }
-  @override void writeBool(bool value, [int byteOffset = 0]) { _p('writeBool', value, byteOffset); WasmMemory.writeBool(_addr, value, byteOffset); }
-  @override void writeInt8(int value, [int byteOffset = 0]) { _p('writeInt8', value, byteOffset); WasmMemory.writeInt8(_addr, value, byteOffset); }
-  @override void writeUint8(int value, [int byteOffset = 0]) { _p('writeUint8', value, byteOffset); WasmMemory.writeUint8(_addr, value, byteOffset); }
-  @override void writeInt16(int value, [int byteOffset = 0]) { _p('writeInt16', value, byteOffset); WasmMemory.writeInt16(_addr, value, byteOffset); }
-  @override void writeUint16(int value, [int byteOffset = 0]) { _p('writeUint16', value, byteOffset); WasmMemory.writeUint16(_addr, value, byteOffset); }
-  @override void writeInt32(int value, [int byteOffset = 0]) { _p('writeInt32', value, byteOffset); WasmMemory.writeInt32(_addr, value, byteOffset); }
-  @override void writeUint32(int value, [int byteOffset = 0]) { _p('writeUint32', value, byteOffset); WasmMemory.writeUint32(_addr, value, byteOffset); }
-  @override void writeInt64(int value, [int byteOffset = 0]) { _p('writeInt64', value, byteOffset); WasmMemory.writeInt64(_addr, value, byteOffset); }
-  @override void writeUint64(int value, [int byteOffset = 0]) { _p('writeUint64', value, byteOffset); WasmMemory.writeUint64(_addr, value, byteOffset); }
-  @override void writeFloat32(double value, [int byteOffset = 0]) { _p('writeFloat32', value, byteOffset); WasmMemory.writeFloat32(_addr, value, byteOffset); }
-  @override void writeFloat64(double value, [int byteOffset = 0]) { _p('writeFloat64', value, byteOffset); WasmMemory.writeFloat64(_addr, value, byteOffset); }
-  @override void writeChar(int value, [int byteOffset = 0]) { _p('writeChar', value, byteOffset); WasmMemory.writeChar(_addr, value, byteOffset); }
-  @override void writeUnsignedChar(int value, [int byteOffset = 0]) { _p('writeUnsignedChar', value, byteOffset); WasmMemory.writeUnsignedChar(_addr, value, byteOffset); }
-  @override void writeShort(int value, [int byteOffset = 0]) { _p('writeShort', value, byteOffset); WasmMemory.writeShort(_addr, value, byteOffset); }
-  @override void writeUnsignedShort(int value, [int byteOffset = 0]) { _p('writeUnsignedShort', value, byteOffset); WasmMemory.writeUnsignedShort(_addr, value, byteOffset); }
-  @override void writeInt(int value, [int byteOffset = 0]) { _p('writeInt', value, byteOffset); WasmMemory.writeInt(_addr, value, byteOffset); }
-  @override void writeUnsignedInt(int value, [int byteOffset = 0]) { _p('writeUnsignedInt', value, byteOffset); WasmMemory.writeUnsignedInt(_addr, value, byteOffset); }
-  @override void writeFloat(double value, [int byteOffset = 0]) { _p('writeFloat', value, byteOffset); WasmMemory.writeFloat(_addr, value, byteOffset); }
-  @override void writeDouble(double value, [int byteOffset = 0]) { _p('writeDouble', value, byteOffset); WasmMemory.writeDouble(_addr, value, byteOffset); }
+  @override void writeSize(int value, [int byteOffset = 0]) { MemoryDebug.checkPointer(this, 'writeSize', value, byteOffset); WasmMemory.writeSize(_addr, value, byteOffset); MemoryTrace.checkWrite(_addr + byteOffset, 'Size', value); }
+  @override void writeBool(bool value, [int byteOffset = 0]) { MemoryDebug.checkPointer(this, 'writeBool', value, byteOffset); WasmMemory.writeBool(_addr, value, byteOffset); MemoryTrace.checkWrite(_addr + byteOffset, 'Bool', value); }
+  @override void writeInt8(int value, [int byteOffset = 0]) { MemoryDebug.checkPointer(this, 'writeInt8', value, byteOffset); WasmMemory.writeInt8(_addr, value, byteOffset); MemoryTrace.checkWrite(_addr + byteOffset, 'Int8', value); }
+  @override void writeUint8(int value, [int byteOffset = 0]) { MemoryDebug.checkPointer(this, 'writeUint8', value, byteOffset); WasmMemory.writeUint8(_addr, value, byteOffset); MemoryTrace.checkWrite(_addr + byteOffset, 'Uint8', value); }
+  @override void writeInt16(int value, [int byteOffset = 0]) { MemoryDebug.checkPointer(this, 'writeInt16', value, byteOffset); WasmMemory.writeInt16(_addr, value, byteOffset); MemoryTrace.checkWrite(_addr + byteOffset, 'Int16', value); }
+  @override void writeUint16(int value, [int byteOffset = 0]) { MemoryDebug.checkPointer(this, 'writeUint16', value, byteOffset); WasmMemory.writeUint16(_addr, value, byteOffset); MemoryTrace.checkWrite(_addr + byteOffset, 'Uint16', value); }
+  @override void writeInt32(int value, [int byteOffset = 0]) { MemoryDebug.checkPointer(this, 'writeInt32', value, byteOffset); WasmMemory.writeInt32(_addr, value, byteOffset); MemoryTrace.checkWrite(_addr + byteOffset, 'Int32', value); }
+  @override void writeUint32(int value, [int byteOffset = 0]) { MemoryDebug.checkPointer(this, 'writeUint32', value, byteOffset); WasmMemory.writeUint32(_addr, value, byteOffset); MemoryTrace.checkWrite(_addr + byteOffset, 'Uint32', value); }
+  @override void writeInt64(int value, [int byteOffset = 0]) { MemoryDebug.checkPointer(this, 'writeInt64', value, byteOffset); WasmMemory.writeInt64(_addr, value, byteOffset); MemoryTrace.checkWrite(_addr + byteOffset, 'Int64', value); }
+  @override void writeUint64(int value, [int byteOffset = 0]) { MemoryDebug.checkPointer(this, 'writeUint64', value, byteOffset); WasmMemory.writeUint64(_addr, value, byteOffset); MemoryTrace.checkWrite(_addr + byteOffset, 'Uint64', value); }
+  @override void writeFloat32(double value, [int byteOffset = 0]) { MemoryDebug.checkPointer(this, 'writeFloat32', value, byteOffset); WasmMemory.writeFloat32(_addr, value, byteOffset); MemoryTrace.checkWrite(_addr + byteOffset, 'Float32', value); }
+  @override void writeFloat64(double value, [int byteOffset = 0]) { MemoryDebug.checkPointer(this, 'writeFloat64', value, byteOffset); WasmMemory.writeFloat64(_addr, value, byteOffset); MemoryTrace.checkWrite(_addr + byteOffset, 'Float64', value); }
+  @override void writeChar(int value, [int byteOffset = 0]) { MemoryDebug.checkPointer(this, 'writeChar', value, byteOffset); WasmMemory.writeChar(_addr, value, byteOffset); MemoryTrace.checkWrite(_addr + byteOffset, 'Char', value); }
+  @override void writeUnsignedChar(int value, [int byteOffset = 0]) { MemoryDebug.checkPointer(this, 'writeUnsignedChar', value, byteOffset); WasmMemory.writeUnsignedChar(_addr, value, byteOffset); MemoryTrace.checkWrite(_addr + byteOffset, 'UnsignedChar', value); }
+  @override void writeShort(int value, [int byteOffset = 0]) { MemoryDebug.checkPointer(this, 'writeShort', value, byteOffset); WasmMemory.writeShort(_addr, value, byteOffset); MemoryTrace.checkWrite(_addr + byteOffset, 'Short', value); }
+  @override void writeUnsignedShort(int value, [int byteOffset = 0]) { MemoryDebug.checkPointer(this, 'writeUnsignedShort', value, byteOffset); WasmMemory.writeUnsignedShort(_addr, value, byteOffset); MemoryTrace.checkWrite(_addr + byteOffset, 'UnsignedShort', value); }
+  @override void writeInt(int value, [int byteOffset = 0]) { MemoryDebug.checkPointer(this, 'writeInt', value, byteOffset); WasmMemory.writeInt(_addr, value, byteOffset); MemoryTrace.checkWrite(_addr + byteOffset, 'Int', value); }
+  @override void writeUnsignedInt(int value, [int byteOffset = 0]) { MemoryDebug.checkPointer(this, 'writeUnsignedInt', value, byteOffset); WasmMemory.writeUnsignedInt(_addr, value, byteOffset); MemoryTrace.checkWrite(_addr + byteOffset, 'UnsignedInt', value); }
+  @override void writeFloat(double value, [int byteOffset = 0]) { MemoryDebug.checkPointer(this, 'writeFloat', value, byteOffset); WasmMemory.writeFloat(_addr, value, byteOffset); MemoryTrace.checkWrite(_addr + byteOffset, 'Float', value); }
+  @override void writeDouble(double value, [int byteOffset = 0]) { MemoryDebug.checkPointer(this, 'writeDouble', value, byteOffset); WasmMemory.writeDouble(_addr, value, byteOffset); MemoryTrace.checkWrite(_addr + byteOffset, 'Double', value); }
 }
 
 extension MemoryPointerAsWasmPointer on MemoryPointer {
@@ -139,11 +127,15 @@ extension MemoryPointerAsWasmPointer on MemoryPointer {
 }
 
 extension StructPointerAsWasmPointer on StructPointer {
-  JSNumber get toJS => ptr.toJS;
+  JSNumber get toJS => (ptr as WasmMemoryPointer).toJS;
 }
 
 extension JSAnyAsMemoryPointer on JSAny? {
-  WasmMemoryPointer<R> asMemoryPointer<R extends RType>() => .new(toInt());
+  WasmMemoryPointer<R> asMemoryPointer<R extends RType>() {
+    final ptr = toNullableInt();
+    if (ptr == null) throw StateError('MemoryPointer needs `integer` value as an address.');
+    return .new(ptr);
+  }
 }
 
 class WasmType<T extends Object> {

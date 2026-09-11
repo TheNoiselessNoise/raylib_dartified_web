@@ -6,6 +6,8 @@ external set _dartMain(JSFunction f);
 @JS('requestAnimationFrame')
 external void _requestAnimationFrame(JSFunction callback);
 
+WasmMemoryPointer<Y> _wasmFromAddress<Y extends RType>(int address) => .new(address);
+
 WasmMemoryPointer<RVoid> _wasmFromBytes<T extends TypedDataList>(T data) {
   final byteLength = data.lengthInBytes;
   final asBytes = data.buffer.asUint8List(data.offsetInBytes, byteLength);
@@ -25,6 +27,16 @@ WasmMemoryPointer<Y> _wasmMalloc<Y extends RType>(int size)
 
 WasmMemoryPointer<Y> _wasmCalloc<Y extends RType>(int nmemb, int size)
   => .new(WasmMemory.calloc(nmemb, size));
+
+void bootMemoryBackend() {
+  RType.nativeWordSize = WasmSize.IntPtr;
+  MemoryPointer.fromAddress = _wasmFromAddress;
+  MemoryPointer.fromBytes = _wasmFromBytes;
+  MemoryPointer.fromString = _wasmFromString;
+  MemoryPointer.nullptr = _wasmNullptrFactory;
+  MemoryPointer.malloc = _wasmMalloc;
+  MemoryPointer.calloc = _wasmCalloc;
+}
 
 class Raylib extends RaylibBase<Raylib> {
   static Raylib get instance => RaylibBase.getInstance();
@@ -73,12 +85,7 @@ class Raylib extends RaylibBase<Raylib> {
   }
 
   void _boot() {
-    RType.nativeWordSize = WasmSize.IntPtr;
-    MemoryPointer.fromBytes = _wasmFromBytes;
-    MemoryPointer.fromString = _wasmFromString;
-    MemoryPointer.nullptrFactory = _wasmNullptrFactory;
-    MemoryPointer.malloc = _wasmMalloc;
-    MemoryPointer.calloc = _wasmCalloc;
+    bootMemoryBackend();
     boot();
   }
 

@@ -6,9 +6,9 @@ const int screenWidth = 800;
 const int screenHeight = 600;
 
 void main() => Raylib((rl) {
-  final Vector2D mousePosition = .zero();
-  final Vector2D windowPosition = .vec2(500, 200);
-  final Vector2D panOffset = .zero();
+  Vector2D mousePosition = .zero();
+  Vector2D windowPosition = .vec2(500, 200);
+  Vector2D panOffset = .zero();
   bool dragWindow = false;
 
   SetConfigFlags([.FLAG_WINDOW_UNDECORATED]);
@@ -18,7 +18,7 @@ void main() => Raylib((rl) {
   SetTargetFPS(60);
 
   rl.setMainLoop(() {
-    mousePosition.setDart(GetMousePosition());
+    mousePosition = GetMousePosition();
 
     if (
       IsMouseButtonDown(.MOUSE_BUTTON_LEFT) &&
@@ -28,14 +28,14 @@ void main() => Raylib((rl) {
         mousePosition,
         .rect(0, 0, screenWidth, 20)
       )) {
-        windowPosition.setDart(GetWindowPosition());
+        windowPosition = GetWindowPosition();
         dragWindow = true;
-        panOffset.setDart(mousePosition);
+        panOffset = mousePosition.copy();
       }
     }
 
     if (dragWindow) {
-      windowPosition.setDart(windowPosition.add(mousePosition.sub(panOffset)));
+      windowPosition = windowPosition.add(mousePosition.sub(panOffset));
 
       SetWindowPosition(windowPosition.x, windowPosition.y);
 

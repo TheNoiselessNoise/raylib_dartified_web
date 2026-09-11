@@ -20,11 +20,11 @@ void main() => Raylib((rl) {
   );
   double scleraRadius = 80;
 
-  final Vector2D irisLeftPosition = .vec2(
+  Vector2D irisLeftPosition = .vec2(
     GetScreenWidth()/2.0 - 100.0,
     GetScreenHeight()/2.0
   );
-  final Vector2D irisRightPosition = .vec2(
+  Vector2D irisRightPosition = .vec2(
     GetScreenWidth()/2.0 + 100.0,
     GetScreenHeight()/2.0
   );
@@ -34,8 +34,8 @@ void main() => Raylib((rl) {
   double dx = 0.0, dy = 0.0, dxx = 0.0, dyy = 0.0;
 
   rl.setMainLoop(() {
-    irisLeftPosition.setDart(GetMousePosition());
-    irisRightPosition.setDart(GetMousePosition());
+    irisLeftPosition = GetMousePosition();
+    irisRightPosition = GetMousePosition();
 
     if (!CheckCollisionPointCircle(irisLeftPosition, scleraLeftPosition, scleraRadius - irisRadius))
     {

@@ -42,7 +42,7 @@ void main() => Raylib((rl) {
   SetTextureFilter(fontSDF.texture, .TEXTURE_FILTER_BILINEAR);
 
   final Vector2D fontPosition = .vec2(40, screenHeight/2.0 - 50);
-  final Vector2D textSize = .vec2(0.0, 0.0);
+  Vector2D textSize = .vec2(0.0, 0.0);
   double fontSize = 16.0;
   int currentFont = 0;
 
@@ -54,8 +54,8 @@ void main() => Raylib((rl) {
     if (IsKeyDown(.KEY_SPACE)) currentFont = 1;
     else currentFont = 0;
 
-    if (currentFont == 0) textSize.setDart(MeasureTextEx(fontDefault, msg, fontSize, 0));
-    else textSize.setDart(MeasureTextEx(fontSDF, msg, fontSize, 0));
+    if (currentFont == 0) textSize = MeasureTextEx(fontDefault, msg, fontSize, 0);
+    else textSize = MeasureTextEx(fontSDF, msg, fontSize, 0);
 
     fontPosition.x = GetScreenWidth()/2 - textSize.x/2;
     fontPosition.y = GetScreenHeight()/2 - textSize.y/2 + 80;
