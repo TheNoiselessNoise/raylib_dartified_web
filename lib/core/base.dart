@@ -93,9 +93,21 @@ extension JSAnyConversion on JSAny? {
 }
 
 abstract class RaylibModuleWasm extends RaylibModule<Raylib> {
-  final String s = 'string';
-  final String n = 'number';
-  final String b = 'boolean';
+  static const String _n = 'number';
+
+  final List<String> n0 = [];
+  final List<String> n1 = [_n];
+  final List<String> n2 = [_n, _n];
+  final List<String> n3 = [_n, _n, _n];
+  final List<String> n4 = [_n, _n, _n, _n];
+  final List<String> n5 = [_n, _n, _n, _n, _n];
+  final List<String> n6 = [_n, _n, _n, _n, _n, _n];
+  final List<String> n7 = [_n, _n, _n, _n, _n, _n, _n];
+  final List<String> n8 = [_n, _n, _n, _n, _n, _n, _n, _n];
+  final List<String> n9 = [_n, _n, _n, _n, _n, _n, _n, _n, _n];
+
+  final Null rv = null;
+  final String rn = _n;
 
   RaylibModuleWasm(super.rl);
 }

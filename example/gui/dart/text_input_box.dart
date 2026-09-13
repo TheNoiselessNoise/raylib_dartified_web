@@ -8,26 +8,26 @@ void main() => Raylib((rl) {
 
   String value = 'Hello, World!';
 
-  bool? secretViewActive = false;
+  bool secretViewActive = false;
+  GuiResult lastResult = .RESULT_NONE;
+  int lastBtnActive = 0;
 
   rl.setMainLoop(() {
     BeginDrawing();
 
       ClearBackground(.WHITE);
 
-      final (result, newValue, newSecretViewActive) = GuiTextInputBox(
+      (lastResult, value, lastBtnActive, secretViewActive!) = GuiTextInputBox(
         .rect(50, 50, 200, 120),
         'Title', // title, can be null
         'Some message', // message, can be null
-        'OK', // buttons ';' seperated
         value, // text, can be null
-        255, // textMaxSize
-        secretViewActive, // secretViewActive, boolean, can be null
+        255, // textSize
+        'OK', // buttons ';' seperated
+        secretViewActive, // secretViewActive, boolean, can be omitted
       );
-      value = newValue;
-      secretViewActive = newSecretViewActive;
 
-      DrawText("RESULT: $result (0 = X button, 1 = OK button)", 50, 200, 20, .BLACK);
+      DrawText("RESULT: ${lastResult.value} BTN_ACTIVE: $lastBtnActive", 50, 200, 20, .BLACK);
       DrawText("VALUE: $value", 50, 230, 20, .BLACK);
 
     EndDrawing();

@@ -132,7 +132,7 @@ void main() => Raylib((rl) {
         brightness.f0, brightness, -100.0, 100.0
       );
 
-      resetButtonClicked = GuiButton(.rect(645, 190, 40, 20), "Reset") != 0;
+      resetButtonClicked = GuiButton(.rect(645, 190, 40, 20), "Reset") != .RESULT_NONE;
 
       DrawFPS(710, 10);
 

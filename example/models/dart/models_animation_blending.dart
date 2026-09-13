@@ -183,7 +183,7 @@ void main() => Raylib((rl) {
           animIndex0, dropdownEditMode0
         );
         animIndex0 = active;
-        if (result.toBool()) dropdownEditMode0 = !dropdownEditMode0;
+        if (result != .RESULT_NONE) dropdownEditMode0 = !dropdownEditMode0;
       }
 
       if (nextAnimToPlay == 1) GuiSetStyle(.PROGRESSBAR, GuiProgressBarProperty.PROGRESS_SIDE, 0);
@@ -201,7 +201,7 @@ void main() => Raylib((rl) {
           animIndex1, dropdownEditMode1
         );
         animIndex1 = active;
-        if (result.toBool()) dropdownEditMode1 = !dropdownEditMode1;
+        if (result != .RESULT_NONE) dropdownEditMode1 = !dropdownEditMode1;
       }
 
       GuiProgressBar(

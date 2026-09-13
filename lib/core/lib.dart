@@ -72,7 +72,6 @@ class Raylib extends RaylibBase<Raylib> {
   @override late RaylibRlglFlat RlglFlat;
 
   Raylib(void Function(Raylib) dartMain, {
-    super.tempOptions,
     super.random,
     super.silent,
   }) {

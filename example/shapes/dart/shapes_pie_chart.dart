@@ -171,17 +171,14 @@ void main() => Raylib((rl) {
       GuiScrollPanel(
         scrollPanelBounds, null,
         .rect(0, 0, panelRect.width - 25, contentHeight),
-        scrollContentOffset,
-        view
+        scroll: scrollContentOffset,
+        view: view,
       );
 
       final contentX = view.x + scrollContentOffset.x;
       final contentY = view.y + scrollContentOffset.y;
 
-      BeginScissorMode(
-        view.x, view.y,
-        view.width, view.height
-      );
+      BeginScissorMode(view.x, view.y, view.width, view.height);
 
         for (int i = 0; i < sliceCount; i++)
         {
@@ -195,7 +192,7 @@ void main() => Raylib((rl) {
               .rect(contentX + 45, rowY, 75, 30),
               labels[i], 32, editingLabel[i]
             );
-            if (result != 0) editingLabel[i] = !editingLabel[i];
+            if (result != .RESULT_NONE) editingLabel[i] = !editingLabel[i];
             labels[i] = newValue;
           }
 

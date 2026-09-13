@@ -639,6 +639,7 @@ _GuiGetFont
 _GuiSetStyle
 _GuiGetStyle
 _GuiLoadStyle
+_GuiLoadStyleFromMemory
 _GuiLoadStyleDefault
 _GuiEnableTooltip
 _GuiDisableTooltip
@@ -647,13 +648,13 @@ _GuiIconText
 _GuiSetIconScale
 _GuiGetIcons
 _GuiLoadIcons
+_GuiLoadIconsFromMemory
 _GuiDrawIcon
 _GuiGetTextWidth
 _GuiWindowBox
 _GuiGroupBox
 _GuiLine
 _GuiPanel
-_GuiTabBar
 _GuiScrollPanel
 _GuiLabel
 _GuiButton
@@ -676,6 +677,8 @@ _GuiDummyRec
 _GuiGrid
 _GuiListView
 _GuiListViewEx
+_GuiTabBar
+_GuiTabBarEx
 _GuiMessageBox
 _GuiTextInputBox
 _GuiColorPicker

@@ -30,7 +30,7 @@ void main() => Raylib((rl) {
     BeginDrawing();
       ClearBackground(RAYWHITE);
 
-      btnBackPressed = GuiButton(.rect(40.0, 10.0, 48, 28), "<").toBool();
+      btnBackPressed = GuiButton(.rect(40.0, 10.0, 48, 28), "<") != .RESULT_NONE;
 
       GuiSetStyle(.DEFAULT, GuiDefaultProperty.TEXT_SIZE, GuiGetFont().baseSize*2);
       GuiLabel(.rect(40 + 48 + 10, 10, 700, 28), directory);

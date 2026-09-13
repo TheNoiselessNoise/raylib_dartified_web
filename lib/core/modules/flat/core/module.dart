@@ -386,9 +386,11 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   @override
   void UnloadVrStereoConfig(
     VrStereoConfigD config,
-  ) => rl.Core.UnloadVrStereoConfig.run([
-    config.getOpAndDispose().toJS,
-  ]);
+  ) => disposeStructWithOpFreed(config, (ptr) {
+    rl.Core.UnloadVrStereoConfig.run([
+      ptr.toJS,
+    ]);
+  });
 
   @override
   ShaderD LoadShader(
@@ -481,9 +483,11 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   @override
   void UnloadShader(
     ShaderD shader,
-  ) => rl.Core.UnloadShader.run([
-    shader.getOpAndDispose().toJS,
-  ]);
+  ) => disposeStructWithOpFreed(shader, (ptr) {
+    rl.Core.UnloadShader.run([
+      ptr.toJS,
+    ]);
+  });
 
   @override
   RayD GetScreenToWorldRay(
@@ -982,9 +986,11 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   @override
   void UnloadDirectoryFiles(
     FilePathListD files,
-  ) => rl.Core.UnloadDirectoryFiles.run([
-    files.getOpAndDispose().toJS,
-  ]);
+  ) => disposeStructWithOpFreed(files, (ptr) {
+    rl.Core.UnloadDirectoryFiles.run([
+      ptr.toJS,
+    ]);
+  });
 
   @override
   bool IsFileDropped() => rl.Core.IsFileDropped.run().toBool();
@@ -1000,9 +1006,11 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   @override
   void UnloadDroppedFiles(
     FilePathListD files,
-  ) => rl.Core.UnloadDroppedFiles.run([
-    files.getOpAndDispose().toJS,
-  ]);
+  ) => disposeStructWithOpFreed(files, (ptr) {
+    rl.Core.UnloadDroppedFiles.run([
+      ptr.toJS,
+    ]);
+  });
 
   @override
   int GetFileModTime(
@@ -1103,9 +1111,11 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   @override
   void UnloadAutomationEventList(
     AutomationEventListD list,
-  ) => rl.Core.UnloadAutomationEventList.run([
-    list.getOpAndDispose().toJS,
-  ]);
+  ) => disposeStructWithOpFreed(list, (ptr) {
+    rl.Core.UnloadAutomationEventList.run([
+      ptr.toJS,
+    ]);
+  });
 
   @override
   bool ExportAutomationEventList(
@@ -3774,7 +3784,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   ]).toInt();
 
   @override
-  FontD GetFontDefault() => rl.Temp.Font$.RefCapture(
+  FontD GetFontDefault() => rl.Temp.Font$.RefCaptureCached(
     RaylibCaptureIds.GetFontDefault,
     (p) => rl.Core.GetFontDefault.run([
       p.toJS,
@@ -5128,7 +5138,8 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   ]).asMemoryPointer());
 
   @override
-  MaterialD LoadMaterialDefault() => rl.Temp.Material$.Extract1(
+  MaterialD LoadMaterialDefault() => rl.Temp.Material$.RefCapture(
+    RaylibCaptureIds.LoadMaterialDefault,
     (p) => rl.Core.LoadMaterialDefault.run([
       p.toJS,
     ]),

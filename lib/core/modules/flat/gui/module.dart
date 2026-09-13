@@ -44,7 +44,7 @@ class RaylibGuiFlat extends RaylibGuiFlatModule<Raylib> {
   ]);
 
   @override
-  FontD GuiGetFont() => rl.Temp.Font$.RefCapture(
+  FontD GuiGetFont() => rl.Temp.Font$.RefCaptureCached(
     RaylibCaptureIds.GuiGetFont,
     (p) => rl.Gui.GuiGetFont.run([
       p.toJS,
@@ -76,6 +76,15 @@ class RaylibGuiFlat extends RaylibGuiFlatModule<Raylib> {
     MemoryPointer<RChar> fileName,
   ) => rl.Gui.GuiLoadStyle.run([
     fileName.toJS,
+  ]);
+
+  @override
+  void GuiLoadStyleFromMemory(
+    MemoryPointer<RUnsignedChar> fileData,
+    int dataSize,
+  ) => rl.Gui.GuiLoadStyleFromMemory.run([
+    fileData.toJS,
+    dataSize.toJS,
   ]);
 
   @override
@@ -119,6 +128,17 @@ class RaylibGuiFlat extends RaylibGuiFlatModule<Raylib> {
     bool loadIconsName,
   ) => rl.Gui.GuiLoadIcons.run([
     fileName.toJS,
+    loadIconsName.toJS,
+  ]).asMemoryPointer();
+
+  @override
+  WasmMemoryPointer<RPointer<RChar>> GuiLoadIconsFromMemory(
+    MemoryPointer<RUnsignedChar> fileData,
+    int dataSize,
+    bool loadIconsName,
+  ) => rl.Gui.GuiLoadIconsFromMemory.run([
+    fileData.toJS,
+    dataSize.toJS,
     loadIconsName.toJS,
   ]).asMemoryPointer();
 
@@ -178,19 +198,6 @@ class RaylibGuiFlat extends RaylibGuiFlatModule<Raylib> {
   ) => rl.Gui.GuiPanel.run([
     rl.Temp.Rectangle$.Ref1(bounds).toJS,
     text.toJS,
-  ]).toInt();
-
-  @override
-  int GuiTabBar(
-    RectangleD bounds,
-    MemoryPointer<RPointer<RChar>> text,
-    int count,
-    MemoryPointer<RInt> active,
-  ) => rl.Gui.GuiTabBar.run([
-    rl.Temp.Rectangle$.Ref1(bounds).toJS,
-    text.toJS,
-    count.toJS,
-    active.toJS,
   ]).toInt();
 
   @override
@@ -480,16 +487,48 @@ class RaylibGuiFlat extends RaylibGuiFlatModule<Raylib> {
   ]).toInt();
 
   @override
+  int GuiTabBar(
+    RectangleD bounds,
+    MemoryPointer<RChar> text,
+    MemoryPointer<RInt> hscroll,
+    MemoryPointer<RInt> active,
+  ) => rl.Gui.GuiTabBar.run([
+    rl.Temp.Rectangle$.Ref1(bounds).toJS,
+    text.toJS,
+    hscroll.toJS,
+    active.toJS,
+  ]).toInt();
+
+  @override
+  int GuiTabBarEx(
+    RectangleD bounds,
+    MemoryPointer<RPointer<RChar>> text,
+    int count,
+    MemoryPointer<RInt> hscroll,
+    MemoryPointer<RInt> active,
+    MemoryPointer<RInt> focus,
+  ) => rl.Gui.GuiTabBarEx.run([
+    rl.Temp.Rectangle$.Ref1(bounds).toJS,
+    text.toJS,
+    count.toJS,
+    hscroll.toJS,
+    active.toJS,
+    focus.toJS,
+  ]).toInt();
+
+  @override
   int GuiMessageBox(
     RectangleD bounds,
     MemoryPointer<RChar> title,
     MemoryPointer<RChar> message,
-    MemoryPointer<RChar> buttons,
+    MemoryPointer<RChar> btnText,
+    MemoryPointer<RInt> btnActive,
   ) => rl.Gui.GuiMessageBox.run([
     rl.Temp.Rectangle$.Ref1(bounds).toJS,
     title.toJS,
     message.toJS,
-    buttons.toJS,
+    btnText.toJS,
+    btnActive.toJS,
   ]).toInt();
 
   @override
@@ -497,17 +536,19 @@ class RaylibGuiFlat extends RaylibGuiFlatModule<Raylib> {
     RectangleD bounds,
     MemoryPointer<RChar> title,
     MemoryPointer<RChar> message,
-    MemoryPointer<RChar> buttons,
     MemoryPointer<RChar> text,
-    int textMaxSize,
+    int textSize,
+    MemoryPointer<RChar> btnText,
+    MemoryPointer<RInt> btnActive,
     MemoryPointer<RBool> secretViewActive,
   ) => rl.Gui.GuiTextInputBox.run([
     rl.Temp.Rectangle$.Ref1(bounds).toJS,
     title.toJS,
     message.toJS,
-    buttons.toJS,
     text.toJS,
-    textMaxSize.toJS,
+    textSize.toJS,
+    btnText.toJS,
+    btnActive.toJS,
     secretViewActive.toJS,
   ]).toInt();
 

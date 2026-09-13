@@ -26,7 +26,7 @@ final Map<RaylibSupportedLibs, String> entryTemplates = {
     headerTemplate,
     CoreTemplate
   ].join(),
-  .gui: GuiTemplate,
+  .raygui: GuiTemplate,
   .msf_gif: MsfGifTemplate,
 };
 
@@ -40,7 +40,7 @@ final Map<RaylibSupportedLibs, String> funcListTemplates = {
     LightFuncList,
     RlglFuncList,
   ].join(),
-  .gui: GuiFuncList,
+  .raygui: GuiFuncList,
   .msf_gif: MsfGifFuncList,
 };
 

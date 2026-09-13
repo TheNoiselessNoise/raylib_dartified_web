@@ -16,16 +16,13 @@ void main() => Raylib((rl) {
 
       ClearBackground(.WHITE);
 
-      final (_, newScrollIndex, newActive, newFocus) = GuiListViewEx(
+      (_, scrollIndex!, active!, focus!) = GuiListViewEx(
         .rect(50, 50, 100, 200),
         keyNames,
         scrollIndex: scrollIndex,
         active: active,
         focus: focus,
       );
-      scrollIndex = newScrollIndex!;
-      active = newActive!;
-      focus = newFocus!;
       
       DrawText("SCROLL INDEX: $scrollIndex [ at ${keyNames[scrollIndex]} ]", 50, 280, 20, .BLACK);
 

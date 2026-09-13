@@ -107,7 +107,7 @@ void main() => Raylib((rl) {
     else if (IsKeyPressed(.KEY_UP)) easingY = easingY.prev;
 
     if (IsKeyPressed(.KEY_W) && d < D_MAX - D_STEP) d += D_STEP;
-    else if (IsKeyPressed(.KEY_Q) && d > D_MIN + D_STEP) d -= D_STEP;
+    else if (IsKeyPressed(.KEY_D) && d > D_MIN + D_STEP) d -= D_STEP;
 
     if (IsKeyDown(.KEY_S) && d < D_MAX - D_STEP_FINE) d += D_STEP_FINE;
     else if (IsKeyDown(.KEY_A) && d > D_MIN + D_STEP_FINE) d -= D_STEP_FINE;
@@ -137,7 +137,7 @@ void main() => Raylib((rl) {
       ballPosition.y = Easings[easingY]!(t, 100.0, 400.0 - 170.0, d);
       t += 1.0;
       // NOTE: not part of the original example
-      tail.add(ballPosition.clone()); // NOTE: need to clone()
+      tail.add(ballPosition.copy());
       // ---------
     }
 

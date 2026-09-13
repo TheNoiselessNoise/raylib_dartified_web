@@ -74,14 +74,10 @@ abstract class LoadFileDataCallbackD extends LoadFileDataCallbackBase {
 
   /// The actual trampoline.
   _LoadFileDataCallbackFunction get _rawFunction =>
-    (int fileNamePtr, int dataSizePtr) {
-      final result = function(
-        WasmMemoryPointer(fileNamePtr),
-        WasmMemoryPointer(dataSizePtr),
-      );
-      if (result.isNull) return 0;
-      return result.address;
-    };
+    (int fileNamePtr, int dataSizePtr) => function(
+      WasmMemoryPointer(fileNamePtr),
+      WasmMemoryPointer(dataSizePtr),
+    ).address;
 
   late final int _funcIndex;
 
