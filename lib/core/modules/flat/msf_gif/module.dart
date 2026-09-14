@@ -4,18 +4,20 @@ class RaylibMsfGifFlat extends RaylibMsfGifFlatModule<Raylib> {
 
   RaylibMsfGifFlat(super.rl);
 
-  @override int get msf_gif_alpha_threshold => rl.MsfGif.msf_gif_alpha_threshold.value;
-  @override set msf_gif_alpha_threshold(int v) => rl.MsfGif.msf_gif_alpha_threshold.value = v;
+  RaylibMsfGif get _wasm => rl.module();
 
-  @override int get msf_gif_bgra_flag => rl.MsfGif.msf_gif_bgra_flag.value;
-  @override set msf_gif_bgra_flag(int v) => rl.MsfGif.msf_gif_bgra_flag.value = v;
+  @override int get msf_gif_alpha_threshold => _wasm.msf_gif_alpha_threshold.value;
+  @override set msf_gif_alpha_threshold(int v) => _wasm.msf_gif_alpha_threshold.value = v;
+
+  @override int get msf_gif_bgra_flag => _wasm.msf_gif_bgra_flag.value;
+  @override set msf_gif_bgra_flag(int v) => _wasm.msf_gif_bgra_flag.value = v;
 
   @override
   int msf_gif_begin(
     StructPointer<MsfGifStateD> handle,
     int width,
     int height,
-  ) => rl.MsfGif.msf_gif_begin.run([
+  ) => _wasm.msf_gif_begin.run([
     handle.toJS,
     width.toJS,
     height.toJS,
@@ -28,7 +30,7 @@ class RaylibMsfGifFlat extends RaylibMsfGifFlatModule<Raylib> {
     int centiSecondsPerFame,
     int maxBitDepth,
     int pitchInBytes,
-  ) => rl.MsfGif.msf_gif_frame.run([
+  ) => _wasm.msf_gif_frame.run([
     handle.toJS,
     pixelData.toJS,
     centiSecondsPerFame.toJS,
@@ -41,7 +43,7 @@ class RaylibMsfGifFlat extends RaylibMsfGifFlatModule<Raylib> {
     StructPointer<MsfGifStateD> handle,
   ) => rl.Temp.MsfGifResult$.RefCapture(
     RaylibCaptureIds.msf_gif_end,
-    (p) => rl.MsfGif.msf_gif_end.run([
+    (p) => _wasm.msf_gif_end.run([
       p.toJS,
       handle.toJS,
     ]),
@@ -51,7 +53,7 @@ class RaylibMsfGifFlat extends RaylibMsfGifFlatModule<Raylib> {
   void msf_gif_free(
     MsfGifResultD result,
   ) => disposeStructWithOpFreed(result, (ptr) {
-    rl.MsfGif.msf_gif_free.run([
+    _wasm.msf_gif_free.run([
       ptr.toJS,
     ]);
   });
@@ -63,7 +65,7 @@ class RaylibMsfGifFlat extends RaylibMsfGifFlatModule<Raylib> {
     int height,
     MemoryPointer<RFunction> func,
     MemoryPointer<RVoid> filePointer,
-  ) => rl.MsfGif.msf_gif_begin_to_file.run([
+  ) => _wasm.msf_gif_begin_to_file.run([
     handle.toJS,
     width.toJS,
     height.toJS,
@@ -78,7 +80,7 @@ class RaylibMsfGifFlat extends RaylibMsfGifFlatModule<Raylib> {
     int centiSecondsPerFame,
     int maxBitDepth,
     int pitchInBytes,
-  ) => rl.MsfGif.msf_gif_frame_to_file.run([
+  ) => _wasm.msf_gif_frame_to_file.run([
     handle.toJS,
     pixelData.toJS,
     centiSecondsPerFame.toJS,
@@ -89,7 +91,7 @@ class RaylibMsfGifFlat extends RaylibMsfGifFlatModule<Raylib> {
   @override
   int msf_gif_end_to_file(
     StructPointer<MsfGifStateD> handle,
-  ) => rl.MsfGif.msf_gif_end_to_file.run([
+  ) => _wasm.msf_gif_end_to_file.run([
     handle.toJS,
   ]).toInt();
 }

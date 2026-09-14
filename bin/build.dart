@@ -12,7 +12,12 @@ import 'assets/raylib_func_lists.dart' show
   GuiFuncList,
   LightFuncList, // core
   MsfGifFuncList,
-  RlglFuncList; // core
+  RlglFuncList, // core
+  MatrixExtFuncList, // core
+  QuaternionExtFuncList, // core
+  Vector2ExtFuncList, // core
+  Vector3ExtFuncList, // core
+  Vector4ExtFuncList; // core
 import 'assets/raylib_c.dart' show
   headerTemplate, // core
   CoreTemplate, // core
@@ -33,12 +38,20 @@ final Map<RaylibSupportedLibs, String> entryTemplates = {
 // NOTE: for building final function list for `EXPORTED_FUNCTIONS` from selected modules
 final Map<RaylibSupportedLibs, String> funcListTemplates = {
   .raylib: <String>[
+    // modules
     EmscriptenFuncList,
     AudioFuncList,
     CameraFuncList,
     CoreFuncList,
     LightFuncList,
     RlglFuncList,
+
+    // extensions
+    MatrixExtFuncList,
+    QuaternionExtFuncList,
+    Vector2ExtFuncList,
+    Vector3ExtFuncList,
+    Vector4ExtFuncList,
   ].join(),
   .raygui: GuiFuncList,
   .msf_gif: MsfGifFuncList,

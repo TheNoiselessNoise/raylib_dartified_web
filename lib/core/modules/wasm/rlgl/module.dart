@@ -430,7 +430,7 @@ class RaylibRlgl extends RaylibModuleWasm with RaylibRlglModuleExtras<Raylib> {
     rlCheckRenderBatchLimit            = _module.dwrap('rlCheckRenderBatchLimit',            n1, rn);
     rlSetTexture                       = _module.dwrap('rlSetTexture',                       n1, rv);
     rlLoadVertexArray                  = _module.dwrap('rlLoadVertexArray',                  n0, rn);
-    rlLoadVertexBuffer                 = _module.dwrap('rlLoadVertexBuffer',                 n3, rv);
+    rlLoadVertexBuffer                 = _module.dwrap('rlLoadVertexBuffer',                 n3, rn);
     rlLoadVertexBufferElement          = _module.dwrap('rlLoadVertexBufferElement',          n3, rn);
     rlUpdateVertexBuffer               = _module.dwrap('rlUpdateVertexBuffer',               n4, rv);
     rlUpdateVertexBufferElements       = _module.dwrap('rlUpdateVertexBufferElements',       n4, rv);
@@ -443,8 +443,9 @@ class RaylibRlgl extends RaylibModuleWasm with RaylibRlglModuleExtras<Raylib> {
     rlDrawVertexArrayElements          = _module.dwrap('rlDrawVertexArrayElements',          n3, rv);
     rlDrawVertexArrayInstanced         = _module.dwrap('rlDrawVertexArrayInstanced',         n3, rv);
     rlDrawVertexArrayElementsInstanced = _module.dwrap('rlDrawVertexArrayElementsInstanced', n4, rv);
+    rlLoadTexture                      = _module.dwrap('rlLoadTexture',                      n5, rn);
     rlLoadTextureDepth                 = _module.dwrap('rlLoadTextureDepth',                 n3, rn);
-    rlLoadTextureCubemap               = _module.dwrap('rlLoadTextureCubemap',               n4, rv);
+    rlLoadTextureCubemap               = _module.dwrap('rlLoadTextureCubemap',               n4, rn);
     rlUpdateTexture                    = _module.dwrap('rlUpdateTexture',                    n7, rv);
     rlGetGlTextureFormats              = _module.dwrap('rlGetGlTextureFormats',              n4, rv);
     rlGetPixelFormatName               = _module.dwrap('rlGetPixelFormatName',               n1, rn);
@@ -464,7 +465,7 @@ class RaylibRlgl extends RaylibModuleWasm with RaylibRlglModuleExtras<Raylib> {
     rlLoadShaderProgramCompute         = _module.dwrap('rlLoadShaderProgramCompute',         n1, rn);
     rlUnloadShader                     = _module.dwrap('rlUnloadShader',                     n1, rv);
     rlUnloadShaderProgram              = _module.dwrap('rlUnloadShaderProgram',              n1, rv);
-    rlGetLocationUniform               = _module.dwrap('rlGetLocationUniform',               n2, rv);
+    rlGetLocationUniform               = _module.dwrap('rlGetLocationUniform',               n2, rn);
     rlGetLocationAttrib                = _module.dwrap('rlGetLocationAttrib',                n2, rn);
     rlSetUniform                       = _module.dwrap('rlSetUniform',                       n4, rv);
     rlSetUniformMatrix                 = _module.dwrap('rlSetUniformMatrix',                 n2, rv);

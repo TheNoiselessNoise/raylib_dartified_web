@@ -1,7 +1,7 @@
 import 'dart:js_interop';
 import 'package:raylib_dartified_web/raylib_dartified_web.dart';
 
-RaylibMsfGif get _module => Raylib.instance.MsfGif;
+RaylibMsfGif get _module => Raylib.instance.module();
 
 /// See [RaylibMsfGif.msf_gif_alpha_threshold].
 WasmMemoryPointer<RInt> get msf_gif_alpha_threshold => _module.msf_gif_alpha_threshold;

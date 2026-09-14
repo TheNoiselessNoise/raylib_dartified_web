@@ -4,6 +4,8 @@ class RaylibLightFlat extends RaylibLightFlatModule<Raylib> {
 
   RaylibLightFlat(super.rl);
 
+  RaylibLight get _wasm => rl.module();
+
   @override
   LightD CreateLight(
     int type,
@@ -13,7 +15,7 @@ class RaylibLightFlat extends RaylibLightFlatModule<Raylib> {
     ShaderD shader,
   ) => rl.Temp.Light$.RefCapture(
     RaylibCaptureIds.CreateLight,
-    (p) => rl.Light.CreateLight.run([
+    (p) => _wasm.CreateLight.run([
       p.toJS,
       type.toJS,
       rl.Temp.Vector3$.Ref1(position).toJS,
@@ -27,7 +29,7 @@ class RaylibLightFlat extends RaylibLightFlatModule<Raylib> {
   void UpdateLightValues(
     ShaderD shader,
     LightD light,
-  ) => rl.Light.UpdateLightValues.run([
+  ) => _wasm.UpdateLightValues.run([
     rl.Temp.Shader$.Ref1(shader).toJS,
     rl.Temp.Light$.Ref1(light).toJS,
   ]);

@@ -150,7 +150,7 @@ class RaylibGui extends RaylibModuleWasm with RaylibGuiModuleExtras<Raylib> {
     GuiLoadIconsFromMemory = _module.dwrap('GuiLoadIconsFromMemory', n3, rn);
     GuiDrawIcon            = _module.dwrap('GuiDrawIcon',            n5, rv);
     GuiGetTextWidth        = _module.dwrap('GuiGetTextWidth',        n1, rn);
-    GuiWindowBox           = _module.dwrap('GuiWindowBox',           n2, rv);
+    GuiWindowBox           = _module.dwrap('GuiWindowBox',           n2, rn);
     GuiGroupBox            = _module.dwrap('GuiGroupBox',            n2, rn);
     GuiLine                = _module.dwrap('GuiLine',                n2, rn);
     GuiPanel               = _module.dwrap('GuiPanel',               n2, rn);
@@ -169,7 +169,7 @@ class RaylibGui extends RaylibModuleWasm with RaylibGuiModuleExtras<Raylib> {
     GuiValueBoxFloat       = _module.dwrap('GuiValueBoxFloat',       n5, rn);
     GuiTextBox             = _module.dwrap('GuiTextBox',             n4, rn);
     GuiSlider              = _module.dwrap('GuiSlider',              n6, rn);
-    GuiSliderBar           = _module.dwrap('GuiSliderBar',           n6, rv);
+    GuiSliderBar           = _module.dwrap('GuiSliderBar',           n6, rn);
     GuiProgressBar         = _module.dwrap('GuiProgressBar',         n6, rn);
     GuiStatusBar           = _module.dwrap('GuiStatusBar',           n2, rn);
     GuiDummyRec            = _module.dwrap('GuiDummyRec',            n2, rn);

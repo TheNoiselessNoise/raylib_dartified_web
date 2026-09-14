@@ -4,84 +4,86 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
 
   RaylibCoreFlat(super.rl);
 
+  RaylibCore get _wasm => rl.module();
+
   @override
   void InitWindow(
     int width,
     int height,
     MemoryPointer<RChar> title,
-  ) => rl.Core.InitWindow.run([
+  ) => _wasm.InitWindow.run([
     width.toJS,
     height.toJS,
     title.toJS,
   ]);
 
   @override
-  void CloseWindow() => rl.Core.CloseWindow.run();
+  void CloseWindow() => _wasm.CloseWindow.run();
 
   @override
-  bool WindowShouldClose() => rl.Core.WindowShouldClose.run().toBool();
+  bool WindowShouldClose() => _wasm.WindowShouldClose.run().toBool();
 
   @override
-  bool IsWindowReady() => rl.Core.IsWindowReady.run().toBool();
+  bool IsWindowReady() => _wasm.IsWindowReady.run().toBool();
 
   @override
-  bool IsWindowFullscreen() => rl.Core.IsWindowFullscreen.run().toBool();
+  bool IsWindowFullscreen() => _wasm.IsWindowFullscreen.run().toBool();
 
   @override
-  bool IsWindowHidden() => rl.Core.IsWindowHidden.run().toBool();
+  bool IsWindowHidden() => _wasm.IsWindowHidden.run().toBool();
 
   @override
-  bool IsWindowMinimized() => rl.Core.IsWindowMinimized.run().toBool();
+  bool IsWindowMinimized() => _wasm.IsWindowMinimized.run().toBool();
 
   @override
-  bool IsWindowMaximized() => rl.Core.IsWindowMaximized.run().toBool();
+  bool IsWindowMaximized() => _wasm.IsWindowMaximized.run().toBool();
 
   @override
-  bool IsWindowFocused() => rl.Core.IsWindowFocused.run().toBool();
+  bool IsWindowFocused() => _wasm.IsWindowFocused.run().toBool();
 
   @override
-  bool IsWindowResized() => rl.Core.IsWindowResized.run().toBool();
+  bool IsWindowResized() => _wasm.IsWindowResized.run().toBool();
 
   @override
   bool IsWindowState(
     int flag,
-  ) => rl.Core.IsWindowState.run([
+  ) => _wasm.IsWindowState.run([
     flag.toJS,
   ]).toBool();
 
   @override
   void SetWindowState(
     int flags,
-  ) => rl.Core.SetWindowState.run([
+  ) => _wasm.SetWindowState.run([
     flags.toJS,
   ]);
 
   @override
   void ClearWindowState(
     int flags,
-  ) => rl.Core.ClearWindowState.run([
+  ) => _wasm.ClearWindowState.run([
     flags.toJS,
   ]);
 
   @override
-  void ToggleFullscreen() => rl.Core.ToggleFullscreen.run();
+  void ToggleFullscreen() => _wasm.ToggleFullscreen.run();
 
   @override
-  void ToggleBorderlessWindowed() => rl.Core.ToggleBorderlessWindowed.run();
+  void ToggleBorderlessWindowed() => _wasm.ToggleBorderlessWindowed.run();
 
   @override
-  void MaximizeWindow() => rl.Core.MaximizeWindow.run();
+  void MaximizeWindow() => _wasm.MaximizeWindow.run();
 
   @override
-  void MinimizeWindow() => rl.Core.MinimizeWindow.run();
+  void MinimizeWindow() => _wasm.MinimizeWindow.run();
 
   @override
-  void RestoreWindow() => rl.Core.RestoreWindow.run();
+  void RestoreWindow() => _wasm.RestoreWindow.run();
 
   @override
   void SetWindowIcon(
     ImageD image,
-  ) => rl.Core.SetWindowIcon.run([
+  ) => _wasm.SetWindowIcon.run([
     rl.Temp.Image$.Ref1(image).toJS,
   ]);
 
@@ -89,7 +91,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   void SetWindowIcons(
     StructPointer<ImageD> images,
     int count,
-  ) => rl.Core.SetWindowIcons.run([
+  ) => _wasm.SetWindowIcons.run([
     images.toJS,
     count.toJS,
   ]);
@@ -97,7 +99,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   @override
   void SetWindowTitle(
     MemoryPointer<RChar> title,
-  ) => rl.Core.SetWindowTitle.run([
+  ) => _wasm.SetWindowTitle.run([
     title.toJS,
   ]);
 
@@ -105,7 +107,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   void SetWindowPosition(
     int x,
     int y,
-  ) => rl.Core.SetWindowPosition.run([
+  ) => _wasm.SetWindowPosition.run([
     x.toJS,
     y.toJS,
   ]);
@@ -113,7 +115,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   @override
   void SetWindowMonitor(
     int monitor,
-  ) => rl.Core.SetWindowMonitor.run([
+  ) => _wasm.SetWindowMonitor.run([
     monitor.toJS,
   ]);
 
@@ -121,7 +123,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   void SetWindowMinSize(
     int width,
     int height,
-  ) => rl.Core.SetWindowMinSize.run([
+  ) => _wasm.SetWindowMinSize.run([
     width.toJS,
     height.toJS,
   ]);
@@ -130,7 +132,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   void SetWindowMaxSize(
     int width,
     int height,
-  ) => rl.Core.SetWindowMaxSize.run([
+  ) => _wasm.SetWindowMaxSize.run([
     width.toJS,
     height.toJS,
   ]);
@@ -139,7 +141,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   void SetWindowSize(
     int width,
     int height,
-  ) => rl.Core.SetWindowSize.run([
+  ) => _wasm.SetWindowSize.run([
     width.toJS,
     height.toJS,
   ]);
@@ -147,39 +149,39 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   @override
   void SetWindowOpacity(
     double opacity,
-  ) => rl.Core.SetWindowOpacity.run([
+  ) => _wasm.SetWindowOpacity.run([
     opacity.toJS,
   ]);
 
   @override
-  void SetWindowFocused() => rl.Core.SetWindowFocused.run();
+  void SetWindowFocused() => _wasm.SetWindowFocused.run();
 
   @override
-  WasmMemoryPointer<RVoid> GetWindowHandle() => rl.Core.GetWindowHandle.run().asMemoryPointer();
+  WasmMemoryPointer<RVoid> GetWindowHandle() => _wasm.GetWindowHandle.run().asMemoryPointer();
 
   @override
-  int GetScreenWidth() => rl.Core.GetScreenWidth.run().toInt();
+  int GetScreenWidth() => _wasm.GetScreenWidth.run().toInt();
 
   @override
-  int GetScreenHeight() => rl.Core.GetScreenHeight.run().toInt();
+  int GetScreenHeight() => _wasm.GetScreenHeight.run().toInt();
 
   @override
-  int GetRenderWidth() => rl.Core.GetRenderWidth.run().toInt();
+  int GetRenderWidth() => _wasm.GetRenderWidth.run().toInt();
 
   @override
-  int GetRenderHeight() => rl.Core.GetRenderHeight.run().toInt();
+  int GetRenderHeight() => _wasm.GetRenderHeight.run().toInt();
 
   @override
-  int GetMonitorCount() => rl.Core.GetMonitorCount.run().toInt();
+  int GetMonitorCount() => _wasm.GetMonitorCount.run().toInt();
 
   @override
-  int GetCurrentMonitor() => rl.Core.GetCurrentMonitor.run().toInt();
+  int GetCurrentMonitor() => _wasm.GetCurrentMonitor.run().toInt();
 
   @override
   Vector2D GetMonitorPosition(
     int monitor,
   ) => rl.Temp.Vector2$.Extract1(
-    (p) => rl.Core.GetMonitorPosition.run([
+    (p) => _wasm.GetMonitorPosition.run([
       p.toJS,
       monitor.toJS,
     ]),
@@ -188,48 +190,48 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   @override
   int GetMonitorWidth(
     int monitor,
-  ) => rl.Core.GetMonitorWidth.run([
+  ) => _wasm.GetMonitorWidth.run([
     monitor.toJS,
   ]).toInt();
 
   @override
   int GetMonitorHeight(
     int monitor,
-  ) => rl.Core.GetMonitorHeight.run([
+  ) => _wasm.GetMonitorHeight.run([
     monitor.toJS,
   ]).toInt();
 
   @override
   int GetMonitorPhysicalWidth(
     int monitor,
-  ) => rl.Core.GetMonitorPhysicalWidth.run([
+  ) => _wasm.GetMonitorPhysicalWidth.run([
     monitor.toJS,
   ]).toInt();
 
   @override
   int GetMonitorPhysicalHeight(
     int monitor,
-  ) => rl.Core.GetMonitorPhysicalHeight.run([
+  ) => _wasm.GetMonitorPhysicalHeight.run([
     monitor.toJS,
   ]).toInt();
 
   @override
   int GetMonitorRefreshRate(
     int monitor,
-  ) => rl.Core.GetMonitorRefreshRate.run([
+  ) => _wasm.GetMonitorRefreshRate.run([
     monitor.toJS,
   ]).toInt();
 
   @override
   Vector2D GetWindowPosition() => rl.Temp.Vector2$.Extract1(
-    (p) => rl.Core.GetWindowPosition.run([
+    (p) => _wasm.GetWindowPosition.run([
       p.toJS,
     ]),
   );
 
   @override
   Vector2D GetWindowScaleDPI() => rl.Temp.Vector2$.Extract1(
-    (p) => rl.Core.GetWindowScaleDPI.run([
+    (p) => _wasm.GetWindowScaleDPI.run([
       p.toJS,
     ]),
   );
@@ -237,114 +239,114 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   @override
   WasmMemoryPointer<RChar> GetMonitorName(
     int monitor,
-  ) => rl.Core.GetMonitorName.run([
+  ) => _wasm.GetMonitorName.run([
     monitor.toJS,
   ]).asMemoryPointer();
 
   @override
   void SetClipboardText(
     MemoryPointer<RChar> text,
-  ) => rl.Core.SetClipboardText.run([
+  ) => _wasm.SetClipboardText.run([
     text.toJS,
   ]);
 
   @override
-  WasmMemoryPointer<RChar> GetClipboardText() => rl.Core.GetClipboardText.run().asMemoryPointer();
+  WasmMemoryPointer<RChar> GetClipboardText() => _wasm.GetClipboardText.run().asMemoryPointer();
 
   @override
   ImageD GetClipboardImage() => rl.Temp.Image$.RefCapture(
     RaylibCaptureIds.GetClipboardImage,
-    (p) => rl.Core.GetClipboardImage.run([
+    (p) => _wasm.GetClipboardImage.run([
       p.toJS,
     ]),
   );
 
   @override
-  void EnableEventWaiting() => rl.Core.EnableEventWaiting.run();
+  void EnableEventWaiting() => _wasm.EnableEventWaiting.run();
 
   @override
-  void DisableEventWaiting() => rl.Core.DisableEventWaiting.run();
+  void DisableEventWaiting() => _wasm.DisableEventWaiting.run();
 
   @override
-  void ShowCursor() => rl.Core.ShowCursor.run();
+  void ShowCursor() => _wasm.ShowCursor.run();
 
   @override
-  void HideCursor() => rl.Core.HideCursor.run();
+  void HideCursor() => _wasm.HideCursor.run();
 
   @override
-  bool IsCursorHidden() => rl.Core.IsCursorHidden.run().toBool();
+  bool IsCursorHidden() => _wasm.IsCursorHidden.run().toBool();
 
   @override
-  void EnableCursor() => rl.Core.EnableCursor.run();
+  void EnableCursor() => _wasm.EnableCursor.run();
 
   @override
-  void DisableCursor() => rl.Core.DisableCursor.run();
+  void DisableCursor() => _wasm.DisableCursor.run();
 
   @override
-  bool IsCursorOnScreen() => rl.Core.IsCursorOnScreen.run().toBool();
+  bool IsCursorOnScreen() => _wasm.IsCursorOnScreen.run().toBool();
 
   @override
   void ClearBackground(
     ColorD color,
-  ) => rl.Core.ClearBackground.run([
+  ) => _wasm.ClearBackground.run([
     rl.Temp.Color$.Ref1(color).toJS,
   ]);
 
   @override
-  void BeginDrawing() => rl.Core.BeginDrawing.run();
+  void BeginDrawing() => _wasm.BeginDrawing.run();
 
   @override
-  void EndDrawing() => rl.Core.EndDrawing.run();
+  void EndDrawing() => _wasm.EndDrawing.run();
 
   @override
   void BeginMode2D(
     Camera2DD camera,
-  ) => rl.Core.BeginMode2D.run([
+  ) => _wasm.BeginMode2D.run([
     rl.Temp.Camera2D$.Ref1(camera).toJS,
   ]);
 
   @override
-  void EndMode2D() => rl.Core.EndMode2D.run();
+  void EndMode2D() => _wasm.EndMode2D.run();
 
   @override
   void BeginMode3D(
     Camera3DD camera,
-  ) => rl.Core.BeginMode3D.run([
+  ) => _wasm.BeginMode3D.run([
     rl.Temp.Camera3D$.Ref1(camera).toJS,
   ]);
 
   @override
-  void EndMode3D() => rl.Core.EndMode3D.run();
+  void EndMode3D() => _wasm.EndMode3D.run();
 
   @override
   void BeginTextureMode(
     RenderTextureD target,
-  ) => rl.Core.BeginTextureMode.run([
+  ) => _wasm.BeginTextureMode.run([
     rl.Temp.RenderTexture$.Ref1(target).toJS,
   ]);
 
   @override
-  void EndTextureMode() => rl.Core.EndTextureMode.run();
+  void EndTextureMode() => _wasm.EndTextureMode.run();
 
   @override
   void BeginShaderMode(
     ShaderD shader,
-  ) => rl.Core.BeginShaderMode.run([
+  ) => _wasm.BeginShaderMode.run([
     rl.Temp.Shader$.Ref1(shader).toJS,
   ]);
 
   @override
-  void EndShaderMode() => rl.Core.EndShaderMode.run();
+  void EndShaderMode() => _wasm.EndShaderMode.run();
 
   @override
   void BeginBlendMode(
     int mode,
-  ) => rl.Core.BeginBlendMode.run([
+  ) => _wasm.BeginBlendMode.run([
     mode.toJS,
   ]);
 
   @override
-  void EndBlendMode() => rl.Core.EndBlendMode.run();
+  void EndBlendMode() => _wasm.EndBlendMode.run();
 
   @override
   void BeginScissorMode(
@@ -352,7 +354,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     int y,
     int width,
     int height,
-  ) => rl.Core.BeginScissorMode.run([
+  ) => _wasm.BeginScissorMode.run([
     x.toJS,
     y.toJS,
     width.toJS,
@@ -360,24 +362,24 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   ]);
 
   @override
-  void EndScissorMode() => rl.Core.EndScissorMode.run();
+  void EndScissorMode() => _wasm.EndScissorMode.run();
 
   @override
   void BeginVrStereoMode(
     VrStereoConfigD config,
-  ) => rl.Core.BeginVrStereoMode.run([
+  ) => _wasm.BeginVrStereoMode.run([
     rl.Temp.VrStereoConfig$.Ref1(config).toJS,
   ]);
 
   @override
-  void EndVrStereoMode() => rl.Core.EndVrStereoMode.run();
+  void EndVrStereoMode() => _wasm.EndVrStereoMode.run();
 
   @override
   VrStereoConfigD LoadVrStereoConfig(
     VrDeviceInfoD device,
   ) => rl.Temp.VrStereoConfig$.RefCapture(
     RaylibCaptureIds.LoadVrStereoConfig,
-    (p) => rl.Core.LoadVrStereoConfig.run([
+    (p) => _wasm.LoadVrStereoConfig.run([
       p.toJS,
       rl.Temp.VrDeviceInfo$.Ref1(device).toJS,
     ]),
@@ -387,7 +389,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   void UnloadVrStereoConfig(
     VrStereoConfigD config,
   ) => disposeStructWithOpFreed(config, (ptr) {
-    rl.Core.UnloadVrStereoConfig.run([
+    _wasm.UnloadVrStereoConfig.run([
       ptr.toJS,
     ]);
   });
@@ -398,7 +400,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     MemoryPointer<RChar> fsFileName,
   ) => rl.Temp.Shader$.RefCapture(
     RaylibCaptureIds.LoadShader,
-    (p) => rl.Core.LoadShader.run([
+    (p) => _wasm.LoadShader.run([
       p.toJS,
       vsFileName.toJS,
       fsFileName.toJS,
@@ -411,7 +413,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     MemoryPointer<RChar> fsCode,
   ) => rl.Temp.Shader$.RefCapture(
     RaylibCaptureIds.LoadShaderFromMemory,
-    (p) => rl.Core.LoadShaderFromMemory.run([
+    (p) => _wasm.LoadShaderFromMemory.run([
       p.toJS,
       vsCode.toJS,
       fsCode.toJS,
@@ -421,7 +423,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   @override
   bool IsShaderValid(
     ShaderD shader,
-  ) => rl.Core.IsShaderValid.run([
+  ) => _wasm.IsShaderValid.run([
     rl.Temp.Shader$.Ref1(shader).toJS,
   ]).toBool();
 
@@ -429,7 +431,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   int GetShaderLocation(
     ShaderD shader,
     MemoryPointer<RChar> uniformName,
-  ) => rl.Core.GetShaderLocation.run([
+  ) => _wasm.GetShaderLocation.run([
     rl.Temp.Shader$.Ref1(shader).toJS,
     uniformName.toJS,
   ]).toInt();
@@ -438,7 +440,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   int GetShaderLocationAttrib(
     ShaderD shader,
     MemoryPointer<RChar> attribName,
-  ) => rl.Core.GetShaderLocationAttrib.run([
+  ) => _wasm.GetShaderLocationAttrib.run([
     rl.Temp.Shader$.Ref1(shader).toJS,
     attribName.toJS,
   ]).toInt();
@@ -450,7 +452,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     MemoryPointer<RVoid> value,
     int uniformType,
     int count,
-  ) => rl.Core.SetShaderValueV.run([
+  ) => _wasm.SetShaderValueV.run([
     rl.Temp.Shader$.Ref1(shader).toJS,
     locIndex.toJS,
     value.toJS,
@@ -463,7 +465,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     ShaderD shader,
     int locIndex,
     MatrixD mat,
-  ) => rl.Core.SetShaderValueMatrix.run([
+  ) => _wasm.SetShaderValueMatrix.run([
     rl.Temp.Shader$.Ref1(shader).toJS,
     locIndex.toJS,
     rl.Temp.Matrix$.Ref1(mat).toJS,
@@ -474,7 +476,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     ShaderD shader,
     int locIndex,
     TextureD texture,
-  ) => rl.Core.SetShaderValueTexture.run([
+  ) => _wasm.SetShaderValueTexture.run([
     rl.Temp.Shader$.Ref1(shader).toJS,
     locIndex.toJS,
     rl.Temp.Texture$.Ref1(texture).toJS,
@@ -484,7 +486,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   void UnloadShader(
     ShaderD shader,
   ) => disposeStructWithOpFreed(shader, (ptr) {
-    rl.Core.UnloadShader.run([
+    _wasm.UnloadShader.run([
       ptr.toJS,
     ]);
   });
@@ -494,7 +496,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     Vector2D position,
     Camera3DD camera,
   ) => rl.Temp.Ray$.Extract1(
-    (p) => rl.Core.GetScreenToWorldRay.run([
+    (p) => _wasm.GetScreenToWorldRay.run([
       p.toJS,
       rl.Temp.Vector2$.Ref1(position).toJS,
       rl.Temp.Camera3D$.Ref1(camera).toJS,
@@ -508,7 +510,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     int width,
     int height,
   ) => rl.Temp.Ray$.Extract1(
-    (p) => rl.Core.GetScreenToWorldRay.run([
+    (p) => _wasm.GetScreenToWorldRay.run([
       p.toJS,
       rl.Temp.Vector2$.Ref1(position).toJS,
       rl.Temp.Camera3D$.Ref1(camera).toJS,
@@ -522,7 +524,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     Vector3D position,
     Camera3DD camera,
   ) => rl.Temp.Vector2$.Extract1(
-    (p) => rl.Core.GetWorldToScreen.run([
+    (p) => _wasm.GetWorldToScreen.run([
       p.toJS,
       rl.Temp.Vector3$.Ref1(position).toJS,
       rl.Temp.Camera3D$.Ref1(camera).toJS,
@@ -536,7 +538,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     int width,
     int height,
   ) => rl.Temp.Vector2$.Extract1(
-    (p) => rl.Core.GetWorldToScreenEx.run([
+    (p) => _wasm.GetWorldToScreenEx.run([
       p.toJS,
       rl.Temp.Vector3$.Ref1(position).toJS,
       rl.Temp.Camera3D$.Ref1(camera).toJS,
@@ -550,7 +552,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     Vector2D position,
     Camera2DD camera,
   ) => rl.Temp.Vector2$.Extract1(
-    (p) => rl.Core.GetWorldToScreen2D.run([
+    (p) => _wasm.GetWorldToScreen2D.run([
       p.toJS,
       rl.Temp.Vector2$.Ref2(position).toJS,
       rl.Temp.Camera2D$.Ref1(camera).toJS,
@@ -562,7 +564,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     Vector2D position,
     Camera2DD camera,
   ) => rl.Temp.Vector2$.Extract1(
-    (p) => rl.Core.GetScreenToWorld2D.run([
+    (p) => _wasm.GetScreenToWorld2D.run([
       p.toJS,
       rl.Temp.Vector2$.Ref2(position).toJS,
       rl.Temp.Camera2D$.Ref1(camera).toJS,
@@ -573,7 +575,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   MatrixD GetCameraMatrix(
     Camera3DD camera,
   ) => rl.Temp.Matrix$.Extract1(
-    (p) => rl.Core.GetCameraMatrix.run([
+    (p) => _wasm.GetCameraMatrix.run([
       p.toJS,
       rl.Temp.Camera3D$.Ref1(camera).toJS,
     ]),
@@ -583,7 +585,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   MatrixD GetCameraMatrix2D(
     Camera2DD camera,
   ) => rl.Temp.Matrix$.Extract1(
-    (p) => rl.Core.GetCameraMatrix2D.run([
+    (p) => _wasm.GetCameraMatrix2D.run([
       p.toJS,
       rl.Temp.Camera2D$.Ref1(camera).toJS,
     ]),
@@ -592,36 +594,36 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   @override
   void SetTargetFPS(
     int fps,
-  ) => rl.Core.SetTargetFPS.run([
+  ) => _wasm.SetTargetFPS.run([
     fps.toJS,
   ]);
 
   @override
-  double GetFrameTime() => rl.Core.GetFrameTime.run().toDouble();
+  double GetFrameTime() => _wasm.GetFrameTime.run().toDouble();
 
   @override
-  double GetTime() => rl.Core.GetTime.run().toDouble();
+  double GetTime() => _wasm.GetTime.run().toDouble();
 
   @override
-  int GetFPS() => rl.Core.GetFPS.run().toInt();
+  int GetFPS() => _wasm.GetFPS.run().toInt();
 
   @override
-  void SwapScreenBuffer() => rl.Core.SwapScreenBuffer.run();
+  void SwapScreenBuffer() => _wasm.SwapScreenBuffer.run();
 
   @override
-  void PollInputEvents() => rl.Core.PollInputEvents.run();
+  void PollInputEvents() => _wasm.PollInputEvents.run();
 
   @override
   void WaitTime(
     double seconds,
-  ) => rl.Core.WaitTime.run([
+  ) => _wasm.WaitTime.run([
     seconds.toJS,
   ]);
 
   @override
   void SetRandomSeed(
     int seed,
-  ) => rl.Core.SetRandomSeed.run([
+  ) => _wasm.SetRandomSeed.run([
     seed.toJS,
   ]);
 
@@ -629,7 +631,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   int GetRandomValue(
     int min,
     int max,
-  ) => rl.Core.GetRandomValue.run([
+  ) => _wasm.GetRandomValue.run([
     min.toJS,
     max.toJS,
   ]).toInt();
@@ -639,7 +641,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     int count,
     int min,
     int max,
-  ) => rl.Core.LoadRandomSequence.run([
+  ) => _wasm.LoadRandomSequence.run([
     count.toJS,
     min.toJS,
     max.toJS,
@@ -648,28 +650,28 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   @override
   void UnloadRandomSequence(
     MemoryPointer<RInt> sequence,
-  ) => rl.Core.UnloadRandomSequence.run([
+  ) => _wasm.UnloadRandomSequence.run([
     sequence.toJS,
   ]);
 
   @override
   void TakeScreenshot(
     MemoryPointer<RChar> fileName,
-  ) => rl.Core.TakeScreenshot.run([
+  ) => _wasm.TakeScreenshot.run([
     fileName.toJS,
   ]);
 
   @override
   void SetConfigFlags(
     int flags,
-  ) => rl.Core.SetConfigFlags.run([
+  ) => _wasm.SetConfigFlags.run([
     flags.toJS,
   ]);
 
   @override
   void OpenURL(
     MemoryPointer<RChar> url,
-  ) => rl.Core.OpenURL.run([
+  ) => _wasm.OpenURL.run([
     url.toJS,
   ]);
 
@@ -678,7 +680,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     int logLevel,
     MemoryPointer<RChar> text,
     // NOTE: missing va_list argument
-  ) => rl.Core.TraceLog.run([
+  ) => _wasm.TraceLog.run([
     logLevel.toJS,
     text.toJS,
   ]);
@@ -686,42 +688,42 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   @override
   void SetTraceLogLevel(
     int logLevel,
-  ) => rl.Core.SetTraceLogLevel.run([
+  ) => _wasm.SetTraceLogLevel.run([
     logLevel.toJS,
   ]);
 
   @override
   void SetTraceLogCallback(
     MemoryPointer<RFunction<TraceLogCallbackBase>> callback,
-  ) => rl.Core.SetTraceLogCallback.run([
+  ) => _wasm.SetTraceLogCallback.run([
     callback.toJS,
   ]);
 
   @override
   void SetLoadFileDataCallback(
     MemoryPointer<RFunction<LoadFileDataCallbackBase>> callback,
-  ) => rl.Core.SetLoadFileDataCallback.run([
+  ) => _wasm.SetLoadFileDataCallback.run([
     callback.toJS,
   ]);
 
   @override
   void SetSaveFileDataCallback(
     MemoryPointer<RFunction<SaveFileDataCallbackBase>> callback,
-  ) => rl.Core.SetSaveFileDataCallback.run([
+  ) => _wasm.SetSaveFileDataCallback.run([
     callback.toJS,
   ]);
 
   @override
   void SetLoadFileTextCallback(
     MemoryPointer<RFunction<LoadFileTextCallbackBase>> callback,
-  ) => rl.Core.SetLoadFileTextCallback.run([
+  ) => _wasm.SetLoadFileTextCallback.run([
     callback.toJS,
   ]);
 
   @override
   void SetSaveFileTextCallback(
     MemoryPointer<RFunction<SaveFileTextCallbackBase>> callback,
-  ) => rl.Core.SetSaveFileTextCallback.run([
+  ) => _wasm.SetSaveFileTextCallback.run([
     callback.toJS,
   ]);
 
@@ -729,7 +731,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   WasmMemoryPointer<RUnsignedChar> LoadFileData(
     MemoryPointer<RChar> fileName,
     MemoryPointer<RInt> dataSize,
-  ) => rl.Core.LoadFileData.run([
+  ) => _wasm.LoadFileData.run([
     fileName.toJS,
     dataSize.toJS,
   ]).asMemoryPointer();
@@ -737,7 +739,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   @override
   void UnloadFileData(
     MemoryPointer<RUnsignedChar> data,
-  ) => rl.Core.UnloadFileData.run([
+  ) => _wasm.UnloadFileData.run([
     data.toJS,
   ]);
 
@@ -746,7 +748,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     MemoryPointer<RChar> fileName,
     MemoryPointer<RVoid> data,
     int dataSize,
-  ) => rl.Core.SaveFileData.run([
+  ) => _wasm.SaveFileData.run([
     fileName.toJS,
     data.toJS,
     dataSize.toJS,
@@ -757,7 +759,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     MemoryPointer<RUnsignedChar> data,
     int dataSize,
     MemoryPointer<RChar> fileName,
-  ) => rl.Core.ExportDataAsCode.run([
+  ) => _wasm.ExportDataAsCode.run([
     data.toJS,
     dataSize.toJS,
     fileName.toJS,
@@ -766,14 +768,14 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   @override
   WasmMemoryPointer<RChar> LoadFileText(
     MemoryPointer<RChar> fileName,
-  ) => rl.Core.LoadFileText.run([
+  ) => _wasm.LoadFileText.run([
     fileName.toJS,
   ]).asMemoryPointer();
 
   @override
   void UnloadFileText(
     MemoryPointer<RChar> text,
-  ) => rl.Core.UnloadFileText.run([
+  ) => _wasm.UnloadFileText.run([
     text.toJS,
   ]);
 
@@ -781,7 +783,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   bool SaveFileText(
     MemoryPointer<RChar> fileName,
     MemoryPointer<RChar> text,
-  ) => rl.Core.SaveFileText.run([
+  ) => _wasm.SaveFileText.run([
     fileName.toJS,
     text.toJS,
   ]).toBool();
@@ -790,7 +792,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   int FileRename(
     MemoryPointer<RChar> fileName,
     MemoryPointer<RChar> fileRename,
-  ) => rl.Core.FileRename.run([
+  ) => _wasm.FileRename.run([
     fileName.toJS,
     fileRename.toJS,
   ]).toInt();
@@ -798,7 +800,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   @override
   int FileRemove(
     MemoryPointer<RChar> fileName,
-  ) => rl.Core.FileRemove.run([
+  ) => _wasm.FileRemove.run([
     fileName.toJS,
   ]).toInt();
 
@@ -806,7 +808,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   int FileCopy(
     MemoryPointer<RChar> srcPath,
     MemoryPointer<RChar> dstPath,
-  ) => rl.Core.FileCopy.run([
+  ) => _wasm.FileCopy.run([
     srcPath.toJS,
     dstPath.toJS,
   ]).toInt();
@@ -815,7 +817,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   int FileMove(
     MemoryPointer<RChar> srcPath,
     MemoryPointer<RChar> dstPath,
-  ) => rl.Core.FileMove.run([
+  ) => _wasm.FileMove.run([
     srcPath.toJS,
     dstPath.toJS,
   ]).toInt();
@@ -825,7 +827,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     MemoryPointer<RChar> fileName,
     MemoryPointer<RChar> search,
     MemoryPointer<RChar> replacement,
-  ) => rl.Core.FileTextReplace.run([
+  ) => _wasm.FileTextReplace.run([
     fileName.toJS,
     search.toJS,
     replacement.toJS,
@@ -835,7 +837,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   int FileTextFindIndex(
     MemoryPointer<RChar> fileName,
     MemoryPointer<RChar> search,
-  ) => rl.Core.FileTextFindIndex.run([
+  ) => _wasm.FileTextFindIndex.run([
     fileName.toJS,
     search.toJS,
   ]).toInt();
@@ -843,14 +845,14 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   @override
   bool FileExists(
     MemoryPointer<RChar> fileName,
-  ) => rl.Core.FileExists.run([
+  ) => _wasm.FileExists.run([
     fileName.toJS,
   ]).toBool();
 
   @override
   bool DirectoryExists(
     MemoryPointer<RChar> dirPath,
-  ) => rl.Core.DirectoryExists.run([
+  ) => _wasm.DirectoryExists.run([
     dirPath.toJS,
   ]).toBool();
 
@@ -858,7 +860,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   bool IsFileExtension(
     MemoryPointer<RChar> fileName,
     MemoryPointer<RChar> ext,
-  ) => rl.Core.IsFileExtension.run([
+  ) => _wasm.IsFileExtension.run([
     fileName.toJS,
     ext.toJS,
   ]).toBool();
@@ -866,35 +868,35 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   @override
   int GetFileLength(
     MemoryPointer<RChar> fileName,
-  ) => rl.Core.GetFileLength.run([
+  ) => _wasm.GetFileLength.run([
     fileName.toJS,
   ]).toInt();
 
   @override
   WasmMemoryPointer<RChar> GetFileExtension(
     MemoryPointer<RChar> fileName,
-  ) => rl.Core.GetFileExtension.run([
+  ) => _wasm.GetFileExtension.run([
     fileName.toJS,
   ]).asMemoryPointer();
 
   @override
   WasmMemoryPointer<RChar> GetFileName(
     MemoryPointer<RChar> filePath,
-  ) => rl.Core.GetFileName.run([
+  ) => _wasm.GetFileName.run([
     filePath.toJS,
   ]).asMemoryPointer();
 
   @override
   WasmMemoryPointer<RChar> GetFileNameWithoutExt(
     MemoryPointer<RChar> filePath,
-  ) => rl.Core.GetFileNameWithoutExt.run([
+  ) => _wasm.GetFileNameWithoutExt.run([
     filePath.toJS,
   ]).asMemoryPointer();
 
   @override
   int GetDirectoryFileCount(
     MemoryPointer<RChar> dirPath,
-  ) => rl.Core.GetDirectoryFileCount.run([
+  ) => _wasm.GetDirectoryFileCount.run([
     dirPath.toJS,
   ]).toInt();
 
@@ -903,7 +905,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     MemoryPointer<RChar> basePath,
     MemoryPointer<RChar> filter,
     bool scanSubdirs,
-  ) => rl.Core.GetDirectoryFileCountEx.run([
+  ) => _wasm.GetDirectoryFileCountEx.run([
     basePath.toJS,
     filter.toJS,
     scanSubdirs.toJS,
@@ -912,48 +914,48 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   @override
   WasmMemoryPointer<RChar> GetDirectoryPath(
     MemoryPointer<RChar> filePath,
-  ) => rl.Core.GetDirectoryPath.run([
+  ) => _wasm.GetDirectoryPath.run([
     filePath.toJS,
   ]).asMemoryPointer();
 
   @override
   WasmMemoryPointer<RChar> GetPrevDirectoryPath(
     MemoryPointer<RChar> dirPath,
-  ) => rl.Core.GetPrevDirectoryPath.run([
+  ) => _wasm.GetPrevDirectoryPath.run([
     dirPath.toJS,
   ]).asMemoryPointer();
 
   @override
-  WasmMemoryPointer<RChar> GetWorkingDirectory() => rl.Core.GetWorkingDirectory.run().asMemoryPointer();
+  WasmMemoryPointer<RChar> GetWorkingDirectory() => _wasm.GetWorkingDirectory.run().asMemoryPointer();
 
   @override
-  WasmMemoryPointer<RChar> GetApplicationDirectory() => rl.Core.GetApplicationDirectory.run().asMemoryPointer();
+  WasmMemoryPointer<RChar> GetApplicationDirectory() => _wasm.GetApplicationDirectory.run().asMemoryPointer();
 
   @override
   int MakeDirectory(
     MemoryPointer<RChar> dirPath,
-  ) => rl.Core.MakeDirectory.run([
+  ) => _wasm.MakeDirectory.run([
     dirPath.toJS,
   ]).toInt();
 
   @override
   bool ChangeDirectory(
     MemoryPointer<RChar> dir,
-  ) => rl.Core.ChangeDirectory.run([
+  ) => _wasm.ChangeDirectory.run([
     dir.toJS,
   ]).toBool();
 
   @override
   bool IsPathFile(
     MemoryPointer<RChar> path,
-  ) => rl.Core.IsPathFile.run([
+  ) => _wasm.IsPathFile.run([
     path.toJS,
   ]).toBool();
 
   @override
   bool IsFileNameValid(
     MemoryPointer<RChar> fileName,
-  ) => rl.Core.IsFileNameValid.run([
+  ) => _wasm.IsFileNameValid.run([
     fileName.toJS,
   ]).toBool();
 
@@ -962,7 +964,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     MemoryPointer<RChar> dirPath,
   ) => rl.Temp.FilePathList$.RefCapture(
     RaylibCaptureIds.LoadDirectoryFiles,
-    (p) => rl.Core.LoadDirectoryFiles.run([
+    (p) => _wasm.LoadDirectoryFiles.run([
       p.toJS,
       dirPath.toJS,
     ]),
@@ -975,7 +977,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     bool scanSubdirs,
   ) => rl.Temp.FilePathList$.RefCapture(
     RaylibCaptureIds.LoadDirectoryFilesEx,
-    (p) => rl.Core.LoadDirectoryFilesEx.run([
+    (p) => _wasm.LoadDirectoryFilesEx.run([
       p.toJS,
       basePath.toJS,
       filter.toJS,
@@ -987,18 +989,18 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   void UnloadDirectoryFiles(
     FilePathListD files,
   ) => disposeStructWithOpFreed(files, (ptr) {
-    rl.Core.UnloadDirectoryFiles.run([
+    _wasm.UnloadDirectoryFiles.run([
       ptr.toJS,
     ]);
   });
 
   @override
-  bool IsFileDropped() => rl.Core.IsFileDropped.run().toBool();
+  bool IsFileDropped() => _wasm.IsFileDropped.run().toBool();
 
   @override
   FilePathListD LoadDroppedFiles() => rl.Temp.FilePathList$.RefCapture(
     RaylibCaptureIds.LoadDroppedFiles,
-    (p) => rl.Core.LoadDroppedFiles.run([
+    (p) => _wasm.LoadDroppedFiles.run([
       p.toJS,
     ]),
   );
@@ -1007,7 +1009,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   void UnloadDroppedFiles(
     FilePathListD files,
   ) => disposeStructWithOpFreed(files, (ptr) {
-    rl.Core.UnloadDroppedFiles.run([
+    _wasm.UnloadDroppedFiles.run([
       ptr.toJS,
     ]);
   });
@@ -1015,7 +1017,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   @override
   int GetFileModTime(
     MemoryPointer<RChar> fileName,
-  ) => rl.Core.GetFileModTime.run([
+  ) => _wasm.GetFileModTime.run([
     fileName.toJS,
   ]).toInt();
 
@@ -1024,7 +1026,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     MemoryPointer<RUnsignedChar> data,
     int dataSize,
     MemoryPointer<RInt> compDataSize,
-  ) => rl.Core.CompressData.run([
+  ) => _wasm.CompressData.run([
     data.toJS,
     dataSize.toJS,
     compDataSize.toJS,
@@ -1035,7 +1037,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     MemoryPointer<RUnsignedChar> compData,
     int compDataSize,
     MemoryPointer<RInt> dataSize,
-  ) => rl.Core.DecompressData.run([
+  ) => _wasm.DecompressData.run([
     compData.toJS,
     compDataSize.toJS,
     dataSize.toJS,
@@ -1046,7 +1048,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     MemoryPointer<RUnsignedChar> data,
     int dataSize,
     MemoryPointer<RInt> outputSize,
-  ) => rl.Core.EncodeDataBase64.run([
+  ) => _wasm.EncodeDataBase64.run([
     data.toJS,
     dataSize.toJS,
     outputSize.toJS,
@@ -1056,7 +1058,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   WasmMemoryPointer<RUnsignedChar> DecodeDataBase64(
     MemoryPointer<RChar> data,
     MemoryPointer<RInt> outputSize,
-  ) => rl.Core.DecodeDataBase64.run([
+  ) => _wasm.DecodeDataBase64.run([
     data.toJS,
     outputSize.toJS,
   ]).asMemoryPointer();
@@ -1065,7 +1067,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   int ComputeCRC32(
     MemoryPointer<RUnsignedChar> data,
     int dataSize,
-  ) => rl.Core.ComputeCRC32.run([
+  ) => _wasm.ComputeCRC32.run([
     data.toJS,
     dataSize.toJS,
   ]).toInt();
@@ -1074,7 +1076,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   WasmMemoryPointer<RUnsignedInt> ComputeMD5(
     MemoryPointer<RUnsignedChar> data,
     int dataSize,
-  ) => rl.Core.ComputeMD5.run([
+  ) => _wasm.ComputeMD5.run([
     data.toJS,
     dataSize.toJS,
   ]).asMemoryPointer();
@@ -1083,7 +1085,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   WasmMemoryPointer<RUnsignedInt> ComputeSHA1(
     MemoryPointer<RUnsignedChar> data,
     int dataSize,
-  ) => rl.Core.ComputeSHA1.run([
+  ) => _wasm.ComputeSHA1.run([
     data.toJS,
     dataSize.toJS,
   ]).asMemoryPointer();
@@ -1092,7 +1094,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   WasmMemoryPointer<RUnsignedInt> ComputeSHA256(
     MemoryPointer<RUnsignedChar> data,
     int dataSize,
-  ) => rl.Core.ComputeSHA256.run([
+  ) => _wasm.ComputeSHA256.run([
     data.toJS,
     dataSize.toJS,
   ]).asMemoryPointer();
@@ -1102,7 +1104,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     MemoryPointer<RChar> fileName,
   ) => rl.Temp.AutomationEventList$.RefCapture(
     RaylibCaptureIds.LoadAutomationEventList,
-    (p) => rl.Core.LoadAutomationEventList.run([
+    (p) => _wasm.LoadAutomationEventList.run([
       p.toJS,
       fileName.toJS,
     ]),
@@ -1112,7 +1114,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   void UnloadAutomationEventList(
     AutomationEventListD list,
   ) => disposeStructWithOpFreed(list, (ptr) {
-    rl.Core.UnloadAutomationEventList.run([
+    _wasm.UnloadAutomationEventList.run([
       ptr.toJS,
     ]);
   });
@@ -1121,7 +1123,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   bool ExportAutomationEventList(
     AutomationEventListD list,
     MemoryPointer<RChar> fileName,
-  ) => rl.Core.ExportAutomationEventList.run([
+  ) => _wasm.ExportAutomationEventList.run([
     rl.Temp.AutomationEventList$.Ref1(list).toJS,
     fileName.toJS,
   ]).toBool();
@@ -1129,96 +1131,96 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   @override
   void SetAutomationEventList(
     StructPointer<AutomationEventListD> list,
-  ) => rl.Core.SetAutomationEventList.run([
+  ) => _wasm.SetAutomationEventList.run([
     list.toJS,
   ]);
 
   @override
   void SetAutomationEventBaseFrame(
     int frame,
-  ) => rl.Core.SetAutomationEventBaseFrame.run([
+  ) => _wasm.SetAutomationEventBaseFrame.run([
     frame.toJS,
   ]);
 
   @override
-  void StartAutomationEventRecording() => rl.Core.StartAutomationEventRecording.run();
+  void StartAutomationEventRecording() => _wasm.StartAutomationEventRecording.run();
 
   @override
-  void StopAutomationEventRecording() => rl.Core.StopAutomationEventRecording.run();
+  void StopAutomationEventRecording() => _wasm.StopAutomationEventRecording.run();
 
   @override
   void PlayAutomationEvent(
     AutomationEventD event,
-  ) => rl.Core.PlayAutomationEvent.run([
+  ) => _wasm.PlayAutomationEvent.run([
     rl.Temp.AutomationEvent$.Ref1(event).toJS,
   ]);
 
   @override
   bool IsKeyPressed(
     int key,
-  ) => rl.Core.IsKeyPressed.run([
+  ) => _wasm.IsKeyPressed.run([
     key.toJS,
   ]).toBool();
 
   @override
   bool IsKeyPressedRepeat(
     int key,
-  ) => rl.Core.IsKeyPressedRepeat.run([
+  ) => _wasm.IsKeyPressedRepeat.run([
     key.toJS,
   ]).toBool();
 
   @override
   bool IsKeyDown(
     int key,
-  ) => rl.Core.IsKeyDown.run([
+  ) => _wasm.IsKeyDown.run([
     key.toJS,
   ]).toBool();
 
   @override
   bool IsKeyReleased(
     int key,
-  ) => rl.Core.IsKeyReleased.run([
+  ) => _wasm.IsKeyReleased.run([
     key.toJS,
   ]).toBool();
 
   @override
   bool IsKeyUp(
     int key,
-  ) => rl.Core.IsKeyUp.run([
+  ) => _wasm.IsKeyUp.run([
     key.toJS,
   ]).toBool();
 
   @override
   WasmMemoryPointer<RChar> GetKeyName(
     int key,
-  ) => rl.Core.GetKeyName.run([
+  ) => _wasm.GetKeyName.run([
     key.toJS,
   ]).asMemoryPointer();
 
   @override
-  int GetKeyPressed() => rl.Core.GetKeyPressed.run().toInt();
+  int GetKeyPressed() => _wasm.GetKeyPressed.run().toInt();
 
   @override
-  int GetCharPressed() => rl.Core.GetCharPressed.run().toInt();
+  int GetCharPressed() => _wasm.GetCharPressed.run().toInt();
 
   @override
   void SetExitKey(
     int key,
-  ) => rl.Core.SetExitKey.run([
+  ) => _wasm.SetExitKey.run([
     key.toJS,
   ]);
 
   @override
   bool IsGamepadAvailable(
     int gamepad,
-  ) => rl.Core.IsGamepadAvailable.run([
+  ) => _wasm.IsGamepadAvailable.run([
     gamepad.toJS,
   ]).toBool();
 
   @override
   WasmMemoryPointer<RChar> GetGamepadName(
     int gamepad,
-  ) => rl.Core.GetGamepadName.run([
+  ) => _wasm.GetGamepadName.run([
     gamepad.toJS,
   ]).asMemoryPointer();
 
@@ -1226,7 +1228,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   bool IsGamepadButtonPressed(
     int gamepad,
     int button,
-  ) => rl.Core.IsGamepadButtonPressed.run([
+  ) => _wasm.IsGamepadButtonPressed.run([
     gamepad.toJS,
     button.toJS,
   ]).toBool();
@@ -1235,7 +1237,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   bool IsGamepadButtonDown(
     int gamepad,
     int button,
-  ) => rl.Core.IsGamepadButtonDown.run([
+  ) => _wasm.IsGamepadButtonDown.run([
     gamepad.toJS,
     button.toJS,
   ]).toBool();
@@ -1244,7 +1246,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   bool IsGamepadButtonReleased(
     int gamepad,
     int button,
-  ) => rl.Core.IsGamepadButtonReleased.run([
+  ) => _wasm.IsGamepadButtonReleased.run([
     gamepad.toJS,
     button.toJS,
   ]).toBool();
@@ -1253,18 +1255,18 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   bool IsGamepadButtonUp(
     int gamepad,
     int button,
-  ) => rl.Core.IsGamepadButtonUp.run([
+  ) => _wasm.IsGamepadButtonUp.run([
     gamepad.toJS,
     button.toJS,
   ]).toBool();
 
   @override
-  int GetGamepadButtonPressed() => rl.Core.GetGamepadButtonPressed.run().toInt();
+  int GetGamepadButtonPressed() => _wasm.GetGamepadButtonPressed.run().toInt();
 
   @override
   int GetGamepadAxisCount(
     int gamepad,
-  ) => rl.Core.GetGamepadAxisCount.run([
+  ) => _wasm.GetGamepadAxisCount.run([
     gamepad.toJS,
   ]).toInt();
 
@@ -1272,7 +1274,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   double GetGamepadAxisMovement(
     int gamepad,
     int axis,
-  ) => rl.Core.GetGamepadAxisMovement.run([
+  ) => _wasm.GetGamepadAxisMovement.run([
     gamepad.toJS,
     axis.toJS,
   ]).toDouble();
@@ -1280,7 +1282,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   @override
   int SetGamepadMappings(
     MemoryPointer<RChar> mappings,
-  ) => rl.Core.SetGamepadMappings.run([
+  ) => _wasm.SetGamepadMappings.run([
     mappings.toJS,
   ]).toInt();
 
@@ -1290,7 +1292,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     double leftMotor,
     double rightMotor,
     double duration,
-  ) => rl.Core.SetGamepadVibration.run([
+  ) => _wasm.SetGamepadVibration.run([
     gamepad.toJS,
     leftMotor.toJS,
     rightMotor.toJS,
@@ -1300,47 +1302,47 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   @override
   bool IsMouseButtonPressed(
     int button,
-  ) => rl.Core.IsMouseButtonPressed.run([
+  ) => _wasm.IsMouseButtonPressed.run([
     button.toJS,
   ]).toBool();
 
   @override
   bool IsMouseButtonDown(
     int button,
-  ) => rl.Core.IsMouseButtonDown.run([
+  ) => _wasm.IsMouseButtonDown.run([
     button.toJS,
   ]).toBool();
 
   @override
   bool IsMouseButtonReleased(
     int button,
-  ) => rl.Core.IsMouseButtonReleased.run([
+  ) => _wasm.IsMouseButtonReleased.run([
     button.toJS,
   ]).toBool();
 
   @override
   bool IsMouseButtonUp(
     int button,
-  ) => rl.Core.IsMouseButtonUp.run([
+  ) => _wasm.IsMouseButtonUp.run([
     button.toJS,
   ]).toBool();
 
   @override
-  int GetMouseX() => rl.Core.GetMouseX.run().toInt();
+  int GetMouseX() => _wasm.GetMouseX.run().toInt();
 
   @override
-  int GetMouseY() => rl.Core.GetMouseY.run().toInt();
+  int GetMouseY() => _wasm.GetMouseY.run().toInt();
 
   @override
   Vector2D GetMousePosition() => rl.Temp.Vector2$.Extract1(
-    (p) => rl.Core.GetMousePosition.run([
+    (p) => _wasm.GetMousePosition.run([
       p.toJS,
     ]),
   );
 
   @override
   Vector2D GetMouseDelta() => rl.Temp.Vector2$.Extract1(
-    (p) => rl.Core.GetMouseDelta.run([
+    (p) => _wasm.GetMouseDelta.run([
       p.toJS,
     ]),
   );
@@ -1349,7 +1351,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   void SetMousePosition(
     int x,
     int y,
-  ) => rl.Core.SetMousePosition.run([
+  ) => _wasm.SetMousePosition.run([
     x.toJS,
     y.toJS,
   ]);
@@ -1358,7 +1360,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   void SetMouseOffset(
     int offsetX,
     int offsetY,
-  ) => rl.Core.SetMouseOffset.run([
+  ) => _wasm.SetMouseOffset.run([
     offsetX.toJS,
     offsetY.toJS,
   ]);
@@ -1367,17 +1369,17 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   void SetMouseScale(
     double scaleX,
     double scaleY,
-  ) => rl.Core.SetMouseScale.run([
+  ) => _wasm.SetMouseScale.run([
     scaleX.toJS,
     scaleY.toJS,
   ]);
 
   @override
-  double GetMouseWheelMove() => rl.Core.GetMouseWheelMove.run().toDouble();
+  double GetMouseWheelMove() => _wasm.GetMouseWheelMove.run().toDouble();
 
   @override
   Vector2D GetMouseWheelMoveV() => rl.Temp.Vector2$.Extract1(
-    (p) => rl.Core.GetMouseWheelMoveV.run([
+    (p) => _wasm.GetMouseWheelMoveV.run([
       p.toJS,
     ]),
   );
@@ -1385,21 +1387,21 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   @override
   void SetMouseCursor(
     int cursor,
-  ) => rl.Core.SetMouseCursor.run([
+  ) => _wasm.SetMouseCursor.run([
     cursor.toJS,
   ]);
 
   @override
-  int GetTouchX() => rl.Core.GetTouchX.run().toInt();
+  int GetTouchX() => _wasm.GetTouchX.run().toInt();
 
   @override
-  int GetTouchY() => rl.Core.GetTouchY.run().toInt();
+  int GetTouchY() => _wasm.GetTouchY.run().toInt();
 
   @override
   Vector2D GetTouchPosition(
     int index,
   ) => rl.Temp.Vector2$.Extract1(
-    (p) => rl.Core.GetTouchPosition.run([
+    (p) => _wasm.GetTouchPosition.run([
       p.toJS,
       index.toJS,
     ]),
@@ -1408,68 +1410,68 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   @override
   int GetTouchPointId(
     int index,
-  ) => rl.Core.GetTouchPointId.run([
+  ) => _wasm.GetTouchPointId.run([
     index.toJS,
   ]).toInt();
 
   @override
-  int GetTouchPointCount() => rl.Core.GetTouchPointCount.run().toInt();
+  int GetTouchPointCount() => _wasm.GetTouchPointCount.run().toInt();
 
   @override
   void SetGesturesEnabled(
     int flags,
-  ) => rl.Core.SetGesturesEnabled.run([
+  ) => _wasm.SetGesturesEnabled.run([
     flags.toJS,
   ]);
 
   @override
   bool IsGestureDetected(
     int gesture,
-  ) => rl.Core.IsGestureDetected.run([
+  ) => _wasm.IsGestureDetected.run([
     gesture.toJS,
   ]).toBool();
 
   @override
-  int GetGestureDetected() => rl.Core.GetGestureDetected.run().toInt();
+  int GetGestureDetected() => _wasm.GetGestureDetected.run().toInt();
 
   @override
-  double GetGestureHoldDuration() => rl.Core.GetGestureHoldDuration.run().toDouble();
+  double GetGestureHoldDuration() => _wasm.GetGestureHoldDuration.run().toDouble();
 
   @override
   Vector2D GetGestureDragVector() => rl.Temp.Vector2$.Extract1(
-    (p) => rl.Core.GetGestureDragVector.run([
+    (p) => _wasm.GetGestureDragVector.run([
       p.toJS,
     ]),
   );
 
   @override
-  double GetGestureDragAngle() => rl.Core.GetGestureDragAngle.run().toDouble();
+  double GetGestureDragAngle() => _wasm.GetGestureDragAngle.run().toDouble();
 
   @override
   Vector2D GetGesturePinchVector() => rl.Temp.Vector2$.Extract1(
-    (p) => rl.Core.GetGesturePinchVector.run([
+    (p) => _wasm.GetGesturePinchVector.run([
       p.toJS,
     ]),
   );
 
   @override
-  double GetGesturePinchAngle() => rl.Core.GetGesturePinchAngle.run().toDouble();
+  double GetGesturePinchAngle() => _wasm.GetGesturePinchAngle.run().toDouble();
 
   @override
   void ProcessGestureEvent(
     GestureEventD event,
-  ) => rl.Core.ProcessGestureEvent.run([
+  ) => _wasm.ProcessGestureEvent.run([
     rl.Temp.GestureEvent$.Ref1(event).toJS,
   ]);
 
   @override
-  void UpdateGestures() => rl.Core.UpdateGestures.run();
+  void UpdateGestures() => _wasm.UpdateGestures.run();
 
   @override
   void UpdateCamera(
     StructPointer<Camera3DD> camera,
     int mode,
-  ) => rl.Core.UpdateCamera.run([
+  ) => _wasm.UpdateCamera.run([
     camera.toJS,
     mode.toJS,
   ]);
@@ -1480,7 +1482,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     Vector3D movement,
     Vector3D rotation,
     double zoom,
-  ) => rl.Core.UpdateCameraPro.run([
+  ) => _wasm.UpdateCameraPro.run([
     camera.toJS,
     rl.Temp.Vector3$.Ref1(movement).toJS,
     rl.Temp.Vector3$.Ref2(rotation).toJS,
@@ -1491,21 +1493,21 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   void SetShapesTexture(
     TextureD texture,
     RectangleD source,
-  ) => rl.Core.SetShapesTexture.run([
+  ) => _wasm.SetShapesTexture.run([
     rl.Temp.Texture$.Ref1(texture).toJS,
     rl.Temp.Rectangle$.Ref1(source).toJS,
   ]);
 
   @override
   TextureD GetShapesTexture() => rl.Temp.Texture$.Extract1(
-    (p) => rl.Core.GetShapesTexture.run([
+    (p) => _wasm.GetShapesTexture.run([
       p.toJS,
     ]),
   );
 
   @override
   RectangleD GetShapesTextureRectangle() => rl.Temp.Rectangle$.Extract1(
-    (p) => rl.Core.GetShapesTextureRectangle.run([
+    (p) => _wasm.GetShapesTextureRectangle.run([
       p.toJS,
     ]),
   );
@@ -1515,7 +1517,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     int posX,
     int posY,
     ColorD color,
-  ) => rl.Core.DrawPixel.run([
+  ) => _wasm.DrawPixel.run([
     posX.toJS,
     posY.toJS,
     rl.Temp.Color$.Ref1(color).toJS,
@@ -1525,7 +1527,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   void DrawPixelV(
     Vector2D position,
     ColorD color,
-  ) => rl.Core.DrawPixelV.run([
+  ) => _wasm.DrawPixelV.run([
     rl.Temp.Vector2$.Ref1(position).toJS,
     rl.Temp.Color$.Ref1(color).toJS,
   ]);
@@ -1537,7 +1539,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     int endPosX,
     int endPosY,
     ColorD color,
-  ) => rl.Core.DrawLine.run([
+  ) => _wasm.DrawLine.run([
     startPosX.toJS,
     startPosY.toJS,
     endPosX.toJS,
@@ -1550,7 +1552,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     Vector2D startPos,
     Vector2D endPos,
     ColorD color,
-  ) => rl.Core.DrawLineV.run([
+  ) => _wasm.DrawLineV.run([
     rl.Temp.Vector2$.Ref1(startPos).toJS,
     rl.Temp.Vector2$.Ref2(endPos).toJS,
     rl.Temp.Color$.Ref1(color).toJS,
@@ -1562,7 +1564,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     Vector2D endPos,
     double thick,
     ColorD color,
-  ) => rl.Core.DrawLineEx.run([
+  ) => _wasm.DrawLineEx.run([
     rl.Temp.Vector2$.Ref1(startPos).toJS,
     rl.Temp.Vector2$.Ref2(endPos).toJS,
     thick.toJS,
@@ -1574,7 +1576,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     StructPointer<Vector2D> points,
     int pointCount,
     ColorD color,
-  ) => rl.Core.DrawLineStrip.run([
+  ) => _wasm.DrawLineStrip.run([
     points.toJS,
     pointCount.toJS,
     rl.Temp.Color$.Ref1(color).toJS,
@@ -1586,7 +1588,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     Vector2D endPos,
     double thick,
     ColorD color,
-  ) => rl.Core.DrawLineBezier.run([
+  ) => _wasm.DrawLineBezier.run([
     rl.Temp.Vector2$.Ref1(startPos).toJS,
     rl.Temp.Vector2$.Ref2(endPos).toJS,
     thick.toJS,
@@ -1600,7 +1602,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     int dashSize,
     int spaceSize,
     ColorD color,
-  ) => rl.Core.DrawLineDashed.run([
+  ) => _wasm.DrawLineDashed.run([
     rl.Temp.Vector2$.Ref1(startPos).toJS,
     rl.Temp.Vector2$.Ref2(endPos).toJS,
     dashSize.toJS,
@@ -1614,7 +1616,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     int centerY,
     double radius,
     ColorD color,
-  ) => rl.Core.DrawCircle.run([
+  ) => _wasm.DrawCircle.run([
     centerX.toJS,
     centerY.toJS,
     radius.toJS,
@@ -1629,7 +1631,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     double endAngle,
     int segments,
     ColorD color,
-  ) => rl.Core.DrawCircleSector.run([
+  ) => _wasm.DrawCircleSector.run([
     rl.Temp.Vector2$.Ref1(center).toJS,
     radius.toJS,
     startAngle.toJS,
@@ -1646,7 +1648,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     double endAngle,
     int segments,
     ColorD color,
-  ) => rl.Core.DrawCircleSectorLines.run([
+  ) => _wasm.DrawCircleSectorLines.run([
     rl.Temp.Vector2$.Ref1(center).toJS,
     radius.toJS,
     startAngle.toJS,
@@ -1661,7 +1663,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     double radius,
     ColorD inner,
     ColorD outer,
-  ) => rl.Core.DrawCircleGradient.run([
+  ) => _wasm.DrawCircleGradient.run([
     rl.Temp.Vector2$.Ref1(center).toJS,
     radius.toJS,
     rl.Temp.Color$.Ref1(inner).toJS,
@@ -1673,7 +1675,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     Vector2D center,
     double radius,
     ColorD color,
-  ) => rl.Core.DrawCircleV.run([
+  ) => _wasm.DrawCircleV.run([
     rl.Temp.Vector2$.Ref1(center).toJS,
     radius.toJS,
     rl.Temp.Color$.Ref1(color).toJS,
@@ -1685,7 +1687,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     int centerY,
     double radius,
     ColorD color,
-  ) => rl.Core.DrawCircleLines.run([
+  ) => _wasm.DrawCircleLines.run([
     centerX.toJS,
     centerY.toJS,
     radius.toJS,
@@ -1697,7 +1699,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     Vector2D center,
     double radius,
     ColorD color,
-  ) => rl.Core.DrawCircleLinesV.run([
+  ) => _wasm.DrawCircleLinesV.run([
     rl.Temp.Vector2$.Ref1(center).toJS,
     radius.toJS,
     rl.Temp.Color$.Ref1(color).toJS,
@@ -1710,7 +1712,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     double radiusH,
     double radiusV,
     ColorD color,
-  ) => rl.Core.DrawEllipse.run([
+  ) => _wasm.DrawEllipse.run([
     centerX.toJS,
     centerY.toJS,
     radiusH.toJS,
@@ -1724,7 +1726,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     double radiusH,
     double radiusV,
     ColorD color,
-  ) => rl.Core.DrawEllipseV.run([
+  ) => _wasm.DrawEllipseV.run([
     rl.Temp.Vector2$.Ref1(center).toJS,
     radiusH.toJS,
     radiusV.toJS,
@@ -1738,7 +1740,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     double radiusH,
     double radiusV,
     ColorD color,
-  ) => rl.Core.DrawEllipseLines.run([
+  ) => _wasm.DrawEllipseLines.run([
     centerX.toJS,
     centerY.toJS,
     radiusH.toJS,
@@ -1752,7 +1754,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     double radiusH,
     double radiusV,
     ColorD color,
-  ) => rl.Core.DrawEllipseLinesV.run([
+  ) => _wasm.DrawEllipseLinesV.run([
     rl.Temp.Vector2$.Ref1(center).toJS,
     radiusH.toJS,
     radiusV.toJS,
@@ -1768,7 +1770,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     double endAngle,
     int segments,
     ColorD color,
-  ) => rl.Core.DrawRing.run([
+  ) => _wasm.DrawRing.run([
     rl.Temp.Vector2$.Ref1(center).toJS,
     innerRadius.toJS,
     outerRadius.toJS,
@@ -1787,7 +1789,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     double endAngle,
     int segments,
     ColorD color,
-  ) => rl.Core.DrawRingLines.run([
+  ) => _wasm.DrawRingLines.run([
     rl.Temp.Vector2$.Ref1(center).toJS,
     innerRadius.toJS,
     outerRadius.toJS,
@@ -1804,7 +1806,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     int width,
     int height,
     ColorD color,
-  ) => rl.Core.DrawRectangle.run([
+  ) => _wasm.DrawRectangle.run([
     posX.toJS,
     posY.toJS,
     width.toJS,
@@ -1817,7 +1819,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     Vector2D position,
     Vector2D size,
     ColorD color,
-  ) => rl.Core.DrawRectangleV.run([
+  ) => _wasm.DrawRectangleV.run([
     rl.Temp.Vector2$.Ref1(position).toJS,
     rl.Temp.Vector2$.Ref2(size).toJS,
     rl.Temp.Color$.Ref1(color).toJS,
@@ -1827,7 +1829,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   void DrawRectangleRec(
     RectangleD rec,
     ColorD color,
-  ) => rl.Core.DrawRectangleRec.run([
+  ) => _wasm.DrawRectangleRec.run([
     rl.Temp.Rectangle$.Ref1(rec).toJS,
     rl.Temp.Color$.Ref1(color).toJS,
   ]);
@@ -1838,7 +1840,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     Vector2D origin,
     double rotation,
     ColorD color,
-  ) => rl.Core.DrawRectanglePro.run([
+  ) => _wasm.DrawRectanglePro.run([
     rl.Temp.Rectangle$.Ref1(rec).toJS,
     rl.Temp.Vector2$.Ref1(origin).toJS,
     rotation.toJS,
@@ -1853,7 +1855,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     int height,
     ColorD top,
     ColorD bottom,
-  ) => rl.Core.DrawRectangleGradientV.run([
+  ) => _wasm.DrawRectangleGradientV.run([
     posX.toJS,
     posY.toJS,
     width.toJS,
@@ -1870,7 +1872,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     int height,
     ColorD left,
     ColorD right,
-  ) => rl.Core.DrawRectangleGradientH.run([
+  ) => _wasm.DrawRectangleGradientH.run([
     posX.toJS,
     posY.toJS,
     width.toJS,
@@ -1886,7 +1888,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     ColorD bottomLeft,
     ColorD topRight,
     ColorD bottomRight,
-  ) => rl.Core.DrawRectangleGradientEx.run([
+  ) => _wasm.DrawRectangleGradientEx.run([
     rl.Temp.Rectangle$.Ref1(rec).toJS,
     rl.Temp.Color$.Ref1(topLeft).toJS,
     rl.Temp.Color$.Ref2(bottomLeft).toJS,
@@ -1901,7 +1903,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     int width,
     int height,
     ColorD color,
-  ) => rl.Core.DrawRectangleLines.run([
+  ) => _wasm.DrawRectangleLines.run([
     posX.toJS,
     posY.toJS,
     width.toJS,
@@ -1914,7 +1916,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     RectangleD rec,
     double lineThick,
     ColorD color,
-  ) => rl.Core.DrawRectangleLinesEx.run([
+  ) => _wasm.DrawRectangleLinesEx.run([
     rl.Temp.Rectangle$.Ref1(rec).toJS,
     lineThick.toJS,
     rl.Temp.Color$.Ref1(color).toJS,
@@ -1926,7 +1928,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     double roundness,
     int segments,
     ColorD color,
-  ) => rl.Core.DrawRectangleRounded.run([
+  ) => _wasm.DrawRectangleRounded.run([
     rl.Temp.Rectangle$.Ref1(rec).toJS,
     roundness.toJS,
     segments.toJS,
@@ -1939,7 +1941,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     double roundness,
     int segments,
     ColorD color,
-  ) => rl.Core.DrawRectangleRoundedLines.run([
+  ) => _wasm.DrawRectangleRoundedLines.run([
     rl.Temp.Rectangle$.Ref1(rec).toJS,
     roundness.toJS,
     segments.toJS,
@@ -1953,7 +1955,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     int segments,
     double lineThick,
     ColorD color,
-  ) => rl.Core.DrawRectangleRoundedLinesEx.run([
+  ) => _wasm.DrawRectangleRoundedLinesEx.run([
     rl.Temp.Rectangle$.Ref1(rec).toJS,
     roundness.toJS,
     segments.toJS,
@@ -1967,7 +1969,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     Vector2D v2,
     Vector2D v3,
     ColorD color,
-  ) => rl.Core.DrawTriangle.run([
+  ) => _wasm.DrawTriangle.run([
     rl.Temp.Vector2$.Ref1(v1).toJS,
     rl.Temp.Vector2$.Ref2(v2).toJS,
     rl.Temp.Vector2$.Ref3(v3).toJS,
@@ -1980,7 +1982,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     Vector2D v2,
     Vector2D v3,
     ColorD color,
-  ) => rl.Core.DrawTriangleLines.run([
+  ) => _wasm.DrawTriangleLines.run([
     rl.Temp.Vector2$.Ref1(v1).toJS,
     rl.Temp.Vector2$.Ref2(v2).toJS,
     rl.Temp.Vector2$.Ref3(v3).toJS,
@@ -1992,7 +1994,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     StructPointer<Vector2D> points,
     int pointCount,
     ColorD color,
-  ) => rl.Core.DrawTriangleFan.run([
+  ) => _wasm.DrawTriangleFan.run([
     points.toJS,
     pointCount.toJS,
     rl.Temp.Color$.Ref1(color).toJS,
@@ -2003,7 +2005,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     StructPointer<Vector2D> points,
     int pointCount,
     ColorD color,
-  ) => rl.Core.DrawTriangleStrip.run([
+  ) => _wasm.DrawTriangleStrip.run([
     points.toJS,
     pointCount.toJS,
     rl.Temp.Color$.Ref1(color).toJS,
@@ -2016,7 +2018,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     double radius,
     double rotation,
     ColorD color,
-  ) => rl.Core.DrawPoly.run([
+  ) => _wasm.DrawPoly.run([
     rl.Temp.Vector2$.Ref1(center).toJS,
     sides.toJS,
     radius.toJS,
@@ -2031,7 +2033,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     double radius,
     double rotation,
     ColorD color,
-  ) => rl.Core.DrawPolyLines.run([
+  ) => _wasm.DrawPolyLines.run([
     rl.Temp.Vector2$.Ref1(center).toJS,
     sides.toJS,
     radius.toJS,
@@ -2047,7 +2049,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     double rotation,
     double lineThick,
     ColorD color,
-  ) => rl.Core.DrawPolyLinesEx.run([
+  ) => _wasm.DrawPolyLinesEx.run([
     rl.Temp.Vector2$.Ref1(center).toJS,
     sides.toJS,
     radius.toJS,
@@ -2062,7 +2064,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     int pointCount,
     double thick,
     ColorD color,
-  ) => rl.Core.DrawSplineLinear.run([
+  ) => _wasm.DrawSplineLinear.run([
     points.toJS,
     pointCount.toJS,
     thick.toJS,
@@ -2075,7 +2077,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     int pointCount,
     double thick,
     ColorD color,
-  ) => rl.Core.DrawSplineBasis.run([
+  ) => _wasm.DrawSplineBasis.run([
     points.toJS,
     pointCount.toJS,
     thick.toJS,
@@ -2088,7 +2090,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     int pointCount,
     double thick,
     ColorD color,
-  ) => rl.Core.DrawSplineCatmullRom.run([
+  ) => _wasm.DrawSplineCatmullRom.run([
     points.toJS,
     pointCount.toJS, 
     thick.toJS, 
@@ -2101,7 +2103,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     int pointCount,
     double thick,
     ColorD color,
-  ) => rl.Core.DrawSplineBezierQuadratic.run([
+  ) => _wasm.DrawSplineBezierQuadratic.run([
     points.toJS,
     pointCount.toJS,
     thick.toJS,
@@ -2114,7 +2116,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     int pointCount,
     double thick,
     ColorD color,
-  ) => rl.Core.DrawSplineBezierCubic.run([
+  ) => _wasm.DrawSplineBezierCubic.run([
     points.toJS,
     pointCount.toJS,
     thick.toJS,
@@ -2127,7 +2129,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     Vector2D p2,
     double thick,
     ColorD color,
-  ) => rl.Core.DrawSplineSegmentLinear.run([
+  ) => _wasm.DrawSplineSegmentLinear.run([
     rl.Temp.Vector2$.Ref1(p1).toJS,
     rl.Temp.Vector2$.Ref2(p2).toJS,
     thick.toJS,
@@ -2142,7 +2144,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     Vector2D p4,
     double thick,
     ColorD color,
-  ) => rl.Core.DrawSplineSegmentBasis.run([
+  ) => _wasm.DrawSplineSegmentBasis.run([
     rl.Temp.Vector2$.Ref1(p1).toJS,
     rl.Temp.Vector2$.Ref2(p2).toJS,
     rl.Temp.Vector2$.Ref3(p3).toJS,
@@ -2159,7 +2161,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     Vector2D p4,
     double thick,
     ColorD color,
-  ) => rl.Core.DrawSplineSegmentCatmullRom.run([
+  ) => _wasm.DrawSplineSegmentCatmullRom.run([
     rl.Temp.Vector2$.Ref1(p1).toJS,
     rl.Temp.Vector2$.Ref2(p2).toJS,
     rl.Temp.Vector2$.Ref3(p3).toJS,
@@ -2175,7 +2177,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     Vector2D p3,
     double thick,
     ColorD color,
-  ) => rl.Core.DrawSplineSegmentBezierQuadratic.run([
+  ) => _wasm.DrawSplineSegmentBezierQuadratic.run([
     rl.Temp.Vector2$.Ref1(p1).toJS,
     rl.Temp.Vector2$.Ref2(c2).toJS,
     rl.Temp.Vector2$.Ref3(p3).toJS,
@@ -2191,7 +2193,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     Vector2D p4,
     double thick,
     ColorD color,
-  ) => rl.Core.DrawSplineSegmentBezierCubic.run([
+  ) => _wasm.DrawSplineSegmentBezierCubic.run([
     rl.Temp.Vector2$.Ref1(p1).toJS,
     rl.Temp.Vector2$.Ref2(c2).toJS,
     rl.Temp.Vector2$.Ref3(c3).toJS,
@@ -2206,7 +2208,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     Vector2D endPos,
     double t,
   ) => rl.Temp.Vector2$.Extract1(
-    (p) => rl.Core.GetSplinePointLinear.run([
+    (p) => _wasm.GetSplinePointLinear.run([
       p.toJS,
       rl.Temp.Vector2$.Ref2(startPos).toJS,
       rl.Temp.Vector2$.Ref3(endPos).toJS,
@@ -2222,7 +2224,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     Vector2D p4,
     double t,
   ) => rl.Temp.Vector2$.Extract1(
-    (p) => rl.Core.GetSplinePointBasis.run([
+    (p) => _wasm.GetSplinePointBasis.run([
       p.toJS,
       rl.Temp.Vector2$.Ref2(p1).toJS,
       rl.Temp.Vector2$.Ref3(p2).toJS,
@@ -2240,7 +2242,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     Vector2D p4,
     double t,
   ) => rl.Temp.Vector2$.Extract1(
-    (p) => rl.Core.GetSplinePointBasis.run([
+    (p) => _wasm.GetSplinePointBasis.run([
       p.toJS,
       rl.Temp.Vector2$.Ref2(p1).toJS,
       rl.Temp.Vector2$.Ref3(p2).toJS,
@@ -2257,7 +2259,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     Vector2D p3,
     double t,
   ) => rl.Temp.Vector2$.Extract1(
-    (p) => rl.Core.GetSplinePointBasis.run([
+    (p) => _wasm.GetSplinePointBasis.run([
       p.toJS,
       rl.Temp.Vector2$.Ref2(p1).toJS,
       rl.Temp.Vector2$.Ref3(c2).toJS,
@@ -2274,7 +2276,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     Vector2D p4,
     double t,
   ) => rl.Temp.Vector2$.Extract1(
-    (p) => rl.Core.GetSplinePointBasis.run([
+    (p) => _wasm.GetSplinePointBasis.run([
       p.toJS,
       rl.Temp.Vector2$.Ref2(p1).toJS,
       rl.Temp.Vector2$.Ref3(c2).toJS,
@@ -2288,7 +2290,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   bool CheckCollisionRecs(
     RectangleD rec1,
     RectangleD rec2,
-  ) => rl.Core.CheckCollisionRecs.run([
+  ) => _wasm.CheckCollisionRecs.run([
     rl.Temp.Rectangle$.Ref1(rec1).toJS,
     rl.Temp.Rectangle$.Ref2(rec2).toJS,
   ]).toBool();
@@ -2299,7 +2301,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     double radius1,
     Vector2D center2,
     double radius2,
-  ) => rl.Core.CheckCollisionCircles.run([
+  ) => _wasm.CheckCollisionCircles.run([
     rl.Temp.Vector2$.Ref1(center1).toJS,
     radius1.toJS,
     rl.Temp.Vector2$.Ref2(center2).toJS,
@@ -2311,7 +2313,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     Vector2D center,
     double radius,
     RectangleD rec,
-  ) => rl.Core.CheckCollisionCircleRec.run([
+  ) => _wasm.CheckCollisionCircleRec.run([
     rl.Temp.Vector2$.Ref1(center).toJS,
     radius.toJS,
     rl.Temp.Rectangle$.Ref1(rec).toJS,
@@ -2323,7 +2325,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     double radius,
     Vector2D p1,
     Vector2D p2,
-  ) => rl.Core.CheckCollisionCircleLine.run([
+  ) => _wasm.CheckCollisionCircleLine.run([
     rl.Temp.Vector2$.Ref1(center).toJS,
     radius.toJS,
     rl.Temp.Vector2$.Ref2(p1).toJS,
@@ -2334,7 +2336,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   bool CheckCollisionPointRec(
     Vector2D point,
     RectangleD rec,
-  ) => rl.Core.CheckCollisionPointRec.run([
+  ) => _wasm.CheckCollisionPointRec.run([
     rl.Temp.Vector2$.Ref1(point).toJS,
     rl.Temp.Rectangle$.Ref1(rec).toJS,
   ]).toBool();
@@ -2344,7 +2346,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     Vector2D point,
     Vector2D center,
     double radius,
-  ) => rl.Core.CheckCollisionPointCircle.run([
+  ) => _wasm.CheckCollisionPointCircle.run([
     rl.Temp.Vector2$.Ref1(point).toJS,
     rl.Temp.Vector2$.Ref2(center).toJS,
     radius.toJS,
@@ -2356,7 +2358,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     Vector2D p1,
     Vector2D p2,
     Vector2D p3,
-  ) => rl.Core.CheckCollisionPointTriangle.run([
+  ) => _wasm.CheckCollisionPointTriangle.run([
     rl.Temp.Vector2$.Ref1(point).toJS,
     rl.Temp.Vector2$.Ref2(p1).toJS,
     rl.Temp.Vector2$.Ref3(p2).toJS,
@@ -2369,7 +2371,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     Vector2D p1,
     Vector2D p2,
     int threshold,
-  ) => rl.Core.CheckCollisionPointLine.run([
+  ) => _wasm.CheckCollisionPointLine.run([
     rl.Temp.Vector2$.Ref1(point).toJS,
     rl.Temp.Vector2$.Ref2(p1).toJS,
     rl.Temp.Vector2$.Ref3(p2).toJS,
@@ -2381,7 +2383,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     Vector2D point,
     StructPointer<Vector2D> points,
     int pointCount,
-  ) => rl.Core.CheckCollisionPointPoly.run([
+  ) => _wasm.CheckCollisionPointPoly.run([
     rl.Temp.Vector2$.Ref1(point).toJS,
     points.toJS,
     pointCount.toJS,
@@ -2394,7 +2396,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     Vector2D startPos2,
     Vector2D endPos2,
     StructPointer<Vector2D> collisionPoint,
-  ) => rl.Core.CheckCollisionLines.run([
+  ) => _wasm.CheckCollisionLines.run([
     rl.Temp.Vector2$.Ref1(startPos1).toJS,
     rl.Temp.Vector2$.Ref2(endPos1).toJS,
     rl.Temp.Vector2$.Ref3(startPos2).toJS,
@@ -2407,7 +2409,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     RectangleD rec1,
     RectangleD rec2,
   ) => rl.Temp.Rectangle$.Extract1(
-    (p) => rl.Core.GetCollisionRec.run([
+    (p) => _wasm.GetCollisionRec.run([
       p.toJS,
       rl.Temp.Rectangle$.Ref2(rec1).toJS,
       rl.Temp.Rectangle$.Ref3(rec2).toJS,
@@ -2419,7 +2421,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     MemoryPointer<RChar> fileName,
   ) => rl.Temp.Image$.RefCapture(
     RaylibCaptureIds.LoadImage,
-    (p) => rl.Core.LoadImage.run([
+    (p) => _wasm.LoadImage.run([
       p.toJS,
       fileName.toJS,
     ]),
@@ -2434,7 +2436,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     int headerSize,
   ) => rl.Temp.Image$.RefCapture(
     RaylibCaptureIds.LoadImageRaw,
-    (p) => rl.Core.LoadImageRaw.run([
+    (p) => _wasm.LoadImageRaw.run([
       p.toJS,
       fileName.toJS,
       width.toJS,
@@ -2450,7 +2452,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     MemoryPointer<RInt> frames,
   ) => rl.Temp.Image$.RefCapture(
     RaylibCaptureIds.LoadImageAnim,
-    (p) => rl.Core.LoadImageAnim.run([
+    (p) => _wasm.LoadImageAnim.run([
       p.toJS,
       fileName.toJS,
       frames.toJS,
@@ -2465,7 +2467,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     MemoryPointer<RInt> frames,
   ) => rl.Temp.Image$.RefCapture(
     RaylibCaptureIds.LoadImageAnimFromMemory,
-    (p) => rl.Core.LoadImageAnimFromMemory.run([
+    (p) => _wasm.LoadImageAnimFromMemory.run([
       p.toJS,
       fileType.toJS,
       fileData.toJS,
@@ -2481,7 +2483,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     int dataSize,
   ) => rl.Temp.Image$.RefCapture(
     RaylibCaptureIds.LoadImageFromMemory,
-    (p) => rl.Core.LoadImageFromMemory.run([
+    (p) => _wasm.LoadImageFromMemory.run([
       p.toJS,
       fileType.toJS,
       fileData.toJS,
@@ -2494,7 +2496,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     TextureD texture,
   ) => rl.Temp.Image$.RefCapture(
     RaylibCaptureIds.LoadImageFromTexture,
-    (p) => rl.Core.LoadImageFromTexture.run([
+    (p) => _wasm.LoadImageFromTexture.run([
       p.toJS,
       rl.Temp.Texture$.Ref1(texture).toJS,
     ]),
@@ -2503,7 +2505,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   @override
   ImageD LoadImageFromScreen() => rl.Temp.Image$.RefCapture(
     RaylibCaptureIds.LoadImageFromScreen,
-    (p) => rl.Core.LoadImageFromScreen.run([
+    (p) => _wasm.LoadImageFromScreen.run([
       p.toJS,
     ]),
   );
@@ -2511,14 +2513,14 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   @override
   bool IsImageValid(
     ImageD image,
-  ) => rl.Core.IsImageValid.run([
+  ) => _wasm.IsImageValid.run([
     rl.Temp.Image$.Ref1(image).toJS,
   ]).toBool();
 
   @override
   void UnloadImage(
     ImageD image,
-  ) => rl.Core.UnloadImage.run([
+  ) => _wasm.UnloadImage.run([
     rl.Temp.Image$.Ref1(image).toJS,
   ]);
 
@@ -2526,7 +2528,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   bool ExportImage(
     ImageD image,
     MemoryPointer<RChar> fileName,
-  ) => rl.Core.ExportImage.run([
+  ) => _wasm.ExportImage.run([
     rl.Temp.Image$.Ref1(image).toJS,
     fileName.toJS,
   ]).toBool();
@@ -2536,7 +2538,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     ImageD image,
     MemoryPointer<RChar> fileType,
     MemoryPointer<RInt> fileSize,
-  ) => rl.Core.ExportImageToMemory.run([
+  ) => _wasm.ExportImageToMemory.run([
     rl.Temp.Image$.Ref1(image).toJS,
     fileType.toJS,
     fileSize.toJS,
@@ -2546,7 +2548,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   bool ExportImageAsCode(
     ImageD image,
     MemoryPointer<RChar> fileName,
-  ) => rl.Core.ExportImageAsCode.run([
+  ) => _wasm.ExportImageAsCode.run([
     rl.Temp.Image$.Ref1(image).toJS,
     fileName.toJS,
   ]).toBool();
@@ -2558,7 +2560,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     ColorD color,
   ) => rl.Temp.Image$.RefCapture(
     RaylibCaptureIds.GenImageColor,
-    (p) => rl.Core.GenImageColor.run([
+    (p) => _wasm.GenImageColor.run([
       p.toJS,
       width.toJS,
       height.toJS,
@@ -2575,7 +2577,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     ColorD end,
   ) => rl.Temp.Image$.RefCapture(
     RaylibCaptureIds.GenImageGradientLinear,
-    (p) => rl.Core.GenImageGradientLinear.run([
+    (p) => _wasm.GenImageGradientLinear.run([
       p.toJS,
       width.toJS,
       height.toJS,
@@ -2594,7 +2596,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     ColorD outer,
   ) => rl.Temp.Image$.RefCapture(
     RaylibCaptureIds.GenImageGradientRadial,
-    (p) => rl.Core.GenImageGradientRadial.run([
+    (p) => _wasm.GenImageGradientRadial.run([
       p.toJS,
       width.toJS,
       height.toJS,
@@ -2613,7 +2615,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     ColorD outer,
   ) => rl.Temp.Image$.RefCapture(
     RaylibCaptureIds.GenImageGradientSquare,
-    (p) => rl.Core.GenImageGradientSquare.run([
+    (p) => _wasm.GenImageGradientSquare.run([
       p.toJS,
       width.toJS,
       height.toJS,
@@ -2633,7 +2635,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     ColorD col2,
   ) => rl.Temp.Image$.RefCapture(
     RaylibCaptureIds.GenImageChecked,
-    (p) => rl.Core.GenImageChecked.run([
+    (p) => _wasm.GenImageChecked.run([
       p.toJS,
       width.toJS,
       height.toJS,
@@ -2651,7 +2653,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     double factor,
   ) => rl.Temp.Image$.RefCapture(
     RaylibCaptureIds.GenImageWhiteNoise,
-    (p) => rl.Core.GenImageWhiteNoise.run([
+    (p) => _wasm.GenImageWhiteNoise.run([
       p.toJS,
       width.toJS,
       height.toJS,
@@ -2668,7 +2670,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     double scale,
   ) => rl.Temp.Image$.RefCapture(
     RaylibCaptureIds.GenImagePerlinNoise,
-    (p) => rl.Core.GenImagePerlinNoise.run([
+    (p) => _wasm.GenImagePerlinNoise.run([
       p.toJS,
       width.toJS,
       height.toJS,
@@ -2685,7 +2687,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     int tileSize,
   ) => rl.Temp.Image$.RefCapture(
     RaylibCaptureIds.GenImageCellular,
-    (p) => rl.Core.GenImageCellular.run([
+    (p) => _wasm.GenImageCellular.run([
       p.toJS,
       width.toJS,
       height.toJS,
@@ -2700,7 +2702,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     MemoryPointer<RChar> text,
   ) => rl.Temp.Image$.RefCapture(
     RaylibCaptureIds.GenImageText,
-    (p) => rl.Core.GenImageText.run([
+    (p) => _wasm.GenImageText.run([
       p.toJS,
       width.toJS,
       height.toJS,
@@ -2713,7 +2715,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     ImageD image,
   ) => rl.Temp.Image$.RefCapture(
     RaylibCaptureIds.ImageCopy,
-    (p) => rl.Core.ImageCopy.run([
+    (p) => _wasm.ImageCopy.run([
       p.toJS,
       rl.Temp.Image$.Ref1(image).toJS,
     ]),
@@ -2725,7 +2727,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     RectangleD rec,
   ) => rl.Temp.Image$.RefCapture(
     RaylibCaptureIds.ImageFromImage,
-    (p) => rl.Core.ImageFromImage.run([
+    (p) => _wasm.ImageFromImage.run([
       p.toJS,
       rl.Temp.Image$.Ref1(image).toJS,
       rl.Temp.Rectangle$.Ref1(rec).toJS,
@@ -2738,7 +2740,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     int selectedChannel,
   ) => rl.Temp.Image$.RefCapture(
     RaylibCaptureIds.ImageFromChannel,
-    (p) => rl.Core.ImageFromChannel.run([
+    (p) => _wasm.ImageFromChannel.run([
       p.toJS,
       rl.Temp.Image$.Ref1(image).toJS,
       selectedChannel.toJS,
@@ -2752,7 +2754,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     ColorD color,
   ) => rl.Temp.Image$.RefCapture(
     RaylibCaptureIds.ImageText,
-    (p) => rl.Core.ImageText.run([
+    (p) => _wasm.ImageText.run([
       p.toJS,
       text.toJS,
       fontSize.toJS,
@@ -2769,7 +2771,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     ColorD tint,
   ) => rl.Temp.Image$.RefCapture(
     RaylibCaptureIds.ImageTextEx,
-    (p) => rl.Core.ImageTextEx.run([
+    (p) => _wasm.ImageTextEx.run([
       p.toJS,
       rl.Temp.Font$.Ref1(font).toJS,
       text.toJS,
@@ -2783,7 +2785,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   void ImageFormat(
     StructPointer<ImageD> image,
     int newFormat,
-  ) => rl.Core.ImageFormat.run([
+  ) => _wasm.ImageFormat.run([
     image.toJS,
     newFormat.toJS,
   ]);
@@ -2792,7 +2794,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   void ImageToPOT(
     StructPointer<ImageD> image,
     ColorD fill,
-  ) => rl.Core.ImageToPOT.run([
+  ) => _wasm.ImageToPOT.run([
     image.toJS,
     rl.Temp.Color$.Ref1(fill).toJS,
   ]);
@@ -2801,7 +2803,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   void ImageCrop(
     StructPointer<ImageD> image,
     RectangleD crop,
-  ) => rl.Core.ImageCrop.run([
+  ) => _wasm.ImageCrop.run([
     image.toJS,
     rl.Temp.Rectangle$.Ref1(crop).toJS,
   ]);
@@ -2810,7 +2812,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   void ImageAlphaCrop(
     StructPointer<ImageD> image,
     double threshold,
-  ) => rl.Core.ImageAlphaCrop.run([
+  ) => _wasm.ImageAlphaCrop.run([
     image.toJS,
     threshold.toJS,
   ]);
@@ -2820,7 +2822,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     StructPointer<ImageD> image,
     ColorD color,
     double threshold,
-  ) => rl.Core.ImageAlphaClear.run([
+  ) => _wasm.ImageAlphaClear.run([
     image.toJS,
     rl.Temp.Color$.Ref1(color).toJS,
     threshold.toJS,
@@ -2830,7 +2832,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   void ImageAlphaMask(
     StructPointer<ImageD> image,
     ImageD alphaMask,
-  ) => rl.Core.ImageAlphaMask.run([
+  ) => _wasm.ImageAlphaMask.run([
     image.toJS,
     rl.Temp.Image$.Ref2(alphaMask).toJS,
   ]);
@@ -2838,7 +2840,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   @override
   void ImageAlphaPremultiply(
     StructPointer<ImageD> image,
-  ) => rl.Core.ImageAlphaPremultiply.run([
+  ) => _wasm.ImageAlphaPremultiply.run([
     image.toJS,
   ]);
 
@@ -2846,7 +2848,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   void ImageBlurGaussian(
     StructPointer<ImageD> image,
     int blurSize,
-  ) => rl.Core.ImageBlurGaussian.run([
+  ) => _wasm.ImageBlurGaussian.run([
     image.toJS,
     blurSize.toJS,
   ]);
@@ -2856,7 +2858,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     StructPointer<ImageD> image,
     MemoryPointer<RFloat> kernel,
     int kernelSize,
-  ) => rl.Core.ImageKernelConvolution.run([
+  ) => _wasm.ImageKernelConvolution.run([
     image.toJS,
     kernel.toJS,
     kernelSize.toJS,
@@ -2867,7 +2869,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     StructPointer<ImageD> image,
     int newWidth,
     int newHeight,
-  ) => rl.Core.ImageResize.run([
+  ) => _wasm.ImageResize.run([
     image.toJS,
     newWidth.toJS,
     newHeight.toJS,
@@ -2878,7 +2880,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     StructPointer<ImageD> image,
     int newWidth,
     int newHeight,
-  ) => rl.Core.ImageResizeNN.run([
+  ) => _wasm.ImageResizeNN.run([
     image.toJS,
     newWidth.toJS,
     newHeight.toJS,
@@ -2892,7 +2894,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     int offsetX,
     int offsetY,
     ColorD fill,
-  ) => rl.Core.ImageResizeCanvas.run([
+  ) => _wasm.ImageResizeCanvas.run([
     image.toJS,
     newWidth.toJS,
     newHeight.toJS,
@@ -2904,7 +2906,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   @override
   void ImageMipmaps(
     StructPointer<ImageD> image,
-  ) => rl.Core.ImageMipmaps.run([
+  ) => _wasm.ImageMipmaps.run([
     image.toJS,
   ]);
 
@@ -2915,7 +2917,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     int gBpp,
     int bBpp,
     int aBpp,
-  ) => rl.Core.ImageDither.run([
+  ) => _wasm.ImageDither.run([
     image.toJS,
     rBpp.toJS,
     gBpp.toJS,
@@ -2926,14 +2928,14 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   @override
   void ImageFlipVertical(
     StructPointer<ImageD> image,
-  ) => rl.Core.ImageFlipVertical.run([
+  ) => _wasm.ImageFlipVertical.run([
     image.toJS,
   ]);
 
   @override
   void ImageFlipHorizontal(
     StructPointer<ImageD> image,
-  ) => rl.Core.ImageFlipHorizontal.run([
+  ) => _wasm.ImageFlipHorizontal.run([
     image.toJS,
   ]);
 
@@ -2941,7 +2943,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   void ImageRotate(
     StructPointer<ImageD> image,
     int degrees,
-  ) => rl.Core.ImageRotate.run([
+  ) => _wasm.ImageRotate.run([
     image.toJS,
     degrees.toJS,
   ]);
@@ -2949,14 +2951,14 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   @override
   void ImageRotateCW(
     StructPointer<ImageD> image,
-  ) => rl.Core.ImageRotateCW.run([
+  ) => _wasm.ImageRotateCW.run([
     image.toJS,
   ]);
 
   @override
   void ImageRotateCCW(
     StructPointer<ImageD> image,
-  ) => rl.Core.ImageRotateCCW.run([
+  ) => _wasm.ImageRotateCCW.run([
     image.toJS,
   ]);
 
@@ -2964,7 +2966,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   void ImageColorTint(
     StructPointer<ImageD> image,
     ColorD color,
-  ) => rl.Core.ImageColorTint.run([
+  ) => _wasm.ImageColorTint.run([
     image.toJS,
     rl.Temp.Color$.Ref1(color).toJS,
   ]);
@@ -2972,14 +2974,14 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   @override
   void ImageColorInvert(
     StructPointer<ImageD> image,
-  ) => rl.Core.ImageColorInvert.run([
+  ) => _wasm.ImageColorInvert.run([
     image.toJS,
   ]);
 
   @override
   void ImageColorGrayscale(
     StructPointer<ImageD> image,
-  ) => rl.Core.ImageColorGrayscale.run([
+  ) => _wasm.ImageColorGrayscale.run([
     image.toJS,
   ]);
 
@@ -2987,7 +2989,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   void ImageColorContrast(
     StructPointer<ImageD> image,
     double contrast,
-  ) => rl.Core.ImageColorContrast.run([
+  ) => _wasm.ImageColorContrast.run([
     image.toJS,
     contrast.toJS,
   ]);
@@ -2996,7 +2998,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   void ImageColorBrightness(
     StructPointer<ImageD> image,
     int brightness,
-  ) => rl.Core.ImageColorBrightness.run([
+  ) => _wasm.ImageColorBrightness.run([
     image.toJS,
     brightness.toJS,
   ]);
@@ -3006,7 +3008,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     StructPointer<ImageD> image,
     ColorD color,
     ColorD replace,
-  ) => rl.Core.ImageColorReplace.run([
+  ) => _wasm.ImageColorReplace.run([
     image.toJS,
     rl.Temp.Color$.Ref1(color).toJS,
     rl.Temp.Color$.Ref2(replace).toJS,
@@ -3015,7 +3017,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   @override
   StructPointer<ColorD> LoadImageColors(
     ImageD image,
-  ) => ColorD.pointer(rl.Core.LoadImageColors.run([
+  ) => ColorD.pointer(_wasm.LoadImageColors.run([
     rl.Temp.Image$.Ref1(image).toJS,
   ]).asMemoryPointer());
 
@@ -3024,7 +3026,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     ImageD image,
     int maxPaletteSize,
     MemoryPointer<RInt> colorCount,
-  ) => ColorD.pointer(rl.Core.LoadImagePalette.run([
+  ) => ColorD.pointer(_wasm.LoadImagePalette.run([
     rl.Temp.Image$.Ref1(image).toJS,
     maxPaletteSize.toJS,
     colorCount.toJS,
@@ -3033,14 +3035,14 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   @override
   void UnloadImageColors(
     StructPointer<ColorD> colors,
-  ) => rl.Core.UnloadImageColors.run([
+  ) => _wasm.UnloadImageColors.run([
     colors.toJS,
   ]);
 
   @override
   void UnloadImagePalette(
     StructPointer<ColorD> colors,
-  ) => rl.Core.UnloadImagePalette.run([
+  ) => _wasm.UnloadImagePalette.run([
     colors.toJS,
   ]);
 
@@ -3049,7 +3051,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     ImageD image,
     double threshold,
   ) => rl.Temp.Rectangle$.Extract1(
-    (p) => rl.Core.GetImageAlphaBorder.run([
+    (p) => _wasm.GetImageAlphaBorder.run([
       p.toJS,
       rl.Temp.Image$.Ref1(image).toJS,
       threshold.toJS,
@@ -3062,7 +3064,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     int x,
     int y,
   ) => rl.Temp.Color$.Extract1(
-    (p) => rl.Core.GetImageColor.run([
+    (p) => _wasm.GetImageColor.run([
       p.toJS,
       rl.Temp.Image$.Ref1(image).toJS,
       x.toJS,
@@ -3074,7 +3076,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   void ImageClearBackground(
     StructPointer<ImageD> dst,
     ColorD color,
-  ) => rl.Core.ImageClearBackground.run([
+  ) => _wasm.ImageClearBackground.run([
     dst.toJS,
     rl.Temp.Color$.Ref1(color).toJS,
   ]);
@@ -3085,7 +3087,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     int posX,
     int posY,
     ColorD color,
-  ) => rl.Core.ImageDrawPixel.run([
+  ) => _wasm.ImageDrawPixel.run([
     dst.toJS,
     posX.toJS,
     posY.toJS,
@@ -3097,7 +3099,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     StructPointer<ImageD> dst,
     Vector2D position,
     ColorD color,
-  ) => rl.Core.ImageDrawPixelV.run([
+  ) => _wasm.ImageDrawPixelV.run([
     dst.toJS,
     rl.Temp.Vector2$.Ref1(position).toJS,
     rl.Temp.Color$.Ref1(color).toJS,
@@ -3111,7 +3113,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     int endPosX,
     int endPosY,
     ColorD color,
-  ) => rl.Core.ImageDrawLine.run([
+  ) => _wasm.ImageDrawLine.run([
     dst.toJS,
     startPosX.toJS,
     startPosY.toJS,
@@ -3126,7 +3128,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     Vector2D start,
     Vector2D end,
     ColorD color,
-  ) => rl.Core.ImageDrawLineV.run([
+  ) => _wasm.ImageDrawLineV.run([
     dst.toJS,
     rl.Temp.Vector2$.Ref1(start).toJS,
     rl.Temp.Vector2$.Ref2(end).toJS,
@@ -3140,7 +3142,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     Vector2D end,
     int thick,
     ColorD color,
-  ) => rl.Core.ImageDrawLineEx.run([
+  ) => _wasm.ImageDrawLineEx.run([
     dst.toJS,
     rl.Temp.Vector2$.Ref1(start).toJS,
     rl.Temp.Vector2$.Ref2(end).toJS,
@@ -3155,7 +3157,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     int centerY,
     int radius,
     ColorD color,
-  ) => rl.Core.ImageDrawCircle.run([
+  ) => _wasm.ImageDrawCircle.run([
     dst.toJS,
     centerX.toJS,
     centerY.toJS,
@@ -3169,7 +3171,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     Vector2D center,
     int radius,
     ColorD color,
-  ) => rl.Core.ImageDrawCircleV.run([
+  ) => _wasm.ImageDrawCircleV.run([
     dst.toJS,
     rl.Temp.Vector2$.Ref1(center).toJS,
     radius.toJS,
@@ -3183,7 +3185,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     int centerY,
     int radius,
     ColorD color,
-  ) => rl.Core.ImageDrawCircleLines.run([
+  ) => _wasm.ImageDrawCircleLines.run([
     dst.toJS,
     centerX.toJS,
     centerY.toJS,
@@ -3197,7 +3199,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     Vector2D center,
     int radius,
     ColorD color,
-  ) => rl.Core.ImageDrawCircleLinesV.run([
+  ) => _wasm.ImageDrawCircleLinesV.run([
     dst.toJS,
     rl.Temp.Vector2$.Ref1(center).toJS,
     radius.toJS,
@@ -3212,7 +3214,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     int width,
     int height,
     ColorD color,
-  ) => rl.Core.ImageDrawRectangle.run([
+  ) => _wasm.ImageDrawRectangle.run([
     dst.toJS,
     posX.toJS,
     posY.toJS,
@@ -3227,7 +3229,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     Vector2D position,
     Vector2D size,
     ColorD color,
-  ) => rl.Core.ImageDrawRectangleV.run([
+  ) => _wasm.ImageDrawRectangleV.run([
     dst.toJS,
     rl.Temp.Vector2$.Ref1(position).toJS,
     rl.Temp.Vector2$.Ref2(size).toJS,
@@ -3239,7 +3241,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     StructPointer<ImageD> dst,
     RectangleD rec,
     ColorD color,
-  ) => rl.Core.ImageDrawRectangleRec.run([
+  ) => _wasm.ImageDrawRectangleRec.run([
     dst.toJS,
     rl.Temp.Rectangle$.Ref1(rec).toJS,
     rl.Temp.Color$.Ref1(color).toJS,
@@ -3251,7 +3253,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     RectangleD rec,
     int thick,
     ColorD color,
-  ) => rl.Core.ImageDrawRectangleLines.run([
+  ) => _wasm.ImageDrawRectangleLines.run([
     dst.toJS,
     rl.Temp.Rectangle$.Ref1(rec).toJS,
     thick.toJS,
@@ -3265,7 +3267,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     Vector2D v2,
     Vector2D v3,
     ColorD color,
-  ) => rl.Core.ImageDrawTriangle.run([
+  ) => _wasm.ImageDrawTriangle.run([
     dst.toJS,
     rl.Temp.Vector2$.Ref1(v1).toJS,
     rl.Temp.Vector2$.Ref2(v2).toJS,
@@ -3282,7 +3284,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     ColorD c1,
     ColorD c2,
     ColorD c3,
-  ) => rl.Core.ImageDrawTriangleEx.run([
+  ) => _wasm.ImageDrawTriangleEx.run([
     dst.toJS,
     rl.Temp.Vector2$.Ref1(v1).toJS,
     rl.Temp.Vector2$.Ref2(v2).toJS,
@@ -3299,7 +3301,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     Vector2D v2,
     Vector2D v3,
     ColorD color,
-  ) => rl.Core.ImageDrawTriangleLines.run([
+  ) => _wasm.ImageDrawTriangleLines.run([
     dst.toJS,
     rl.Temp.Vector2$.Ref1(v1).toJS,
     rl.Temp.Vector2$.Ref2(v2).toJS,
@@ -3313,7 +3315,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     StructPointer<Vector2D> points,
     int pointCount,
     ColorD color,
-  ) => rl.Core.ImageDrawTriangleFan.run([
+  ) => _wasm.ImageDrawTriangleFan.run([
     dst.toJS,
     points.toJS,
     pointCount.toJS,
@@ -3326,7 +3328,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     StructPointer<Vector2D> points,
     int pointCount,
     ColorD color,
-  ) => rl.Core.ImageDrawTriangleStrip.run([
+  ) => _wasm.ImageDrawTriangleStrip.run([
     dst.toJS,
     points.toJS,
     pointCount.toJS,
@@ -3340,7 +3342,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     RectangleD srcRec,
     RectangleD dstRec,
     ColorD tint,
-  ) => rl.Core.ImageDraw.run([
+  ) => _wasm.ImageDraw.run([
     dst.toJS,
     rl.Temp.Image$.Ref2(src).toJS,
     rl.Temp.Rectangle$.Ref1(srcRec).toJS,
@@ -3356,7 +3358,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     int posY,
     int fontSize,
     ColorD color,
-  ) => rl.Core.ImageDrawText.run([
+  ) => _wasm.ImageDrawText.run([
     dst.toJS,
     text.toJS,
     posX.toJS,
@@ -3374,7 +3376,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     double fontSize,
     double spacing,
     ColorD tint,
-  ) => rl.Core.ImageDrawTextEx.run([
+  ) => _wasm.ImageDrawTextEx.run([
     dst.toJS,
     rl.Temp.Font$.Ref1(font).toJS,
     text.toJS,
@@ -3389,7 +3391,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     MemoryPointer<RChar> fileName,
   ) => rl.Temp.Texture$.RefCapture(
     RaylibCaptureIds.LoadTexture,
-    (p) => rl.Core.LoadTexture.run([
+    (p) => _wasm.LoadTexture.run([
       p.toJS,
       fileName.toJS,
     ]),
@@ -3400,7 +3402,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     ImageD image,
   ) => rl.Temp.Texture$.RefCapture(
     RaylibCaptureIds.LoadTextureFromImage,
-    (p) => rl.Core.LoadTextureFromImage.run([
+    (p) => _wasm.LoadTextureFromImage.run([
       p.toJS,
       rl.Temp.Image$.Ref1(image).toJS,
     ]),
@@ -3412,7 +3414,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     int layout,
   ) => rl.Temp.Texture$.RefCapture(
     RaylibCaptureIds.LoadTextureCubemap,
-    (p) => rl.Core.LoadTextureCubemap.run([
+    (p) => _wasm.LoadTextureCubemap.run([
       p.toJS,
       rl.Temp.Image$.Ref1(image).toJS,
       layout.toJS,
@@ -3425,7 +3427,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     int height,
   ) => rl.Temp.RenderTexture$.RefCapture(
     RaylibCaptureIds.LoadRenderTexture,
-    (p) => rl.Core.LoadRenderTexture.run([
+    (p) => _wasm.LoadRenderTexture.run([
       p.toJS,
       width.toJS,
       height.toJS,
@@ -3435,28 +3437,28 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   @override
   bool IsTextureValid(
     TextureD texture,
-  ) => rl.Core.IsTextureValid.run([
+  ) => _wasm.IsTextureValid.run([
     rl.Temp.Texture$.Ref1(texture).toJS,
   ]).toBool();
 
   @override
   void UnloadTexture(
     TextureD texture,
-  ) => rl.Core.UnloadTexture.run([
+  ) => _wasm.UnloadTexture.run([
     rl.Temp.Texture$.Ref1(texture).toJS,
   ]);
 
   @override
   bool IsRenderTextureValid(
     RenderTextureD target,
-  ) => rl.Core.IsRenderTextureValid.run([
+  ) => _wasm.IsRenderTextureValid.run([
     rl.Temp.RenderTexture$.Ref1(target).toJS,
   ]).toBool();
 
   @override
   void UnloadRenderTexture(
     RenderTextureD target,
-  ) => rl.Core.UnloadRenderTexture.run([
+  ) => _wasm.UnloadRenderTexture.run([
     rl.Temp.RenderTexture$.Ref1(target).toJS,
   ]);
 
@@ -3464,7 +3466,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   void UpdateTexture(
     TextureD texture,
     MemoryPointer<RVoid> pixels,
-  ) => rl.Core.UpdateTexture.run([
+  ) => _wasm.UpdateTexture.run([
     rl.Temp.Texture$.Ref1(texture).toJS,
     pixels.toJS,
   ]);
@@ -3474,7 +3476,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     TextureD texture,
     RectangleD rec,
     MemoryPointer<RVoid> pixels,
-  ) => rl.Core.UpdateTextureRec.run([
+  ) => _wasm.UpdateTextureRec.run([
     rl.Temp.Texture$.Ref1(texture).toJS,
     rl.Temp.Rectangle$.Ref1(rec).toJS,
     pixels.toJS,
@@ -3483,7 +3485,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   @override
   void GenTextureMipmaps(
     StructPointer<TextureD> texture,
-  ) => rl.Core.GenTextureMipmaps.run([
+  ) => _wasm.GenTextureMipmaps.run([
     texture.toJS,
   ]);
 
@@ -3491,7 +3493,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   void SetTextureFilter(
     TextureD texture,
     int filter,
-  ) => rl.Core.SetTextureFilter.run([
+  ) => _wasm.SetTextureFilter.run([
     rl.Temp.Texture$.Ref1(texture).toJS,
     filter.toJS,
   ]);
@@ -3500,7 +3502,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   void SetTextureWrap(
     TextureD texture,
     int wrap,
-  ) => rl.Core.SetTextureWrap.run([
+  ) => _wasm.SetTextureWrap.run([
     rl.Temp.Texture$.Ref1(texture).toJS,
     wrap.toJS,
   ]);
@@ -3511,7 +3513,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     int posX,
     int posY,
     ColorD tint,
-  ) => rl.Core.DrawTexture.run([
+  ) => _wasm.DrawTexture.run([
     rl.Temp.Texture$.Ref1(texture).toJS,
     posX.toJS,
     posY.toJS,
@@ -3523,7 +3525,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     TextureD texture,
     Vector2D position,
     ColorD tint,
-  ) => rl.Core.DrawTextureV.run([
+  ) => _wasm.DrawTextureV.run([
     rl.Temp.Texture$.Ref1(texture).toJS,
     rl.Temp.Vector2$.Ref1(position).toJS,
     rl.Temp.Color$.Ref1(tint).toJS,
@@ -3536,7 +3538,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     double rotation,
     double scale,
     ColorD tint,
-  ) => rl.Core.DrawTextureEx.run([
+  ) => _wasm.DrawTextureEx.run([
     rl.Temp.Texture$.Ref1(texture).toJS,
     rl.Temp.Vector2$.Ref1(position).toJS,
     rotation.toJS,
@@ -3550,7 +3552,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     RectangleD source,
     Vector2D position,
     ColorD tint,
-  ) => rl.Core.DrawTextureRec.run([
+  ) => _wasm.DrawTextureRec.run([
     rl.Temp.Texture$.Ref1(texture).toJS,
     rl.Temp.Rectangle$.Ref1(source).toJS,
     rl.Temp.Vector2$.Ref1(position).toJS,
@@ -3565,7 +3567,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     Vector2D origin,
     double rotation,
     ColorD tint,
-  ) => rl.Core.DrawTexturePro.run([
+  ) => _wasm.DrawTexturePro.run([
     rl.Temp.Texture$.Ref1(texture).toJS,
     rl.Temp.Rectangle$.Ref1(source).toJS,
     rl.Temp.Rectangle$.Ref2(dest).toJS,
@@ -3582,7 +3584,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     Vector2D origin,
     double rotation,
     ColorD tint,
-  ) => rl.Core.DrawTextureNPatch.run([
+  ) => _wasm.DrawTextureNPatch.run([
     rl.Temp.Texture$.Ref1(texture).toJS,
     rl.Temp.NPatchInfo$.Ref1(nPatchInfo).toJS,
     rl.Temp.Rectangle$.Ref1(dest).toJS,
@@ -3595,7 +3597,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   bool ColorIsEqual(
     ColorD col1,
     ColorD col2,
-  ) => rl.Core.ColorIsEqual.run([
+  ) => _wasm.ColorIsEqual.run([
     rl.Temp.Color$.Ref1(col1).toJS,
     rl.Temp.Color$.Ref2(col2).toJS,
   ]).toBool();
@@ -3605,7 +3607,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     ColorD color,
     double alpha,
   ) => rl.Temp.Color$.Extract1(
-    (p) => rl.Core.Fade.run([
+    (p) => _wasm.Fade.run([
       p.toJS,
       rl.Temp.Color$.Ref2(color).toJS,
       alpha.toJS,
@@ -3615,7 +3617,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   @override
   int ColorToInt(
     ColorD color,
-  ) => rl.Core.ColorToInt.run([
+  ) => _wasm.ColorToInt.run([
     rl.Temp.Color$.Ref1(color).toJS,
   ]).toInt();
 
@@ -3623,7 +3625,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   Vector4D ColorNormalize(
     ColorD color,
   ) => rl.Temp.Vector4$.Extract1(
-    (p) => rl.Core.ColorNormalize.run([
+    (p) => _wasm.ColorNormalize.run([
       p.toJS,
       rl.Temp.Color$.Ref1(color).toJS,
     ]),
@@ -3633,7 +3635,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   ColorD ColorFromNormalized(
     Vector4D normalized,
   ) => rl.Temp.Color$.Extract1(
-    (p) => rl.Core.ColorFromNormalized.run([
+    (p) => _wasm.ColorFromNormalized.run([
       p.toJS,
       rl.Temp.Vector4$.Ref1(normalized).toJS,
     ]),
@@ -3643,7 +3645,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   Vector3D ColorToHSV(
     ColorD color,
   ) => rl.Temp.Vector3$.Extract1(
-    (p) => rl.Core.ColorToHSV.run([
+    (p) => _wasm.ColorToHSV.run([
       p.toJS,
       rl.Temp.Color$.Ref1(color).toJS,
     ]),
@@ -3655,7 +3657,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     double saturation,
     double value,
   ) => rl.Temp.Color$.Extract1(
-    (p) => rl.Core.ColorFromHSV.run([
+    (p) => _wasm.ColorFromHSV.run([
       p.toJS,
       hue.toJS,
       saturation.toJS,
@@ -3668,7 +3670,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     ColorD color,
     ColorD tint,
   ) => rl.Temp.Color$.Extract1(
-    (p) => rl.Core.ColorTint.run([
+    (p) => _wasm.ColorTint.run([
       p.toJS,
       rl.Temp.Color$.Ref2(color).toJS,
       rl.Temp.Color$.Ref3(tint).toJS,
@@ -3680,7 +3682,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     ColorD color,
     double factor,
   ) => rl.Temp.Color$.Extract1(
-    (p) => rl.Core.ColorBrightness.run([
+    (p) => _wasm.ColorBrightness.run([
       p.toJS,
       rl.Temp.Color$.Ref2(color).toJS,
       factor.toJS,
@@ -3692,7 +3694,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     ColorD color,
     double contrast,
   ) => rl.Temp.Color$.Extract1(
-    (p) => rl.Core.ColorContrast.run([
+    (p) => _wasm.ColorContrast.run([
       p.toJS,
       rl.Temp.Color$.Ref2(color).toJS,
       contrast.toJS,
@@ -3704,7 +3706,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     ColorD color,
     double alpha,
   ) => rl.Temp.Color$.Extract1(
-    (p) => rl.Core.ColorAlpha.run([
+    (p) => _wasm.ColorAlpha.run([
       p.toJS,
       rl.Temp.Color$.Ref2(color).toJS,
       alpha.toJS,
@@ -3717,7 +3719,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     ColorD src,
     ColorD tint,
   ) => rl.Temp.Color$.Extract1(
-    (p) => rl.Core.ColorAlphaBlend.run([
+    (p) => _wasm.ColorAlphaBlend.run([
       p.toJS,
       rl.Temp.Color$.Ref2(dst).toJS,
       rl.Temp.Color$.Ref3(src).toJS,
@@ -3731,7 +3733,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     ColorD color2,
     double factor,
   ) => rl.Temp.Color$.Extract1(
-    (p) => rl.Core.ColorLerp.run([
+    (p) => _wasm.ColorLerp.run([
       p.toJS,
       rl.Temp.Color$.Ref2(color1).toJS,
       rl.Temp.Color$.Ref3(color2).toJS,
@@ -3743,7 +3745,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   ColorD GetColor(
     int hexValue,
   ) => rl.Temp.Color$.Extract1(
-    (p) => rl.Core.GetColor.run([
+    (p) => _wasm.GetColor.run([
       p.toJS,
       hexValue.toJS,
     ]),
@@ -3754,7 +3756,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     MemoryPointer<RVoid> srcPtr,
     int format,
   ) => rl.Temp.Color$.Extract1(
-    (p) => rl.Core.GetPixelColor.run([
+    (p) => _wasm.GetPixelColor.run([
       p.toJS,
       srcPtr.toJS,
       format.toJS,
@@ -3766,7 +3768,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     MemoryPointer<RVoid> dstPtr,
     ColorD color,
     int format,
-  ) => rl.Core.SetPixelColor.run([
+  ) => _wasm.SetPixelColor.run([
     dstPtr.toJS,
     rl.Temp.Color$.Ref1(color).toJS,
     format.toJS,
@@ -3777,7 +3779,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     int width,
     int height,
     int format,
-  ) => rl.Core.GetPixelDataSize.run([
+  ) => _wasm.GetPixelDataSize.run([
     width.toJS,
     height.toJS,
     format.toJS,
@@ -3786,7 +3788,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   @override
   FontD GetFontDefault() => rl.Temp.Font$.RefCaptureCached(
     RaylibCaptureIds.GetFontDefault,
-    (p) => rl.Core.GetFontDefault.run([
+    (p) => _wasm.GetFontDefault.run([
       p.toJS,
     ]),
   );
@@ -3796,7 +3798,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     MemoryPointer<RChar> fileName,
   ) => rl.Temp.Font$.RefCapture(
     RaylibCaptureIds.LoadFont,
-    (p) => rl.Core.LoadFont.run([
+    (p) => _wasm.LoadFont.run([
       p.toJS,
       fileName.toJS,
     ]),
@@ -3810,7 +3812,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     int codepointCount,
   ) => rl.Temp.Font$.RefCapture(
     RaylibCaptureIds.LoadFontEx,
-    (p) => rl.Core.LoadFontEx.run([
+    (p) => _wasm.LoadFontEx.run([
       p.toJS,
       fileName.toJS,
       fontSize.toJS,
@@ -3826,7 +3828,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     int firstChar,
   ) => rl.Temp.Font$.RefCapture(
     RaylibCaptureIds.LoadFontFromImage,
-    (p) => rl.Core.LoadFontFromImage.run([
+    (p) => _wasm.LoadFontFromImage.run([
       p.toJS,
       rl.Temp.Image$.Ref1(image).toJS,
       rl.Temp.Color$.Ref1(key).toJS,
@@ -3844,7 +3846,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     int codepointCount,
   ) => rl.Temp.Font$.RefCapture(
     RaylibCaptureIds.LoadFontFromMemory,
-    (p) => rl.Core.LoadFontFromMemory.run([
+    (p) => _wasm.LoadFontFromMemory.run([
       p.toJS,
       fileType.toJS,
       fileData.toJS,
@@ -3858,7 +3860,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   @override
   bool IsFontValid(
     FontD font,
-  ) => rl.Core.IsFontValid.run([
+  ) => _wasm.IsFontValid.run([
     rl.Temp.Font$.Ref1(font).toJS,
   ]).toBool();
 
@@ -3871,7 +3873,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     int codepointCount,
     int type,
     MemoryPointer<RInt> glyphCount,
-  ) => GlyphInfoD.pointer(rl.Core.LoadFontData.run([
+  ) => GlyphInfoD.pointer(_wasm.LoadFontData.run([
     fileData.toJS,
     dataSize.toJS,
     fontSize.toJS,
@@ -3891,7 +3893,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     int packMethod,
   ) => rl.Temp.Image$.RefCapture(
     RaylibCaptureIds.GenImageFontAtlas,
-    (p) => rl.Core.GenImageFontAtlas.run([
+    (p) => _wasm.GenImageFontAtlas.run([
       p.toJS,
       glyphs.toJS,
       glyphRecs.toJS,
@@ -3906,7 +3908,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   void UnloadFontData(
     StructPointer<GlyphInfoD> glyphs,
     int glyphCount,
-  ) => rl.Core.UnloadFontData.run([
+  ) => _wasm.UnloadFontData.run([
     glyphs.toJS,
     glyphCount.toJS,
   ]);
@@ -3914,7 +3916,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   @override
   void UnloadFont(
     FontD font,
-  ) => rl.Core.UnloadFont.run([
+  ) => _wasm.UnloadFont.run([
     rl.Temp.Font$.Ref1(font).toJS,
   ]);
 
@@ -3922,7 +3924,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   bool ExportFontAsCode(
     FontD font,
     MemoryPointer<RChar> fileName,
-  ) => rl.Core.ExportFontAsCode.run([
+  ) => _wasm.ExportFontAsCode.run([
     rl.Temp.Font$.Ref1(font).toJS,
     fileName.toJS,
   ]).toBool();
@@ -3931,7 +3933,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   void DrawFPS(
     int posX,
     int posY,
-  ) => rl.Core.DrawFPS.run([
+  ) => _wasm.DrawFPS.run([
     posX.toJS,
     posY.toJS,
   ]);
@@ -3943,7 +3945,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     int posY,
     int fontSize,
     ColorD color,
-  ) => rl.Core.DrawText.run([
+  ) => _wasm.DrawText.run([
     text.toJS,
     posX.toJS,
     posY.toJS,
@@ -3959,7 +3961,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     double fontSize,
     double spacing,
     ColorD tint,
-  ) => rl.Core.DrawTextEx.run([
+  ) => _wasm.DrawTextEx.run([
     rl.Temp.Font$.Ref1(font).toJS,
     text.toJS,
     rl.Temp.Vector2$.Ref1(position).toJS,
@@ -3978,7 +3980,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     double fontSize,
     double spacing,
     ColorD tint,
-  ) => rl.Core.DrawTextPro.run([
+  ) => _wasm.DrawTextPro.run([
     rl.Temp.Font$.Ref1(font).toJS,
     text.toJS,
     rl.Temp.Vector2$.Ref1(position).toJS,
@@ -3996,7 +3998,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     Vector2D position,
     double fontSize,
     ColorD tint,
-  ) => rl.Core.DrawTextCodepoint.run([
+  ) => _wasm.DrawTextCodepoint.run([
     rl.Temp.Font$.Ref1(font).toJS,
     codepoint.toJS,
     rl.Temp.Vector2$.Ref1(position).toJS,
@@ -4013,7 +4015,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     double fontSize,
     double spacing,
     ColorD tint,
-  ) => rl.Core.DrawTextCodepoints.run([
+  ) => _wasm.DrawTextCodepoints.run([
     rl.Temp.Font$.Ref1(font).toJS,
     codepoints.toJS,
     codepointCount.toJS,
@@ -4026,7 +4028,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   @override
   void SetTextLineSpacing(
     int spacing,
-  ) => rl.Core.SetTextLineSpacing.run([
+  ) => _wasm.SetTextLineSpacing.run([
     spacing.toJS,
   ]);
 
@@ -4034,7 +4036,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   int MeasureText(
     MemoryPointer<RChar> text,
     int fontSize,
-  ) => rl.Core.MeasureText.run([
+  ) => _wasm.MeasureText.run([
     text.toJS,
     fontSize.toJS,
   ]).toInt();
@@ -4046,7 +4048,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     double fontSize,
     double spacing,
   ) => rl.Temp.Vector2$.Extract1(
-    (p) => rl.Core.MeasureTextEx.run([
+    (p) => _wasm.MeasureTextEx.run([
       p.toJS,
       rl.Temp.Font$.Ref1(font).toJS,
       text.toJS,
@@ -4063,7 +4065,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     double fontSize,
     double spacing,
   ) => rl.Temp.Vector2$.Extract1(
-    (p) => rl.Core.MeasureTextCodepoints.run([
+    (p) => _wasm.MeasureTextCodepoints.run([
       p.toJS,
       rl.Temp.Font$.Ref1(font).toJS,
       codepoints.toJS,
@@ -4077,7 +4079,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   int GetGlyphIndex(
     FontD font,
     int codepoint,
-  ) => rl.Core.GetGlyphIndex.run([
+  ) => _wasm.GetGlyphIndex.run([
     rl.Temp.Font$.Ref1(font).toJS,
     codepoint.toJS,
   ]).toInt();
@@ -4087,7 +4089,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     FontD font,
     int codepoint,
   ) => rl.Temp.GlyphInfo$.Extract1(
-    (p) => rl.Core.GetGlyphInfo.run([
+    (p) => _wasm.GetGlyphInfo.run([
       p.toJS,
       rl.Temp.Font$.Ref1(font).toJS,
       codepoint.toJS,
@@ -4099,7 +4101,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     FontD font,
     int codepoint,
   ) => rl.Temp.Rectangle$.Extract1(
-    (p) => rl.Core.GetGlyphAtlasRec.run([
+    (p) => _wasm.GetGlyphAtlasRec.run([
       p.toJS,
       rl.Temp.Font$.Ref1(font).toJS,
       codepoint.toJS,
@@ -4110,7 +4112,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   WasmMemoryPointer<RChar> LoadUTF8(
     MemoryPointer<RInt> codepoints,
     int length,
-  ) => rl.Core.LoadUTF8.run([
+  ) => _wasm.LoadUTF8.run([
     codepoints.toJS,
     length.toJS,
   ]).asMemoryPointer();
@@ -4118,7 +4120,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   @override
   void UnloadUTF8(
     MemoryPointer<RChar> text,
-  ) => rl.Core.UnloadUTF8.run([
+  ) => _wasm.UnloadUTF8.run([
     text.toJS,
   ]);
 
@@ -4126,7 +4128,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   WasmMemoryPointer<RInt> LoadCodepoints(
     MemoryPointer<RChar> text,
     MemoryPointer<RInt> count,
-  ) => rl.Core.LoadCodepoints.run([
+  ) => _wasm.LoadCodepoints.run([
     text.toJS,
     count.toJS,
   ]).asMemoryPointer();
@@ -4134,14 +4136,14 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   @override
   void UnloadCodepoints(
     MemoryPointer<RInt> codepoints,
-  ) => rl.Core.UnloadCodepoints.run([
+  ) => _wasm.UnloadCodepoints.run([
     codepoints.toJS,
   ]);
 
   @override
   int GetCodepointCount(
     MemoryPointer<RChar> text,
-  ) => rl.Core.GetCodepointCount.run([
+  ) => _wasm.GetCodepointCount.run([
     text.toJS,
   ]).toInt();
 
@@ -4149,7 +4151,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   int GetCodepoint(
     MemoryPointer<RChar> text,
     MemoryPointer<RInt> codepointSize,
-  ) => rl.Core.GetCodepoint.run([
+  ) => _wasm.GetCodepoint.run([
     text.toJS,
     codepointSize.toJS,
   ]).toInt();
@@ -4158,7 +4160,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   int GetCodepointNext(
     MemoryPointer<RChar> text,
     MemoryPointer<RInt> codepointSize,
-  ) => rl.Core.GetCodepointNext.run([
+  ) => _wasm.GetCodepointNext.run([
     text.toJS,
     codepointSize.toJS,
   ]).toInt();
@@ -4167,7 +4169,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   int GetCodepointPrevious(
     MemoryPointer<RChar> text,
     MemoryPointer<RInt> codepointSize,
-  ) => rl.Core.GetCodepointPrevious.run([
+  ) => _wasm.GetCodepointPrevious.run([
     text.toJS,
     codepointSize.toJS,
   ]).toInt();
@@ -4176,7 +4178,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   WasmMemoryPointer<RChar> CodepointToUTF8(
     int codepoint,
     MemoryPointer<RInt> utf8Size,
-  ) => rl.Core.CodepointToUTF8.run([
+  ) => _wasm.CodepointToUTF8.run([
     codepoint.toJS,
     utf8Size.toJS,
   ]).asMemoryPointer();
@@ -4185,7 +4187,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   WasmMemoryPointer<RPointer<RChar>> LoadTextLines(
     MemoryPointer<RChar> text,
     MemoryPointer<RInt> count,
-  ) => rl.Core.LoadTextLines.run([
+  ) => _wasm.LoadTextLines.run([
     text.toJS,
     count.toJS,
   ]).asMemoryPointer();
@@ -4194,7 +4196,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   void UnloadTextLines(
     MemoryPointer<RPointer<RChar>> text,
     int lineCount,
-  ) => rl.Core.UnloadTextLines.run([
+  ) => _wasm.UnloadTextLines.run([
     text.toJS,
     lineCount.toJS,
   ]);
@@ -4203,7 +4205,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   int TextCopy(
     MemoryPointer<RChar> dst,
     MemoryPointer<RChar> src,
-  ) => rl.Core.TextCopy.run([
+  ) => _wasm.TextCopy.run([
     dst.toJS,
     src.toJS,
   ]).toInt();
@@ -4212,7 +4214,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   bool TextIsEqual(
     MemoryPointer<RChar> text1,
     MemoryPointer<RChar> text2,
-  ) => rl.Core.TextIsEqual.run([
+  ) => _wasm.TextIsEqual.run([
     text1.toJS,
     text2.toJS,
   ]).toBool();
@@ -4220,7 +4222,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   @override
   int TextLength(
     MemoryPointer<RChar> text,
-  ) => rl.Core.TextLength.run([
+  ) => _wasm.TextLength.run([
     text.toJS,
   ]).toInt();
 
@@ -4229,7 +4231,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     MemoryPointer<RChar> text,
     int position,
     int length,
-  ) => rl.Core.TextSubtext.run([
+  ) => _wasm.TextSubtext.run([
     text.toJS,
     position.toJS,
     length.toJS
@@ -4238,7 +4240,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   @override
   WasmMemoryPointer<RChar> TextRemoveSpaces(
     MemoryPointer<RChar> text,
-  ) => rl.Core.TextRemoveSpaces.run([
+  ) => _wasm.TextRemoveSpaces.run([
     text.toJS,
   ]).asMemoryPointer();
 
@@ -4247,7 +4249,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     MemoryPointer<RChar> text,
     MemoryPointer<RChar> begin,
     MemoryPointer<RChar> end,
-  ) => rl.Core.GetTextBetween.run([
+  ) => _wasm.GetTextBetween.run([
     text.toJS,
     begin.toJS,
     end.toJS,
@@ -4258,7 +4260,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     MemoryPointer<RChar> text,
     MemoryPointer<RChar> replace,
     MemoryPointer<RChar> by,
-  ) => rl.Core.TextReplace.run([
+  ) => _wasm.TextReplace.run([
     text.toJS,
     replace.toJS,
     by.toJS,
@@ -4269,7 +4271,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     MemoryPointer<RChar> text,
     MemoryPointer<RChar> replace,
     MemoryPointer<RChar> by,
-  ) => rl.Core.TextReplaceAlloc.run([
+  ) => _wasm.TextReplaceAlloc.run([
     text.toJS,
     replace.toJS,
     by.toJS,
@@ -4281,7 +4283,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     MemoryPointer<RChar> begin,
     MemoryPointer<RChar> end,
     MemoryPointer<RChar> replacement,
-  ) => rl.Core.TextReplaceBetween.run([
+  ) => _wasm.TextReplaceBetween.run([
     text.toJS,
     begin.toJS,
     end.toJS,
@@ -4294,7 +4296,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     MemoryPointer<RChar> begin,
     MemoryPointer<RChar> end,
     MemoryPointer<RChar> replacement,
-  ) => rl.Core.TextReplaceBetweenAlloc.run([
+  ) => _wasm.TextReplaceBetweenAlloc.run([
     text.toJS,
     begin.toJS,
     end.toJS,
@@ -4306,7 +4308,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     MemoryPointer<RChar> text,
     MemoryPointer<RChar> insert,
     int position,
-  ) => rl.Core.TextInsert.run([
+  ) => _wasm.TextInsert.run([
     text.toJS,
     insert.toJS,
     position.toJS,
@@ -4317,7 +4319,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     MemoryPointer<RChar> text,
     MemoryPointer<RChar> insert,
     int position,
-  ) => rl.Core.TextInsertAlloc.run([
+  ) => _wasm.TextInsertAlloc.run([
     text.toJS,
     insert.toJS,
     position.toJS,
@@ -4328,7 +4330,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     MemoryPointer<RPointer<RChar>> textList,
     int count,
     MemoryPointer<RChar> delimiter,
-  ) => rl.Core.TextJoin.run([
+  ) => _wasm.TextJoin.run([
     textList.toJS,
     count.toJS,
     delimiter.toJS,
@@ -4339,7 +4341,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     MemoryPointer<RChar> text,
     int delimiter,
     MemoryPointer<RInt> count,
-  ) => rl.Core.TextSplit.run([
+  ) => _wasm.TextSplit.run([
     text.toJS,
     delimiter.toJS,
     count.toJS,
@@ -4350,7 +4352,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     MemoryPointer<RChar> text,
     MemoryPointer<RChar> append,
     MemoryPointer<RInt> position,
-  ) => rl.Core.TextAppend.run([
+  ) => _wasm.TextAppend.run([
     text.toJS,
     append.toJS,
     position.toJS,
@@ -4360,7 +4362,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   int TextFindIndex(
     MemoryPointer<RChar> text,
     MemoryPointer<RChar> find,
-  ) => rl.Core.TextFindIndex.run([
+  ) => _wasm.TextFindIndex.run([
     text.toJS,
     find.toJS,
   ]).toInt();
@@ -4368,49 +4370,49 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   @override
   WasmMemoryPointer<RChar> TextToUpper(
     MemoryPointer<RChar> text,
-  ) => rl.Core.TextToUpper.run([
+  ) => _wasm.TextToUpper.run([
     text.toJS,
   ]).asMemoryPointer();
 
   @override
   WasmMemoryPointer<RChar> TextToLower(
     MemoryPointer<RChar> text,
-  ) => rl.Core.TextToLower.run([
+  ) => _wasm.TextToLower.run([
     text.toJS,
   ]).asMemoryPointer();
 
   @override
   WasmMemoryPointer<RChar> TextToPascal(
     MemoryPointer<RChar> text,
-  ) => rl.Core.TextToPascal.run([
+  ) => _wasm.TextToPascal.run([
     text.toJS,
   ]).asMemoryPointer();
 
   @override
   WasmMemoryPointer<RChar> TextToSnake(
     MemoryPointer<RChar> text,
-  ) => rl.Core.TextToSnake.run([
+  ) => _wasm.TextToSnake.run([
     text.toJS,
   ]).asMemoryPointer();
 
   @override
   WasmMemoryPointer<RChar> TextToCamel(
     MemoryPointer<RChar> text,
-  ) => rl.Core.TextToCamel.run([
+  ) => _wasm.TextToCamel.run([
     text.toJS,
   ]).asMemoryPointer();
 
   @override
   int TextToInteger(
     MemoryPointer<RChar> text,
-  ) => rl.Core.TextToInteger.run([
+  ) => _wasm.TextToInteger.run([
     text.toJS,
   ]).toInt();
 
   @override
   double TextToFloat(
     MemoryPointer<RChar> text,
-  ) => rl.Core.TextToFloat.run([
+  ) => _wasm.TextToFloat.run([
     text.toJS,
   ]).toDouble();
 
@@ -4419,7 +4421,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     Vector3D startPos,
     Vector3D endPos,
     ColorD color,
-  ) => rl.Core.DrawLine3D.run([
+  ) => _wasm.DrawLine3D.run([
     rl.Temp.Vector3$.Ref1(startPos).toJS,
     rl.Temp.Vector3$.Ref2(endPos).toJS,
     rl.Temp.Color$.Ref1(color).toJS,
@@ -4429,7 +4431,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   void DrawPoint3D(
     Vector3D position,
     ColorD color,
-  ) => rl.Core.DrawPoint3D.run([
+  ) => _wasm.DrawPoint3D.run([
     rl.Temp.Vector3$.Ref1(position).toJS,
     rl.Temp.Color$.Ref1(color).toJS,
   ]);
@@ -4441,7 +4443,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     Vector3D rotationAxis,
     double rotationAngle,
     ColorD color,
-  ) => rl.Core.DrawCircle3D.run([
+  ) => _wasm.DrawCircle3D.run([
     rl.Temp.Vector3$.Ref1(center).toJS,
     radius.toJS,
     rl.Temp.Vector3$.Ref2(rotationAxis).toJS,
@@ -4455,7 +4457,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     Vector3D v2,
     Vector3D v3,
     ColorD color,
-  ) => rl.Core.DrawTriangle3D.run([
+  ) => _wasm.DrawTriangle3D.run([
     rl.Temp.Vector3$.Ref1(v1).toJS,
     rl.Temp.Vector3$.Ref2(v2).toJS,
     rl.Temp.Vector3$.Ref3(v3).toJS,
@@ -4467,7 +4469,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     StructPointer<Vector3D> points,
     int pointCount,
     ColorD color,
-  ) => rl.Core.DrawTriangleStrip3D.run([
+  ) => _wasm.DrawTriangleStrip3D.run([
     points.toJS,
     pointCount.toJS,
     rl.Temp.Color$.Ref1(color).toJS,
@@ -4480,7 +4482,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     double height,
     double length,
     ColorD color,
-  ) => rl.Core.DrawCube.run([
+  ) => _wasm.DrawCube.run([
     rl.Temp.Vector3$.Ref1(position).toJS,
     width.toJS,
     height.toJS,
@@ -4493,7 +4495,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     Vector3D position,
     Vector3D size,
     ColorD color,
-  ) => rl.Core.DrawCubeV.run([
+  ) => _wasm.DrawCubeV.run([
     rl.Temp.Vector3$.Ref1(position).toJS,
     rl.Temp.Vector3$.Ref2(size).toJS,
     rl.Temp.Color$.Ref1(color).toJS,
@@ -4506,7 +4508,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     double height,
     double length,
     ColorD color,
-  ) => rl.Core.DrawCubeWires.run([
+  ) => _wasm.DrawCubeWires.run([
     rl.Temp.Vector3$.Ref1(position).toJS,
     width.toJS,
     height.toJS,
@@ -4519,7 +4521,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     Vector3D position,
     Vector3D size,
     ColorD color,
-  ) => rl.Core.DrawCubeWiresV.run([
+  ) => _wasm.DrawCubeWiresV.run([
     rl.Temp.Vector3$.Ref1(position).toJS,
     rl.Temp.Vector3$.Ref2(size).toJS,
     rl.Temp.Color$.Ref1(color).toJS,
@@ -4530,7 +4532,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     Vector3D centerPos,
     double radius,
     ColorD color,
-  ) => rl.Core.DrawSphere.run([
+  ) => _wasm.DrawSphere.run([
     rl.Temp.Vector3$.Ref1(centerPos).toJS,
     radius.toJS,
     rl.Temp.Color$.Ref1(color).toJS,
@@ -4543,7 +4545,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     int rings,
     int slices,
     ColorD color,
-  ) => rl.Core.DrawSphereEx.run([
+  ) => _wasm.DrawSphereEx.run([
     rl.Temp.Vector3$.Ref1(centerPos).toJS,
     radius.toJS,
     rings.toJS,
@@ -4558,7 +4560,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     int rings,
     int slices,
     ColorD color,
-  ) => rl.Core.DrawSphereWires.run([
+  ) => _wasm.DrawSphereWires.run([
     rl.Temp.Vector3$.Ref1(centerPos).toJS,
     radius.toJS,
     rings.toJS,
@@ -4574,7 +4576,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     double height,
     int slices,
     ColorD color,
-  ) => rl.Core.DrawCylinder.run([
+  ) => _wasm.DrawCylinder.run([
     rl.Temp.Vector3$.Ref1(position).toJS,
     radiusTop.toJS,
     radiusBottom.toJS,
@@ -4591,7 +4593,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     double endRadius,
     int sides,
     ColorD color,
-  ) => rl.Core.DrawCylinderEx.run([
+  ) => _wasm.DrawCylinderEx.run([
     rl.Temp.Vector3$.Ref1(startPos).toJS,
     rl.Temp.Vector3$.Ref2(endPos).toJS,
     startRadius.toJS,
@@ -4608,7 +4610,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     double height,
     int slices,
     ColorD color,
-  ) => rl.Core.DrawCylinderWires.run([
+  ) => _wasm.DrawCylinderWires.run([
     rl.Temp.Vector3$.Ref1(position).toJS,
     radiusTop.toJS,
     radiusBottom.toJS,
@@ -4625,7 +4627,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     double endRadius,
     int sides,
     ColorD color,
-  ) => rl.Core.DrawCylinderWiresEx.run([
+  ) => _wasm.DrawCylinderWiresEx.run([
     rl.Temp.Vector3$.Ref1(startPos).toJS,
     rl.Temp.Vector3$.Ref2(endPos).toJS,
     startRadius.toJS,
@@ -4642,7 +4644,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     int slices,
     int rings,
     ColorD color,
-  ) => rl.Core.DrawCapsule.run([
+  ) => _wasm.DrawCapsule.run([
     rl.Temp.Vector3$.Ref1(startPos).toJS,
     rl.Temp.Vector3$.Ref2(endPos).toJS,
     radius.toJS,
@@ -4659,7 +4661,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     int slices,
     int rings,
     ColorD color,
-  ) => rl.Core.DrawCapsuleWires.run([
+  ) => _wasm.DrawCapsuleWires.run([
     rl.Temp.Vector3$.Ref1(startPos).toJS,
     rl.Temp.Vector3$.Ref2(endPos).toJS,
     radius.toJS,
@@ -4673,7 +4675,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     Vector3D centerPos,
     Vector2D size,
     ColorD color,
-  ) => rl.Core.DrawPlane.run([
+  ) => _wasm.DrawPlane.run([
     rl.Temp.Vector3$.Ref1(centerPos).toJS,
     rl.Temp.Vector2$.Ref1(size).toJS,
     rl.Temp.Color$.Ref1(color).toJS,
@@ -4683,7 +4685,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   void DrawRay(
     RayD ray,
     ColorD color,
-  ) => rl.Core.DrawRay.run([
+  ) => _wasm.DrawRay.run([
     rl.Temp.Ray$.Ref1(ray).toJS,
     rl.Temp.Color$.Ref1(color).toJS,
   ]);
@@ -4692,7 +4694,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   void DrawGrid(
     int slices,
     double spacing,
-  ) => rl.Core.DrawGrid.run([
+  ) => _wasm.DrawGrid.run([
     slices.toJS,
     spacing.toJS,
   ]);
@@ -4702,7 +4704,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     MemoryPointer<RChar> fileName,
   ) => rl.Temp.Model$.RefCapture(
     RaylibCaptureIds.LoadModel,
-    (p) => rl.Core.LoadModel.run([
+    (p) => _wasm.LoadModel.run([
       p.toJS,
       fileName.toJS,
     ]),
@@ -4713,7 +4715,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     MeshD mesh,
   ) => rl.Temp.Model$.RefCapture(
     RaylibCaptureIds.LoadModelFromMesh,
-    (p) => rl.Core.LoadModelFromMesh.run([
+    (p) => _wasm.LoadModelFromMesh.run([
       p.toJS,
       rl.Temp.Mesh$.Ref1(mesh).toJS,
     ]),
@@ -4722,14 +4724,14 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   @override
   bool IsModelValid(
     ModelD model,
-  ) => rl.Core.IsModelValid.run([
+  ) => _wasm.IsModelValid.run([
     rl.Temp.Model$.Ref1(model).toJS,
   ]).toBool();
 
   @override
   void UnloadModel(
     ModelD model,
-  ) => rl.Core.UnloadModel.run([
+  ) => _wasm.UnloadModel.run([
     rl.Temp.Model$.Ref1(model).toJS,
   ]);
 
@@ -4737,7 +4739,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   BoundingBoxD GetModelBoundingBox(
     ModelD model,
   ) => rl.Temp.BoundingBox$.Extract1(
-    (p) => rl.Core.GetModelBoundingBox.run([
+    (p) => _wasm.GetModelBoundingBox.run([
       p.toJS,
       rl.Temp.Model$.Ref1(model).toJS,
     ]),
@@ -4749,7 +4751,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     Vector3D position,
     double scale,
     ColorD tint,
-  ) => rl.Core.DrawModel.run([
+  ) => _wasm.DrawModel.run([
     rl.Temp.Model$.Ref1(model).toJS,
     rl.Temp.Vector3$.Ref1(position).toJS,
     scale.toJS,
@@ -4764,7 +4766,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     double rotationAngle,
     Vector3D scale,
     ColorD tint,
-  ) => rl.Core.DrawModelEx.run([
+  ) => _wasm.DrawModelEx.run([
     rl.Temp.Model$.Ref1(model).toJS,
     rl.Temp.Vector3$.Ref1(position).toJS,
     rl.Temp.Vector3$.Ref2(rotationAxis).toJS,
@@ -4779,7 +4781,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     Vector3D position,
     double scale,
     ColorD tint,
-  ) => rl.Core.DrawModelWires.run([
+  ) => _wasm.DrawModelWires.run([
     rl.Temp.Model$.Ref1(model).toJS,
     rl.Temp.Vector3$.Ref1(position).toJS,
     scale.toJS,
@@ -4794,7 +4796,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     double rotationAngle,
     Vector3D scale,
     ColorD tint,
-  ) => rl.Core.DrawModelWiresEx.run([
+  ) => _wasm.DrawModelWiresEx.run([
     rl.Temp.Model$.Ref1(model).toJS,
     rl.Temp.Vector3$.Ref1(position).toJS,
     rl.Temp.Vector3$.Ref2(rotationAxis).toJS,
@@ -4807,7 +4809,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   void DrawBoundingBox(
     BoundingBoxD box,
     ColorD color,
-  ) => rl.Core.DrawBoundingBox.run([
+  ) => _wasm.DrawBoundingBox.run([
     rl.Temp.BoundingBox$.Ref1(box).toJS,
     rl.Temp.Color$.Ref1(color).toJS,
   ]);
@@ -4819,7 +4821,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     Vector3D position,
     double scale,
     ColorD tint,
-  ) => rl.Core.DrawBillboard.run([
+  ) => _wasm.DrawBillboard.run([
     rl.Temp.Camera3D$.Ref1(camera).toJS,
     rl.Temp.Texture$.Ref1(texture).toJS,
     rl.Temp.Vector3$.Ref1(position).toJS,
@@ -4835,7 +4837,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     Vector3D position,
     Vector2D size,
     ColorD tint,
-  ) => rl.Core.DrawBillboardRec.run([
+  ) => _wasm.DrawBillboardRec.run([
     rl.Temp.Camera3D$.Ref1(camera).toJS,
     rl.Temp.Texture$.Ref1(texture).toJS,
     rl.Temp.Rectangle$.Ref1(source).toJS,
@@ -4861,7 +4863,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     Vector2D origin,
     double rotation,
     ColorD tint,
-  ) => rl.Core.DrawBillboardPro.run([
+  ) => _wasm.DrawBillboardPro.run([
     rl.Temp.Camera3D$.Ref1(camera).toJS,
     rl.Temp.Texture$.Ref1(texture).toJS,
     rl.Temp.Rectangle$.Ref1(source).toJS,
@@ -4877,7 +4879,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   void UploadMesh(
     StructPointer<MeshD> mesh,
     bool dynamic,
-  ) => rl.Core.UploadMesh.run([
+  ) => _wasm.UploadMesh.run([
     mesh.toJS,
     dynamic.toJS,
   ]);
@@ -4889,7 +4891,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     MemoryPointer<RVoid> data,
     int dataSize,
     int offset,
-  ) => rl.Core.UpdateMeshBuffer.run([
+  ) => _wasm.UpdateMeshBuffer.run([
     rl.Temp.Mesh$.Ref1(mesh).toJS,
     index.toJS,
     data.toJS,
@@ -4900,7 +4902,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   @override
   void UnloadMesh(
     MeshD mesh,
-  ) => rl.Core.UnloadMesh.run([
+  ) => _wasm.UnloadMesh.run([
     rl.Temp.Mesh$.Ref1(mesh).toJS,
   ]);
 
@@ -4909,7 +4911,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     MeshD mesh,
     MaterialD material,
     MatrixD transform,
-  ) => rl.Core.DrawMesh.run([
+  ) => _wasm.DrawMesh.run([
     rl.Temp.Mesh$.Ref1(mesh).toJS,
     rl.Temp.Material$.Ref1(material).toJS,
     rl.Temp.Matrix$.Ref1(transform).toJS,
@@ -4921,7 +4923,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     MaterialD material,
     StructPointer<MatrixD> transforms,
     int instances,
-  ) => rl.Core.DrawMeshInstanced.run([
+  ) => _wasm.DrawMeshInstanced.run([
     rl.Temp.Mesh$.Ref1(mesh).toJS,
     rl.Temp.Material$.Ref1(material).toJS,
     transforms.toJS,
@@ -4932,7 +4934,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   BoundingBoxD GetMeshBoundingBox(
     MeshD mesh,
   ) => rl.Temp.BoundingBox$.Extract1(
-    (p) => rl.Core.GetMeshBoundingBox.run([
+    (p) => _wasm.GetMeshBoundingBox.run([
       p.toJS,
       rl.Temp.Mesh$.Ref1(mesh).toJS,
     ]),
@@ -4941,7 +4943,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   @override
   void GenMeshTangents(
     StructPointer<MeshD> mesh,
-  ) => rl.Core.GenMeshTangents.run([
+  ) => _wasm.GenMeshTangents.run([
     mesh.toJS,
   ]);
 
@@ -4949,7 +4951,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   bool ExportMesh(
     MeshD mesh,
     MemoryPointer<RChar> fileName,
-  ) => rl.Core.ExportMesh.run([
+  ) => _wasm.ExportMesh.run([
     rl.Temp.Mesh$.Ref1(mesh).toJS,
     fileName.toJS,
   ]).toBool();
@@ -4958,7 +4960,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   bool ExportMeshAsCode(
     MeshD mesh,
     MemoryPointer<RChar> fileName,
-  ) => rl.Core.ExportMeshAsCode.run([
+  ) => _wasm.ExportMeshAsCode.run([
     rl.Temp.Mesh$.Ref1(mesh).toJS,
     fileName.toJS,
   ]).toBool();
@@ -4969,7 +4971,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     double radius,
   ) => rl.Temp.Mesh$.RefCapture(
     RaylibCaptureIds.GenMeshPoly,
-    (p) => rl.Core.GenMeshPoly.run([
+    (p) => _wasm.GenMeshPoly.run([
       p.toJS,
       sides.toJS,
       radius.toJS,
@@ -4984,7 +4986,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     int resZ,
   ) => rl.Temp.Mesh$.RefCapture(
     RaylibCaptureIds.GenMeshPlane,
-    (p) => rl.Core.GenMeshPlane.run([
+    (p) => _wasm.GenMeshPlane.run([
       p.toJS,
       width.toJS,
       length.toJS,
@@ -5000,7 +5002,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     double length,
   ) => rl.Temp.Mesh$.RefCapture(
     RaylibCaptureIds.GenMeshCube,
-    (p) => rl.Core.GenMeshCube.run([
+    (p) => _wasm.GenMeshCube.run([
       p.toJS,
       width.toJS,
       height.toJS,
@@ -5015,7 +5017,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     int slices,
   ) => rl.Temp.Mesh$.RefCapture(
     RaylibCaptureIds.GenMeshSphere,
-    (p) => rl.Core.GenMeshSphere.run([
+    (p) => _wasm.GenMeshSphere.run([
       p.toJS,
       radius.toJS,
       rings.toJS,
@@ -5030,7 +5032,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     int slices,
   ) => rl.Temp.Mesh$.RefCapture(
     RaylibCaptureIds.GenMeshHemiSphere,
-    (p) => rl.Core.GenMeshHemiSphere.run([
+    (p) => _wasm.GenMeshHemiSphere.run([
       p.toJS,
       radius.toJS,
       rings.toJS,
@@ -5045,7 +5047,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     int slices,
   ) => rl.Temp.Mesh$.RefCapture(
     RaylibCaptureIds.GenMeshCylinder,
-    (p) => rl.Core.GenMeshCylinder.run([
+    (p) => _wasm.GenMeshCylinder.run([
       p.toJS,
       radius.toJS,
       height.toJS,
@@ -5060,7 +5062,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     int slices,
   ) => rl.Temp.Mesh$.RefCapture(
     RaylibCaptureIds.GenMeshCone,
-    (p) => rl.Core.GenMeshCone.run([
+    (p) => _wasm.GenMeshCone.run([
       p.toJS,
       radius.toJS,
       height.toJS,
@@ -5076,7 +5078,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     int sides,
   ) => rl.Temp.Mesh$.RefCapture(
     RaylibCaptureIds.GenMeshTorus,
-    (p) => rl.Core.GenMeshTorus.run([
+    (p) => _wasm.GenMeshTorus.run([
       p.toJS,
       radius.toJS,
       size.toJS,
@@ -5093,7 +5095,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     int sides,
   ) => rl.Temp.Mesh$.RefCapture(
     RaylibCaptureIds.GenMeshKnot,
-    (p) => rl.Core.GenMeshKnot.run([
+    (p) => _wasm.GenMeshKnot.run([
       p.toJS,
       radius.toJS,
       size.toJS,
@@ -5108,7 +5110,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     Vector3D size,
   ) => rl.Temp.Mesh$.RefCapture(
     RaylibCaptureIds.GenMeshHeightmap,
-    (p) => rl.Core.GenMeshHeightmap.run([
+    (p) => _wasm.GenMeshHeightmap.run([
       p.toJS,
       rl.Temp.Image$.Ref1(heightmap).toJS,
       rl.Temp.Vector3$.Ref1(size).toJS,
@@ -5121,7 +5123,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     Vector3D cubeSize,
   ) => rl.Temp.Mesh$.RefCapture(
     RaylibCaptureIds.GenMeshCubicmap,
-    (p) => rl.Core.GenMeshCubicmap.run([
+    (p) => _wasm.GenMeshCubicmap.run([
       p.toJS,
       rl.Temp.Image$.Ref1(cubicmap).toJS,
       rl.Temp.Vector3$.Ref1(cubeSize).toJS,
@@ -5132,7 +5134,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   StructPointer<MaterialD> LoadMaterials(
     MemoryPointer<RChar> fileName,
     MemoryPointer<RInt> materialCount,
-  ) => MaterialD.pointer(rl.Core.LoadMaterials.run([
+  ) => MaterialD.pointer(_wasm.LoadMaterials.run([
     fileName.toJS,
     materialCount.toJS,
   ]).asMemoryPointer());
@@ -5140,7 +5142,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   @override
   MaterialD LoadMaterialDefault() => rl.Temp.Material$.RefCapture(
     RaylibCaptureIds.LoadMaterialDefault,
-    (p) => rl.Core.LoadMaterialDefault.run([
+    (p) => _wasm.LoadMaterialDefault.run([
       p.toJS,
     ]),
   );
@@ -5148,14 +5150,14 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   @override
   bool IsMaterialValid(
     MaterialD material,
-  ) => rl.Core.IsMaterialValid.run([
+  ) => _wasm.IsMaterialValid.run([
     rl.Temp.Material$.Ref1(material).toJS,
   ]).toBool();
 
   @override
   void UnloadMaterial(
     MaterialD material,
-  ) => rl.Core.UnloadMaterial.run([
+  ) => _wasm.UnloadMaterial.run([
     rl.Temp.Material$.Ref1(material).toJS,
   ]);
 
@@ -5164,7 +5166,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     StructPointer<MaterialD> material,
     int mapType,
     TextureD texture,
-  ) => rl.Core.SetMaterialTexture.run([
+  ) => _wasm.SetMaterialTexture.run([
     material.toJS,
     mapType.toJS,
     rl.Temp.Texture$.Ref1(texture).toJS,
@@ -5175,7 +5177,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     StructPointer<ModelD> model,
     int meshId,
     int materialId,
-  ) => rl.Core.SetModelMeshMaterial.run([
+  ) => _wasm.SetModelMeshMaterial.run([
     model.toJS,
     meshId.toJS,
     materialId.toJS,
@@ -5185,7 +5187,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   StructPointer<ModelAnimationD> LoadModelAnimations(
     MemoryPointer<RChar> fileName,
     MemoryPointer<RInt> animCount,
-  ) => ModelAnimationD.pointer(rl.Core.LoadModelAnimations.run([
+  ) => ModelAnimationD.pointer(_wasm.LoadModelAnimations.run([
     fileName.toJS,
     animCount.toJS,
   ]).asMemoryPointer());
@@ -5195,7 +5197,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     ModelD model,
     ModelAnimationD anim,
     double frame,
-  ) => rl.Core.UpdateModelAnimation.run([
+  ) => _wasm.UpdateModelAnimation.run([
     rl.Temp.Model$.Ref1(model).toJS,
     rl.Temp.ModelAnimation$.Ref1(anim).toJS,
     frame.toJS,
@@ -5209,7 +5211,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     ModelAnimationD animB,
     double frameB,
     double blend,
-  ) => rl.Core.UpdateModelAnimationEx.run([
+  ) => _wasm.UpdateModelAnimationEx.run([
     rl.Temp.Model$.Ref1(model).toJS,
     rl.Temp.ModelAnimation$.Ref1(animA).toJS,
     frameA.toJS,
@@ -5222,7 +5224,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   void UnloadModelAnimations(
     StructPointer<ModelAnimationD> animations,
     int animCount,
-  ) => rl.Core.UnloadModelAnimations.run([
+  ) => _wasm.UnloadModelAnimations.run([
     animations.toJS,
     animCount.toJS,
   ]);
@@ -5231,7 +5233,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   bool IsModelAnimationValid(
     ModelD model,
     ModelAnimationD anim,
-  ) => rl.Core.IsModelAnimationValid.run([
+  ) => _wasm.IsModelAnimationValid.run([
     rl.Temp.Model$.Ref1(model).toJS,
     rl.Temp.ModelAnimation$.Ref1(anim).toJS,
   ]).toBool();
@@ -5242,7 +5244,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     double radius1,
     Vector3D center2,
     double radius2,
-  ) => rl.Core.CheckCollisionSpheres.run([
+  ) => _wasm.CheckCollisionSpheres.run([
     rl.Temp.Vector3$.Ref1(center1).toJS,
     radius1.toJS,
     rl.Temp.Vector3$.Ref2(center2).toJS,
@@ -5253,7 +5255,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
   bool CheckCollisionBoxes(
     BoundingBoxD box1,
     BoundingBoxD box2,
-  ) => rl.Core.CheckCollisionBoxes.run([
+  ) => _wasm.CheckCollisionBoxes.run([
     rl.Temp.BoundingBox$.Ref1(box1).toJS,
     rl.Temp.BoundingBox$.Ref2(box2).toJS,
   ]).toBool();
@@ -5263,7 +5265,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     BoundingBoxD box,
     Vector3D center,
     double radius,
-  ) => rl.Core.CheckCollisionBoxSphere.run([
+  ) => _wasm.CheckCollisionBoxSphere.run([
     rl.Temp.BoundingBox$.Ref1(box).toJS,
     rl.Temp.Vector3$.Ref1(center).toJS,
     radius.toJS,
@@ -5275,7 +5277,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     Vector3D center,
     double radius,
   ) => rl.Temp.RayCollision$.Extract1(
-    (p) => rl.Core.GetRayCollisionSphere.run([
+    (p) => _wasm.GetRayCollisionSphere.run([
       p.toJS,
       rl.Temp.Ray$.Ref1(ray).toJS,
       rl.Temp.Vector3$.Ref1(center).toJS,
@@ -5288,7 +5290,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     RayD ray,
     BoundingBoxD box,
   ) => rl.Temp.RayCollision$.Extract1(
-    (p) => rl.Core.GetRayCollisionBox.run([
+    (p) => _wasm.GetRayCollisionBox.run([
       p.toJS,
       rl.Temp.Ray$.Ref1(ray).toJS,
       rl.Temp.BoundingBox$.Ref1(box).toJS,
@@ -5301,7 +5303,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     MeshD mesh,
     MatrixD transform,
   ) => rl.Temp.RayCollision$.Extract1(
-    (p) => rl.Core.GetRayCollisionMesh.run([
+    (p) => _wasm.GetRayCollisionMesh.run([
       p.toJS,
       rl.Temp.Ray$.Ref1(ray).toJS,
       rl.Temp.Mesh$.Ref1(mesh).toJS,
@@ -5316,7 +5318,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     Vector3D p2,
     Vector3D p3,
   ) => rl.Temp.RayCollision$.Extract1(
-    (p) => rl.Core.GetRayCollisionTriangle.run([
+    (p) => _wasm.GetRayCollisionTriangle.run([
       p.toJS,
       rl.Temp.Ray$.Ref1(ray).toJS,
       rl.Temp.Vector3$.Ref1(p1).toJS,
@@ -5333,7 +5335,7 @@ class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
     Vector3D p3,
     Vector3D p4,
   ) => rl.Temp.RayCollision$.Extract1(
-    (p) => rl.Core.GetRayCollisionQuad.run([
+    (p) => _wasm.GetRayCollisionQuad.run([
       p.toJS,
       rl.Temp.Ray$.Ref1(ray).toJS,
       rl.Temp.Vector3$.Ref1(p1).toJS,

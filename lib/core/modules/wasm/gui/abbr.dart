@@ -1,7 +1,7 @@
 import 'dart:js_interop';
 import 'package:raylib_dartified_web/raylib_dartified_web.dart';
 
-RaylibGui get _module => Raylib.instance.Gui;
+RaylibGui get _module => Raylib.instance.module();
 
 /// See [RaylibGui.GuiEnable].
 JSFunction get GuiEnable => _module.GuiEnable;

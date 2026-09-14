@@ -1,7 +1,7 @@
 import 'dart:js_interop';
 import 'package:raylib_dartified_web/raylib_dartified_web.dart';
 
-RaylibRlgl get _module => Raylib.instance.Rlgl;
+RaylibRlgl get _module => Raylib.instance.module();
 
 /// See [RaylibRlgl.rlMatrixMode].
 JSFunction get rlMatrixMode => _module.rlMatrixMode;

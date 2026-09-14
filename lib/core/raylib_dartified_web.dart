@@ -13,6 +13,22 @@ part 'emscripten.dart';
 part 'lib.dart';
 part 'wasm.dart';
 
+// ===== EXTENSIONS =====
+part 'extensions/wasm/raymath/matrix/extension.dart';
+part 'extensions/flat/raymath/matrix/extension.dart';
+
+part 'extensions/wasm/raymath/quaternion/extension.dart';
+part 'extensions/flat/raymath/quaternion/extension.dart';
+
+part 'extensions/wasm/raymath/vector2/extension.dart';
+part 'extensions/flat/raymath/vector2/extension.dart';
+
+part 'extensions/wasm/raymath/vector3/extension.dart';
+part 'extensions/flat/raymath/vector3/extension.dart';
+
+part 'extensions/wasm/raymath/vector4/extension.dart';
+part 'extensions/flat/raymath/vector4/extension.dart';
+
 // ===== AUDIO MODULE =====
 part 'modules/wasm/audio/module.dart';
 

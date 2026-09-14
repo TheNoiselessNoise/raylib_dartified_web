@@ -4,31 +4,33 @@ class RaylibAudioFlat extends RaylibAudioFlatModule<Raylib> {
 
   RaylibAudioFlat(super.rl);
 
+  RaylibAudio get _wasm => rl.module();
+
   @override
-  void InitAudioDevice() => rl.Audio.InitAudioDevice.run();
+  void InitAudioDevice() => _wasm.InitAudioDevice.run();
   
   @override
-  void CloseAudioDevice() => rl.Audio.CloseAudioDevice.run();
+  void CloseAudioDevice() => _wasm.CloseAudioDevice.run();
   
   @override
-  bool IsAudioDeviceReady() => rl.Audio.IsAudioDeviceReady.run().toBool();
+  bool IsAudioDeviceReady() => _wasm.IsAudioDeviceReady.run().toBool();
   
   @override
   void SetMasterVolume(
     double volume,
-  ) => rl.Audio.SetMasterVolume.run([
+  ) => _wasm.SetMasterVolume.run([
     volume.toJS,
   ]);
   
   @override
-  double GetMasterVolume() => rl.Audio.GetMasterVolume.run().toDouble();
+  double GetMasterVolume() => _wasm.GetMasterVolume.run().toDouble();
   
   @override
   WaveD LoadWave(
     MemoryPointer<RChar> fileName,
   ) => rl.Temp.Wave$.RefCapture(
     RaylibCaptureIds.LoadWave,
-    (p) => rl.Audio.LoadWave.run([
+    (p) => _wasm.LoadWave.run([
       p.toJS,
       fileName.toJS,
     ]),
@@ -41,7 +43,7 @@ class RaylibAudioFlat extends RaylibAudioFlatModule<Raylib> {
     int dataSize,
   ) => rl.Temp.Wave$.RefCapture(
     RaylibCaptureIds.LoadWaveFromMemory,
-    (p) => rl.Audio.LoadWaveFromMemory.run([
+    (p) => _wasm.LoadWaveFromMemory.run([
       p.toJS,
       fileType.toJS,
       fileData.toJS,
@@ -52,7 +54,7 @@ class RaylibAudioFlat extends RaylibAudioFlatModule<Raylib> {
   @override
   bool IsWaveValid(
     WaveD wave,
-  ) => rl.Audio.IsWaveValid.run([
+  ) => _wasm.IsWaveValid.run([
     rl.Temp.Wave$.Ref1(wave).toJS,
   ]).toBool();
   
@@ -61,7 +63,7 @@ class RaylibAudioFlat extends RaylibAudioFlatModule<Raylib> {
     MemoryPointer<RChar> fileName,
   ) => rl.Temp.Sound$.RefCapture(
     RaylibCaptureIds.LoadSound,
-    (p) => rl.Audio.LoadSound.run([
+    (p) => _wasm.LoadSound.run([
       p.toJS,
       fileName.toJS,
     ]),
@@ -72,7 +74,7 @@ class RaylibAudioFlat extends RaylibAudioFlatModule<Raylib> {
     WaveD wave,
   ) => rl.Temp.Sound$.RefCapture(
     RaylibCaptureIds.LoadSoundFromWave,
-    (p) => rl.Audio.LoadSoundFromWave.run([
+    (p) => _wasm.LoadSoundFromWave.run([
       p.toJS,
       rl.Temp.Wave$.Ref1(wave).toJS,
     ]),
@@ -83,7 +85,7 @@ class RaylibAudioFlat extends RaylibAudioFlatModule<Raylib> {
     SoundD source,
   ) => rl.Temp.Sound$.RefCapture(
     RaylibCaptureIds.LoadSoundAlias,
-    (p) => rl.Audio.LoadSoundAlias.run([
+    (p) => _wasm.LoadSoundAlias.run([
       p.toJS,
       rl.Temp.Sound$.Ref1(source).toJS,
     ]),
@@ -92,7 +94,7 @@ class RaylibAudioFlat extends RaylibAudioFlatModule<Raylib> {
   @override
   bool IsSoundValid(
     SoundD sound,
-  ) => rl.Audio.IsSoundValid.run([
+  ) => _wasm.IsSoundValid.run([
     rl.Temp.Sound$.Ref1(sound).toJS,
   ]).toBool();
   
@@ -101,7 +103,7 @@ class RaylibAudioFlat extends RaylibAudioFlatModule<Raylib> {
     SoundD sound,
     MemoryPointer<RVoid> data,
     int sampleCount,
-  ) => rl.Audio.UpdateSound.run([
+  ) => _wasm.UpdateSound.run([
     rl.Temp.Sound$.Ref1(sound).toJS,
     data.toJS,
     sampleCount.toJS,
@@ -110,21 +112,21 @@ class RaylibAudioFlat extends RaylibAudioFlatModule<Raylib> {
   @override
   void UnloadWave(
     WaveD wave,
-  ) => rl.Audio.UnloadWave.run([
+  ) => _wasm.UnloadWave.run([
     rl.Temp.Wave$.Ref1(wave).toJS,
   ]);
   
   @override
   void UnloadSound(
     SoundD sound,
-  ) => rl.Audio.UnloadSound.run([
+  ) => _wasm.UnloadSound.run([
     rl.Temp.Sound$.Ref1(sound).toJS,
   ]);
   
   @override
   void UnloadSoundAlias(
     SoundD alias,
-  ) => rl.Audio.UnloadSoundAlias.run([
+  ) => _wasm.UnloadSoundAlias.run([
     rl.Temp.Sound$.Ref1(alias).toJS,
   ]);
   
@@ -132,7 +134,7 @@ class RaylibAudioFlat extends RaylibAudioFlatModule<Raylib> {
   bool ExportWave(
     WaveD wave,
     MemoryPointer<RChar> fileName,
-  ) => rl.Audio.ExportWave.run([
+  ) => _wasm.ExportWave.run([
     rl.Temp.Wave$.Ref1(wave).toJS,
     fileName.toJS,
   ]).toBool();
@@ -141,7 +143,7 @@ class RaylibAudioFlat extends RaylibAudioFlatModule<Raylib> {
   bool ExportWaveAsCode(
     WaveD wave,
     MemoryPointer<RChar> fileName,
-  ) => rl.Audio.ExportWaveAsCode.run([
+  ) => _wasm.ExportWaveAsCode.run([
     rl.Temp.Wave$.Ref1(wave).toJS,
     fileName.toJS,
   ]).toBool();
@@ -149,35 +151,35 @@ class RaylibAudioFlat extends RaylibAudioFlatModule<Raylib> {
   @override
   void PlaySound(
     SoundD sound,
-  ) => rl.Audio.PlaySound.run([
+  ) => _wasm.PlaySound.run([
     rl.Temp.Sound$.Ref1(sound).toJS,
   ]);
   
   @override
   void StopSound(
     SoundD sound,
-  ) => rl.Audio.StopSound.run([
+  ) => _wasm.StopSound.run([
     rl.Temp.Sound$.Ref1(sound).toJS,
   ]);
   
   @override
   void PauseSound(
     SoundD sound,
-  ) => rl.Audio.PauseSound.run([
+  ) => _wasm.PauseSound.run([
     rl.Temp.Sound$.Ref1(sound).toJS,
   ]);
   
   @override
   void ResumeSound(
     SoundD sound,
-  ) => rl.Audio.ResumeSound.run([
+  ) => _wasm.ResumeSound.run([
     rl.Temp.Sound$.Ref1(sound).toJS,
   ]);
   
   @override
   bool IsSoundPlaying(
     SoundD sound,
-  ) => rl.Audio.IsSoundPlaying.run([
+  ) => _wasm.IsSoundPlaying.run([
     rl.Temp.Sound$.Ref1(sound).toJS,
   ]).toBool();
   
@@ -185,7 +187,7 @@ class RaylibAudioFlat extends RaylibAudioFlatModule<Raylib> {
   void SetSoundVolume(
     SoundD sound,
     double volume,
-  ) => rl.Audio.SetSoundVolume.run([
+  ) => _wasm.SetSoundVolume.run([
     rl.Temp.Sound$.Ref1(sound).toJS,
     volume.toJS,
   ]);
@@ -194,7 +196,7 @@ class RaylibAudioFlat extends RaylibAudioFlatModule<Raylib> {
   void SetSoundPitch(
     SoundD sound,
     double pitch,
-  ) => rl.Audio.SetSoundPitch.run([
+  ) => _wasm.SetSoundPitch.run([
     rl.Temp.Sound$.Ref1(sound).toJS,
     pitch.toJS,
   ]);
@@ -203,7 +205,7 @@ class RaylibAudioFlat extends RaylibAudioFlatModule<Raylib> {
   void SetSoundPan(
     SoundD sound,
     double pan,
-  ) => rl.Audio.SetSoundPan.run([
+  ) => _wasm.SetSoundPan.run([
     rl.Temp.Sound$.Ref1(sound).toJS,
     pan.toJS,
   ]);
@@ -213,7 +215,7 @@ class RaylibAudioFlat extends RaylibAudioFlatModule<Raylib> {
     WaveD wave,
   ) => rl.Temp.Wave$.RefCapture(
     RaylibCaptureIds.WaveCopy,
-    (p) => rl.Audio.WaveCopy.run([
+    (p) => _wasm.WaveCopy.run([
       p.toJS,
       rl.Temp.Wave$.Ref1(wave).toJS,
     ]),
@@ -224,7 +226,7 @@ class RaylibAudioFlat extends RaylibAudioFlatModule<Raylib> {
     StructPointer<WaveD> wave,
     int initFrame,
     int finalFrame,
-  ) => rl.Audio.WaveCrop.run([
+  ) => _wasm.WaveCrop.run([
     wave.toJS,
     initFrame.toJS,
     finalFrame.toJS,
@@ -236,7 +238,7 @@ class RaylibAudioFlat extends RaylibAudioFlatModule<Raylib> {
     int sampleRate,
     int sampleSize,
     int channels,
-  ) => rl.Audio.WaveFormat.run([
+  ) => _wasm.WaveFormat.run([
     wave.toJS,
     sampleRate.toJS,
     sampleSize.toJS,
@@ -246,14 +248,14 @@ class RaylibAudioFlat extends RaylibAudioFlatModule<Raylib> {
   @override
   WasmMemoryPointer<RFloat32> LoadWaveSamples(
     WaveD wave,
-  ) => rl.Audio.LoadWaveSamples.run([
+  ) => _wasm.LoadWaveSamples.run([
     rl.Temp.Wave$.Ref1(wave).toJS,
   ]).asMemoryPointer();
   
   @override
   void UnloadWaveSamples(
     MemoryPointer<RFloat32> samples,
-  ) => rl.Audio.UnloadWaveSamples.run([
+  ) => _wasm.UnloadWaveSamples.run([
     samples.toJS,
   ]);
   
@@ -262,7 +264,7 @@ class RaylibAudioFlat extends RaylibAudioFlatModule<Raylib> {
     MemoryPointer<RChar> fileName,
   ) => rl.Temp.Music$.RefCapture(
     RaylibCaptureIds.LoadMusicStream,
-    (p) => rl.Audio.LoadMusicStream.run([
+    (p) => _wasm.LoadMusicStream.run([
       p.toJS,
       fileName.toJS,
     ]),
@@ -275,7 +277,7 @@ class RaylibAudioFlat extends RaylibAudioFlatModule<Raylib> {
     int dataSize,
   ) => rl.Temp.Music$.RefCapture(
     RaylibCaptureIds.LoadMusicStreamFromMemory,
-    (p) => rl.Audio.LoadMusicStreamFromMemory.run([
+    (p) => _wasm.LoadMusicStreamFromMemory.run([
       p.toJS,
       fileType.toJS,
       data.toJS,
@@ -286,56 +288,56 @@ class RaylibAudioFlat extends RaylibAudioFlatModule<Raylib> {
   @override
   bool IsMusicValid(
     MusicD music,
-  ) => rl.Audio.IsMusicValid.run([
+  ) => _wasm.IsMusicValid.run([
     rl.Temp.Music$.Ref1(music).toJS,
   ]).toBool();
   
   @override
   void UnloadMusicStream(
     MusicD music,
-  ) => rl.Audio.UnloadMusicStream.run([
+  ) => _wasm.UnloadMusicStream.run([
     rl.Temp.Music$.Ref1(music).toJS,
   ]);
   
   @override
   void PlayMusicStream(
     MusicD music,
-  ) => rl.Audio.PlayMusicStream.run([
+  ) => _wasm.PlayMusicStream.run([
     rl.Temp.Music$.Ref1(music).toJS,
   ]);
   
   @override
   bool IsMusicStreamPlaying(
     MusicD music,
-  ) => rl.Audio.IsMusicStreamPlaying.run([
+  ) => _wasm.IsMusicStreamPlaying.run([
     rl.Temp.Music$.Ref1(music).toJS,
   ]).toBool();
   
   @override
   void UpdateMusicStream(
     MusicD music,
-  ) => rl.Audio.UpdateMusicStream.run([
+  ) => _wasm.UpdateMusicStream.run([
     rl.Temp.Music$.Ref1(music).toJS,
   ]);
   
   @override
   void StopMusicStream(
     MusicD music,
-  ) => rl.Audio.StopMusicStream.run([
+  ) => _wasm.StopMusicStream.run([
     rl.Temp.Music$.Ref1(music).toJS,
   ]);
   
   @override
   void PauseMusicStream(
     MusicD music,
-  ) => rl.Audio.PauseMusicStream.run([
+  ) => _wasm.PauseMusicStream.run([
     rl.Temp.Music$.Ref1(music).toJS,
   ]);
   
   @override
   void ResumeMusicStream(
     MusicD music,
-  ) => rl.Audio.ResumeMusicStream.run([
+  ) => _wasm.ResumeMusicStream.run([
     rl.Temp.Music$.Ref1(music).toJS,
   ]);
   
@@ -343,7 +345,7 @@ class RaylibAudioFlat extends RaylibAudioFlatModule<Raylib> {
   void SeekMusicStream(
     MusicD music,
     double position,
-  ) => rl.Audio.SeekMusicStream.run([
+  ) => _wasm.SeekMusicStream.run([
     rl.Temp.Music$.Ref1(music).toJS,
     position.toJS,
   ]);
@@ -352,7 +354,7 @@ class RaylibAudioFlat extends RaylibAudioFlatModule<Raylib> {
   void SetMusicVolume(
     MusicD music,
     double volume,
-  ) => rl.Audio.SetMusicVolume.run([
+  ) => _wasm.SetMusicVolume.run([
     rl.Temp.Music$.Ref1(music).toJS,
     volume.toJS,
   ]);
@@ -361,7 +363,7 @@ class RaylibAudioFlat extends RaylibAudioFlatModule<Raylib> {
   void SetMusicPitch(
     MusicD music,
     double pitch,
-  ) => rl.Audio.SetMusicPitch.run([
+  ) => _wasm.SetMusicPitch.run([
     rl.Temp.Music$.Ref1(music).toJS,
     pitch.toJS,
   ]);
@@ -370,7 +372,7 @@ class RaylibAudioFlat extends RaylibAudioFlatModule<Raylib> {
   void SetMusicPan(
     MusicD music,
     double pan,
-  ) => rl.Audio.SetMusicPan.run([
+  ) => _wasm.SetMusicPan.run([
     rl.Temp.Music$.Ref1(music).toJS,
     pan.toJS,
   ]);
@@ -378,14 +380,14 @@ class RaylibAudioFlat extends RaylibAudioFlatModule<Raylib> {
   @override
   double GetMusicTimeLength(
     MusicD music,
-  ) => rl.Audio.GetMusicTimeLength.run([
+  ) => _wasm.GetMusicTimeLength.run([
     rl.Temp.Music$.Ref1(music).toJS,
   ]).toDouble();
   
   @override
   double GetMusicTimePlayed(
     MusicD music,
-  ) => rl.Audio.GetMusicTimePlayed.run([
+  ) => _wasm.GetMusicTimePlayed.run([
     rl.Temp.Music$.Ref1(music).toJS,
   ]).toDouble();
   
@@ -396,7 +398,7 @@ class RaylibAudioFlat extends RaylibAudioFlatModule<Raylib> {
     int channels
   ) => rl.Temp.AudioStream$.RefCapture(
     RaylibCaptureIds.LoadAudioStream,
-    (p) => rl.Audio.LoadAudioStream.run([
+    (p) => _wasm.LoadAudioStream.run([
       p.toJS,
       sampleRate.toJS,
       sampleSize.toJS,
@@ -407,14 +409,14 @@ class RaylibAudioFlat extends RaylibAudioFlatModule<Raylib> {
   @override
   bool IsAudioStreamValid(
     AudioStreamD stream,
-  ) => rl.Audio.IsAudioStreamValid.run([
+  ) => _wasm.IsAudioStreamValid.run([
     rl.Temp.AudioStream$.Ref1(stream).toJS,
   ]).toBool();
   
   @override
   void UnloadAudioStream(
     AudioStreamD stream,
-  ) => rl.Audio.IsAudioStreamValid.run([
+  ) => _wasm.IsAudioStreamValid.run([
     rl.Temp.AudioStream$.Ref1(stream).toJS,
   ]);
   
@@ -423,7 +425,7 @@ class RaylibAudioFlat extends RaylibAudioFlatModule<Raylib> {
     AudioStreamD stream,
     MemoryPointer<RVoid> data,
     int frameCount,
-  ) => rl.Audio.UpdateAudioStream.run([
+  ) => _wasm.UpdateAudioStream.run([
     rl.Temp.AudioStream$.Ref1(stream).toJS,
     data.toJS,
     frameCount.toJS,
@@ -432,42 +434,42 @@ class RaylibAudioFlat extends RaylibAudioFlatModule<Raylib> {
   @override
   bool IsAudioStreamProcessed(
     AudioStreamD stream,
-  ) => rl.Audio.IsAudioStreamProcessed.run([
+  ) => _wasm.IsAudioStreamProcessed.run([
     rl.Temp.AudioStream$.Ref1(stream).toJS,
   ]).toBool();
   
   @override
   void PlayAudioStream(
     AudioStreamD stream,
-  ) => rl.Audio.PlayAudioStream.run([
+  ) => _wasm.PlayAudioStream.run([
     rl.Temp.AudioStream$.Ref1(stream).toJS,
   ]);
   
   @override
   void PauseAudioStream(
     AudioStreamD stream,
-  ) => rl.Audio.PauseAudioStream.run([
+  ) => _wasm.PauseAudioStream.run([
     rl.Temp.AudioStream$.Ref1(stream).toJS,
   ]);
   
   @override
   void ResumeAudioStream(
     AudioStreamD stream,
-  ) => rl.Audio.ResumeAudioStream.run([
+  ) => _wasm.ResumeAudioStream.run([
     rl.Temp.AudioStream$.Ref1(stream).toJS,
   ]);
   
   @override
   bool IsAudioStreamPlaying(
     AudioStreamD stream,
-  ) => rl.Audio.IsAudioStreamPlaying.run([
+  ) => _wasm.IsAudioStreamPlaying.run([
     rl.Temp.AudioStream$.Ref1(stream).toJS,
   ]).toBool();
   
   @override
   void StopAudioStream(
     AudioStreamD stream,
-  ) => rl.Audio.StopAudioStream.run([
+  ) => _wasm.StopAudioStream.run([
     rl.Temp.AudioStream$.Ref1(stream).toJS,
   ]);
   
@@ -475,7 +477,7 @@ class RaylibAudioFlat extends RaylibAudioFlatModule<Raylib> {
   void SetAudioStreamVolume(
     AudioStreamD stream,
     double volume,
-  ) => rl.Audio.SetAudioStreamVolume.run([
+  ) => _wasm.SetAudioStreamVolume.run([
     rl.Temp.AudioStream$.Ref1(stream).toJS,
     volume.toJS,
   ]);
@@ -484,7 +486,7 @@ class RaylibAudioFlat extends RaylibAudioFlatModule<Raylib> {
   void SetAudioStreamPitch(
     AudioStreamD stream,
     double pitch,
-  ) => rl.Audio.SetAudioStreamPitch.run([
+  ) => _wasm.SetAudioStreamPitch.run([
     rl.Temp.AudioStream$.Ref1(stream).toJS,
     pitch.toJS,
   ]);
@@ -493,7 +495,7 @@ class RaylibAudioFlat extends RaylibAudioFlatModule<Raylib> {
   void SetAudioStreamPan(
     AudioStreamD stream,
     double pan,
-  ) => rl.Audio.SetAudioStreamPan.run([
+  ) => _wasm.SetAudioStreamPan.run([
     rl.Temp.AudioStream$.Ref1(stream).toJS,
     pan.toJS,
   ]);
@@ -501,7 +503,7 @@ class RaylibAudioFlat extends RaylibAudioFlatModule<Raylib> {
   @override
   void SetAudioStreamBufferSizeDefault(
     int size,
-  ) => rl.Audio.SetAudioStreamBufferSizeDefault.run([
+  ) => _wasm.SetAudioStreamBufferSizeDefault.run([
     size.toJS,
   ]);
   
@@ -509,7 +511,7 @@ class RaylibAudioFlat extends RaylibAudioFlatModule<Raylib> {
   void SetAudioStreamCallback(
     AudioStreamD stream,
     MemoryPointer<RFunction> callback, // AudioCallback
-  ) => rl.Audio.SetAudioStreamCallback.run([
+  ) => _wasm.SetAudioStreamCallback.run([
     rl.Temp.AudioStream$.Ref1(stream).toJS,
     callback.toJS,
   ]);
@@ -518,7 +520,7 @@ class RaylibAudioFlat extends RaylibAudioFlatModule<Raylib> {
   void AttachAudioStreamProcessor(
     AudioStreamD stream,
     MemoryPointer<RFunction> processor, // AudioCallback
-  ) => rl.Audio.AttachAudioStreamProcessor.run([
+  ) => _wasm.AttachAudioStreamProcessor.run([
     rl.Temp.AudioStream$.Ref1(stream).toJS,
     processor.toJS,
   ]);
@@ -527,7 +529,7 @@ class RaylibAudioFlat extends RaylibAudioFlatModule<Raylib> {
   void DetachAudioStreamProcessor(
     AudioStreamD stream,
     MemoryPointer<RFunction> processor, // AudioCallback
-  ) => rl.Audio.DetachAudioStreamProcessor.run([
+  ) => _wasm.DetachAudioStreamProcessor.run([
     rl.Temp.AudioStream$.Ref1(stream).toJS,
     processor.toJS,
   ]);
@@ -535,14 +537,14 @@ class RaylibAudioFlat extends RaylibAudioFlatModule<Raylib> {
   @override
   void AttachAudioMixedProcessor(
     MemoryPointer<RFunction> processor, // AudioCallback
-  ) => rl.Audio.AttachAudioMixedProcessor.run([
+  ) => _wasm.AttachAudioMixedProcessor.run([
     processor.toJS,
   ]);
   
   @override
   void DetachAudioMixedProcessor(
     MemoryPointer<RFunction> processor, // AudioCallback
-  ) => rl.Audio.DetachAudioMixedProcessor.run([
+  ) => _wasm.DetachAudioMixedProcessor.run([
     processor.toJS,
   ]);
 }

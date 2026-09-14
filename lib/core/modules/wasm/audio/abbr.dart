@@ -1,7 +1,7 @@
 import 'dart:js_interop';
 import 'package:raylib_dartified_web/raylib_dartified_web.dart';
 
-RaylibAudio get _module => Raylib.instance.Audio;
+RaylibAudio get _module => Raylib.instance.module();
 
 /// See [RaylibAudio.InitAudioDevice].
 JSFunction get InitAudioDevice => _module.InitAudioDevice;

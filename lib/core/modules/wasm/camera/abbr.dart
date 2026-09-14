@@ -1,7 +1,7 @@
 import 'dart:js_interop';
 import 'package:raylib_dartified_web/raylib_dartified_web.dart';
 
-RaylibCamera get _module => Raylib.instance.Camera;
+RaylibCamera get _module => Raylib.instance.module();
 
 /// See [RaylibCamera.GetCameraForward].
 JSFunction get GetCameraForward => _module.GetCameraForward;

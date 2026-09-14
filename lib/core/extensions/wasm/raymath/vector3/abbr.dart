@@ -1,0 +1,83 @@
+import 'dart:js_interop';
+import 'package:raylib_dartified_web/raylib_dartified_web.dart';
+
+RaylibVector3Ext get _module => Raylib.instance.module();
+
+/// See [RaylibVector3Ext.Vector3Add].
+JSFunction get Vector3Add => _module.Vector3Add;
+/// See [RaylibVector3Ext.Vector3AddValue].
+JSFunction get Vector3AddValue => _module.Vector3AddValue;
+/// See [RaylibVector3Ext.Vector3Angle].
+JSFunction get Vector3Angle => _module.Vector3Angle;
+/// See [RaylibVector3Ext.Vector3Barycenter].
+JSFunction get Vector3Barycenter => _module.Vector3Barycenter;
+/// See [RaylibVector3Ext.Vector3Clamp].
+JSFunction get Vector3Clamp => _module.Vector3Clamp;
+/// See [RaylibVector3Ext.Vector3ClampValue].
+JSFunction get Vector3ClampValue => _module.Vector3ClampValue;
+/// See [RaylibVector3Ext.Vector3CrossProduct].
+JSFunction get Vector3CrossProduct => _module.Vector3CrossProduct;
+/// See [RaylibVector3Ext.Vector3CubicHermite].
+JSFunction get Vector3CubicHermite => _module.Vector3CubicHermite;
+/// See [RaylibVector3Ext.Vector3Distance].
+JSFunction get Vector3Distance => _module.Vector3Distance;
+/// See [RaylibVector3Ext.Vector3DistanceSqr].
+JSFunction get Vector3DistanceSqr => _module.Vector3DistanceSqr;
+/// See [RaylibVector3Ext.Vector3Divide].
+JSFunction get Vector3Divide => _module.Vector3Divide;
+/// See [RaylibVector3Ext.Vector3DotProduct].
+JSFunction get Vector3DotProduct => _module.Vector3DotProduct;
+/// See [RaylibVector3Ext.Vector3Equals].
+JSFunction get Vector3Equals => _module.Vector3Equals;
+/// See [RaylibVector3Ext.Vector3Invert].
+JSFunction get Vector3Invert => _module.Vector3Invert;
+/// See [RaylibVector3Ext.Vector3Length].
+JSFunction get Vector3Length => _module.Vector3Length;
+/// See [RaylibVector3Ext.Vector3LengthSqr].
+JSFunction get Vector3LengthSqr => _module.Vector3LengthSqr;
+/// See [RaylibVector3Ext.Vector3Lerp].
+JSFunction get Vector3Lerp => _module.Vector3Lerp;
+/// See [RaylibVector3Ext.Vector3Max].
+JSFunction get Vector3Max => _module.Vector3Max;
+/// See [RaylibVector3Ext.Vector3Min].
+JSFunction get Vector3Min => _module.Vector3Min;
+/// See [RaylibVector3Ext.Vector3MoveTowards].
+JSFunction get Vector3MoveTowards => _module.Vector3MoveTowards;
+/// See [RaylibVector3Ext.Vector3Multiply].
+JSFunction get Vector3Multiply => _module.Vector3Multiply;
+/// See [RaylibVector3Ext.Vector3Negate].
+JSFunction get Vector3Negate => _module.Vector3Negate;
+/// See [RaylibVector3Ext.Vector3Normalize].
+JSFunction get Vector3Normalize => _module.Vector3Normalize;
+/// See [RaylibVector3Ext.Vector3One].
+JSFunction get Vector3One => _module.Vector3One;
+/// See [RaylibVector3Ext.Vector3OrthoNormalize].
+JSFunction get Vector3OrthoNormalize => _module.Vector3OrthoNormalize;
+/// See [RaylibVector3Ext.Vector3Perpendicular].
+JSFunction get Vector3Perpendicular => _module.Vector3Perpendicular;
+/// See [RaylibVector3Ext.Vector3Project].
+JSFunction get Vector3Project => _module.Vector3Project;
+/// See [RaylibVector3Ext.Vector3Reflect].
+JSFunction get Vector3Reflect => _module.Vector3Reflect;
+/// See [RaylibVector3Ext.Vector3Refract].
+JSFunction get Vector3Refract => _module.Vector3Refract;
+/// See [RaylibVector3Ext.Vector3Reject].
+JSFunction get Vector3Reject => _module.Vector3Reject;
+/// See [RaylibVector3Ext.Vector3RotateByAxisAngle].
+JSFunction get Vector3RotateByAxisAngle => _module.Vector3RotateByAxisAngle;
+/// See [RaylibVector3Ext.Vector3RotateByQuaternion].
+JSFunction get Vector3RotateByQuaternion => _module.Vector3RotateByQuaternion;
+/// See [RaylibVector3Ext.Vector3Scale].
+JSFunction get Vector3Scale => _module.Vector3Scale;
+/// See [RaylibVector3Ext.Vector3Subtract].
+JSFunction get Vector3Subtract => _module.Vector3Subtract;
+/// See [RaylibVector3Ext.Vector3SubtractValue].
+JSFunction get Vector3SubtractValue => _module.Vector3SubtractValue;
+/// See [RaylibVector3Ext.Vector3ToFloatV].
+JSFunction get Vector3ToFloatV => _module.Vector3ToFloatV;
+/// See [RaylibVector3Ext.Vector3Transform].
+JSFunction get Vector3Transform => _module.Vector3Transform;
+/// See [RaylibVector3Ext.Vector3Unproject].
+JSFunction get Vector3Unproject => _module.Vector3Unproject;
+/// See [RaylibVector3Ext.Vector3Zero].
+JSFunction get Vector3Zero => _module.Vector3Zero;

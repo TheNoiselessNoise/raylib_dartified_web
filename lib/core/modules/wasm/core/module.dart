@@ -1218,7 +1218,7 @@ class RaylibCore extends RaylibModuleWasm {
     FileTextFindIndex                = _module.dwrap('FileTextFindIndex',                n2, rn);
     FileExists                       = _module.dwrap('FileExists',                       n1, rn);
     DirectoryExists                  = _module.dwrap('DirectoryExists',                  n1, rn);
-    IsFileExtension                  = _module.dwrap('IsFileExtension',                  n2, rv);
+    IsFileExtension                  = _module.dwrap('IsFileExtension',                  n2, rn);
     GetFileLength                    = _module.dwrap('GetFileLength',                    n1, rn);
     GetFileExtension                 = _module.dwrap('GetFileExtension',                 n1, rn);
     GetFileName                      = _module.dwrap('GetFileName',                      n1, rn);
@@ -1239,7 +1239,7 @@ class RaylibCore extends RaylibModuleWasm {
     IsFileDropped                    = _module.dwrap('IsFileDropped',                    n0, rn);
     LoadDroppedFiles                 = _module.dwrap('LoadDroppedFiles',                 n1, rv);
     UnloadDroppedFiles               = _module.dwrap('UnloadDroppedFiles',               n1, rv);
-    GetFileModTime                   = _module.dwrap('GetFileModTime',                   n1, rv);
+    GetFileModTime                   = _module.dwrap('GetFileModTime',                   n1, rn);
     CompressData                     = _module.dwrap('CompressData',                     n3, rn);
     DecompressData                   = _module.dwrap('DecompressData',                   n3, rn);
     EncodeDataBase64                 = _module.dwrap('EncodeDataBase64',                 n3, rn);
@@ -1250,7 +1250,7 @@ class RaylibCore extends RaylibModuleWasm {
     ComputeSHA256                    = _module.dwrap('ComputeSHA256',                    n2, rn);
     LoadAutomationEventList          = _module.dwrap('LoadAutomationEventList',          n2, rv);
     UnloadAutomationEventList        = _module.dwrap('UnloadAutomationEventList',        n1, rv);
-    ExportAutomationEventList        = _module.dwrap('ExportAutomationEventList',        n2, rv);
+    ExportAutomationEventList        = _module.dwrap('ExportAutomationEventList',        n2, rn);
     SetAutomationEventList           = _module.dwrap('SetAutomationEventList',           n1, rv);
     SetAutomationEventBaseFrame      = _module.dwrap('SetAutomationEventBaseFrame',      n1, rv);
     StartAutomationEventRecording    = _module.dwrap('StartAutomationEventRecording',    n0, rv);
@@ -1511,7 +1511,7 @@ class RaylibCore extends RaylibModuleWasm {
     SetTextLineSpacing               = _module.dwrap('SetTextLineSpacing',               n1, rv);
     MeasureText                      = _module.dwrap('MeasureText',                      n2, rn);
     MeasureTextEx                    = _module.dwrap('MeasureTextEx',                    n5, rv);
-    MeasureTextCodepoints            = _module.dwrap('MeasureTextCodepoints',            n6, rn);
+    MeasureTextCodepoints            = _module.dwrap('MeasureTextCodepoints',            n6, rv);
     GetGlyphIndex                    = _module.dwrap('GetGlyphIndex',                    n2, rn);
     GetGlyphInfo                     = _module.dwrap('GetGlyphInfo',                     n3, rv);
     GetGlyphAtlasRec                 = _module.dwrap('GetGlyphAtlasRec',                 n3, rv);
@@ -1523,7 +1523,7 @@ class RaylibCore extends RaylibModuleWasm {
     GetCodepoint                     = _module.dwrap('GetCodepoint',                     n2, rn);
     GetCodepointNext                 = _module.dwrap('GetCodepointNext',                 n2, rn);
     GetCodepointPrevious             = _module.dwrap('GetCodepointPrevious',             n2, rn);
-    CodepointToUTF8                  = _module.dwrap('CodepointToUTF8',                  n2, rv);
+    CodepointToUTF8                  = _module.dwrap('CodepointToUTF8',                  n2, rn);
     LoadTextLines                    = _module.dwrap('LoadTextLines',                    n2, rn);
     UnloadTextLines                  = _module.dwrap('UnloadTextLines',                  n2, rv);
     TextCopy                         = _module.dwrap('TextCopy',                         n2, rn);
@@ -1583,7 +1583,6 @@ class RaylibCore extends RaylibModuleWasm {
     DrawBoundingBox                  = _module.dwrap('DrawBoundingBox',                  n2, rv);
     DrawBillboard                    = _module.dwrap('DrawBillboard',                    n5, rv);
     DrawBillboardRec                 = _module.dwrap('DrawBillboardRec',                 n6, rv);
-    DrawBillboardPro                 = _module.dwrap('DrawBillboardPro',                 n9, rv);
     UploadMesh                       = _module.dwrap('UploadMesh',                       n2, rv);
     UpdateMeshBuffer                 = _module.dwrap('UpdateMeshBuffer',                 n5, rv);
     UnloadMesh                       = _module.dwrap('UnloadMesh',                       n1, rv);

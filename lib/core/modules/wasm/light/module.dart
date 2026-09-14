@@ -1,6 +1,6 @@
 part of '../../../raylib_dartified_web.dart';
 
-class RaylibLight extends RaylibModuleWasm {
+class RaylibLight extends RaylibModuleWasm with RaylibLightModuleExtras<Raylib> {
   /// Create a light and get its shader locations
   late final JSFunction CreateLight;
   /// Send light properties to shader

@@ -1,7 +1,7 @@
 import 'dart:js_interop';
 import 'package:raylib_dartified_web/raylib_dartified_web.dart';
 
-RaylibCore get _module => Raylib.instance.Core;
+RaylibCore get _module => Raylib.instance.module();
 
 /// See [RaylibCore.InitWindow].
 JSFunction get InitWindow => _module.InitWindow;
