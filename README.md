@@ -220,8 +220,8 @@ import 'dart:js_interop';
 import 'package:raylib_dartified_web/abbr/wasm.dart';
 
 void main() => Raylib((_) {
-  InitWindow.run([800.toJS, 600.toJS, 'Title'.toC]);
-  SetTargetFPS.run([60.toJS]);
+  InitWindow(800.toJS, 600.toJS, 'Title'.toC);
+  SetTargetFPS(60.toJS);
 
   final ptr = WasmMemory.malloc(WasmSize.Int32);
   WasmMemory.writeInt32(ptr, 42);
