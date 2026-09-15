@@ -1427,8 +1427,8 @@ class RaylibCore extends RaylibModuleWasm {
     ImageColorContrast               = dwrap2('ImageColorContrast');
     ImageColorBrightness             = dwrap2('ImageColorBrightness');
     ImageColorReplace                = dwrap3('ImageColorReplace');
-    LoadImageColors                  = qwrap1('LoadImageColors', ColorD.pointer);
-    LoadImagePalette                 = qwrap3('LoadImagePalette', ColorD.pointer);
+    LoadImageColors                  = qwrap1('LoadImageColors');
+    LoadImagePalette                 = qwrap3('LoadImagePalette');
     UnloadImageColors                = dwrap1('UnloadImageColors');
     UnloadImagePalette               = dwrap1('UnloadImagePalette');
     GetImageAlphaBorder              = swrap2('GetImageAlphaBorder');
@@ -1497,7 +1497,7 @@ class RaylibCore extends RaylibModuleWasm {
     LoadFontFromImage                = swrap3('LoadFontFromImage');
     LoadFontFromMemory               = swrap6('LoadFontFromMemory');
     IsFontValid                      = dwrap1('IsFontValid');
-    LoadFontData                     = qwrap7('LoadFontData', GlyphInfoD.pointer);
+    LoadFontData                     = qwrap7('LoadFontData');
     GenImageFontAtlas                = swrap6('GenImageFontAtlas');
     UnloadFontData                   = dwrap2('UnloadFontData');
     UnloadFont                       = dwrap1('UnloadFont');
@@ -1604,13 +1604,13 @@ class RaylibCore extends RaylibModuleWasm {
     GenMeshKnot                      = swrap4('GenMeshKnot');
     GenMeshHeightmap                 = swrap2('GenMeshHeightmap');
     GenMeshCubicmap                  = swrap2('GenMeshCubicmap');
-    LoadMaterials                    = qwrap2('LoadMaterials', MaterialD.pointer);
+    LoadMaterials                    = qwrap2('LoadMaterials');
     LoadMaterialDefault              = swrap0('LoadMaterialDefault');
     IsMaterialValid                  = dwrap1('IsMaterialValid');
     UnloadMaterial                   = dwrap1('UnloadMaterial');
     SetMaterialTexture               = dwrap3('SetMaterialTexture');
     SetModelMeshMaterial             = dwrap3('SetModelMeshMaterial');
-    LoadModelAnimations              = qwrap2('LoadModelAnimations', ModelAnimationD.pointer);
+    LoadModelAnimations              = qwrap2('LoadModelAnimations');
     UpdateModelAnimation             = dwrap3('UpdateModelAnimation');
     UpdateModelAnimationEx           = dwrap6('UpdateModelAnimationEx');
     UnloadModelAnimations            = dwrap2('UnloadModelAnimations');

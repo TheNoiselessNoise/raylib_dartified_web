@@ -140,20 +140,24 @@ class Raylib extends RaylibBase {
   }
 }
 
+/// Runs [app] on the wasm raylib backend until it closes.
+///
+/// Set [silent] to suppress [Raylib]'s init/dispose log output.
+/// 
 /// [nativeLibPath] is ignored on the web backend.
-void runRaylib(RaylibAppBase<Raylib> game, {
+void runRaylib(RaylibAppBase<Raylib> app, {
   String? nativeLibPath,
   bool silent = false,
 }) => Raylib(silent: silent, (rl) {
-  game.init(rl);
+  app.init(rl);
   rl.setMainLoop(() async {
-    if (game.shouldClose(rl)) {
+    if (app.shouldClose(rl)) {
       rl.cancelMainLoop();
-      game.close(rl);
-      game.dispose(rl);
+      app.close(rl);
+      app.dispose(rl);
       return;
     } else {
-      await game.loop(rl);
+      await app.loop(rl);
     }
   });
 });

@@ -225,9 +225,10 @@ abstract class RaylibModuleWasm extends RaylibModule<Raylib> {
 
   /// Binds a `cwrap`ed C function taking `0` arguments and returning a
   /// struct pointer, wrapped as `StructPointer<X>`.
-  WF0<StructPointer<X>> qwrap0<X extends RaylibStruct<X>>(String name, StructPointerFactory<X> p) {
+  WF0<StructPointer<X>> qwrap0<X extends RaylibStruct<X>>(String name) {
     final f = _wn(name, 0);
-    return () => p(WasmMemoryPointer((f.run() as JSNumber).toDartInt));
+    final struct = StructTypes.of<X>();
+    return () => struct.ptr(WasmMemoryPointer((f.run() as JSNumber).toDartInt));
   }
 
   /// Binds a `cwrap`ed C function taking `1` argument and returning a plain
@@ -263,9 +264,10 @@ abstract class RaylibModuleWasm extends RaylibModule<Raylib> {
 
   /// Binds a `cwrap`ed C function taking `1` argument and returning a
   /// struct pointer, wrapped as `StructPointer<X>`.
-  WF1<StructPointer<X>> qwrap1<X extends RaylibStruct<X>>(String name, StructPointerFactory<X> p) {
+  WF1<StructPointer<X>> qwrap1<X extends RaylibStruct<X>>(String name) {
     final f = _wn(name, 1);
-    return (a1) => p(WasmMemoryPointer((f.run([a1]) as JSNumber).toDartInt));
+    final struct = StructTypes.of<X>();
+    return (a1) => struct.ptr(WasmMemoryPointer((f.run([a1]) as JSNumber).toDartInt));
   }
 
   /// Binds a `cwrap`ed C function taking `2` arguments and returning a plain
@@ -301,9 +303,10 @@ abstract class RaylibModuleWasm extends RaylibModule<Raylib> {
   
   /// Binds a `cwrap`ed C function taking `2` argument and returning a
   /// struct pointer, wrapped as `StructPointer<X>`.
-  WF2<StructPointer<X>> qwrap2<X extends RaylibStruct<X>>(String name, StructPointerFactory<X> p) {
+  WF2<StructPointer<X>> qwrap2<X extends RaylibStruct<X>>(String name) {
     final f = _wn(name, 2);
-    return (a1, a2) => p(WasmMemoryPointer((f.run([a1, a2]) as JSNumber).toDartInt));
+    final struct = StructTypes.of<X>();
+    return (a1, a2) => struct.ptr(WasmMemoryPointer((f.run([a1, a2]) as JSNumber).toDartInt));
   }
 
   /// Binds a `cwrap`ed C function taking `3` arguments and returning a plain
@@ -339,9 +342,10 @@ abstract class RaylibModuleWasm extends RaylibModule<Raylib> {
 
   /// Binds a `cwrap`ed C function taking `3` argument and returning a
   /// struct pointer, wrapped as `StructPointer<X>`.
-  WF3<StructPointer<X>> qwrap3<X extends RaylibStruct<X>>(String name, StructPointerFactory<X> p) {
+  WF3<StructPointer<X>> qwrap3<X extends RaylibStruct<X>>(String name) {
     final f = _wn(name, 3);
-    return (a1, a2, a3) => p(WasmMemoryPointer((f.run([a1, a2, a3]) as JSNumber).toDartInt));
+    final struct = StructTypes.of<X>();
+    return (a1, a2, a3) => struct.ptr(WasmMemoryPointer((f.run([a1, a2, a3]) as JSNumber).toDartInt));
   }
 
   /// Binds a `cwrap`ed C function taking `4` arguments and returning a plain
@@ -377,9 +381,10 @@ abstract class RaylibModuleWasm extends RaylibModule<Raylib> {
 
   /// Binds a `cwrap`ed C function taking `4` argument and returning a
   /// struct pointer, wrapped as `StructPointer<X>`.
-  WF4<StructPointer<X>> qwrap4<X extends RaylibStruct<X>>(String name, StructPointerFactory<X> p) {
+  WF4<StructPointer<X>> qwrap4<X extends RaylibStruct<X>>(String name) {
     final f = _wn(name, 4);
-    return (a1, a2, a3, a4) => p(WasmMemoryPointer((f.run([a1, a2, a3, a4]) as JSNumber).toDartInt));
+    final struct = StructTypes.of<X>();
+    return (a1, a2, a3, a4) => struct.ptr(WasmMemoryPointer((f.run([a1, a2, a3, a4]) as JSNumber).toDartInt));
   }
 
   /// Binds a `cwrap`ed C function taking `5` arguments and returning a plain
@@ -415,9 +420,10 @@ abstract class RaylibModuleWasm extends RaylibModule<Raylib> {
 
   /// Binds a `cwrap`ed C function taking `5` argument and returning a
   /// struct pointer, wrapped as `StructPointer<X>`.
-  WF5<StructPointer<X>> qwrap5<X extends RaylibStruct<X>>(String name, StructPointerFactory<X> p) {
+  WF5<StructPointer<X>> qwrap5<X extends RaylibStruct<X>>(String name) {
     final f = _wn(name, 5);
-    return (a1, a2, a3, a4, a5) => p(WasmMemoryPointer((f.run([a1, a2, a3, a4, a5]) as JSNumber).toDartInt));
+    final struct = StructTypes.of<X>();
+    return (a1, a2, a3, a4, a5) => struct.ptr(WasmMemoryPointer((f.run([a1, a2, a3, a4, a5]) as JSNumber).toDartInt));
   }
 
   /// Binds a `cwrap`ed C function taking `6` arguments and returning a plain
@@ -453,9 +459,10 @@ abstract class RaylibModuleWasm extends RaylibModule<Raylib> {
 
   /// Binds a `cwrap`ed C function taking `6` argument and returning a
   /// struct pointer, wrapped as `StructPointer<X>`.
-  WF6<StructPointer<X>> qwrap6<X extends RaylibStruct<X>>(String name, StructPointerFactory<X> p) {
+  WF6<StructPointer<X>> qwrap6<X extends RaylibStruct<X>>(String name) {
     final f = _wn(name, 6);
-    return (a1, a2, a3, a4, a5, a6) => p(WasmMemoryPointer((f.run([a1, a2, a3, a4, a5, a6]) as JSNumber).toDartInt));
+    final struct = StructTypes.of<X>();
+    return (a1, a2, a3, a4, a5, a6) => struct.ptr(WasmMemoryPointer((f.run([a1, a2, a3, a4, a5, a6]) as JSNumber).toDartInt));
   }
 
   /// Binds a `cwrap`ed C function taking `7` arguments and returning a plain
@@ -491,9 +498,10 @@ abstract class RaylibModuleWasm extends RaylibModule<Raylib> {
 
   /// Binds a `cwrap`ed C function taking `7` argument and returning a
   /// struct pointer, wrapped as `StructPointer<X>`.
-  WF7<StructPointer<X>> qwrap7<X extends RaylibStruct<X>>(String name, StructPointerFactory<X> p) {
+  WF7<StructPointer<X>> qwrap7<X extends RaylibStruct<X>>(String name) {
     final f = _wn(name, 7);
-    return (a1, a2, a3, a4, a5, a6, a7) => p(WasmMemoryPointer((f.run([a1, a2, a3, a4, a5, a6, a7]) as JSNumber).toDartInt));
+    final struct = StructTypes.of<X>();
+    return (a1, a2, a3, a4, a5, a6, a7) => struct.ptr(WasmMemoryPointer((f.run([a1, a2, a3, a4, a5, a6, a7]) as JSNumber).toDartInt));
   }
 
   /// Binds a `cwrap`ed C function taking `8` arguments and returning a plain
@@ -529,9 +537,10 @@ abstract class RaylibModuleWasm extends RaylibModule<Raylib> {
   
   /// Binds a `cwrap`ed C function taking `8` argument and returning a
   /// struct pointer, wrapped as `StructPointer<X>`.
-  WF8<StructPointer<X>> qwrap8<X extends RaylibStruct<X>>(String name, StructPointerFactory<X> p) {
+  WF8<StructPointer<X>> qwrap8<X extends RaylibStruct<X>>(String name) {
     final f = _wn(name, 8);
-    return (a1, a2, a3, a4, a5, a6, a7, a8) => p(WasmMemoryPointer((f.run([a1, a2, a3, a4, a5, a6, a7, a8]) as JSNumber).toDartInt));
+    final struct = StructTypes.of<X>();
+    return (a1, a2, a3, a4, a5, a6, a7, a8) => struct.ptr(WasmMemoryPointer((f.run([a1, a2, a3, a4, a5, a6, a7, a8]) as JSNumber).toDartInt));
   }
 
   /// Binds a `cwrap`ed C function taking `9` arguments and returning a plain
@@ -556,8 +565,9 @@ abstract class RaylibModuleWasm extends RaylibModule<Raylib> {
 
   /// Binds a `cwrap`ed C function taking `9` argument and returning a
   /// struct pointer, wrapped as `StructPointer<X>`.
-  WF9<StructPointer<X>> qwrap9<X extends RaylibStruct<X>>(String name, StructPointerFactory<X> p) {
+  WF9<StructPointer<X>> qwrap9<X extends RaylibStruct<X>>(String name) {
     final f = _wn(name, 9);
-    return (a1, a2, a3, a4, a5, a6, a7, a8, a9) => p(WasmMemoryPointer((f.run([a1, a2, a3, a4, a5, a6, a7, a8, a9]) as JSNumber).toDartInt));
+    final struct = StructTypes.of<X>();
+    return (a1, a2, a3, a4, a5, a6, a7, a8, a9) => struct.ptr(WasmMemoryPointer((f.run([a1, a2, a3, a4, a5, a6, a7, a8, a9]) as JSNumber).toDartInt));
   }
 }
