@@ -2,204 +2,204 @@ part of '../../../raylib_dartified_web.dart';
 
 class RaylibAudio extends RaylibModuleWasm {
   /// Initialize audio device and context
-  late final JSFunction InitAudioDevice;
+  late final WF0<void> InitAudioDevice;
   /// Close the audio device and context
-  late final JSFunction CloseAudioDevice;
+  late final WF0<void> CloseAudioDevice;
   /// Check if audio device has been initialized successfully
-  late final JSFunction IsAudioDeviceReady;
+  late final WF0<bool> IsAudioDeviceReady;
   /// Set master volume (listener)
-  late final JSFunction SetMasterVolume;
+  late final WF1<void> SetMasterVolume;
   /// Get master volume (listener)
-  late final JSFunction GetMasterVolume;
-  /// Load wave data from file
-  late final JSFunction LoadWave;
+  late final WF0<double> GetMasterVolume;
+  //// Load wave data from file
+  late final WF2<void> LoadWave;
   /// Load wave from memory buffer, fileType refers to extension: i.e. '.wav'
-  late final JSFunction LoadWaveFromMemory;
+  late final WF4<void> LoadWaveFromMemory;
   /// Checks if wave data is valid (data loaded and parameters)
-  late final JSFunction IsWaveValid;
+  late final WF1<bool> IsWaveValid;
   /// Load sound from file
-  late final JSFunction LoadSound;
+  late final WF2<void> LoadSound;
   /// Load sound from wave data
-  late final JSFunction LoadSoundFromWave;
+  late final WF2<void> LoadSoundFromWave;
   /// Create a new sound that shares the same sample data as the source sound, does not own the sound data
-  late final JSFunction LoadSoundAlias;
+  late final WF2<void> LoadSoundAlias;
   /// Checks if a sound is valid (data loaded and buffers initialized)
-  late final JSFunction IsSoundValid;
-  /// Update sound buffer with new data
-  late final JSFunction UpdateSound;
+  late final WF1<bool> IsSoundValid;
+  /// Update sound buffer with new data (default data format: 32 bit float, stereo)
+  late final WF3<void> UpdateSound;
   /// Unload wave data
-  late final JSFunction UnloadWave;
+  late final WF1<void> UnloadWave;
   /// Unload sound
-  late final JSFunction UnloadSound;
+  late final WF1<void> UnloadSound;
   /// Unload a sound alias (does not deallocate sample data)
-  late final JSFunction UnloadSoundAlias;
+  late final WF1<void> UnloadSoundAlias;
   /// Export wave data to file, returns true on success
-  late final JSFunction ExportWave;
+  late final WF2<bool> ExportWave;
   /// Export wave sample data to code (.h), returns true on success
-  late final JSFunction ExportWaveAsCode;
+  late final WF2<bool> ExportWaveAsCode;
   /// Play a sound
-  late final JSFunction PlaySound;
+  late final WF1<void> PlaySound;
   /// Stop playing a sound
-  late final JSFunction StopSound;
+  late final WF1<void> StopSound;
   /// Pause a sound
-  late final JSFunction PauseSound;
+  late final WF1<void> PauseSound;
   /// Resume a paused sound
-  late final JSFunction ResumeSound;
+  late final WF1<void> ResumeSound;
   /// Check if a sound is currently playing
-  late final JSFunction IsSoundPlaying;
+  late final WF1<bool> IsSoundPlaying;
   /// Set volume for a sound (1.0 is max level)
-  late final JSFunction SetSoundVolume;
+  late final WF2<void> SetSoundVolume;
   /// Set pitch for a sound (1.0 is base level)
-  late final JSFunction SetSoundPitch;
-  /// Set pan for a sound (0.5 is center)
-  late final JSFunction SetSoundPan;
+  late final WF2<void> SetSoundPitch;
+  /// Set pan for a sound (-1.0 left, 0.0 center, 1.0 right)
+  late final WF2<void> SetSoundPan;
   /// Copy a wave to a new wave
-  late final JSFunction WaveCopy;
+  late final WF2<void> WaveCopy;
   /// Crop a wave to defined frames range
-  late final JSFunction WaveCrop;
+  late final WF3<void> WaveCrop;
   /// Convert wave data to desired format
-  late final JSFunction WaveFormat;
+  late final WF4<void> WaveFormat;
   /// Load samples data from wave as a 32bit float data array
-  late final JSFunction LoadWaveSamples;
+  late final WF1<WasmMemoryPointer<RFloat>> LoadWaveSamples;
   /// Unload samples data loaded with LoadWaveSamples()
-  late final JSFunction UnloadWaveSamples;
+  late final WF1<void> UnloadWaveSamples;
   /// Load music stream from file
-  late final JSFunction LoadMusicStream;
+  late final WF2<void> LoadMusicStream;
   /// Load music stream from data
-  late final JSFunction LoadMusicStreamFromMemory;
+  late final WF4<void> LoadMusicStreamFromMemory;
   /// Checks if a music stream is valid (context and buffers initialized)
-  late final JSFunction IsMusicValid;
+  late final WF1<bool> IsMusicValid;
   /// Unload music stream
-  late final JSFunction UnloadMusicStream;
+  late final WF1<void> UnloadMusicStream;
   /// Start music playing
-  late final JSFunction PlayMusicStream;
+  late final WF1<void> PlayMusicStream;
   /// Check if music is playing
-  late final JSFunction IsMusicStreamPlaying;
+  late final WF1<bool> IsMusicStreamPlaying;
   /// Updates buffers for music streaming
-  late final JSFunction UpdateMusicStream;
+  late final WF1<void> UpdateMusicStream;
   /// Stop music playing
-  late final JSFunction StopMusicStream;
+  late final WF1<void> StopMusicStream;
   /// Pause music playing
-  late final JSFunction PauseMusicStream;
+  late final WF1<void> PauseMusicStream;
   /// Resume playing paused music
-  late final JSFunction ResumeMusicStream;
+  late final WF1<void> ResumeMusicStream;
   /// Seek music to a position (in seconds)
-  late final JSFunction SeekMusicStream;
+  late final WF2<void> SeekMusicStream;
   /// Set volume for music (1.0 is max level)
-  late final JSFunction SetMusicVolume;
+  late final WF2<void> SetMusicVolume;
   /// Set pitch for a music (1.0 is base level)
-  late final JSFunction SetMusicPitch;
+  late final WF2<void> SetMusicPitch;
   /// Set pan for a music (0.5 is center)
-  late final JSFunction SetMusicPan;
+  late final WF2<void> SetMusicPan;
   /// Get music time length (in seconds)
-  late final JSFunction GetMusicTimeLength;
+  late final WF1<double> GetMusicTimeLength;
   /// Get current music time played (in seconds)
-  late final JSFunction GetMusicTimePlayed;
+  late final WF1<double> GetMusicTimePlayed;
   /// Load audio stream (to stream raw audio pcm data)
-  late final JSFunction LoadAudioStream;
+  late final WF4<void> LoadAudioStream;
   /// Checks if an audio stream is valid (buffers initialized)
-  late final JSFunction IsAudioStreamValid;
+  late final WF1<bool> IsAudioStreamValid;
   /// Unload audio stream and free memory
-  late final JSFunction UnloadAudioStream;
+  late final WF1<void> UnloadAudioStream;
   /// Update audio stream buffers with data
-  late final JSFunction UpdateAudioStream;
+  late final WF3<void> UpdateAudioStream;
   /// Check if any audio stream buffers requires refill
-  late final JSFunction IsAudioStreamProcessed;
+  late final WF1<bool> IsAudioStreamProcessed;
   /// Play audio stream
-  late final JSFunction PlayAudioStream;
+  late final WF1<void> PlayAudioStream;
   /// Pause audio stream
-  late final JSFunction PauseAudioStream;
+  late final WF1<void> PauseAudioStream;
   /// Resume audio stream
-  late final JSFunction ResumeAudioStream;
+  late final WF1<void> ResumeAudioStream;
   /// Check if audio stream is playing
-  late final JSFunction IsAudioStreamPlaying;
+  late final WF1<bool> IsAudioStreamPlaying;
   /// Stop audio stream
-  late final JSFunction StopAudioStream;
+  late final WF1<void> StopAudioStream;
   /// Set volume for audio stream (1.0 is max level)
-  late final JSFunction SetAudioStreamVolume;
+  late final WF2<void> SetAudioStreamVolume;
   /// Set pitch for audio stream (1.0 is base level)
-  late final JSFunction SetAudioStreamPitch;
+  late final WF2<void> SetAudioStreamPitch;
   /// Set pan for audio stream (0.5 is centered)
-  late final JSFunction SetAudioStreamPan;
+  late final WF2<void> SetAudioStreamPan;
   /// Default size for new audio streams
-  late final JSFunction SetAudioStreamBufferSizeDefault;
+  late final WF1<void> SetAudioStreamBufferSizeDefault;
   /// Audio thread callback to request new data
-  late final JSFunction SetAudioStreamCallback;
+  late final WF2<void> SetAudioStreamCallback;
   /// Attach audio stream processor to stream, receives the samples as 'float'
-  late final JSFunction AttachAudioStreamProcessor;
+  late final WF2<void> AttachAudioStreamProcessor;
   /// Detach audio stream processor from stream
-  late final JSFunction DetachAudioStreamProcessor;
+  late final WF2<void> DetachAudioStreamProcessor;
   /// Attach audio stream processor to the entire audio pipeline, receives the samples as 'float'
-  late final JSFunction AttachAudioMixedProcessor;
+  late final WF1<void> AttachAudioMixedProcessor;
   /// Detach audio stream processor from the entire audio pipeline
-  late final JSFunction DetachAudioMixedProcessor;
+  late final WF1<void> DetachAudioMixedProcessor;
 
   RaylibAudio(super.rl) {
-    InitAudioDevice                 = _module.dwrap('InitAudioDevice',                 n0, rv);
-    CloseAudioDevice                = _module.dwrap('CloseAudioDevice',                n0, rv);
-    IsAudioDeviceReady              = _module.dwrap('IsAudioDeviceReady',              n0, rn);
-    SetMasterVolume                 = _module.dwrap('SetMasterVolume',                 n1, rv);
-    GetMasterVolume                 = _module.dwrap('GetMasterVolume',                 n0, rn);
-    LoadWave                        = _module.dwrap('LoadWave',                        n2, rv);
-    LoadWaveFromMemory              = _module.dwrap('LoadWaveFromMemory',              n4, rv);
-    IsWaveValid                     = _module.dwrap('IsWaveValid',                     n1, rn);
-    LoadSound                       = _module.dwrap('LoadSound',                       n2, rv);
-    LoadSoundFromWave               = _module.dwrap('LoadSoundFromWave',               n2, rv);
-    LoadSoundAlias                  = _module.dwrap('LoadSoundAlias',                  n2, rv);
-    IsSoundValid                    = _module.dwrap('IsSoundValid',                    n1, rn);
-    UpdateSound                     = _module.dwrap('UpdateSound',                     n3, rv);
-    UnloadWave                      = _module.dwrap('UnloadWave',                      n1, rv);
-    UnloadSound                     = _module.dwrap('UnloadSound',                     n1, rv);
-    UnloadSoundAlias                = _module.dwrap('UnloadSoundAlias',                n1, rv);
-    ExportWave                      = _module.dwrap('ExportWave',                      n2, rn);
-    ExportWaveAsCode                = _module.dwrap('ExportWaveAsCode',                n2, rn);
-    PlaySound                       = _module.dwrap('PlaySound',                       n1, rv);
-    StopSound                       = _module.dwrap('StopSound',                       n1, rv);
-    PauseSound                      = _module.dwrap('PauseSound',                      n1, rv);
-    ResumeSound                     = _module.dwrap('ResumeSound',                     n1, rv);
-    IsSoundPlaying                  = _module.dwrap('IsSoundPlaying',                  n1, rn);
-    SetSoundVolume                  = _module.dwrap('SetSoundVolume',                  n2, rv);
-    SetSoundPitch                   = _module.dwrap('SetSoundPitch',                   n2, rv);
-    SetSoundPan                     = _module.dwrap('SetSoundPan',                     n2, rv);
-    WaveCopy                        = _module.dwrap('WaveCopy',                        n2, rv);
-    WaveCrop                        = _module.dwrap('WaveCrop',                        n3, rv);
-    WaveFormat                      = _module.dwrap('WaveFormat',                      n4, rv);
-    LoadWaveSamples                 = _module.dwrap('LoadWaveSamples',                 n1, rn);
-    UnloadWaveSamples               = _module.dwrap('UnloadWaveSamples',               n1, rv);
-    LoadMusicStream                 = _module.dwrap('LoadMusicStream',                 n2, rv);
-    LoadMusicStreamFromMemory       = _module.dwrap('LoadMusicStreamFromMemory',       n4, rv);
-    IsMusicValid                    = _module.dwrap('IsMusicValid',                    n1, rn);
-    UnloadMusicStream               = _module.dwrap('UnloadMusicStream',               n1, rv);
-    PlayMusicStream                 = _module.dwrap('PlayMusicStream',                 n1, rv);
-    IsMusicStreamPlaying            = _module.dwrap('IsMusicStreamPlaying',            n1, rn);
-    UpdateMusicStream               = _module.dwrap('UpdateMusicStream',               n1, rv);
-    StopMusicStream                 = _module.dwrap('StopMusicStream',                 n1, rv);
-    PauseMusicStream                = _module.dwrap('PauseMusicStream',                n1, rv);
-    ResumeMusicStream               = _module.dwrap('ResumeMusicStream',               n1, rv);
-    SeekMusicStream                 = _module.dwrap('SeekMusicStream',                 n2, rv);
-    SetMusicVolume                  = _module.dwrap('SetMusicVolume',                  n2, rv);
-    SetMusicPitch                   = _module.dwrap('SetMusicPitch',                   n2, rv);
-    SetMusicPan                     = _module.dwrap('SetMusicPan',                     n2, rv);
-    GetMusicTimeLength              = _module.dwrap('GetMusicTimeLength',              n1, rn);
-    GetMusicTimePlayed              = _module.dwrap('GetMusicTimePlayed',              n1, rn);
-    LoadAudioStream                 = _module.dwrap('LoadAudioStream',                 n4, rv);
-    IsAudioStreamValid              = _module.dwrap('IsAudioStreamValid',              n1, rn);
-    UnloadAudioStream               = _module.dwrap('UnloadAudioStream',               n1, rv);
-    UpdateAudioStream               = _module.dwrap('UpdateAudioStream',               n3, rv);
-    IsAudioStreamProcessed          = _module.dwrap('IsAudioStreamProcessed',          n1, rn);
-    PlayAudioStream                 = _module.dwrap('PlayAudioStream',                 n1, rv);
-    PauseAudioStream                = _module.dwrap('PauseAudioStream',                n1, rv);
-    ResumeAudioStream               = _module.dwrap('ResumeAudioStream',               n1, rv);
-    IsAudioStreamPlaying            = _module.dwrap('IsAudioStreamPlaying',            n1, rn);
-    StopAudioStream                 = _module.dwrap('StopAudioStream',                 n1, rv);
-    SetAudioStreamVolume            = _module.dwrap('SetAudioStreamVolume',            n2, rv);
-    SetAudioStreamPitch             = _module.dwrap('SetAudioStreamPitch',             n2, rv);
-    SetAudioStreamPan               = _module.dwrap('SetAudioStreamPan',               n2, rv);
-    SetAudioStreamBufferSizeDefault = _module.dwrap('SetAudioStreamBufferSizeDefault', n1, rv);
-    SetAudioStreamCallback          = _module.dwrap('SetAudioStreamCallback',          n2, rv);
-    AttachAudioStreamProcessor      = _module.dwrap('AttachAudioStreamProcessor',      n2, rv);
-    DetachAudioStreamProcessor      = _module.dwrap('DetachAudioStreamProcessor',      n2, rv);
-    AttachAudioMixedProcessor       = _module.dwrap('AttachAudioMixedProcessor',       n1, rv);
-    DetachAudioMixedProcessor       = _module.dwrap('DetachAudioMixedProcessor',       n1, rv);
+    InitAudioDevice                 = dwrap0('InitAudioDevice');
+    CloseAudioDevice                = dwrap0('CloseAudioDevice');
+    IsAudioDeviceReady              = dwrap0('IsAudioDeviceReady');
+    SetMasterVolume                 = dwrap1('SetMasterVolume');
+    GetMasterVolume                 = dwrap0('GetMasterVolume');
+    LoadWave                        = swrap1('LoadWave');
+    LoadWaveFromMemory              = swrap3('LoadWaveFromMemory');
+    IsWaveValid                     = dwrap1('IsWaveValid');
+    LoadSound                       = swrap1('LoadSound');
+    LoadSoundFromWave               = swrap1('LoadSoundFromWave');
+    LoadSoundAlias                  = swrap1('LoadSoundAlias');
+    IsSoundValid                    = dwrap1('IsSoundValid');
+    UpdateSound                     = dwrap3('UpdateSound');
+    UnloadWave                      = dwrap1('UnloadWave');
+    UnloadSound                     = dwrap1('UnloadSound');
+    UnloadSoundAlias                = dwrap1('UnloadSoundAlias');
+    ExportWave                      = dwrap2('ExportWave');
+    ExportWaveAsCode                = dwrap2('ExportWaveAsCode');
+    PlaySound                       = dwrap1('PlaySound');
+    StopSound                       = dwrap1('StopSound');
+    PauseSound                      = dwrap1('PauseSound');
+    ResumeSound                     = dwrap1('ResumeSound');
+    IsSoundPlaying                  = dwrap1('IsSoundPlaying');
+    SetSoundVolume                  = dwrap2('SetSoundVolume');
+    SetSoundPitch                   = dwrap2('SetSoundPitch');
+    SetSoundPan                     = dwrap2('SetSoundPan');
+    WaveCopy                        = swrap1('WaveCopy');
+    WaveCrop                        = dwrap3('WaveCrop');
+    WaveFormat                      = dwrap4('WaveFormat');
+    LoadWaveSamples                 = pwrap1('LoadWaveSamples');
+    UnloadWaveSamples               = dwrap1('UnloadWaveSamples');
+    LoadMusicStream                 = swrap1('LoadMusicStream');
+    LoadMusicStreamFromMemory       = swrap3('LoadMusicStreamFromMemory');
+    IsMusicValid                    = dwrap1('IsMusicValid');
+    UnloadMusicStream               = dwrap1('UnloadMusicStream');
+    PlayMusicStream                 = dwrap1('PlayMusicStream');
+    IsMusicStreamPlaying            = dwrap1('IsMusicStreamPlaying');
+    UpdateMusicStream               = dwrap1('UpdateMusicStream');
+    StopMusicStream                 = dwrap1('StopMusicStream');
+    PauseMusicStream                = dwrap1('PauseMusicStream');
+    ResumeMusicStream               = dwrap1('ResumeMusicStream');
+    SeekMusicStream                 = dwrap2('SeekMusicStream');
+    SetMusicVolume                  = dwrap2('SetMusicVolume');
+    SetMusicPitch                   = dwrap2('SetMusicPitch');
+    SetMusicPan                     = dwrap2('SetMusicPan');
+    GetMusicTimeLength              = dwrap1('GetMusicTimeLength');
+    GetMusicTimePlayed              = dwrap1('GetMusicTimePlayed');
+    LoadAudioStream                 = swrap3('LoadAudioStream');
+    IsAudioStreamValid              = dwrap1('IsAudioStreamValid');
+    UnloadAudioStream               = dwrap1('UnloadAudioStream');
+    UpdateAudioStream               = dwrap3('UpdateAudioStream');
+    IsAudioStreamProcessed          = dwrap1('IsAudioStreamProcessed');
+    PlayAudioStream                 = dwrap1('PlayAudioStream');
+    PauseAudioStream                = dwrap1('PauseAudioStream');
+    ResumeAudioStream               = dwrap1('ResumeAudioStream');
+    IsAudioStreamPlaying            = dwrap1('IsAudioStreamPlaying');
+    StopAudioStream                 = dwrap1('StopAudioStream');
+    SetAudioStreamVolume            = dwrap2('SetAudioStreamVolume');
+    SetAudioStreamPitch             = dwrap2('SetAudioStreamPitch');
+    SetAudioStreamPan               = dwrap2('SetAudioStreamPan');
+    SetAudioStreamBufferSizeDefault = dwrap1('SetAudioStreamBufferSizeDefault');
+    SetAudioStreamCallback          = dwrap2('SetAudioStreamCallback');
+    AttachAudioStreamProcessor      = dwrap2('AttachAudioStreamProcessor');
+    DetachAudioStreamProcessor      = dwrap2('DetachAudioStreamProcessor');
+    AttachAudioMixedProcessor       = dwrap1('AttachAudioMixedProcessor');
+    DetachAudioMixedProcessor       = dwrap1('DetachAudioMixedProcessor');
   }
 }

@@ -9,29 +9,29 @@ class RaylibRlglFlat extends RaylibRlglFlatModule<Raylib> {
   @override
   void rlMatrixMode(
     int mode,
-  ) => _wasm.rlMatrixMode.run([
+  ) => _wasm.rlMatrixMode(
     mode.toJS,
-  ]);
+  );
 
   @override
-  void rlPushMatrix() => _wasm.rlPushMatrix.run();
+  void rlPushMatrix() => _wasm.rlPushMatrix();
 
   @override
-  void rlPopMatrix() => _wasm.rlPopMatrix.run();
+  void rlPopMatrix() => _wasm.rlPopMatrix();
 
   @override
-  void rlLoadIdentity() => _wasm.rlLoadIdentity.run();
+  void rlLoadIdentity() => _wasm.rlLoadIdentity();
 
   @override
   void rlTranslatef(
     double x,
     double y,
     double z,
-  ) => _wasm.rlTranslatef.run([
+  ) => _wasm.rlTranslatef(
     x.toJS,
     y.toJS,
     z.toJS,
-  ]);
+  );
 
   @override
   void rlRotatef(
@@ -39,30 +39,30 @@ class RaylibRlglFlat extends RaylibRlglFlatModule<Raylib> {
     double x,
     double y,
     double z,
-  ) => _wasm.rlRotatef.run([
+  ) => _wasm.rlRotatef(
     angle.toJS,
     x.toJS,
     y.toJS,
     z.toJS,
-  ]);
+  );
 
   @override
   void rlScalef(
     double x,
     double y,
     double z,
-  ) => _wasm.rlScalef.run([
+  ) => _wasm.rlScalef(
     x.toJS,
     y.toJS,
     z.toJS,
-  ]);
+  );
 
   @override
   void rlMultMatrixf(
     MemoryPointer<RFloat32> matf, 
-  ) => _wasm.rlMultMatrixf.run([
+  ) => _wasm.rlMultMatrixf(
     matf.toJS,
-  ]);
+  );
 
   @override
   void rlFrustum(
@@ -72,14 +72,14 @@ class RaylibRlglFlat extends RaylibRlglFlatModule<Raylib> {
     double top,
     double znear,
     double zfar,
-  ) => _wasm.rlFrustum.run([
+  ) => _wasm.rlFrustum(
     left.toJS,
     right.toJS,
     bottom.toJS,
     top.toJS,
     znear.toJS,
     zfar.toJS,
-  ]);
+  );
 
   @override
   void rlOrtho(
@@ -89,14 +89,14 @@ class RaylibRlglFlat extends RaylibRlglFlatModule<Raylib> {
     double top,
     double znear,
     double zfar,
-  ) => _wasm.rlOrtho.run([
+  ) => _wasm.rlOrtho(
     left.toJS,
     right.toJS,
     bottom.toJS,
     top.toJS,
     znear.toJS,
     zfar.toJS,
-  ]);
+  );
 
   @override
   void rlViewport(
@@ -104,86 +104,86 @@ class RaylibRlglFlat extends RaylibRlglFlatModule<Raylib> {
     int y,
     int width,
     int height,
-  ) => _wasm.rlViewport.run([
+  ) => _wasm.rlViewport(
     x.toJS,
     y.toJS,
     width.toJS,
     height.toJS,
-  ]);
+  );
 
   @override
   void rlSetClipPlanes(
     double nearPlane,
     double farPlane,
-  ) => _wasm.rlSetClipPlanes.run([
+  ) => _wasm.rlSetClipPlanes(
     nearPlane.toJS,
     farPlane.toJS,
-  ]);
+  );
 
   @override
-  double rlGetCullDistanceNear() => _wasm.rlGetCullDistanceNear.run().toDouble();
+  double rlGetCullDistanceNear() => _wasm.rlGetCullDistanceNear();
 
   @override
-  double rlGetCullDistanceFar() => _wasm.rlGetCullDistanceFar.run().toDouble();
+  double rlGetCullDistanceFar() => _wasm.rlGetCullDistanceFar();
 
   @override
   void rlBegin(
     int mode,
-  ) => _wasm.rlBegin.run([
+  ) => _wasm.rlBegin(
     mode.toJS,
-  ]);
+  );
 
   @override
-  void rlEnd() => _wasm.rlEnd.run();
+  void rlEnd() => _wasm.rlEnd();
 
   @override
   void rlVertex2i(
     int x,
     int y,
-  ) => _wasm.rlVertex2i.run([
+  ) => _wasm.rlVertex2i(
     x.toJS,
     y.toJS,
-  ]);
+  );
 
   @override
   void rlVertex2f(
     double x,
     double y,
-  ) => _wasm.rlVertex2f.run([
+  ) => _wasm.rlVertex2f(
     x.toJS,
     y.toJS,
-  ]);
+  );
 
   @override
   void rlVertex3f(
     double x,
     double y,
     double z
-  ) => _wasm.rlVertex3f.run([
+  ) => _wasm.rlVertex3f(
     x.toJS,
     y.toJS,
     z.toJS,
-  ]);
+  );
 
   @override
   void rlTexCoord2f(
     double x,
     double y,
-  ) => _wasm.rlTexCoord2f.run([
+  ) => _wasm.rlTexCoord2f(
     x.toJS,
     y.toJS,
-  ]);
+  );
 
   @override
   void rlNormal3f(
     double x,
     double y,
     double z,
-  ) => _wasm.rlNormal3f.run([
+  ) => _wasm.rlNormal3f(
     x.toJS,
     y.toJS,
     z.toJS,
-  ]);
+  );
 
   @override
   void rlColor4ub(
@@ -191,23 +191,23 @@ class RaylibRlglFlat extends RaylibRlglFlatModule<Raylib> {
     int g,
     int b,
     int a,
-  ) => _wasm.rlColor4ub.run([
+  ) => _wasm.rlColor4ub(
     r.toJS,
     g.toJS,
     b.toJS,
     a.toJS,
-  ]);
+  );
 
   @override
   void rlColor3f(
     double x,
     double y,
     double z,
-  ) => _wasm.rlColor3f.run([
+  ) => _wasm.rlColor3f(
     x.toJS,
     y.toJS,
     z.toJS,
-  ]);
+  );
 
   @override
   void rlColor4f(
@@ -215,151 +215,151 @@ class RaylibRlglFlat extends RaylibRlglFlatModule<Raylib> {
     double y,
     double z,
     double w,
-  ) => _wasm.rlColor4f.run([
+  ) => _wasm.rlColor4f(
     x.toJS,
     y.toJS,
     z.toJS,
     w.toJS,
-  ]);
+  );
 
   @override
   bool rlEnableVertexArray(
     int vaoId,
-  ) => _wasm.rlEnableVertexArray.run([
+  ) => _wasm.rlEnableVertexArray(
     vaoId.toJS,
-  ]).toBool();
+  );
 
   @override
-  void rlDisableVertexArray() => _wasm.rlDisableVertexArray.run();
+  void rlDisableVertexArray() => _wasm.rlDisableVertexArray();
 
   @override
   void rlEnableVertexBuffer(
     int id,
-  ) => _wasm.rlEnableVertexBuffer.run([
+  ) => _wasm.rlEnableVertexBuffer(
     id.toJS,
-  ]);
+  );
 
   @override
-  void rlDisableVertexBuffer() => _wasm.rlDisableVertexBuffer.run();
+  void rlDisableVertexBuffer() => _wasm.rlDisableVertexBuffer();
 
   @override
   void rlEnableVertexBufferElement(
     int id,
-  ) => _wasm.rlEnableVertexBufferElement.run([
+  ) => _wasm.rlEnableVertexBufferElement(
     id.toJS,
-  ]);
+  );
 
   @override
-  void rlDisableVertexBufferElement() => _wasm.rlDisableVertexBufferElement.run();
+  void rlDisableVertexBufferElement() => _wasm.rlDisableVertexBufferElement();
 
   @override
   void rlEnableVertexAttribute(
     int index,
-  ) => _wasm.rlEnableVertexAttribute.run([
+  ) => _wasm.rlEnableVertexAttribute(
     index.toJS,
-  ]);
+  );
 
   @override
   void rlDisableVertexAttribute(
     int index,
-  ) => _wasm.rlDisableVertexAttribute.run([
+  ) => _wasm.rlDisableVertexAttribute(
     index.toJS,
-  ]);
+  );
 
   @override
   void rlEnableStatePointer(
     int vertexAttribType,
     MemoryPointer<RVoid> buffer,
-  ) => _wasm.rlEnableStatePointer.run([
+  ) => _wasm.rlEnableStatePointer(
     vertexAttribType.toJS,
     buffer.toJS,
-  ]);
+  );
 
   @override
   void rlDisableStatePointer(
     int vertexAttribType,
-  ) => _wasm.rlDisableStatePointer.run([
+  ) => _wasm.rlDisableStatePointer(
     vertexAttribType.toJS,
-  ]);
+  );
 
   @override
   void rlActiveTextureSlot(
     int slot,
-  ) => _wasm.rlActiveTextureSlot.run([
+  ) => _wasm.rlActiveTextureSlot(
     slot.toJS,
-  ]);
+  );
 
   @override
   void rlEnableTexture(
     int id,
-  ) => _wasm.rlEnableTexture.run([
+  ) => _wasm.rlEnableTexture(
     id.toJS,
-  ]);
+  );
 
   @override
-  void rlDisableTexture() => _wasm.rlDisableTexture.run();
+  void rlDisableTexture() => _wasm.rlDisableTexture();
 
   @override
   void rlEnableTextureCubemap(
     int id,
-  ) => _wasm.rlEnableTextureCubemap.run([
+  ) => _wasm.rlEnableTextureCubemap(
     id.toJS,
-  ]);
+  );
 
   @override
-  void rlDisableTextureCubemap() => _wasm.rlDisableTextureCubemap.run();
+  void rlDisableTextureCubemap() => _wasm.rlDisableTextureCubemap();
 
   @override
   void rlTextureParameters(
     int id,
     int param,
     int value,
-  ) => _wasm.rlTextureParameters.run([
+  ) => _wasm.rlTextureParameters(
     id.toJS,
     param.toJS,
     value.toJS,
-  ]);
+  );
 
   @override
   void rlCubemapParameters(
     int id,
     int param,
     int value,
-  ) => _wasm.rlCubemapParameters.run([
+  ) => _wasm.rlCubemapParameters(
     id.toJS,
     param.toJS,
     value.toJS,
-  ]);
+  );
 
   @override
   void rlEnableShader(
     int id,
-  ) => _wasm.rlEnableShader.run([
+  ) => _wasm.rlEnableShader(
     id.toJS,
-  ]);
+  );
 
   @override
-  void rlDisableShader() => _wasm.rlDisableShader.run();
+  void rlDisableShader() => _wasm.rlDisableShader();
 
   @override
   void rlEnableFramebuffer(
     int id,
-  ) => _wasm.rlEnableFramebuffer.run([
+  ) => _wasm.rlEnableFramebuffer(
     id.toJS,
-  ]);
+  );
 
   @override
-  void rlDisableFramebuffer() => _wasm.rlDisableFramebuffer.run();
+  void rlDisableFramebuffer() => _wasm.rlDisableFramebuffer();
 
   @override
-  int rlGetActiveFramebuffer() => _wasm.rlGetActiveFramebuffer.run().toInt();
+  int rlGetActiveFramebuffer() => _wasm.rlGetActiveFramebuffer();
 
   @override
   void rlActiveDrawBuffers(
     int count,
-  ) => _wasm.rlActiveDrawBuffers.run([
+  ) => _wasm.rlActiveDrawBuffers(
     count.toJS,
-  ]);
+  );
 
   @override
   void rlBlitFramebuffer(
@@ -372,7 +372,7 @@ class RaylibRlglFlat extends RaylibRlglFlatModule<Raylib> {
     int dstWidth,
     int dstHeight,
     int bufferMask,
-  ) => _wasm.rlBlitFramebuffer.run([
+  ) => _wasm.rlBlitFramebuffer(
     srcX.toJS,
     srcY.toJS,
     srcWidth.toJS,
@@ -382,40 +382,40 @@ class RaylibRlglFlat extends RaylibRlglFlatModule<Raylib> {
     dstWidth.toJS,
     dstHeight.toJS,
     bufferMask.toJS,
-  ]);
+  );
 
   @override
   void rlBindFramebuffer(
     int target,
     int framebuffer,
-  ) => _wasm.rlBindFramebuffer.run([
+  ) => _wasm.rlBindFramebuffer(
     target.toJS,
     framebuffer.toJS,
-  ]);
+  );
 
   @override
-  void rlEnableColorBlend() => _wasm.rlEnableColorBlend.run();
+  void rlEnableColorBlend() => _wasm.rlEnableColorBlend();
 
   @override
-  void rlDisableColorBlend() => _wasm.rlDisableColorBlend.run();
+  void rlDisableColorBlend() => _wasm.rlDisableColorBlend();
 
   @override
-  void rlEnableDepthTest() => _wasm.rlEnableDepthTest.run();
+  void rlEnableDepthTest() => _wasm.rlEnableDepthTest();
 
   @override
-  void rlDisableDepthTest() => _wasm.rlDisableDepthTest.run();
+  void rlDisableDepthTest() => _wasm.rlDisableDepthTest();
 
   @override
-  void rlEnableDepthMask() => _wasm.rlEnableDepthMask.run();
+  void rlEnableDepthMask() => _wasm.rlEnableDepthMask();
 
   @override
-  void rlDisableDepthMask() => _wasm.rlDisableDepthMask.run();
+  void rlDisableDepthMask() => _wasm.rlDisableDepthMask();
 
   @override
-  void rlEnableBackfaceCulling() => _wasm.rlEnableBackfaceCulling.run();
+  void rlEnableBackfaceCulling() => _wasm.rlEnableBackfaceCulling();
 
   @override
-  void rlDisableBackfaceCulling() => _wasm.rlDisableBackfaceCulling.run();
+  void rlDisableBackfaceCulling() => _wasm.rlDisableBackfaceCulling();
 
   @override
   void rlColorMask(
@@ -423,25 +423,25 @@ class RaylibRlglFlat extends RaylibRlglFlatModule<Raylib> {
     bool g,
     bool b,
     bool a,
-  ) => _wasm.rlColorMask.run([
+  ) => _wasm.rlColorMask(
     r.toJS,
     g.toJS,
     b.toJS,
     a.toJS,
-  ]);
+  );
 
   @override
   void rlSetCullFace(
     int mode,
-  ) => _wasm.rlSetCullFace.run([
+  ) => _wasm.rlSetCullFace(
     mode.toJS,
-  ]);
+  );
 
   @override
-  void rlEnableScissorTest() => _wasm.rlEnableScissorTest.run();
+  void rlEnableScissorTest() => _wasm.rlEnableScissorTest();
 
   @override
-  void rlDisableScissorTest() => _wasm.rlDisableScissorTest.run();
+  void rlDisableScissorTest() => _wasm.rlDisableScissorTest();
 
   @override
   void rlScissor(
@@ -449,59 +449,59 @@ class RaylibRlglFlat extends RaylibRlglFlatModule<Raylib> {
     int y,
     int width,
     int height,
-  ) => _wasm.rlScissor.run([
+  ) => _wasm.rlScissor(
     x.toJS,
     y.toJS,
     width.toJS,
     height.toJS,
-  ]);
+  );
 
   @override
-  void rlEnablePointMode() => _wasm.rlEnablePointMode.run();
+  void rlEnablePointMode() => _wasm.rlEnablePointMode();
 
   @override
-  void rlDisablePointMode() => _wasm.rlDisablePointMode.run();
+  void rlDisablePointMode() => _wasm.rlDisablePointMode();
 
   @override
   void rlSetPointSize(
     double size,
-  ) => _wasm.rlSetPointSize.run([
+  ) => _wasm.rlSetPointSize(
     size.toJS,
-  ]);
+  );
 
   @override
-  double rlGetPointSize() => _wasm.rlGetPointSize.run().toDouble();
+  double rlGetPointSize() => _wasm.rlGetPointSize();
 
   @override
-  void rlEnableWireMode() => _wasm.rlEnableWireMode.run();
+  void rlEnableWireMode() => _wasm.rlEnableWireMode();
 
   @override
-  void rlDisableWireMode() => _wasm.rlDisableWireMode.run();
+  void rlDisableWireMode() => _wasm.rlDisableWireMode();
 
   @override
   void rlSetLineWidth(
     double width,
-  ) => _wasm.rlSetLineWidth.run([
+  ) => _wasm.rlSetLineWidth(
     width.toJS,
-  ]);
+  );
 
   @override
-  double rlGetLineWidth() => _wasm.rlGetLineWidth.run().toDouble();
+  double rlGetLineWidth() => _wasm.rlGetLineWidth();
 
   @override
-  void rlEnableSmoothLines() => _wasm.rlEnableSmoothLines.run();
+  void rlEnableSmoothLines() => _wasm.rlEnableSmoothLines();
 
   @override
-  void rlDisableSmoothLines() => _wasm.rlDisableSmoothLines.run();
+  void rlDisableSmoothLines() => _wasm.rlDisableSmoothLines();
 
   @override
-  void rlEnableStereoRender() => _wasm.rlEnableStereoRender.run();
+  void rlEnableStereoRender() => _wasm.rlEnableStereoRender();
 
   @override
-  void rlDisableStereoRender() => _wasm.rlDisableStereoRender.run();
+  void rlDisableStereoRender() => _wasm.rlDisableStereoRender();
 
   @override
-  bool rlIsStereoRenderEnabled() => _wasm.rlIsStereoRenderEnabled.run().toBool();
+  bool rlIsStereoRenderEnabled() => _wasm.rlIsStereoRenderEnabled();
 
   @override
   void rlClearColor(
@@ -509,36 +509,36 @@ class RaylibRlglFlat extends RaylibRlglFlatModule<Raylib> {
     int g,
     int b,
     int a,
-  ) => _wasm.rlClearColor.run([
+  ) => _wasm.rlClearColor(
     r.toJS,
     g.toJS,
     b.toJS,
     a.toJS,
-  ]);
+  );
 
   @override
-  void rlClearScreenBuffers() => _wasm.rlClearScreenBuffers.run();
+  void rlClearScreenBuffers() => _wasm.rlClearScreenBuffers();
 
   @override
-  void rlCheckErrors() => _wasm.rlCheckErrors.run();
+  void rlCheckErrors() => _wasm.rlCheckErrors();
 
   @override
   void rlSetBlendMode(
     int mode,
-  ) => _wasm.rlSetBlendMode.run([
+  ) => _wasm.rlSetBlendMode(
     mode.toJS,
-  ]);
+  );
 
   @override
   void rlSetBlendFactors(
     int glSrcFactor,
     int glDstFactor,
     int glEquation,
-  ) => _wasm.rlSetBlendFactors.run([
+  ) => _wasm.rlSetBlendFactors(
     glSrcFactor.toJS,
     glDstFactor.toJS,
     glEquation.toJS,
-  ]);
+  );
 
   @override
   void rlSetBlendFactorsSeparate(
@@ -548,72 +548,72 @@ class RaylibRlglFlat extends RaylibRlglFlatModule<Raylib> {
     int glDstAlpha,
     int glEqRGB,
     int glEqAlpha,
-  ) => _wasm.rlSetBlendFactorsSeparate.run([
+  ) => _wasm.rlSetBlendFactorsSeparate(
     glSrcRGB.toJS,
     glDstRGB.toJS,
     glSrcAlpha.toJS,
     glDstAlpha.toJS,
     glEqRGB.toJS,
     glEqAlpha.toJS,
-  ]);
+  );
 
   @override
   void rlglInit(
     int width,
     int height,
-  ) => _wasm.rlglInit.run([
+  ) => _wasm.rlglInit(
     width.toJS,
     height.toJS,
-  ]);
+  );
 
   @override
-  void rlglClose() => _wasm.rlglClose.run();
+  void rlglClose() => _wasm.rlglClose();
 
   @override
   void rlLoadExtensions(
     MemoryPointer<RVoid> loader,
-  ) => _wasm.rlLoadExtensions.run([
+  ) => _wasm.rlLoadExtensions(
     loader.toJS,
-  ]);
+  );
 
   @override
   WasmMemoryPointer<RVoid> rlGetProcAddress(
     MemoryPointer<RChar> procName,
-  ) => _wasm.rlGetProcAddress.run([
+  ) => _wasm.rlGetProcAddress(
     procName.toJS,
-  ]).asMemoryPointer();
+  );
 
   @override
-  int rlGetVersion() => _wasm.rlGetVersion.run().toInt();
+  int rlGetVersion() => _wasm.rlGetVersion();
 
   @override
   void rlSetFramebufferWidth(
     int width,
-  ) => _wasm.rlSetFramebufferWidth.run([
+  ) => _wasm.rlSetFramebufferWidth(
     width.toJS,
-  ]);
+  );
 
   @override
-  int rlGetFramebufferWidth() => _wasm.rlGetFramebufferWidth.run().toInt();
+  int rlGetFramebufferWidth() => _wasm.rlGetFramebufferWidth();
 
   @override
   void rlSetFramebufferHeight(
     int height,
-  ) => _wasm.rlSetFramebufferHeight.run([
+  ) => _wasm.rlSetFramebufferHeight(
     height.toJS,
-  ]);
+  );
 
   @override
-  int rlGetFramebufferHeight() => _wasm.rlGetFramebufferHeight.run().toInt();
+  int rlGetFramebufferHeight() => _wasm.rlGetFramebufferHeight();
 
   @override
-  int rlGetTextureIdDefault() => _wasm.rlGetTextureIdDefault.run().toInt();
+  int rlGetTextureIdDefault() => _wasm.rlGetTextureIdDefault();
 
   @override
-  int rlGetShaderIdDefault() => _wasm.rlGetShaderIdDefault.run().toInt();
+  int rlGetShaderIdDefault() => _wasm.rlGetShaderIdDefault();
 
   @override
-  WasmMemoryPointer<RInt> rlGetShaderLocsDefault() => _wasm.rlGetShaderLocsDefault.run().asMemoryPointer();
+  WasmMemoryPointer<RInt> rlGetShaderLocsDefault() => _wasm.rlGetShaderLocsDefault();
 
   @override
   RlRenderBatchD rlLoadRenderBatch(
@@ -621,75 +621,75 @@ class RaylibRlglFlat extends RaylibRlglFlatModule<Raylib> {
     int bufferElements,
   ) => rl.Temp.RlRenderBatch$.RefCapture(
     RaylibCaptureIds.rlLoadRenderBatch,
-    (p) => _wasm.rlLoadRenderBatch.run([
+    (p) => _wasm.rlLoadRenderBatch(
       p.toJS,
       numBuffers.toJS,
       bufferElements.toJS,
-    ]),
+    ),
   );
 
   @override
   void rlUnloadRenderBatch(
     RlRenderBatchD batch,
-  ) => _wasm.rlUnloadRenderBatch.run([
+  ) => _wasm.rlUnloadRenderBatch(
     rl.Temp.RlRenderBatch$.Ref1(batch).toJS,
-  ]);
+  );
 
   @override
   void rlDrawRenderBatch(
     StructPointer<RlRenderBatchD> batch,
-  ) => _wasm.rlDrawRenderBatch.run([
+  ) => _wasm.rlDrawRenderBatch(
     batch.toJS,
-  ]);
+  );
 
   @override
   void rlSetRenderBatchActive(
     StructPointer<RlRenderBatchD> batch,
-  ) => _wasm.rlSetRenderBatchActive.run([
+  ) => _wasm.rlSetRenderBatchActive(
     batch.toJS,
-  ]);
+  );
 
   @override
-  void rlDrawRenderBatchActive() => _wasm.rlDrawRenderBatchActive.run();
+  void rlDrawRenderBatchActive() => _wasm.rlDrawRenderBatchActive();
 
   @override
   bool rlCheckRenderBatchLimit(
     int vCount,
-  ) => _wasm.rlCheckRenderBatchLimit.run([
+  ) => _wasm.rlCheckRenderBatchLimit(
     vCount.toJS,
-  ]).toBool();
+  );
 
   @override
   void rlSetTexture(
     int id,
-  ) => _wasm.rlSetTexture.run([
+  ) => _wasm.rlSetTexture(
     id.toJS,
-  ]);
+  );
 
   @override
-  int rlLoadVertexArray() => _wasm.rlLoadVertexArray.run().toInt();
+  int rlLoadVertexArray() => _wasm.rlLoadVertexArray();
 
   @override
   int rlLoadVertexBuffer(
     MemoryPointer<RVoid> buffer,
     int size,
     bool dynamic,
-  ) => _wasm.rlLoadVertexBuffer.run([
+  ) => _wasm.rlLoadVertexBuffer(
     buffer.toJS,
     size.toJS,
     dynamic.toJS,
-  ]).toInt();
+  );
 
   @override
   int rlLoadVertexBufferElement(
     MemoryPointer<RVoid> buffer,
     int size,
     bool dynamic,
-  ) => _wasm.rlLoadVertexBufferElement.run([
+  ) => _wasm.rlLoadVertexBufferElement(
     buffer.toJS,
     size.toJS,
     dynamic.toJS,
-  ]).toInt();
+  );
 
   @override
   void rlUpdateVertexBuffer(
@@ -697,12 +697,12 @@ class RaylibRlglFlat extends RaylibRlglFlatModule<Raylib> {
     MemoryPointer<RVoid> data,
     int dataSize,
     int offset,
-  ) => _wasm.rlUpdateVertexBuffer.run([
+  ) => _wasm.rlUpdateVertexBuffer(
     bufferId.toJS,
     data.toJS,
     dataSize.toJS,
     offset.toJS,
-  ]);
+  );
 
   @override
   void rlUpdateVertexBufferElements(
@@ -710,26 +710,26 @@ class RaylibRlglFlat extends RaylibRlglFlatModule<Raylib> {
     MemoryPointer<RVoid> data,
     int dataSize,
     int offset,
-  ) => _wasm.rlUpdateVertexBufferElements.run([
+  ) => _wasm.rlUpdateVertexBufferElements(
     id.toJS,
     data.toJS,
     dataSize.toJS,
     offset.toJS,
-  ]);
+  );
 
   @override
   void rlUnloadVertexArray(
     int vaoId,
-  ) => _wasm.rlUnloadVertexArray.run([
+  ) => _wasm.rlUnloadVertexArray(
     vaoId.toJS,
-  ]);
+  );
 
   @override
   void rlUnloadVertexBuffer(
     int vboId,
-  ) => _wasm.rlUnloadVertexBuffer.run([
+  ) => _wasm.rlUnloadVertexBuffer(
     vboId.toJS,
-  ]);
+  );
 
   @override
   void rlSetVertexAttribute(
@@ -739,23 +739,23 @@ class RaylibRlglFlat extends RaylibRlglFlatModule<Raylib> {
     bool normalized,
     int stride,
     int offset,
-  ) => _wasm.rlSetVertexAttribute.run([
+  ) => _wasm.rlSetVertexAttribute(
     index.toJS,
     compSize.toJS,
     type.toJS,
     normalized.toJS,
     stride.toJS,
     offset.toJS,
-  ]);
+  );
 
   @override
   void rlSetVertexAttributeDivisor(
     int index,
     int divisor,
-  ) => _wasm.rlSetVertexAttributeDivisor.run([
+  ) => _wasm.rlSetVertexAttributeDivisor(
     index.toJS,
     divisor.toJS,
-  ]);
+  );
 
   @override
   void rlSetVertexAttributeDefault(
@@ -763,43 +763,43 @@ class RaylibRlglFlat extends RaylibRlglFlatModule<Raylib> {
     MemoryPointer<RVoid> value,
     int attribType,
     int count,
-  ) => _wasm.rlSetVertexAttributeDefault.run([
+  ) => _wasm.rlSetVertexAttributeDefault(
     locIndex.toJS,
     value.toJS,
     attribType.toJS,
     count.toJS,
-  ]);
+  );
 
   @override
   void rlDrawVertexArray(
     int offset,
     int count,
-  ) => _wasm.rlDrawVertexArray.run([
+  ) => _wasm.rlDrawVertexArray(
     offset.toJS,
     count.toJS,
-  ]);
+  );
 
   @override
   void rlDrawVertexArrayElements(
     int offset,
     int count,
     MemoryPointer<RVoid> buffer,
-  ) => _wasm.rlDrawVertexArrayElements.run([
+  ) => _wasm.rlDrawVertexArrayElements(
     offset.toJS,
     count.toJS,
     buffer.toJS,
-  ]);
+  );
 
   @override
   void rlDrawVertexArrayInstanced(
     int offset,
     int count,
     int instances,
-  ) => _wasm.rlDrawVertexArrayInstanced.run([
+  ) => _wasm.rlDrawVertexArrayInstanced(
     offset.toJS,
     count.toJS,
     instances.toJS,
-  ]);
+  );
 
   @override
   void rlDrawVertexArrayElementsInstanced(
@@ -807,12 +807,12 @@ class RaylibRlglFlat extends RaylibRlglFlatModule<Raylib> {
     int count,
     MemoryPointer<RVoid> buffer,
     int instances,
-  ) => _wasm.rlDrawVertexArrayElementsInstanced.run([
+  ) => _wasm.rlDrawVertexArrayElementsInstanced(
     offset.toJS,
     count.toJS,
     buffer.toJS,
     instances.toJS,
-  ]);
+  );
 
   @override
   int rlLoadTexture(
@@ -821,24 +821,24 @@ class RaylibRlglFlat extends RaylibRlglFlatModule<Raylib> {
     int height,
     int format,
     int mipmapCount,
-  ) => _wasm.rlLoadTexture.run([
+  ) => _wasm.rlLoadTexture(
     data.toJS,
     width.toJS,
     height.toJS,
     format.toJS,
     mipmapCount.toJS,
-  ]).toInt();
+  );
 
   @override
   int rlLoadTextureDepth(
     int width,
     int height,
     bool useRenderBuffer,
-  ) => _wasm.rlLoadTextureDepth.run([
+  ) => _wasm.rlLoadTextureDepth(
     width.toJS,
     height.toJS,
     useRenderBuffer.toJS,
-  ]).toInt();
+  );
 
   @override
   int rlLoadTextureCubemap(
@@ -846,12 +846,12 @@ class RaylibRlglFlat extends RaylibRlglFlatModule<Raylib> {
     int size,
     int format,
     int mipmapCount,
-  ) => _wasm.rlLoadTextureCubemap.run([
+  ) => _wasm.rlLoadTextureCubemap(
     data.toJS,
     size.toJS,
     format.toJS,
     mipmapCount.toJS,
-  ]).toInt();
+  );
 
   @override
   void rlUpdateTexture(
@@ -862,7 +862,7 @@ class RaylibRlglFlat extends RaylibRlglFlatModule<Raylib> {
     int height,
     int format,
     MemoryPointer<RVoid> data,
-  ) => _wasm.rlUpdateTexture.run([
+  ) => _wasm.rlUpdateTexture(
     id.toJS,
     offsetX.toJS,
     offsetY.toJS,
@@ -870,7 +870,7 @@ class RaylibRlglFlat extends RaylibRlglFlatModule<Raylib> {
     height.toJS,
     format.toJS,
     data.toJS,
-  ]);
+  );
 
   @override
   void rlGetGlTextureFormats(
@@ -878,26 +878,26 @@ class RaylibRlglFlat extends RaylibRlglFlatModule<Raylib> {
     MemoryPointer<RUnsignedInt> glInternalFormat,
     MemoryPointer<RUnsignedInt> glFormat,
     MemoryPointer<RUnsignedInt> glType,
-  ) => _wasm.rlGetGlTextureFormats.run([
+  ) => _wasm.rlGetGlTextureFormats(
     format.toJS,
     glInternalFormat.toJS,
     glFormat.toJS,
     glType.toJS,
-  ]);
+  );
 
   @override
   WasmMemoryPointer<RChar> rlGetPixelFormatName(
     int format,
-  ) => _wasm.rlGetPixelFormatName.run([
+  ) => _wasm.rlGetPixelFormatName(
     format.toJS,
-  ]).asMemoryPointer();
+  );
 
   @override
   void rlUnloadTexture(
     int id,
-  ) => _wasm.rlUnloadTexture.run([
+  ) => _wasm.rlUnloadTexture(
     id.toJS,
-  ]);
+  );
 
   @override
   void rlGenTextureMipmaps(
@@ -906,13 +906,13 @@ class RaylibRlglFlat extends RaylibRlglFlatModule<Raylib> {
     int height,
     int format,
     MemoryPointer<RInt> mipmaps,
-  ) => _wasm.rlGenTextureMipmaps.run([
+  ) => _wasm.rlGenTextureMipmaps(
     id.toJS,
     width.toJS,
     height.toJS,
     format.toJS,
     mipmaps.toJS, 
-  ]);
+  );
 
   @override
   WasmMemoryPointer<RVoid> rlReadTexturePixels(
@@ -920,24 +920,24 @@ class RaylibRlglFlat extends RaylibRlglFlatModule<Raylib> {
     int width,
     int height,
     int format,
-  ) => _wasm.rlReadTexturePixels.run([
+  ) => _wasm.rlReadTexturePixels(
     id.toJS,
     width.toJS,
     height.toJS,
     format.toJS,
-  ]).asMemoryPointer();
+  );
 
   @override
   WasmMemoryPointer<RUnsignedChar> rlReadScreenPixels(
     int width,
     int height,
-  ) => _wasm.rlReadScreenPixels.run([
+  ) => _wasm.rlReadScreenPixels(
     width.toJS,
     height.toJS,
-  ]).asMemoryPointer();
+  );
 
   @override
-  int rlLoadFramebuffer() => _wasm.rlLoadFramebuffer.run().toInt();
+  int rlLoadFramebuffer() => _wasm.rlLoadFramebuffer();
 
   @override
   void rlFramebufferAttach(
@@ -946,27 +946,27 @@ class RaylibRlglFlat extends RaylibRlglFlatModule<Raylib> {
     int attachType,
     int texType,
     int mipLevel,
-  ) => _wasm.rlFramebufferAttach.run([
+  ) => _wasm.rlFramebufferAttach(
     fboId.toJS,
     texId.toJS,
     attachType.toJS,
     texType.toJS,
     mipLevel.toJS,
-  ]);
+  );
 
   @override
   bool rlFramebufferComplete(
     int id,
-  ) => _wasm.rlFramebufferComplete.run([
+  ) => _wasm.rlFramebufferComplete(
     id.toJS,
-  ]).toBool();
+  );
 
   @override
   void rlUnloadFramebuffer(
     int id,
-  ) => _wasm.rlUnloadFramebuffer.run([
+  ) => _wasm.rlUnloadFramebuffer(
     id.toJS,
-  ]).toBool();
+  );
 
   @override
   void rlCopyFramebuffer(
@@ -976,89 +976,89 @@ class RaylibRlglFlat extends RaylibRlglFlatModule<Raylib> {
     int height,
     int format,
     MemoryPointer<RVoid> pixels,
-  ) => _wasm.rlCopyFramebuffer.run([
+  ) => _wasm.rlCopyFramebuffer(
     x.toJS,
     y.toJS,
     width.toJS,
     height.toJS,
     format.toJS,
     pixels.toJS,
-  ]);
+  );
 
   @override
   void rlResizeFramebuffer(
     int width,
     int height,
-  ) => _wasm.rlResizeFramebuffer.run([
+  ) => _wasm.rlResizeFramebuffer(
     width.toJS,
     height.toJS,
-  ]);
+  );
 
   @override
   int rlLoadShader(
     MemoryPointer<RChar> code,
     int type,
-  ) => _wasm.rlLoadShader.run([
+  ) => _wasm.rlLoadShader(
     code.toJS,
     type.toJS,
-  ]).toInt();
+  );
 
   @override
   int rlLoadShaderProgram(
     MemoryPointer<RChar> vsCode,
     MemoryPointer<RChar> fsCode,
-  ) => _wasm.rlLoadShaderProgram.run([
+  ) => _wasm.rlLoadShaderProgram(
     vsCode.toJS,
     fsCode.toJS,
-  ]).toInt();
+  );
 
   @override
   int rlLoadShaderProgramEx(
     int vsId,
     int fsId,
-  ) => _wasm.rlLoadShaderProgramEx.run([
+  ) => _wasm.rlLoadShaderProgramEx(
     vsId.toJS,
     fsId.toJS,
-  ]).toInt();
+  );
 
   @override
   int rlLoadShaderProgramCompute(
     int csId,
-  ) => _wasm.rlLoadShaderProgramCompute.run([
+  ) => _wasm.rlLoadShaderProgramCompute(
     csId.toJS,
-  ]).toInt();
+  );
 
   @override
   void rlUnloadShader(
     int id,
-  ) => _wasm.rlUnloadShader.run([
+  ) => _wasm.rlUnloadShader(
     id.toJS,
-  ]);
+  );
 
   @override
   void rlUnloadShaderProgram(
     int id,
-  ) => _wasm.rlUnloadShaderProgram.run([
+  ) => _wasm.rlUnloadShaderProgram(
     id.toJS,
-  ]);
+  );
 
   @override
   int rlGetLocationUniform(
     int shaderId,
     MemoryPointer<RChar> uniformName,
-  ) => _wasm.rlGetLocationUniform.run([
+  ) => _wasm.rlGetLocationUniform(
     shaderId.toJS,
     uniformName.toJS,
-  ]).toInt();
+  );
 
   @override
   int rlGetLocationAttrib(
     int shaderId,
     MemoryPointer<RChar> attribName,
-  ) => _wasm.rlGetLocationAttrib.run([
+  ) => _wasm.rlGetLocationAttrib(
     shaderId.toJS,
     attribName.toJS,
-  ]).toInt();
+  );
 
   @override
   void rlSetUniform(
@@ -1066,79 +1066,79 @@ class RaylibRlglFlat extends RaylibRlglFlatModule<Raylib> {
     MemoryPointer<RVoid> value,
     int uniformType,
     int count,
-  ) => _wasm.rlSetUniform.run([
+  ) => _wasm.rlSetUniform(
     locIndex.toJS,
     value.toJS,
     uniformType.toJS,
     count.toJS,
-  ]);
+  );
 
   @override
   void rlSetUniformMatrix(
     int locIndex,
     MatrixD mat,
-  ) => _wasm.rlSetUniformMatrix.run([
+  ) => _wasm.rlSetUniformMatrix(
     locIndex.toJS,
     rl.Temp.Matrix$.Ref1(mat).toJS,
-  ]);
+  );
 
   @override
   void rlSetUniformMatrices(
     int locIndex,
     StructPointer<MatrixD> mat,
     int count,
-  ) => _wasm.rlSetUniformMatrices.run([
+  ) => _wasm.rlSetUniformMatrices(
     locIndex.toJS,
     mat.toJS,
     count.toJS,
-  ]);
+  );
 
   @override
   void rlSetUniformSampler(
     int locIndex,
     int textureId,
-  ) => _wasm.rlSetUniformSampler.run([
+  ) => _wasm.rlSetUniformSampler(
     locIndex.toJS,
     textureId.toJS,
-  ]);
+  );
 
   @override
   void rlSetShader(
     int id,
     MemoryPointer<RInt> locs,
-  ) => _wasm.rlSetShader.run([
+  ) => _wasm.rlSetShader(
     id.toJS,
     locs.toJS,
-  ]);
+  );
 
   @override
   void rlComputeShaderDispatch(
     int groupX,
     int groupY,
     int groupZ,
-  ) => _wasm.rlComputeShaderDispatch.run([
+  ) => _wasm.rlComputeShaderDispatch(
     groupX.toJS,
     groupY.toJS,
     groupZ.toJS,
-  ]);
+  );
 
   @override
   int rlLoadShaderBuffer(
     int size,
     MemoryPointer<RVoid> data,
     int usageHint,
-  ) => _wasm.rlLoadShaderBuffer.run([
+  ) => _wasm.rlLoadShaderBuffer(
     size.toJS,
     data.toJS,
     usageHint.toJS,
-  ]).toInt();
+  );
 
   @override
   void rlUnloadShaderBuffer(
     int ssboId,
-  ) => _wasm.rlUnloadShaderBuffer.run([
+  ) => _wasm.rlUnloadShaderBuffer(
     ssboId.toJS,
-  ]);
+  );
 
   @override
   void rlUpdateShaderBuffer(
@@ -1146,21 +1146,21 @@ class RaylibRlglFlat extends RaylibRlglFlatModule<Raylib> {
     MemoryPointer<RVoid> data,
     int dataSize,
     int offset,
-  ) => _wasm.rlUpdateShaderBuffer.run([
+  ) => _wasm.rlUpdateShaderBuffer(
     id.toJS,
     data.toJS,
     dataSize.toJS,
     offset.toJS,
-  ]);
+  );
 
   @override
   void rlBindShaderBuffer(
     int id,
     int index,
-  ) => _wasm.rlBindShaderBuffer.run([
+  ) => _wasm.rlBindShaderBuffer(
     id.toJS,
     index.toJS,
-  ]);
+  );
 
   @override
   void rlReadShaderBuffer(
@@ -1168,12 +1168,12 @@ class RaylibRlglFlat extends RaylibRlglFlatModule<Raylib> {
     MemoryPointer<RVoid> dest,
     int count,
     int offset,
-  ) => _wasm.rlReadShaderBuffer.run([
+  ) => _wasm.rlReadShaderBuffer(
     id.toJS,
     dest.toJS,
     count.toJS,
     offset.toJS,
-  ]);
+  );
 
   @override
   void rlCopyShaderBuffer(
@@ -1182,20 +1182,20 @@ class RaylibRlglFlat extends RaylibRlglFlatModule<Raylib> {
     int destOffset,
     int srcOffset,
     int count,
-  ) => _wasm.rlCopyShaderBuffer.run([
+  ) => _wasm.rlCopyShaderBuffer(
     destId.toJS,
     srcId.toJS,
     destOffset.toJS,
     srcOffset.toJS,
     count.toJS,
-  ]);
+  );
 
   @override
   int rlGetShaderBufferSize(
     int id,
-  ) => _wasm.rlGetShaderBufferSize.run([
+  ) => _wasm.rlGetShaderBufferSize(
     id.toJS,
-  ]).toInt();
+  );
 
   @override
   void rlBindImageTexture(
@@ -1203,89 +1203,89 @@ class RaylibRlglFlat extends RaylibRlglFlatModule<Raylib> {
     int index,
     int format,
     bool readonly,
-  ) => _wasm.rlBindImageTexture.run([
+  ) => _wasm.rlBindImageTexture(
     id.toJS,
     index.toJS,
     format.toJS,
     readonly.toJS,
-  ]);
+  );
 
   @override
   MatrixD rlGetMatrixModelview() => rl.Temp.Matrix$.Extract1(
-    (p) => _wasm.rlGetMatrixModelview.run([
+    (p) => _wasm.rlGetMatrixModelview(
       p.toJS,
-    ]),
+    ),
   );
 
   @override
   MatrixD rlGetMatrixProjection() => rl.Temp.Matrix$.Extract1(
-    (p) => _wasm.rlGetMatrixProjection.run([
+    (p) => _wasm.rlGetMatrixProjection(
       p.toJS,
-    ]),
+    ),
   );
 
   @override
   MatrixD rlGetMatrixTransform() => rl.Temp.Matrix$.Extract1(
-    (p) => _wasm.rlGetMatrixTransform.run([
+    (p) => _wasm.rlGetMatrixTransform(
       p.toJS,
-    ]),
+    ),
   );
 
   @override
   MatrixD rlGetMatrixProjectionStereo(
     int eye,
   ) => rl.Temp.Matrix$.Extract1(
-    (p) => _wasm.rlGetMatrixProjectionStereo.run([
+    (p) => _wasm.rlGetMatrixProjectionStereo(
       p.toJS,
       eye.toJS,
-    ]),
+    ),
   );
 
   @override
   MatrixD rlGetMatrixViewOffsetStereo(
     int eye,
   ) => rl.Temp.Matrix$.Extract1(
-    (p) => _wasm.rlGetMatrixViewOffsetStereo.run([
+    (p) => _wasm.rlGetMatrixViewOffsetStereo(
       p.toJS,
       eye.toJS,
-    ]),
+    ),
   );
 
   @override
   void rlSetMatrixProjection(
     MatrixD proj,
-  ) => _wasm.rlSetMatrixProjection.run([
+  ) => _wasm.rlSetMatrixProjection(
     rl.Temp.Matrix$.Ref1(proj).toJS,
-  ]);
+  );
 
   @override
   void rlSetMatrixModelview(
     MatrixD view,
-  ) => _wasm.rlSetMatrixModelview.run([
+  ) => _wasm.rlSetMatrixModelview(
     rl.Temp.Matrix$.Ref1(view).toJS,
-  ]);
+  );
 
   @override
   void rlSetMatrixProjectionStereo(
     MatrixD right,
     MatrixD left,
-  ) => _wasm.rlSetMatrixProjectionStereo.run([
+  ) => _wasm.rlSetMatrixProjectionStereo(
     rl.Temp.Matrix$.Ref1(right).toJS,
     rl.Temp.Matrix$.Ref2(left).toJS,
-  ]);
+  );
 
   @override
   void rlSetMatrixViewOffsetStereo(
     MatrixD right,
     MatrixD left,
-  ) => _wasm.rlSetMatrixViewOffsetStereo.run([
+  ) => _wasm.rlSetMatrixViewOffsetStereo(
     rl.Temp.Matrix$.Ref1(right).toJS,
     rl.Temp.Matrix$.Ref2(left).toJS,
-  ]);
+  );
 
   @override
-  void rlLoadDrawCube() => _wasm.rlLoadDrawCube.run();
+  void rlLoadDrawCube() => _wasm.rlLoadDrawCube();
 
   @override
-  void rlLoadDrawQuad() => _wasm.rlLoadDrawQuad.run();
+  void rlLoadDrawQuad() => _wasm.rlLoadDrawQuad();
 }

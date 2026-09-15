@@ -2,94 +2,94 @@ part of '../../../../raylib_dartified_web.dart';
 
 class RaylibMatrixExt extends RaylibModuleWasm {
   /// Compute matrix determinant
-  late final JSFunction MatrixDeterminant;
+  late final WF1<double> MatrixDeterminant;
   /// Get the trace of the matrix (sum of the values along the diagonal)
-  late final JSFunction MatrixTrace;
+  late final WF1<double> MatrixTrace;
   /// Transposes provided matrix
-  late final JSFunction MatrixTranspose;
+  late final WF2<void> MatrixTranspose;
   /// Invert provided matrix
-  late final JSFunction MatrixInvert;
+  late final WF2<void> MatrixInvert;
   /// Get identity matrix
-  late final JSFunction MatrixIdentity;
+  late final WF1<void> MatrixIdentity;
   /// Add two matrices
-  late final JSFunction MatrixAdd;
+  late final WF3<void> MatrixAdd;
   /// Subtract two matrices (left - right)
-  late final JSFunction MatrixSubtract;
+  late final WF3<void> MatrixSubtract;
   /// Get two matrix multiplication
   /// 
   /// NOTE: When multiplying matrices... the order matters!
-  late final JSFunction MatrixMultiply;
+  late final WF3<void> MatrixMultiply;
   /// Multiply matrix components by value
-  late final JSFunction MatrixMultiplyValue;
+  late final WF3<void> MatrixMultiplyValue;
   /// Get translation matrix
-  late final JSFunction MatrixTranslate;
+  late final WF4<void> MatrixTranslate;
   /// Create rotation matrix from axis and angle
   /// 
   /// NOTE: Angle should be provided in radians
-  late final JSFunction MatrixRotate;
+  late final WF3<void> MatrixRotate;
   /// Get x-rotation matrix
   /// 
   /// NOTE: Angle must be provided in radians
-  late final JSFunction MatrixRotateX;
+  late final WF2<void> MatrixRotateX;
   /// Get y-rotation matrix
   /// 
   /// NOTE: Angle must be provided in radians
-  late final JSFunction MatrixRotateY;
+  late final WF2<void> MatrixRotateY;
   /// Get z-rotation matrix
   /// 
   /// NOTE: Angle must be provided in radians
-  late final JSFunction MatrixRotateZ;
+  late final WF2<void> MatrixRotateZ;
   /// Get xyz-rotation matrix
   /// 
   /// NOTE: Angle must be provided in radians
-  late final JSFunction MatrixRotateXYZ;
+  late final WF2<void> MatrixRotateXYZ;
   /// Get zyx-rotation matrix
   /// 
   /// NOTE: Angle must be provided in radians
-  late final JSFunction MatrixRotateZYX;
+  late final WF2<void> MatrixRotateZYX;
   /// Get scaling matrix
-  late final JSFunction MatrixScale;
+  late final WF4<void> MatrixScale;
   /// Get perspective projection matrix
-  late final JSFunction MatrixFrustum;
+  late final WF7<void> MatrixFrustum;
   /// Get perspective projection matrix
   ///
   /// NOTE: Fovy angle must be provided in radians
-  late final JSFunction MatrixPerspective;
+  late final WF5<void> MatrixPerspective;
   /// Get orthographic projection matrix
-  late final JSFunction MatrixOrtho;
+  late final WF7<void> MatrixOrtho;
   /// Get camera look-at matrix (view matrix)
-  late final JSFunction MatrixLookAt;
+  late final WF4<void> MatrixLookAt;
   /// Get float array of matrix data
-  late final JSFunction MatrixToFloatV;
+  late final WF2<void> MatrixToFloatV;
   /// Compose a transformation matrix from rotational, translational and scaling components
-  late final JSFunction MatrixCompose;
+  late final WF4<void> MatrixCompose;
   /// Decompose a transformation matrix into its rotational, translational and scaling components and remove shear
-  late final JSFunction MatrixDecompose;
+  late final WF4<void> MatrixDecompose;
 
   RaylibMatrixExt(super.rl) {
-    MatrixDeterminant   = _module.dwrap('MatrixDeterminant',   n1, rn);
-    MatrixTrace         = _module.dwrap('MatrixTrace',         n1, rn);
-    MatrixTranspose     = _module.dwrap('MatrixTranspose',     n2, rv);
-    MatrixInvert        = _module.dwrap('MatrixInvert',        n2, rv);
-    MatrixIdentity      = _module.dwrap('MatrixIdentity',      n1, rv);
-    MatrixAdd           = _module.dwrap('MatrixAdd',           n3, rv);
-    MatrixSubtract      = _module.dwrap('MatrixSubtract',      n3, rv);
-    MatrixMultiply      = _module.dwrap('MatrixMultiply',      n3, rv);
-    MatrixMultiplyValue = _module.dwrap('MatrixMultiplyValue', n3, rv);
-    MatrixTranslate     = _module.dwrap('MatrixTranslate',     n4, rv);
-    MatrixRotate        = _module.dwrap('MatrixRotate',        n3, rv);
-    MatrixRotateX       = _module.dwrap('MatrixRotateX',       n2, rv);
-    MatrixRotateY       = _module.dwrap('MatrixRotateY',       n2, rv);
-    MatrixRotateZ       = _module.dwrap('MatrixRotateZ',       n2, rv);
-    MatrixRotateXYZ     = _module.dwrap('MatrixRotateXYZ',     n2, rv);
-    MatrixRotateZYX     = _module.dwrap('MatrixRotateZYX',     n2, rv);
-    MatrixScale         = _module.dwrap('MatrixScale',         n4, rv);
-    MatrixFrustum       = _module.dwrap('MatrixFrustum',       n7, rv);
-    MatrixPerspective   = _module.dwrap('MatrixPerspective',   n5, rv);
-    MatrixOrtho         = _module.dwrap('MatrixOrtho',         n7, rv);
-    MatrixLookAt        = _module.dwrap('MatrixLookAt',        n4, rv);
-    MatrixToFloatV      = _module.dwrap('MatrixToFloatV',      n2, rv);
-    MatrixCompose       = _module.dwrap('MatrixCompose',       n4, rv);
-    MatrixDecompose     = _module.dwrap('MatrixDecompose',     n4, rv);
+    MatrixDeterminant   = dwrap1('MatrixDeterminant');
+    MatrixTrace         = dwrap1('MatrixTrace');
+    MatrixTranspose     = swrap1('MatrixTranspose');
+    MatrixInvert        = swrap1('MatrixInvert');
+    MatrixIdentity      = swrap0('MatrixIdentity');
+    MatrixAdd           = swrap2('MatrixAdd');
+    MatrixSubtract      = swrap2('MatrixSubtract');
+    MatrixMultiply      = swrap2('MatrixMultiply');
+    MatrixMultiplyValue = swrap2('MatrixMultiplyValue');
+    MatrixTranslate     = swrap3('MatrixTranslate');
+    MatrixRotate        = swrap2('MatrixRotate');
+    MatrixRotateX       = swrap1('MatrixRotateX');
+    MatrixRotateY       = swrap1('MatrixRotateY');
+    MatrixRotateZ       = swrap1('MatrixRotateZ');
+    MatrixRotateXYZ     = swrap1('MatrixRotateXYZ');
+    MatrixRotateZYX     = swrap1('MatrixRotateZYX');
+    MatrixScale         = swrap3('MatrixScale');
+    MatrixFrustum       = swrap6('MatrixFrustum');
+    MatrixPerspective   = swrap4('MatrixPerspective');
+    MatrixOrtho         = swrap6('MatrixOrtho');
+    MatrixLookAt        = swrap3('MatrixLookAt');
+    MatrixToFloatV      = swrap1('MatrixToFloatV');
+    MatrixCompose       = swrap3('MatrixCompose');
+    MatrixDecompose     = dwrap4('MatrixDecompose');
   }
 }

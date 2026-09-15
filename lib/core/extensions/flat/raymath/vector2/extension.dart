@@ -7,16 +7,16 @@ class RaylibVector2ExtFlat extends RaylibVector2FlatExt<Raylib> {
 
   @override
   Vector2D Vector2Zero() => rl.Temp.Vector2$.Extract1(
-    (p) => _wasm.Vector2Zero.run([
+    (p) => _wasm.Vector2Zero(
       p.toJS,
-    ]),
+    ),
   );
 
   @override
   Vector2D Vector2One() => rl.Temp.Vector2$.Extract1(
-    (p) => _wasm.Vector2One.run([
+    (p) => _wasm.Vector2One(
       p.toJS,
-    ]),
+    ),
   );
 
   @override
@@ -24,11 +24,11 @@ class RaylibVector2ExtFlat extends RaylibVector2FlatExt<Raylib> {
     Vector2D v1,
     Vector2D v2,
   ) => rl.Temp.Vector2$.Extract3(
-    (p) => _wasm.Vector2Add.run([
+    (p) => _wasm.Vector2Add(
       p.toJS,
       rl.Temp.Vector2$.Ref1(v1).toJS,
       rl.Temp.Vector2$.Ref2(v2).toJS,
-    ]),
+    ),
   );
 
   @override
@@ -36,11 +36,11 @@ class RaylibVector2ExtFlat extends RaylibVector2FlatExt<Raylib> {
     Vector2D v,
     double add,
   ) => rl.Temp.Vector2$.Extract2(
-    (p) => _wasm.Vector2AddValue.run([
+    (p) => _wasm.Vector2AddValue(
       p.toJS,
       rl.Temp.Vector2$.Ref1(v).toJS,
       add.toJS,
-    ]),
+    ),
   );
 
   @override
@@ -48,11 +48,11 @@ class RaylibVector2ExtFlat extends RaylibVector2FlatExt<Raylib> {
     Vector2D v1,
     Vector2D v2,
   ) => rl.Temp.Vector2$.Extract3(
-    (p) => _wasm.Vector2Subtract.run([
+    (p) => _wasm.Vector2Subtract(
       p.toJS,
       rl.Temp.Vector2$.Ref1(v1).toJS,
       rl.Temp.Vector2$.Ref2(v2).toJS,
-    ]),
+    ),
   );
 
   @override
@@ -60,91 +60,91 @@ class RaylibVector2ExtFlat extends RaylibVector2FlatExt<Raylib> {
     Vector2D v,
     double sub,
   ) => rl.Temp.Vector2$.Extract2(
-    (p) => _wasm.Vector2SubtractValue.run([
+    (p) => _wasm.Vector2SubtractValue(
       p.toJS,
       rl.Temp.Vector2$.Ref1(v).toJS,
       sub.toJS,
-    ]),
+    ),
   );
 
   @override
   double Vector2Length(
     Vector2D v,
-  ) => _wasm.Vector2Length.run([
+  ) => _wasm.Vector2Length(
     rl.Temp.Vector2$.Ref1(v).toJS,
-  ]).toDouble();
+  );
 
   @override
   double Vector2LengthSqr(
     Vector2D v,
-  ) => _wasm.Vector2LengthSqr.run([
+  ) => _wasm.Vector2LengthSqr(
     rl.Temp.Vector2$.Ref1(v).toJS,
-  ]).toDouble();
+  );
 
   @override
   double Vector2DotProduct(
     Vector2D v1,
     Vector2D v2,
-  ) => _wasm.Vector2DotProduct.run([
+  ) => _wasm.Vector2DotProduct(
     rl.Temp.Vector2$.Ref1(v1).toJS,
     rl.Temp.Vector2$.Ref2(v2).toJS,
-  ]).toDouble();
+  );
 
   @override
   double Vector2CrossProduct(
     Vector2D v1,
     Vector2D v2,
-  ) => _wasm.Vector2CrossProduct.run([
+  ) => _wasm.Vector2CrossProduct(
     rl.Temp.Vector2$.Ref1(v1).toJS,
     rl.Temp.Vector2$.Ref2(v2).toJS,
-  ]).toDouble();
+  );
 
   @override
   double Vector2Distance(
     Vector2D v1,
     Vector2D v2,
-  ) => _wasm.Vector2Distance.run([
+  ) => _wasm.Vector2Distance(
     rl.Temp.Vector2$.Ref1(v1).toJS,
     rl.Temp.Vector2$.Ref2(v2).toJS,
-  ]).toDouble();
+  );
 
   @override
   double Vector2DistanceSqr(
     Vector2D v1,
     Vector2D v2,
-  ) => _wasm.Vector2DistanceSqr.run([
+  ) => _wasm.Vector2DistanceSqr(
     rl.Temp.Vector2$.Ref1(v1).toJS,
     rl.Temp.Vector2$.Ref2(v2).toJS,
-  ]).toDouble();
+  );
 
   @override
   double Vector2Angle(
     Vector2D v1,
     Vector2D v2,
-  ) => _wasm.Vector2Angle.run([
+  ) => _wasm.Vector2Angle(
     rl.Temp.Vector2$.Ref1(v1).toJS,
     rl.Temp.Vector2$.Ref2(v2).toJS,
-  ]).toDouble();
+  );
 
   @override
   double Vector2LineAngle(
     Vector2D start,
     Vector2D end,
-  ) => _wasm.Vector2LineAngle.run([
+  ) => _wasm.Vector2LineAngle(
     rl.Temp.Vector2$.Ref1(start).toJS,
     rl.Temp.Vector2$.Ref2(end).toJS,
-  ]).toDouble();
+  );
 
   @override
   Vector2D Vector2Scale(
     Vector2D v,
     double scale,
   ) => rl.Temp.Vector2$.Extract2(
-    (p) => _wasm.Vector2Scale.run([
+    (p) => _wasm.Vector2Scale(
       p.toJS,
       rl.Temp.Vector2$.Ref1(v).toJS,
       scale.toJS,
-    ]),
+    ),
   );
 
   @override
@@ -152,21 +152,21 @@ class RaylibVector2ExtFlat extends RaylibVector2FlatExt<Raylib> {
     Vector2D v1,
     Vector2D v2,
   ) => rl.Temp.Vector2$.Extract3(
-    (p) => _wasm.Vector2Multiply.run([
+    (p) => _wasm.Vector2Multiply(
       p.toJS,
       rl.Temp.Vector2$.Ref1(v1).toJS,
       rl.Temp.Vector2$.Ref2(v2).toJS,
-    ]),
+    ),
   );
 
   @override
   Vector2D Vector2Negate(
     Vector2D v,
   ) => rl.Temp.Vector2$.Extract2(
-    (p) => _wasm.Vector2Negate.run([
+    (p) => _wasm.Vector2Negate(
       p.toJS,
       rl.Temp.Vector2$.Ref1(v).toJS,
-    ]),
+    ),
   );
 
   @override
@@ -174,21 +174,21 @@ class RaylibVector2ExtFlat extends RaylibVector2FlatExt<Raylib> {
     Vector2D v1,
     Vector2D v2,
   ) => rl.Temp.Vector2$.Extract3(
-    (p) => _wasm.Vector2Divide.run([
+    (p) => _wasm.Vector2Divide(
       p.toJS,
       rl.Temp.Vector2$.Ref1(v1).toJS,
       rl.Temp.Vector2$.Ref2(v2).toJS,
-    ]),
+    ),
   );
 
   @override
   Vector2D Vector2Normalize(
     Vector2D v,
   ) => rl.Temp.Vector2$.Extract2(
-    (p) => _wasm.Vector2Normalize.run([
+    (p) => _wasm.Vector2Normalize(
       p.toJS,
       rl.Temp.Vector2$.Ref1(v).toJS,
-    ]),
+    ),
   );
 
   @override
@@ -196,11 +196,11 @@ class RaylibVector2ExtFlat extends RaylibVector2FlatExt<Raylib> {
     Vector2D v,
     MatrixD mat,
   ) => rl.Temp.Vector2$.Extract2(
-    (p) => _wasm.Vector2Transform.run([
+    (p) => _wasm.Vector2Transform(
       p.toJS,
       rl.Temp.Vector2$.Ref1(v).toJS,
       rl.Temp.Matrix$.Ref1(mat).toJS,
-    ]),
+    ),
   );
 
   @override
@@ -209,12 +209,12 @@ class RaylibVector2ExtFlat extends RaylibVector2FlatExt<Raylib> {
     Vector2D v2,
     double amount,
   ) => rl.Temp.Vector2$.Extract3(
-    (p) => _wasm.Vector2Lerp.run([
+    (p) => _wasm.Vector2Lerp(
       p.toJS,
       rl.Temp.Vector2$.Ref1(v1).toJS,
       rl.Temp.Vector2$.Ref2(v2).toJS,
       amount.toJS,
-    ]),
+    ),
   );
 
   @override
@@ -222,11 +222,11 @@ class RaylibVector2ExtFlat extends RaylibVector2FlatExt<Raylib> {
     Vector2D v,
     Vector2D normal,
   ) => rl.Temp.Vector2$.Extract3(
-    (p) => _wasm.Vector2Reflect.run([
+    (p) => _wasm.Vector2Reflect(
       p.toJS,
       rl.Temp.Vector2$.Ref1(v).toJS,
       rl.Temp.Vector2$.Ref2(normal).toJS,
-    ]),
+    ),
   );
 
   @override
@@ -234,11 +234,11 @@ class RaylibVector2ExtFlat extends RaylibVector2FlatExt<Raylib> {
     Vector2D v1,
     Vector2D v2,
   ) => rl.Temp.Vector2$.Extract3(
-    (p) => _wasm.Vector2Min.run([
+    (p) => _wasm.Vector2Min(
       p.toJS,
       rl.Temp.Vector2$.Ref1(v1).toJS,
       rl.Temp.Vector2$.Ref2(v2).toJS,
-    ]),
+    ),
   );
 
   @override
@@ -246,11 +246,11 @@ class RaylibVector2ExtFlat extends RaylibVector2FlatExt<Raylib> {
     Vector2D v1,
     Vector2D v2,
   ) => rl.Temp.Vector2$.Extract3(
-    (p) => _wasm.Vector2Max.run([
+    (p) => _wasm.Vector2Max(
       p.toJS,
       rl.Temp.Vector2$.Ref1(v1).toJS,
       rl.Temp.Vector2$.Ref2(v2).toJS,
-    ]),
+    ),
   );
 
   @override
@@ -258,11 +258,11 @@ class RaylibVector2ExtFlat extends RaylibVector2FlatExt<Raylib> {
     Vector2D v,
     double angle,
   ) => rl.Temp.Vector2$.Extract2(
-    (p) => _wasm.Vector2Rotate.run([
+    (p) => _wasm.Vector2Rotate(
       p.toJS,
       rl.Temp.Vector2$.Ref1(v).toJS,
       angle.toJS,
-    ]),
+    ),
   );
 
   @override
@@ -271,22 +271,22 @@ class RaylibVector2ExtFlat extends RaylibVector2FlatExt<Raylib> {
     Vector2D target,
     double maxDistance,
   ) => rl.Temp.Vector2$.Extract3(
-    (p) => _wasm.Vector2MoveTowards.run([
+    (p) => _wasm.Vector2MoveTowards(
       p.toJS,
       rl.Temp.Vector2$.Ref1(v).toJS,
       rl.Temp.Vector2$.Ref2(target).toJS,
       maxDistance.toJS,
-    ]),
+    ),
   );
 
   @override
   Vector2D Vector2Invert(
     Vector2D v,
   ) => rl.Temp.Vector2$.Extract2(
-    (p) => _wasm.Vector2Invert.run([
+    (p) => _wasm.Vector2Invert(
       p.toJS,
       rl.Temp.Vector2$.Ref1(v).toJS,
-    ]),
+    ),
   );
 
   @override
@@ -295,12 +295,12 @@ class RaylibVector2ExtFlat extends RaylibVector2FlatExt<Raylib> {
     Vector2D min,
     Vector2D max,
   ) => rl.Temp.Vector2$.Extract4(
-    (p) => _wasm.Vector2Clamp.run([
+    (p) => _wasm.Vector2Clamp(
       p.toJS,
       rl.Temp.Vector2$.Ref1(v).toJS,
       rl.Temp.Vector2$.Ref2(min).toJS,
       rl.Temp.Vector2$.Ref3(max).toJS,
-    ]),
+    ),
   );
 
   @override
@@ -309,22 +309,22 @@ class RaylibVector2ExtFlat extends RaylibVector2FlatExt<Raylib> {
     double min,
     double max,
   ) => rl.Temp.Vector2$.Extract2(
-    (p) => _wasm.Vector2ClampValue.run([
+    (p) => _wasm.Vector2ClampValue(
       p.toJS,
       rl.Temp.Vector2$.Ref1(v).toJS,
       min.toJS,
       max.toJS,
-    ]),
+    ),
   );
 
   @override
-  int Vector2Equals(
+  bool Vector2Equals(
     Vector2D p,
     Vector2D q,
-  ) => _wasm.Vector2Equals.run([
+  ) => _wasm.Vector2Equals(
     rl.Temp.Vector2$.Ref1(p).toJS,
     rl.Temp.Vector2$.Ref2(q).toJS,
-  ]).toInt();
+  );
 
   @override
   Vector2D Vector2Refract(
@@ -332,11 +332,11 @@ class RaylibVector2ExtFlat extends RaylibVector2FlatExt<Raylib> {
     Vector2D n,
     double r,
   ) => rl.Temp.Vector2$.Extract3(
-    (p) => _wasm.Vector2Refract.run([
+    (p) => _wasm.Vector2Refract(
       p.toJS,
       rl.Temp.Vector2$.Ref1(v).toJS,
       rl.Temp.Vector2$.Ref2(n).toJS,
       r.toJS,
-    ]),
+    ),
   );
 }

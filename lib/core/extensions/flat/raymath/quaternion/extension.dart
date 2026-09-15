@@ -10,11 +10,11 @@ class RaylibQuaternionExtFlat extends RaylibQuaternionFlatExt<Raylib> {
     QuaternionD q1,
     QuaternionD q2,
   ) => rl.Temp.Quaternion$.Extract3(
-    (p) => _wasm.QuaternionAdd.run([
+    (p) => _wasm.QuaternionAdd(
       p.toJS,
       rl.Temp.Quaternion$.Ref1(q1).toJS,
       rl.Temp.Quaternion$.Ref2(q2).toJS,
-    ]),
+    ),
   );
 
   @override
@@ -22,11 +22,11 @@ class RaylibQuaternionExtFlat extends RaylibQuaternionFlatExt<Raylib> {
     QuaternionD q,
     double add,
   ) => rl.Temp.Quaternion$.Extract2(
-    (p) => _wasm.QuaternionAddValue.run([
+    (p) => _wasm.QuaternionAddValue(
       p.toJS,
       rl.Temp.Quaternion$.Ref1(q).toJS,
       add.toJS,
-    ]),
+    ),
   );
 
   @override
@@ -34,11 +34,11 @@ class RaylibQuaternionExtFlat extends RaylibQuaternionFlatExt<Raylib> {
     QuaternionD q1,
     QuaternionD q2,
   ) => rl.Temp.Quaternion$.Extract3(
-    (p) => _wasm.QuaternionSubtract.run([
+    (p) => _wasm.QuaternionSubtract(
       p.toJS,
       rl.Temp.Quaternion$.Ref1(q1).toJS,
       rl.Temp.Quaternion$.Ref2(q2).toJS,
-    ]),
+    ),
   );
 
   @override
@@ -46,45 +46,45 @@ class RaylibQuaternionExtFlat extends RaylibQuaternionFlatExt<Raylib> {
     QuaternionD q,
     double sub,
   ) => rl.Temp.Quaternion$.Extract2(
-    (p) => _wasm.QuaternionSubtractValue.run([
+    (p) => _wasm.QuaternionSubtractValue(
       p.toJS,
       rl.Temp.Quaternion$.Ref1(q).toJS,
       sub.toJS,
-    ]),
+    ),
   );
 
   @override
   QuaternionD QuaternionIdentity() => rl.Temp.Quaternion$.Extract1(
-    (p) => _wasm.QuaternionIdentity.run([
+    (p) => _wasm.QuaternionIdentity(
       p.toJS,
-    ]),
+    ),
   );
 
   @override
   double QuaternionLength(
     QuaternionD q,
-  ) => _wasm.QuaternionLength.run([
+  ) => _wasm.QuaternionLength(
     rl.Temp.Quaternion$.Ref1(q).toJS,
-  ]).toDouble();
+  );
 
   @override
   QuaternionD QuaternionNormalize(
     QuaternionD q,
   ) => rl.Temp.Quaternion$.Extract2(
-    (p) => _wasm.QuaternionNormalize.run([
+    (p) => _wasm.QuaternionNormalize(
       p.toJS,
       rl.Temp.Quaternion$.Ref1(q).toJS,
-    ]),
+    ),
   );
 
   @override
   QuaternionD QuaternionInvert(
     QuaternionD q,
   ) => rl.Temp.Quaternion$.Extract2(
-    (p) => _wasm.QuaternionInvert.run([
+    (p) => _wasm.QuaternionInvert(
       p.toJS,
       rl.Temp.Quaternion$.Ref1(q).toJS,
-    ]),
+    ),
   );
 
   @override
@@ -92,11 +92,11 @@ class RaylibQuaternionExtFlat extends RaylibQuaternionFlatExt<Raylib> {
     QuaternionD q1,
     QuaternionD q2,
   ) => rl.Temp.Quaternion$.Extract3(
-    (p) => _wasm.QuaternionMultiply.run([
+    (p) => _wasm.QuaternionMultiply(
       p.toJS,
       rl.Temp.Quaternion$.Ref1(q1).toJS,
       rl.Temp.Quaternion$.Ref2(q2).toJS,
-    ]),
+    ),
   );
 
   @override
@@ -104,11 +104,11 @@ class RaylibQuaternionExtFlat extends RaylibQuaternionFlatExt<Raylib> {
     QuaternionD q,
     double mul,
   ) => rl.Temp.Quaternion$.Extract2(
-    (p) => _wasm.QuaternionScale.run([
+    (p) => _wasm.QuaternionScale(
       p.toJS,
       rl.Temp.Quaternion$.Ref1(q).toJS,
       mul.toJS,
-    ]),
+    ),
   );
 
   @override
@@ -116,11 +116,11 @@ class RaylibQuaternionExtFlat extends RaylibQuaternionFlatExt<Raylib> {
     QuaternionD q1,
     QuaternionD q2,
   ) => rl.Temp.Quaternion$.Extract3(
-    (p) => _wasm.QuaternionDivide.run([
+    (p) => _wasm.QuaternionDivide(
       p.toJS,
       rl.Temp.Quaternion$.Ref1(q1).toJS,
       rl.Temp.Quaternion$.Ref2(q2).toJS,
-    ]),
+    ),
   );
 
   @override
@@ -129,12 +129,12 @@ class RaylibQuaternionExtFlat extends RaylibQuaternionFlatExt<Raylib> {
     QuaternionD q2,
     double amount,
   ) => rl.Temp.Quaternion$.Extract3(
-    (p) => _wasm.QuaternionLerp.run([
+    (p) => _wasm.QuaternionLerp(
       p.toJS,
       rl.Temp.Quaternion$.Ref1(q1).toJS,
       rl.Temp.Quaternion$.Ref2(q2).toJS,
       amount.toJS,
-    ]),
+    ),
   );
 
   @override
@@ -143,12 +143,12 @@ class RaylibQuaternionExtFlat extends RaylibQuaternionFlatExt<Raylib> {
     QuaternionD q2,
     double amount,
   ) => rl.Temp.Quaternion$.Extract3(
-    (p) => _wasm.QuaternionNlerp.run([
+    (p) => _wasm.QuaternionNlerp(
       p.toJS,
       rl.Temp.Quaternion$.Ref1(q1).toJS,
       rl.Temp.Quaternion$.Ref2(q2).toJS,
       amount.toJS,
-    ]),
+    ),
   );
 
   @override
@@ -157,12 +157,12 @@ class RaylibQuaternionExtFlat extends RaylibQuaternionFlatExt<Raylib> {
     QuaternionD q2,
     double amount,
   ) => rl.Temp.Quaternion$.Extract3(
-    (p) => _wasm.QuaternionSlerp.run([
+    (p) => _wasm.QuaternionSlerp(
       p.toJS,
       rl.Temp.Quaternion$.Ref1(q1).toJS,
       rl.Temp.Quaternion$.Ref2(q2).toJS,
       amount.toJS,
-    ]),
+    ),
   );
 
   @override
@@ -173,14 +173,14 @@ class RaylibQuaternionExtFlat extends RaylibQuaternionFlatExt<Raylib> {
     QuaternionD inTangent2,
     double t,
   ) => rl.Temp.Quaternion$.Extract5(
-    (p) => _wasm.QuaternionCubicHermiteSpline.run([
+    (p) => _wasm.QuaternionCubicHermiteSpline(
       p.toJS,
       rl.Temp.Quaternion$.Ref1(q1).toJS,
       rl.Temp.Quaternion$.Ref2(outTangent1).toJS,
       rl.Temp.Quaternion$.Ref3(q2).toJS,
       rl.Temp.Quaternion$.Ref4(inTangent2).toJS,
       t.toJS,
-    ]),
+    ),
   );
 
   @override
@@ -188,31 +188,31 @@ class RaylibQuaternionExtFlat extends RaylibQuaternionFlatExt<Raylib> {
     Vector3D from,
     Vector3D to,
   ) => rl.Temp.Quaternion$.Extract1(
-    (p) => _wasm.QuaternionFromVector3ToVector3.run([
+    (p) => _wasm.QuaternionFromVector3ToVector3(
       p.toJS,
       rl.Temp.Vector3$.Ref1(from).toJS,
       rl.Temp.Vector3$.Ref2(to).toJS,
-    ]),
+    ),
   );
 
   @override
   QuaternionD QuaternionFromMatrix(
     MatrixD mat,
   ) => rl.Temp.Quaternion$.Extract1(
-    (p) => _wasm.QuaternionFromMatrix.run([
+    (p) => _wasm.QuaternionFromMatrix(
       p.toJS,
       rl.Temp.Matrix$.Ref1(mat).toJS,
-    ]),
+    ),
   );
 
   @override
   MatrixD QuaternionToMatrix(
     QuaternionD q,
   ) => rl.Temp.Matrix$.Extract1(
-    (p) => _wasm.QuaternionToMatrix.run([
+    (p) => _wasm.QuaternionToMatrix(
       p.toJS,
       rl.Temp.Quaternion$.Ref1(q).toJS,
-    ]),
+    ),
   );
 
   @override
@@ -220,11 +220,11 @@ class RaylibQuaternionExtFlat extends RaylibQuaternionFlatExt<Raylib> {
     Vector3D axis,
     double angle,
   ) => rl.Temp.Quaternion$.Extract1(
-    (p) => _wasm.QuaternionFromAxisAngle.run([
+    (p) => _wasm.QuaternionFromAxisAngle(
       p.toJS,
       rl.Temp.Vector3$.Ref1(axis).toJS,
       angle.toJS,
-    ]),
+    ),
   );
 
   @override
@@ -232,11 +232,11 @@ class RaylibQuaternionExtFlat extends RaylibQuaternionFlatExt<Raylib> {
     QuaternionD q,
     StructPointer<Vector3D> outAxis,
     MemoryPointer<RFloat> outAngle,
-  ) => _wasm.QuaternionToAxisAngle.run([
+  ) => _wasm.QuaternionToAxisAngle(
     rl.Temp.Quaternion$.Ref1(q).toJS,
     outAxis.toJS,
     outAngle.toJS,
-  ]);
+  );
 
   @override
   QuaternionD QuaternionFromEuler(
@@ -244,22 +244,22 @@ class RaylibQuaternionExtFlat extends RaylibQuaternionFlatExt<Raylib> {
     double yaw,
     double roll,
   ) => rl.Temp.Quaternion$.Extract1(
-    (p) => _wasm.QuaternionFromEuler.run([
+    (p) => _wasm.QuaternionFromEuler(
       p.toJS,
       pitch.toJS,
       yaw.toJS,
       roll.toJS,
-    ]),
+    ),
   );
 
   @override
   Vector3D QuaternionToEuler(
     QuaternionD q,
   ) => rl.Temp.Vector3$.Extract1(
-    (p) => _wasm.QuaternionToEuler.run([
+    (p) => _wasm.QuaternionToEuler(
       p.toJS,
       rl.Temp.Quaternion$.Ref1(q).toJS,
-    ]),
+    ),
   );
 
   @override
@@ -267,19 +267,19 @@ class RaylibQuaternionExtFlat extends RaylibQuaternionFlatExt<Raylib> {
     QuaternionD q,
     MatrixD mat,
   ) => rl.Temp.Quaternion$.Extract2(
-    (p) => _wasm.QuaternionTransform.run([
+    (p) => _wasm.QuaternionTransform(
       p.toJS,
       rl.Temp.Quaternion$.Ref1(q).toJS,
       rl.Temp.Matrix$.Ref1(mat).toJS,
-    ]),
+    ),
   );
 
   @override
-  int QuaternionEquals(
+  bool QuaternionEquals(
     QuaternionD p,
     QuaternionD q,
-  ) => _wasm.QuaternionEquals.run([
+  ) => _wasm.QuaternionEquals(
     rl.Temp.Quaternion$.Ref1(p).toJS,
     rl.Temp.Quaternion$.Ref2(q).toJS,
-  ]).toInt();
+  );
 }

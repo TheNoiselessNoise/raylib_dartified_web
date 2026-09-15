@@ -2,72 +2,72 @@ part of '../../../../raylib_dartified_web.dart';
 
 class RaylibVector4Ext extends RaylibModuleWasm {
   /// Add two vectors
-  late final JSFunction Vector4Add;
+  late final WF3<void> Vector4Add;
   /// Add value to vector components
-  late final JSFunction Vector4AddValue;
+  late final WF3<void> Vector4AddValue;
   /// Calculate distance between two vectors
-  late final JSFunction Vector4Distance;
+  late final WF2<double> Vector4Distance;
   /// Calculate square distance between two vectors
-  late final JSFunction Vector4DistanceSqr;
+  late final WF2<double> Vector4DistanceSqr;
   /// Divide vector by vector
-  late final JSFunction Vector4Divide;
+  late final WF3<void> Vector4Divide;
   /// Vectors dot product
-  late final JSFunction Vector4DotProduct;
+  late final WF2<double> Vector4DotProduct;
   /// Check whether two given vectors are almost equal
-  late final JSFunction Vector4Equals;
+  late final WF2<bool> Vector4Equals;
   /// Invert the given vector
-  late final JSFunction Vector4Invert;
+  late final WF2<void> Vector4Invert;
   /// Vector length
-  late final JSFunction Vector4Length;
+  late final WF1<double> Vector4Length;
   /// Vector square length
-  late final JSFunction Vector4LengthSqr;
+  late final WF1<double> Vector4LengthSqr;
   /// Calculate linear interpolation between two vectors
-  late final JSFunction Vector4Lerp;
+  late final WF4<void> Vector4Lerp;
   /// Get max value for each pair of components
-  late final JSFunction Vector4Max;
+  late final WF3<void> Vector4Max;
   /// Get min value for each pair of components
-  late final JSFunction Vector4Min;
+  late final WF3<void> Vector4Min;
   /// Move Vector towards target
-  late final JSFunction Vector4MoveTowards;
+  late final WF4<void> Vector4MoveTowards;
   /// Multiply vector by vector
-  late final JSFunction Vector4Multiply;
+  late final WF3<void> Vector4Multiply;
   /// Negate vector
-  late final JSFunction Vector4Negate;
+  late final WF2<void> Vector4Negate;
   /// Normalize provided vector
-  late final JSFunction Vector4Normalize;
+  late final WF2<void> Vector4Normalize;
   /// Get vector one
-  late final JSFunction Vector4One;
+  late final WF1<void> Vector4One;
   /// Scale vector components by value (multiply)
-  late final JSFunction Vector4Scale;
+  late final WF3<void> Vector4Scale;
   /// Substract vectors
-  late final JSFunction Vector4Subtract;
+  late final WF3<void> Vector4Subtract;
   /// Substract value from vector components
-  late final JSFunction Vector4SubtractValue;
+  late final WF3<void> Vector4SubtractValue;
   /// Get vector zero
-  late final JSFunction Vector4Zero;
+  late final WF1<void> Vector4Zero;
 
   RaylibVector4Ext(super.rl) {
-    Vector4Add           = _module.dwrap('Vector4Add',           n3, rv);
-    Vector4AddValue      = _module.dwrap('Vector4AddValue',      n3, rv);
-    Vector4Distance      = _module.dwrap('Vector4Distance',      n2, rn);
-    Vector4DistanceSqr   = _module.dwrap('Vector4DistanceSqr',   n2, rn);
-    Vector4Divide        = _module.dwrap('Vector4Divide',        n3, rv);
-    Vector4DotProduct    = _module.dwrap('Vector4DotProduct',    n2, rn);
-    Vector4Equals        = _module.dwrap('Vector4Equals',        n2, rn);
-    Vector4Invert        = _module.dwrap('Vector4Invert',        n2, rv);
-    Vector4Length        = _module.dwrap('Vector4Length',        n1, rn);
-    Vector4LengthSqr     = _module.dwrap('Vector4LengthSqr',     n1, rn);
-    Vector4Lerp          = _module.dwrap('Vector4Lerp',          n4, rv);
-    Vector4Max           = _module.dwrap('Vector4Max',           n3, rv);
-    Vector4Min           = _module.dwrap('Vector4Min',           n3, rv);
-    Vector4MoveTowards   = _module.dwrap('Vector4MoveTowards',   n4, rv);
-    Vector4Multiply      = _module.dwrap('Vector4Multiply',      n3, rv);
-    Vector4Negate        = _module.dwrap('Vector4Negate',        n2, rv);
-    Vector4Normalize     = _module.dwrap('Vector4Normalize',     n2, rv);
-    Vector4One           = _module.dwrap('Vector4One',           n1, rv);
-    Vector4Scale         = _module.dwrap('Vector4Scale',         n3, rv);
-    Vector4Subtract      = _module.dwrap('Vector4Subtract',      n3, rv);
-    Vector4SubtractValue = _module.dwrap('Vector4SubtractValue', n3, rv);
-    Vector4Zero          = _module.dwrap('Vector4Zero',          n1, rv);
+    Vector4Add           = swrap2('Vector4Add');
+    Vector4AddValue      = swrap2('Vector4AddValue');
+    Vector4Distance      = dwrap2('Vector4Distance');
+    Vector4DistanceSqr   = dwrap2('Vector4DistanceSqr');
+    Vector4Divide        = swrap2('Vector4Divide');
+    Vector4DotProduct    = dwrap2('Vector4DotProduct');
+    Vector4Equals        = dwrap2('Vector4Equals');
+    Vector4Invert        = swrap1('Vector4Invert');
+    Vector4Length        = dwrap1('Vector4Length');
+    Vector4LengthSqr     = dwrap1('Vector4LengthSqr');
+    Vector4Lerp          = swrap3('Vector4Lerp');
+    Vector4Max           = swrap2('Vector4Max');
+    Vector4Min           = swrap2('Vector4Min');
+    Vector4MoveTowards   = swrap3('Vector4MoveTowards');
+    Vector4Multiply      = swrap2('Vector4Multiply');
+    Vector4Negate        = swrap1('Vector4Negate');
+    Vector4Normalize     = swrap1('Vector4Normalize');
+    Vector4One           = swrap0('Vector4One');
+    Vector4Scale         = swrap2('Vector4Scale');
+    Vector4Subtract      = swrap2('Vector4Subtract');
+    Vector4SubtractValue = swrap2('Vector4SubtractValue');
+    Vector4Zero          = swrap0('Vector4Zero');
   }
 }

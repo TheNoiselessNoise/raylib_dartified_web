@@ -17,11 +17,11 @@ class RaylibMsfGifFlat extends RaylibMsfGifFlatModule<Raylib> {
     StructPointer<MsfGifStateD> handle,
     int width,
     int height,
-  ) => _wasm.msf_gif_begin.run([
+  ) => _wasm.msf_gif_begin(
     handle.toJS,
     width.toJS,
     height.toJS,
-  ]).toInt();
+  );
 
   @override
   int msf_gif_frame(
@@ -30,32 +30,32 @@ class RaylibMsfGifFlat extends RaylibMsfGifFlatModule<Raylib> {
     int centiSecondsPerFame,
     int maxBitDepth,
     int pitchInBytes,
-  ) => _wasm.msf_gif_frame.run([
+  ) => _wasm.msf_gif_frame(
     handle.toJS,
     pixelData.toJS,
     centiSecondsPerFame.toJS,
     maxBitDepth.toJS,
     pitchInBytes.toJS,
-  ]).toInt();
+  );
 
   @override
   MsfGifResultD msf_gif_end(
     StructPointer<MsfGifStateD> handle,
   ) => rl.Temp.MsfGifResult$.RefCapture(
     RaylibCaptureIds.msf_gif_end,
-    (p) => _wasm.msf_gif_end.run([
+    (p) => _wasm.msf_gif_end(
       p.toJS,
       handle.toJS,
-    ]),
+    ),
   );
 
   @override
   void msf_gif_free(
     MsfGifResultD result,
   ) => disposeStructWithOpFreed(result, (ptr) {
-    _wasm.msf_gif_free.run([
+    _wasm.msf_gif_free(
       ptr.toJS,
-    ]);
+    );
   });
 
   @override
@@ -65,13 +65,13 @@ class RaylibMsfGifFlat extends RaylibMsfGifFlatModule<Raylib> {
     int height,
     MemoryPointer<RFunction> func,
     MemoryPointer<RVoid> filePointer,
-  ) => _wasm.msf_gif_begin_to_file.run([
+  ) => _wasm.msf_gif_begin_to_file(
     handle.toJS,
     width.toJS,
     height.toJS,
     func.toJS,
     filePointer.toJS,
-  ]).toInt();
+  );
 
   @override
   int msf_gif_frame_to_file(
@@ -80,18 +80,18 @@ class RaylibMsfGifFlat extends RaylibMsfGifFlatModule<Raylib> {
     int centiSecondsPerFame,
     int maxBitDepth,
     int pitchInBytes,
-  ) => _wasm.msf_gif_frame_to_file.run([
+  ) => _wasm.msf_gif_frame_to_file(
     handle.toJS,
     pixelData.toJS,
     centiSecondsPerFame.toJS,
     maxBitDepth.toJS,
     pitchInBytes.toJS,
-  ]).toInt();
+  );
 
   @override
   int msf_gif_end_to_file(
     StructPointer<MsfGifStateD> handle,
-  ) => _wasm.msf_gif_end_to_file.run([
+  ) => _wasm.msf_gif_end_to_file(
     handle.toJS,
-  ]).toInt();
+  );
 }

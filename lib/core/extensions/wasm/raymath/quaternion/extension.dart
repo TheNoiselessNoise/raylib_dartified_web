@@ -2,85 +2,85 @@ part of '../../../../raylib_dartified_web.dart';
 
 class RaylibQuaternionExt extends RaylibModuleWasm {
   /// Add two quaternions
-  late final JSFunction QuaternionAdd;
+  late final WF3<void> QuaternionAdd;
   /// Add quaternion and double value
-  late final JSFunction QuaternionAddValue;
+  late final WF3<void> QuaternionAddValue;
   /// Calculate quaternion cubic spline interpolation using Cubic Hermite Spline algorithm
   /// as described in the GLTF 2.0 specification: https://registry.khronos.org/glTF/specs/2.0/glTF-2.0.html#interpolation-cubic
-  late final JSFunction QuaternionCubicHermiteSpline;
+  late final WF6<void> QuaternionCubicHermiteSpline;
   /// Divide two quaternions
-  late final JSFunction QuaternionDivide;
+  late final WF3<void> QuaternionDivide;
   /// Check whether two given quaternions are almost equal
-  late final JSFunction QuaternionEquals;
+  late final WF2<bool> QuaternionEquals;
   /// Get rotation quaternion for an angle and axis
   /// 
   /// NOTE: Angle must be provided in radians
-  late final JSFunction QuaternionFromAxisAngle;
+  late final WF3<void> QuaternionFromAxisAngle;
   /// Get the quaternion equivalent to Euler angles
   /// 
   /// NOTE: Rotation order is ZYX
-  late final JSFunction QuaternionFromEuler;
+  late final WF4<void> QuaternionFromEuler;
   /// Get a quaternion for a given rotation matrix
-  late final JSFunction QuaternionFromMatrix;
+  late final WF2<void> QuaternionFromMatrix;
   /// Calculate quaternion based on the rotation from one vector to another
-  late final JSFunction QuaternionFromVector3ToVector3;
+  late final WF3<void> QuaternionFromVector3ToVector3;
   /// Get identity quaternion
-  late final JSFunction QuaternionIdentity;
+  late final WF1<void> QuaternionIdentity;
   /// Invert provided quaternion
-  late final JSFunction QuaternionInvert;
+  late final WF2<void> QuaternionInvert;
   /// Computes the length of a quaternion
-  late final JSFunction QuaternionLength;
+  late final WF1<double> QuaternionLength;
   /// Calculate linear interpolation between two quaternions
-  late final JSFunction QuaternionLerp;
+  late final WF4<void> QuaternionLerp;
   /// Calculate two quaternion multiplication
-  late final JSFunction QuaternionMultiply;
+  late final WF3<void> QuaternionMultiply;
   /// Calculate slerp-optimized interpolation between two quaternions
-  late final JSFunction QuaternionNlerp;
+  late final WF4<void> QuaternionNlerp;
   /// Normalize provided quaternion
-  late final JSFunction QuaternionNormalize;
+  late final WF2<void> QuaternionNormalize;
   /// Scale quaternion by double value
-  late final JSFunction QuaternionScale;
+  late final WF3<void> QuaternionScale;
   /// Calculates spherical linear interpolation between two quaternions
-  late final JSFunction QuaternionSlerp;
+  late final WF4<void> QuaternionSlerp;
   /// Subtract two quaternions
-  late final JSFunction QuaternionSubtract;
+  late final WF3<void> QuaternionSubtract;
   /// Subtract quaternion and double value
-  late final JSFunction QuaternionSubtractValue;
+  late final WF3<void> QuaternionSubtractValue;
   /// Get the rotation angle and axis for a given quaternion
-  late final JSFunction QuaternionToAxisAngle;
+  late final WF3<void> QuaternionToAxisAngle;
   /// Get the Euler angles equivalent to quaternion (roll, pitch, yaw)
   /// 
   /// NOTE: Angles are returned in a Vector3 struct in radians
-  late final JSFunction QuaternionToEuler;
+  late final WF2<void> QuaternionToEuler;
   /// Get a matrix for a given quaternion
-  late final JSFunction QuaternionToMatrix;
+  late final WF2<void> QuaternionToMatrix;
   /// Transform a quaternion given a transformation matrix
-  late final JSFunction QuaternionTransform;
+  late final WF3<void> QuaternionTransform;
 
   RaylibQuaternionExt(super.rl) {
-    QuaternionAdd                  = _module.dwrap('QuaternionAdd',                  n3, rv);
-    QuaternionAddValue             = _module.dwrap('QuaternionAddValue',             n3, rv);
-    QuaternionCubicHermiteSpline   = _module.dwrap('QuaternionCubicHermiteSpline',   n6, rv);
-    QuaternionDivide               = _module.dwrap('QuaternionDivide',               n3, rv);
-    QuaternionEquals               = _module.dwrap('QuaternionEquals',               n2, rn);
-    QuaternionFromAxisAngle        = _module.dwrap('QuaternionFromAxisAngle',        n3, rv);
-    QuaternionFromEuler            = _module.dwrap('QuaternionFromEuler',            n4, rv);
-    QuaternionFromMatrix           = _module.dwrap('QuaternionFromMatrix',           n2, rv);
-    QuaternionFromVector3ToVector3 = _module.dwrap('QuaternionFromVector3ToVector3', n3, rv);
-    QuaternionIdentity             = _module.dwrap('QuaternionIdentity',             n1, rv);
-    QuaternionInvert               = _module.dwrap('QuaternionInvert',               n2, rv);
-    QuaternionLength               = _module.dwrap('QuaternionLength',               n1, rn);
-    QuaternionLerp                 = _module.dwrap('QuaternionLerp',                 n4, rv);
-    QuaternionMultiply             = _module.dwrap('QuaternionMultiply',             n3, rv);
-    QuaternionNlerp                = _module.dwrap('QuaternionNlerp',                n4, rv);
-    QuaternionNormalize            = _module.dwrap('QuaternionNormalize',            n2, rv);
-    QuaternionScale                = _module.dwrap('QuaternionScale',                n3, rv);
-    QuaternionSlerp                = _module.dwrap('QuaternionSlerp',                n4, rv);
-    QuaternionSubtract             = _module.dwrap('QuaternionSubtract',             n3, rv);
-    QuaternionSubtractValue        = _module.dwrap('QuaternionSubtractValue',        n3, rv);
-    QuaternionToAxisAngle          = _module.dwrap('QuaternionToAxisAngle',          n3, rv);
-    QuaternionToEuler              = _module.dwrap('QuaternionToEuler',              n2, rv);
-    QuaternionToMatrix             = _module.dwrap('QuaternionToMatrix',             n2, rv);
-    QuaternionTransform            = _module.dwrap('QuaternionTransform',            n3, rv);
+    QuaternionAdd                  = swrap2('QuaternionAdd');
+    QuaternionAddValue             = swrap2('QuaternionAddValue');
+    QuaternionCubicHermiteSpline   = swrap5('QuaternionCubicHermiteSpline');
+    QuaternionDivide               = swrap2('QuaternionDivide');
+    QuaternionEquals               = dwrap2('QuaternionEquals');
+    QuaternionFromAxisAngle        = swrap2('QuaternionFromAxisAngle');
+    QuaternionFromEuler            = swrap3('QuaternionFromEuler');
+    QuaternionFromMatrix           = swrap1('QuaternionFromMatrix');
+    QuaternionFromVector3ToVector3 = swrap2('QuaternionFromVector3ToVector3');
+    QuaternionIdentity             = swrap0('QuaternionIdentity');
+    QuaternionInvert               = swrap1('QuaternionInvert');
+    QuaternionLength               = dwrap1('QuaternionLength');
+    QuaternionLerp                 = swrap3('QuaternionLerp');
+    QuaternionMultiply             = swrap2('QuaternionMultiply');
+    QuaternionNlerp                = swrap3('QuaternionNlerp');
+    QuaternionNormalize            = swrap1('QuaternionNormalize');
+    QuaternionScale                = swrap2('QuaternionScale');
+    QuaternionSlerp                = swrap3('QuaternionSlerp');
+    QuaternionSubtract             = swrap2('QuaternionSubtract');
+    QuaternionSubtractValue        = swrap2('QuaternionSubtractValue');
+    QuaternionToAxisAngle          = dwrap3('QuaternionToAxisAngle');
+    QuaternionToEuler              = swrap1('QuaternionToEuler');
+    QuaternionToMatrix             = swrap1('QuaternionToMatrix');
+    QuaternionTransform            = swrap2('QuaternionTransform');
   }
 }

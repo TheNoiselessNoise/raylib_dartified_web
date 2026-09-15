@@ -7,16 +7,16 @@ class RaylibVector4ExtFlat extends RaylibVector4FlatExt<Raylib> {
 
   @override
   Vector4D Vector4Zero() => rl.Temp.Vector4$.Extract1(
-    (p) => _wasm.Vector4Zero.run([
+    (p) => _wasm.Vector4Zero(
       p.toJS,
-    ]),
+    ),
   );
 
   @override
   Vector4D Vector4One() => rl.Temp.Vector4$.Extract1(
-    (p) => _wasm.Vector4One.run([
+    (p) => _wasm.Vector4One(
       p.toJS,
-    ]),
+    ),
   );
 
   @override
@@ -24,11 +24,11 @@ class RaylibVector4ExtFlat extends RaylibVector4FlatExt<Raylib> {
     Vector4D v1,
     Vector4D v2,
   ) => rl.Temp.Vector4$.Extract3(
-    (p) => _wasm.Vector4Add.run([
+    (p) => _wasm.Vector4Add(
       p.toJS,
       rl.Temp.Vector4$.Ref1(v1).toJS,
       rl.Temp.Vector4$.Ref2(v2).toJS,
-    ]),
+    ),
   );
 
   @override
@@ -36,11 +36,11 @@ class RaylibVector4ExtFlat extends RaylibVector4FlatExt<Raylib> {
     Vector4D v,
     double add,
   ) => rl.Temp.Vector4$.Extract3(
-    (p) => _wasm.Vector4AddValue.run([
+    (p) => _wasm.Vector4AddValue(
       p.toJS,
       rl.Temp.Vector4$.Ref1(v).toJS,
       add.toJS,
-    ]),
+    ),
   );
 
   @override
@@ -48,11 +48,11 @@ class RaylibVector4ExtFlat extends RaylibVector4FlatExt<Raylib> {
     Vector4D v1,
     Vector4D v2,
   ) => rl.Temp.Vector4$.Extract3(
-    (p) => _wasm.Vector4Subtract.run([
+    (p) => _wasm.Vector4Subtract(
       p.toJS,
       rl.Temp.Vector4$.Ref1(v1).toJS,
       rl.Temp.Vector4$.Ref2(v2).toJS,
-    ]),
+    ),
   );
 
   @override
@@ -60,64 +60,64 @@ class RaylibVector4ExtFlat extends RaylibVector4FlatExt<Raylib> {
     Vector4D v,
     double add,
   ) => rl.Temp.Vector4$.Extract3(
-    (p) => _wasm.Vector4SubtractValue.run([
+    (p) => _wasm.Vector4SubtractValue(
       p.toJS,
       rl.Temp.Vector4$.Ref1(v).toJS,
       add.toJS,
-    ]),
+    ),
   );
 
   @override
   double Vector4Length(
     Vector4D v,
-  ) => _wasm.Vector4Length.run([
+  ) => _wasm.Vector4Length(
     rl.Temp.Vector4$.Ref1(v).toJS,
-  ]).toDouble();
+  );
 
   @override
   double Vector4LengthSqr(
     Vector4D v,
-  ) => _wasm.Vector4LengthSqr.run([
+  ) => _wasm.Vector4LengthSqr(
     rl.Temp.Vector4$.Ref1(v).toJS,
-  ]).toDouble();
+  );
 
   @override
   double Vector4DotProduct(
     Vector4D v1,
     Vector4D v2,
-  ) => _wasm.Vector4DotProduct.run([
+  ) => _wasm.Vector4DotProduct(
     rl.Temp.Vector4$.Ref1(v1).toJS,
     rl.Temp.Vector4$.Ref2(v2).toJS,
-  ]).toDouble();
+  );
 
   @override
   double Vector4Distance(
     Vector4D v1,
     Vector4D v2,
-  ) => _wasm.Vector4Distance.run([
+  ) => _wasm.Vector4Distance(
     rl.Temp.Vector4$.Ref1(v1).toJS,
     rl.Temp.Vector4$.Ref2(v2).toJS,
-  ]).toDouble();
+  );
 
   @override
   double Vector4DistanceSqr(
     Vector4D v1,
     Vector4D v2,
-  ) => _wasm.Vector4DistanceSqr.run([
+  ) => _wasm.Vector4DistanceSqr(
     rl.Temp.Vector4$.Ref1(v1).toJS,
     rl.Temp.Vector4$.Ref2(v2).toJS,
-  ]).toDouble();
+  );
 
   @override
   Vector4D Vector4Scale(
     Vector4D v,
     double scale,
   ) => rl.Temp.Vector4$.Extract2(
-    (p) => _wasm.Vector4Scale.run([
+    (p) => _wasm.Vector4Scale(
       p.toJS,
       rl.Temp.Vector4$.Ref1(v).toJS,
       scale.toJS,
-    ]),
+    ),
   );
 
   @override
@@ -125,21 +125,21 @@ class RaylibVector4ExtFlat extends RaylibVector4FlatExt<Raylib> {
     Vector4D v1,
     Vector4D v2,
   ) => rl.Temp.Vector4$.Extract3(
-    (p) => _wasm.Vector4Multiply.run([
+    (p) => _wasm.Vector4Multiply(
       p.toJS,
       rl.Temp.Vector4$.Ref1(v1).toJS,
       rl.Temp.Vector4$.Ref2(v2).toJS,
-    ]),
+    ),
   );
 
   @override
   Vector4D Vector4Negate(
     Vector4D v,
   ) => rl.Temp.Vector4$.Extract2(
-    (p) => _wasm.Vector4Negate.run([
+    (p) => _wasm.Vector4Negate(
       p.toJS,
       rl.Temp.Vector4$.Ref1(v).toJS,
-    ]),
+    ),
   );
 
   @override
@@ -147,21 +147,21 @@ class RaylibVector4ExtFlat extends RaylibVector4FlatExt<Raylib> {
     Vector4D v1,
     Vector4D v2,
   ) => rl.Temp.Vector4$.Extract3(
-    (p) => _wasm.Vector4Divide.run([
+    (p) => _wasm.Vector4Divide(
       p.toJS,
       rl.Temp.Vector4$.Ref1(v1).toJS,
       rl.Temp.Vector4$.Ref2(v2).toJS,
-    ]),
+    ),
   );
 
   @override
   Vector4D Vector4Normalize(
     Vector4D v,
   ) => rl.Temp.Vector4$.Extract2(
-    (p) => _wasm.Vector4Normalize.run([
+    (p) => _wasm.Vector4Normalize(
       p.toJS,
       rl.Temp.Vector4$.Ref1(v).toJS,
-    ]),
+    ),
   );
 
   @override
@@ -169,11 +169,11 @@ class RaylibVector4ExtFlat extends RaylibVector4FlatExt<Raylib> {
     Vector4D v1,
     Vector4D v2,
   ) => rl.Temp.Vector4$.Extract3(
-    (p) => _wasm.Vector4Min.run([
+    (p) => _wasm.Vector4Min(
       p.toJS,
       rl.Temp.Vector4$.Ref1(v1).toJS,
       rl.Temp.Vector4$.Ref2(v2).toJS,
-    ]),
+    ),
   );
 
   @override
@@ -181,11 +181,11 @@ class RaylibVector4ExtFlat extends RaylibVector4FlatExt<Raylib> {
     Vector4D v1,
     Vector4D v2,
   ) => rl.Temp.Vector4$.Extract3(
-    (p) => _wasm.Vector4Max.run([
+    (p) => _wasm.Vector4Max(
       p.toJS,
       rl.Temp.Vector4$.Ref1(v1).toJS,
       rl.Temp.Vector4$.Ref2(v2).toJS,
-    ]),
+    ),
   );
 
   @override
@@ -194,12 +194,12 @@ class RaylibVector4ExtFlat extends RaylibVector4FlatExt<Raylib> {
     Vector4D v2,
     double amount,
   ) => rl.Temp.Vector4$.Extract3(
-    (p) => _wasm.Vector4Lerp.run([
+    (p) => _wasm.Vector4Lerp(
       p.toJS,
       rl.Temp.Vector4$.Ref1(v1).toJS,
       rl.Temp.Vector4$.Ref2(v2).toJS,
       amount.toJS,
-    ]),
+    ),
   );
 
   @override
@@ -208,30 +208,30 @@ class RaylibVector4ExtFlat extends RaylibVector4FlatExt<Raylib> {
     Vector4D target,
     double maxDistance,
   ) => rl.Temp.Vector4$.Extract3(
-    (p) => _wasm.Vector4MoveTowards.run([
+    (p) => _wasm.Vector4MoveTowards(
       p.toJS,
       rl.Temp.Vector4$.Ref1(v).toJS,
       rl.Temp.Vector4$.Ref2(target).toJS,
       maxDistance.toJS,
-    ]),
+    ),
   );
 
   @override
   Vector4D Vector4Invert(
     Vector4D v,
   ) => rl.Temp.Vector4$.Extract2(
-    (p) => _wasm.Vector4Invert.run([
+    (p) => _wasm.Vector4Invert(
       p.toJS,
       rl.Temp.Vector4$.Ref1(v).toJS,
-    ]),
+    ),
   );
 
   @override
-  int Vector4Equals(
+  bool Vector4Equals(
     Vector4D p,
     Vector4D q,
-  ) => _wasm.Vector4Equals.run([
+  ) => _wasm.Vector4Equals(
     rl.Temp.Vector4$.Ref1(p).toJS,
     rl.Temp.Vector4$.Ref2(q).toJS,
-  ]).toInt();
+  );
 }

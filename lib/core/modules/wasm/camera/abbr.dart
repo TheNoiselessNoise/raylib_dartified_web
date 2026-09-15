@@ -1,29 +1,28 @@
-import 'dart:js_interop';
 import 'package:raylib_dartified_web/raylib_dartified_web.dart';
 
 RaylibCamera get _module => Raylib.instance.module();
 
 /// See [RaylibCamera.GetCameraForward].
-JSFunction get GetCameraForward => _module.GetCameraForward;
+WF2<void> get GetCameraForward => _module.GetCameraForward;
 /// See [RaylibCamera.GetCameraUp].
-JSFunction get GetCameraUp => _module.GetCameraUp;
+WF2<void> get GetCameraUp => _module.GetCameraUp;
 /// See [RaylibCamera.GetCameraRight].
-JSFunction get GetCameraRight => _module.GetCameraRight;
+WF2<void> get GetCameraRight => _module.GetCameraRight;
 /// See [RaylibCamera.CameraMoveForward].
-JSFunction get CameraMoveForward => _module.CameraMoveForward;
+WF3<void> get CameraMoveForward => _module.CameraMoveForward;
 /// See [RaylibCamera.CameraMoveUp].
-JSFunction get CameraMoveUp => _module.CameraMoveUp;
+WF2<void> get CameraMoveUp => _module.CameraMoveUp;
 /// See [RaylibCamera.CameraMoveRight].
-JSFunction get CameraMoveRight => _module.CameraMoveRight;
+WF3<void> get CameraMoveRight => _module.CameraMoveRight;
 /// See [RaylibCamera.CameraMoveToTarget].
-JSFunction get CameraMoveToTarget => _module.CameraMoveToTarget;
+WF2<void> get CameraMoveToTarget => _module.CameraMoveToTarget;
 /// See [RaylibCamera.CameraYaw].
-JSFunction get CameraYaw => _module.CameraYaw;
+WF3<void> get CameraYaw => _module.CameraYaw;
 /// See [RaylibCamera.CameraPitch].
-JSFunction get CameraPitch => _module.CameraPitch;
+WF5<void> get CameraPitch => _module.CameraPitch;
 /// See [RaylibCamera.CameraRoll].
-JSFunction get CameraRoll => _module.CameraRoll;
+WF2<void> get CameraRoll => _module.CameraRoll;
 /// See [RaylibCamera.GetCameraViewMatrix].
-JSFunction get GetCameraViewMatrix => _module.GetCameraViewMatrix;
+WF2<void> get GetCameraViewMatrix => _module.GetCameraViewMatrix;
 /// See [RaylibCamera.GetCameraProjectionMatrix].
-JSFunction get GetCameraProjectionMatrix => _module.GetCameraProjectionMatrix;
+WF3<void> get GetCameraProjectionMatrix => _module.GetCameraProjectionMatrix;

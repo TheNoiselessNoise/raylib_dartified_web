@@ -8,42 +8,42 @@ class RaylibMatrixExtFlat extends RaylibMatrixFlatExt<Raylib> {
   @override
   double MatrixDeterminant(
     MatrixD mat,
-  ) => _wasm.MatrixDeterminant.run([
+  ) => _wasm.MatrixDeterminant(
     rl.Temp.Matrix$.Ref1(mat).toJS,
-  ]).toDouble();
+  );
 
   @override
   double MatrixTrace(
     MatrixD mat,
-  ) => _wasm.MatrixTrace.run([
+  ) => _wasm.MatrixTrace(
     rl.Temp.Matrix$.Ref1(mat).toJS,
-  ]).toDouble();
+  );
 
   @override
   MatrixD MatrixTranspose(
     MatrixD mat,
   ) => rl.Temp.Matrix$.Extract2(
-    (p) => _wasm.MatrixTranspose.run([
+    (p) => _wasm.MatrixTranspose(
       p.toJS,
       rl.Temp.Matrix$.Ref1(mat).toJS,
-    ]),
+    ),
   );
 
   @override
   MatrixD MatrixInvert(
     MatrixD mat,
   ) => rl.Temp.Matrix$.Extract2(
-    (p) => _wasm.MatrixInvert.run([
+    (p) => _wasm.MatrixInvert(
       p.toJS,
       rl.Temp.Matrix$.Ref1(mat).toJS,
-    ]),
+    ),
   );
 
   @override
   MatrixD MatrixIdentity() => rl.Temp.Matrix$.Extract1(
-    (p) => _wasm.MatrixIdentity.run([
+    (p) => _wasm.MatrixIdentity(
       p.toJS,
-    ]),
+    ),
   );
 
   @override
@@ -51,11 +51,11 @@ class RaylibMatrixExtFlat extends RaylibMatrixFlatExt<Raylib> {
     MatrixD left,
     MatrixD right,
   ) => rl.Temp.Matrix$.Extract3(
-    (p) => _wasm.MatrixAdd.run([
+    (p) => _wasm.MatrixAdd(
       p.toJS,
       rl.Temp.Matrix$.Ref1(left).toJS,
       rl.Temp.Matrix$.Ref2(right).toJS,
-    ]),
+    ),
   );
 
   @override
@@ -63,11 +63,11 @@ class RaylibMatrixExtFlat extends RaylibMatrixFlatExt<Raylib> {
     MatrixD left,
     MatrixD right,
   ) => rl.Temp.Matrix$.Extract3(
-    (p) => _wasm.MatrixSubtract.run([
+    (p) => _wasm.MatrixSubtract(
       p.toJS,
       rl.Temp.Matrix$.Ref1(left).toJS,
       rl.Temp.Matrix$.Ref2(right).toJS,
-    ]),
+    ),
   );
 
   @override
@@ -75,11 +75,11 @@ class RaylibMatrixExtFlat extends RaylibMatrixFlatExt<Raylib> {
     MatrixD left,
     MatrixD right,
   ) => rl.Temp.Matrix$.Extract3(
-    (p) => _wasm.MatrixMultiply.run([
+    (p) => _wasm.MatrixMultiply(
       p.toJS,
       rl.Temp.Matrix$.Ref1(left).toJS,
       rl.Temp.Matrix$.Ref2(right).toJS,
-    ]),
+    ),
   );
 
   @override
@@ -87,11 +87,11 @@ class RaylibMatrixExtFlat extends RaylibMatrixFlatExt<Raylib> {
     MatrixD left,
     double value,
   ) => rl.Temp.Matrix$.Extract2(
-    (p) => _wasm.MatrixMultiplyValue.run([
+    (p) => _wasm.MatrixMultiplyValue(
       p.toJS,
       rl.Temp.Matrix$.Ref1(left).toJS,
       value.toJS,
-    ]),
+    ),
   );
 
   @override
@@ -100,12 +100,12 @@ class RaylibMatrixExtFlat extends RaylibMatrixFlatExt<Raylib> {
     double y,
     double z,
   ) => rl.Temp.Matrix$.Extract1(
-    (p) => _wasm.MatrixTranslate.run([
+    (p) => _wasm.MatrixTranslate(
       p.toJS,
       x.toJS,
       y.toJS,
       z.toJS,
-    ]),
+    ),
   );
 
   @override
@@ -113,61 +113,61 @@ class RaylibMatrixExtFlat extends RaylibMatrixFlatExt<Raylib> {
     Vector3D axis,
     double angle,
   ) => rl.Temp.Matrix$.Extract1(
-    (p) => _wasm.MatrixRotate.run([
+    (p) => _wasm.MatrixRotate(
       p.toJS,
       rl.Temp.Vector3$.Ref1(axis).toJS,
       angle.toJS,
-    ]),
+    ),
   );
 
   @override
   MatrixD MatrixRotateX(
     double angle,
   ) => rl.Temp.Matrix$.Extract1(
-    (p) => _wasm.MatrixRotateX.run([
+    (p) => _wasm.MatrixRotateX(
       p.toJS,
       angle.toJS,
-    ]),
+    ),
   );
 
   @override
   MatrixD MatrixRotateY(
     double angle,
   ) => rl.Temp.Matrix$.Extract1(
-    (p) => _wasm.MatrixRotateY.run([
+    (p) => _wasm.MatrixRotateY(
       p.toJS,
       angle.toJS,
-    ]),
+    ),
   );
 
   @override
   MatrixD MatrixRotateZ(
     double angle,
   ) => rl.Temp.Matrix$.Extract1(
-    (p) => _wasm.MatrixRotateZ.run([
+    (p) => _wasm.MatrixRotateZ(
       p.toJS,
       angle.toJS,
-    ]),
+    ),
   );
 
   @override
   MatrixD MatrixRotateXYZ(
     Vector3D angle,
   ) => rl.Temp.Matrix$.Extract1(
-    (p) => _wasm.MatrixRotateXYZ.run([
+    (p) => _wasm.MatrixRotateXYZ(
       p.toJS,
       rl.Temp.Vector3$.Ref1(angle).toJS,
-    ]),
+    ),
   );
 
   @override
   MatrixD MatrixRotateZYX(
     Vector3D angle,
   ) => rl.Temp.Matrix$.Extract1(
-    (p) => _wasm.MatrixRotateZYX.run([
+    (p) => _wasm.MatrixRotateZYX(
       p.toJS,
       rl.Temp.Vector3$.Ref1(angle).toJS,
-    ]),
+    ),
   );
 
   @override
@@ -176,12 +176,12 @@ class RaylibMatrixExtFlat extends RaylibMatrixFlatExt<Raylib> {
     double y,
     double z,
   ) => rl.Temp.Matrix$.Extract1(
-    (p) => _wasm.MatrixScale.run([
+    (p) => _wasm.MatrixScale(
       p.toJS,
       x.toJS,
       y.toJS,
       z.toJS,
-    ]),
+    ),
   );
 
   @override
@@ -193,7 +193,7 @@ class RaylibMatrixExtFlat extends RaylibMatrixFlatExt<Raylib> {
     double nearPlane,
     double farPlane,
   ) => rl.Temp.Matrix$.Extract1(
-    (p) => _wasm.MatrixFrustum.run([
+    (p) => _wasm.MatrixFrustum(
       p.toJS,
       left.toJS,
       right.toJS,
@@ -201,7 +201,7 @@ class RaylibMatrixExtFlat extends RaylibMatrixFlatExt<Raylib> {
       top.toJS,
       nearPlane.toJS,
       farPlane.toJS,
-    ]),
+    ),
   );
 
   @override
@@ -211,13 +211,13 @@ class RaylibMatrixExtFlat extends RaylibMatrixFlatExt<Raylib> {
     double nearPlane,
     double farPlane,
   ) => rl.Temp.Matrix$.Extract1(
-    (p) => _wasm.MatrixPerspective.run([
+    (p) => _wasm.MatrixPerspective(
       p.toJS,
       fovY.toJS,
       aspect.toJS,
       nearPlane.toJS,
       farPlane.toJS,
-    ]),
+    ),
   );
 
   @override
@@ -229,7 +229,7 @@ class RaylibMatrixExtFlat extends RaylibMatrixFlatExt<Raylib> {
     double nearPlane,
     double farPlane,
   ) => rl.Temp.Matrix$.Extract1(
-    (p) => _wasm.MatrixOrtho.run([
+    (p) => _wasm.MatrixOrtho(
       p.toJS,
       left.toJS,
       right.toJS,
@@ -237,7 +237,7 @@ class RaylibMatrixExtFlat extends RaylibMatrixFlatExt<Raylib> {
       top.toJS,
       nearPlane.toJS,
       farPlane.toJS,
-    ]),
+    ),
   );
 
   @override
@@ -246,22 +246,22 @@ class RaylibMatrixExtFlat extends RaylibMatrixFlatExt<Raylib> {
     Vector3D target,
     Vector3D up,
   ) => rl.Temp.Matrix$.Extract1(
-    (p) => _wasm.MatrixLookAt.run([
+    (p) => _wasm.MatrixLookAt(
       p.toJS,
       rl.Temp.Vector3$.Ref1(eye).toJS,
       rl.Temp.Vector3$.Ref2(target).toJS,
       rl.Temp.Vector3$.Ref3(up).toJS,
-    ]),
+    ),
   );
 
   @override
   float16D MatrixToFloatV(
     MatrixD mat,
   ) => rl.Temp.float16$.Extract1(
-    (p) => _wasm.MatrixToFloatV.run([
+    (p) => _wasm.MatrixToFloatV(
       p.toJS,
       rl.Temp.Matrix$.Ref1(mat).toJS,
-    ]),
+    ),
   );
 
   @override
@@ -270,12 +270,12 @@ class RaylibMatrixExtFlat extends RaylibMatrixFlatExt<Raylib> {
     QuaternionD rotation,
     Vector3D scale,
   ) => rl.Temp.Matrix$.Extract1(
-    (p) => _wasm.MatrixCompose.run([
+    (p) => _wasm.MatrixCompose(
       p.toJS,
       rl.Temp.Vector3$.Ref1(translation).toJS,
       rl.Temp.Quaternion$.Ref1(rotation).toJS,
       rl.Temp.Vector3$.Ref2(scale).toJS,
-    ]),
+    ),
   );
 
   @override
@@ -284,10 +284,10 @@ class RaylibMatrixExtFlat extends RaylibMatrixFlatExt<Raylib> {
     StructPointer<Vector3D> translation,
     StructPointer<QuaternionD> rotation,
     StructPointer<Vector3D> scale,
-  ) => _wasm.MatrixDecompose.run([
+  ) => _wasm.MatrixDecompose(
     rl.Temp.Matrix$.Ref1(mat).toJS,
     translation.toJS,
     rotation.toJS,
     scale.toJS,
-  ]);
+  );
 }

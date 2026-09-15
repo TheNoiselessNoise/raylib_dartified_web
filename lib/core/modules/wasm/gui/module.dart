@@ -2,189 +2,189 @@ part of '../../../raylib_dartified_web.dart';
 
 class RaylibGui extends RaylibModuleWasm with RaylibGuiModuleExtras<Raylib> {
   /// Enable gui controls (global state)
-  late final JSFunction GuiEnable;
+  late final WF0<void> GuiEnable;
   /// Disable gui controls (global state)
-  late final JSFunction GuiDisable;
+  late final WF0<void> GuiDisable;
   /// Lock gui controls (global state)
-  late final JSFunction GuiLock;
+  late final WF0<void> GuiLock;
   /// Unlock gui controls (global state)
-  late final JSFunction GuiUnlock;
+  late final WF0<void> GuiUnlock;
   /// Check if gui is locked (global state)
-  late final JSFunction GuiIsLocked;
+  late final WF0<bool> GuiIsLocked;
   /// Set gui controls alpha (global state), alpha goes from 0.0 to 1.0
-  late final JSFunction GuiSetAlpha;
+  late final WF1<void> GuiSetAlpha;
   /// Set gui state (global state)
-  late final JSFunction GuiSetState;
+  late final WF1<void> GuiSetState;
   /// Get gui state (global state)
-  late final JSFunction GuiGetState;
+  late final WF0<int> GuiGetState;
   /// Set gui custom font (global state)
-  late final JSFunction GuiSetFont;
+  late final WF1<void> GuiSetFont;
   /// Get gui custom font (global state)
-  late final JSFunction GuiGetFont;
+  late final WF1<void> GuiGetFont;
   /// Set one style property
-  late final JSFunction GuiSetStyle;
+  late final WF3<void> GuiSetStyle;
   /// Get one style property
-  late final JSFunction GuiGetStyle;
+  late final WF2<int> GuiGetStyle;
   /// Load style file over global style variable (.rgs)
-  late final JSFunction GuiLoadStyle;
+  late final WF1<void> GuiLoadStyle;
   /// Load style from memory (binary only)
-  late final JSFunction GuiLoadStyleFromMemory;
+  late final WF2<void> GuiLoadStyleFromMemory;
   /// Load style default over global style
-  late final JSFunction GuiLoadStyleDefault;
+  late final WF0<void> GuiLoadStyleDefault;
   /// Enable gui tooltips (global state)
-  late final JSFunction GuiEnableTooltip;
+  late final WF0<void> GuiEnableTooltip;
   /// Disable gui tooltips (global state)
-  late final JSFunction GuiDisableTooltip;
+  late final WF0<void> GuiDisableTooltip;
   /// Set tooltip string
-  late final JSFunction GuiSetTooltip;
+  late final WF1<void> GuiSetTooltip;
   /// Get text with icon id prepended (if supported)
-  late final JSFunction GuiIconText;
+  late final WF2<WasmMemoryPointer<RChar>> GuiIconText;
   /// Set default icon drawing size
-  late final JSFunction GuiSetIconScale;
+  late final WF1<void> GuiSetIconScale;
   /// Get raygui icons data
-  late final JSFunction GuiGetIcons;
+  late final WF0<WasmMemoryPointer<RUnsignedInt>> GuiGetIcons;
   /// Load raygui icons file (.rgi) into internal icons data
-  late final JSFunction GuiLoadIcons;
+  late final WF2<WasmMemoryPointer<RPointer<RChar>>> GuiLoadIcons;
   /// Load raygui icons file (.rgi) from memory into internal icons data
-  late final JSFunction GuiLoadIconsFromMemory;
+  late final WF3<WasmMemoryPointer<RPointer<RChar>>> GuiLoadIconsFromMemory;
   /// Draw icon using pixel size at specified position
-  late final JSFunction GuiDrawIcon;
+  late final WF5<void> GuiDrawIcon;
   /// Get text width considering gui style and icon size (if required)
-  late final JSFunction GuiGetTextWidth;
+  late final WF1<int> GuiGetTextWidth;
   /// Window Box control, shows a window that can be closed
-  late final JSFunction GuiWindowBox;
+  late final WF2<int> GuiWindowBox;
   /// Group Box control with text name
-  late final JSFunction GuiGroupBox;
+  late final WF2<int> GuiGroupBox;
   /// Line separator control, could contain text
-  late final JSFunction GuiLine;
+  late final WF2<int> GuiLine;
   /// Panel control, useful to group controls
-  late final JSFunction GuiPanel;
+  late final WF2<int> GuiPanel;
   /// Scroll Panel control
-  late final JSFunction GuiScrollPanel;
+  late final WF5<int> GuiScrollPanel;
   /// Label control
-  late final JSFunction GuiLabel;
+  late final WF2<int> GuiLabel;
   /// Button control, returns true when clicked
-  late final JSFunction GuiButton;
+  late final WF2<int> GuiButton;
   /// Label button control, returns true when clicked
-  late final JSFunction GuiLabelButton;
+  late final WF2<int> GuiLabelButton;
   /// Toggle Button control
-  late final JSFunction GuiToggle;
+  late final WF3<int> GuiToggle;
   /// Toggle Group control
-  late final JSFunction GuiToggleGroup;
+  late final WF3<int> GuiToggleGroup;
   /// Toggle Slider control
-  late final JSFunction GuiToggleSlider;
+  late final WF3<int> GuiToggleSlider;
   /// Check Box control, returns true when active
-  late final JSFunction GuiCheckBox;
+  late final WF3<int> GuiCheckBox;
   /// Combo Box control
-  late final JSFunction GuiComboBox;
+  late final WF3<int> GuiComboBox;
   /// Dropdown Box control
-  late final JSFunction GuiDropdownBox;
+  late final WF4<int> GuiDropdownBox;
   /// Spinner control
-  late final JSFunction GuiSpinner;
+  late final WF6<int> GuiSpinner;
   /// Value Box control, updates input text with numbers
-  late final JSFunction GuiValueBox;
+  late final WF6<int> GuiValueBox;
   /// Value box control for float values
-  late final JSFunction GuiValueBoxFloat;
+  late final WF5<int> GuiValueBoxFloat;
   /// Text Box control, updates input text
-  late final JSFunction GuiTextBox;
+  late final WF4<int> GuiTextBox;
   /// Slider control
-  late final JSFunction GuiSlider;
+  late final WF6<int> GuiSlider;
   /// Slider Bar control
-  late final JSFunction GuiSliderBar;
+  late final WF6<int> GuiSliderBar;
   /// Progress Bar control
-  late final JSFunction GuiProgressBar;
+  late final WF6<int> GuiProgressBar;
   /// Status Bar control, shows info text
-  late final JSFunction GuiStatusBar;
+  late final WF2<int> GuiStatusBar;
   /// Dummy control for placeholders
-  late final JSFunction GuiDummyRec;
+  late final WF2<int> GuiDummyRec;
   /// Grid control
-  late final JSFunction GuiGrid;
+  late final WF5<int> GuiGrid;
   /// List View control
-  late final JSFunction GuiListView;
+  late final WF4<int> GuiListView;
   /// List View control, using text entries list and returning focus entry
-  late final JSFunction GuiListViewEx;
+  late final WF6<int> GuiListViewEx;
   /// Tab Bar control
-  late final JSFunction GuiTabBar;
+  late final WF4<int> GuiTabBar;
   /// Tab Bar control, using text entries list and returning focus entry
-  late final JSFunction GuiTabBarEx;
+  late final WF6<int> GuiTabBarEx;
   /// Message Box control, displays a message
-  late final JSFunction GuiMessageBox;
+  late final WF5<int> GuiMessageBox;
   /// Text Input Box control, ask for text, supports secret
-  late final JSFunction GuiTextInputBox;
+  late final WF8<int> GuiTextInputBox;
   /// Color Picker control, includes Color bar controls
-  late final JSFunction GuiColorPicker;
+  late final WF3<int> GuiColorPicker;
   /// Color Panel control
-  late final JSFunction GuiColorPanel;
+  late final WF3<int> GuiColorPanel;
   /// Color Bar Alpha control
-  late final JSFunction GuiColorBarAlpha;
+  late final WF3<int> GuiColorBarAlpha;
   /// Color Bar Hue control
-  late final JSFunction GuiColorBarHue;
+  late final WF3<int> GuiColorBarHue;
   /// Color Picker control, using Hue-Saturation-Value color data, includes Color bar controls
-  late final JSFunction GuiColorPickerHSV;
+  late final WF3<int> GuiColorPickerHSV;
   /// Color Panel control, using Hue-Saturation-Value color data
-  late final JSFunction GuiColorPanelHSV;
+  late final WF3<int> GuiColorPanelHSV;
 
   RaylibGui(super.rl) {
-    GuiEnable              = _module.dwrap('GuiEnable',              n0, rv);
-    GuiDisable             = _module.dwrap('GuiDisable',             n0, rv);
-    GuiLock                = _module.dwrap('GuiLock',                n0, rv);
-    GuiUnlock              = _module.dwrap('GuiUnlock',              n0, rv);
-    GuiIsLocked            = _module.dwrap('GuiIsLocked',            n0, rn);
-    GuiSetAlpha            = _module.dwrap('GuiSetAlpha',            n1, rv);
-    GuiSetState            = _module.dwrap('GuiSetState',            n1, rv);
-    GuiGetState            = _module.dwrap('GuiGetState',            n0, rn);
-    GuiSetFont             = _module.dwrap('GuiSetFont',             n1, rv);
-    GuiGetFont             = _module.dwrap('GuiGetFont',             n1, rv);
-    GuiSetStyle            = _module.dwrap('GuiSetStyle',            n3, rv);
-    GuiGetStyle            = _module.dwrap('GuiGetStyle',            n2, rn);
-    GuiLoadStyle           = _module.dwrap('GuiLoadStyle',           n1, rv);
-    GuiLoadStyleFromMemory = _module.dwrap('GuiLoadStyleFromMemory', n2, rv);
-    GuiLoadStyleDefault    = _module.dwrap('GuiLoadStyleDefault',    n0, rv);
-    GuiEnableTooltip       = _module.dwrap('GuiEnableTooltip',       n0, rv);
-    GuiDisableTooltip      = _module.dwrap('GuiDisableTooltip',      n0, rv);
-    GuiSetTooltip          = _module.dwrap('GuiSetTooltip',          n1, rv);
-    GuiIconText            = _module.dwrap('GuiIconText',            n2, rn);
-    GuiSetIconScale        = _module.dwrap('GuiSetIconScale',        n1, rv);
-    GuiGetIcons            = _module.dwrap('GuiGetIcons',            n0, rn);
-    GuiLoadIcons           = _module.dwrap('GuiLoadIcons',           n2, rn);
-    GuiLoadIconsFromMemory = _module.dwrap('GuiLoadIconsFromMemory', n3, rn);
-    GuiDrawIcon            = _module.dwrap('GuiDrawIcon',            n5, rv);
-    GuiGetTextWidth        = _module.dwrap('GuiGetTextWidth',        n1, rn);
-    GuiWindowBox           = _module.dwrap('GuiWindowBox',           n2, rn);
-    GuiGroupBox            = _module.dwrap('GuiGroupBox',            n2, rn);
-    GuiLine                = _module.dwrap('GuiLine',                n2, rn);
-    GuiPanel               = _module.dwrap('GuiPanel',               n2, rn);
-    GuiScrollPanel         = _module.dwrap('GuiScrollPanel',         n5, rn);
-    GuiLabel               = _module.dwrap('GuiLabel',               n2, rn);
-    GuiButton              = _module.dwrap('GuiButton',              n2, rn);
-    GuiLabelButton         = _module.dwrap('GuiLabelButton',         n2, rn);
-    GuiToggle              = _module.dwrap('GuiToggle',              n3, rn);
-    GuiToggleGroup         = _module.dwrap('GuiToggleGroup',         n3, rn);
-    GuiToggleSlider        = _module.dwrap('GuiToggleSlider',        n3, rn);
-    GuiCheckBox            = _module.dwrap('GuiCheckBox',            n3, rn);
-    GuiComboBox            = _module.dwrap('GuiComboBox',            n3, rn);
-    GuiDropdownBox         = _module.dwrap('GuiDropdownBox',         n4, rn);
-    GuiSpinner             = _module.dwrap('GuiSpinner',             n6, rn);
-    GuiValueBox            = _module.dwrap('GuiValueBox',            n6, rn);
-    GuiValueBoxFloat       = _module.dwrap('GuiValueBoxFloat',       n5, rn);
-    GuiTextBox             = _module.dwrap('GuiTextBox',             n4, rn);
-    GuiSlider              = _module.dwrap('GuiSlider',              n6, rn);
-    GuiSliderBar           = _module.dwrap('GuiSliderBar',           n6, rn);
-    GuiProgressBar         = _module.dwrap('GuiProgressBar',         n6, rn);
-    GuiStatusBar           = _module.dwrap('GuiStatusBar',           n2, rn);
-    GuiDummyRec            = _module.dwrap('GuiDummyRec',            n2, rn);
-    GuiGrid                = _module.dwrap('GuiGrid',                n5, rn);
-    GuiListView            = _module.dwrap('GuiListView',            n4, rn);
-    GuiListViewEx          = _module.dwrap('GuiListViewEx',          n6, rn);
-    GuiTabBar              = _module.dwrap('GuiTabBar',              n4, rn);
-    GuiTabBarEx            = _module.dwrap('GuiTabBarEx',            n6, rn);
-    GuiMessageBox          = _module.dwrap('GuiMessageBox',          n5, rn);
-    GuiTextInputBox        = _module.dwrap('GuiTextInputBox',        n8, rn);
-    GuiColorPicker         = _module.dwrap('GuiColorPicker',         n3, rn);
-    GuiColorPanel          = _module.dwrap('GuiColorPanel',          n3, rn);
-    GuiColorBarAlpha       = _module.dwrap('GuiColorBarAlpha',       n3, rn);
-    GuiColorBarHue         = _module.dwrap('GuiColorBarHue',         n3, rn);
-    GuiColorPickerHSV      = _module.dwrap('GuiColorPickerHSV',      n3, rn);
-    GuiColorPanelHSV       = _module.dwrap('GuiColorPanelHSV',       n3, rn);
+    GuiEnable              = dwrap0('GuiEnable');
+    GuiDisable             = dwrap0('GuiDisable');
+    GuiLock                = dwrap0('GuiLock');
+    GuiUnlock              = dwrap0('GuiUnlock');
+    GuiIsLocked            = dwrap0('GuiIsLocked');
+    GuiSetAlpha            = dwrap1('GuiSetAlpha');
+    GuiSetState            = dwrap1('GuiSetState');
+    GuiGetState            = dwrap0('GuiGetState');
+    GuiSetFont             = dwrap1('GuiSetFont');
+    GuiGetFont             = swrap0('GuiGetFont');
+    GuiSetStyle            = dwrap3('GuiSetStyle');
+    GuiGetStyle            = dwrap2('GuiGetStyle');
+    GuiLoadStyle           = dwrap1('GuiLoadStyle');
+    GuiLoadStyleFromMemory = dwrap2('GuiLoadStyleFromMemory');
+    GuiLoadStyleDefault    = dwrap0('GuiLoadStyleDefault');
+    GuiEnableTooltip       = dwrap0('GuiEnableTooltip');
+    GuiDisableTooltip      = dwrap0('GuiDisableTooltip');
+    GuiSetTooltip          = dwrap1('GuiSetTooltip');
+    GuiIconText            = pwrap2('GuiIconText');
+    GuiSetIconScale        = dwrap1('GuiSetIconScale');
+    GuiGetIcons            = pwrap0('GuiGetIcons');
+    GuiLoadIcons           = pwrap2('GuiLoadIcons');
+    GuiLoadIconsFromMemory = pwrap3('GuiLoadIconsFromMemory');
+    GuiDrawIcon            = dwrap5('GuiDrawIcon');
+    GuiGetTextWidth        = dwrap1('GuiGetTextWidth');
+    GuiWindowBox           = dwrap2('GuiWindowBox');
+    GuiGroupBox            = dwrap2('GuiGroupBox');
+    GuiLine                = dwrap2('GuiLine');
+    GuiPanel               = dwrap2('GuiPanel');
+    GuiScrollPanel         = dwrap5('GuiScrollPanel');
+    GuiLabel               = dwrap2('GuiLabel');
+    GuiButton              = dwrap2('GuiButton');
+    GuiLabelButton         = dwrap2('GuiLabelButton');
+    GuiToggle              = dwrap3('GuiToggle');
+    GuiToggleGroup         = dwrap3('GuiToggleGroup');
+    GuiToggleSlider        = dwrap3('GuiToggleSlider');
+    GuiCheckBox            = dwrap3('GuiCheckBox');
+    GuiComboBox            = dwrap3('GuiComboBox');
+    GuiDropdownBox         = dwrap4('GuiDropdownBox');
+    GuiSpinner             = dwrap6('GuiSpinner');
+    GuiValueBox            = dwrap6('GuiValueBox');
+    GuiValueBoxFloat       = dwrap5('GuiValueBoxFloat');
+    GuiTextBox             = dwrap4('GuiTextBox');
+    GuiSlider              = dwrap6('GuiSlider');
+    GuiSliderBar           = dwrap6('GuiSliderBar');
+    GuiProgressBar         = dwrap6('GuiProgressBar');
+    GuiStatusBar           = dwrap2('GuiStatusBar');
+    GuiDummyRec            = dwrap2('GuiDummyRec');
+    GuiGrid                = dwrap5('GuiGrid');
+    GuiListView            = dwrap4('GuiListView');
+    GuiListViewEx          = dwrap6('GuiListViewEx');
+    GuiTabBar              = dwrap4('GuiTabBar');
+    GuiTabBarEx            = dwrap6('GuiTabBarEx');
+    GuiMessageBox          = dwrap5('GuiMessageBox');
+    GuiTextInputBox        = dwrap8('GuiTextInputBox');
+    GuiColorPicker         = dwrap3('GuiColorPicker');
+    GuiColorPanel          = dwrap3('GuiColorPanel');
+    GuiColorBarAlpha       = dwrap3('GuiColorBarAlpha');
+    GuiColorBarHue         = dwrap3('GuiColorBarHue');
+    GuiColorPickerHSV      = dwrap3('GuiColorPickerHSV');
+    GuiColorPanelHSV       = dwrap3('GuiColorPanelHSV');
   }
 }

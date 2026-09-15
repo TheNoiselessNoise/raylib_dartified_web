@@ -2,1625 +2,1626 @@ part of '../../../raylib_dartified_web.dart';
 
 class RaylibCore extends RaylibModuleWasm {  
   /// Initialize window and OpenGL context
-  late final JSFunction InitWindow;
+  late final WF3<void> InitWindow;
   /// Close window and unload OpenGL context
-  late final JSFunction CloseWindow;
+  late final WF0<void> CloseWindow;
   /// Check if application should close ([KeyboardKey.KEY_ESCAPE] pressed or windows close icon clicked)
-  late final JSFunction WindowShouldClose;
+  late final WF0<bool> WindowShouldClose;
   /// Check if window has been initialized successfully
-  late final JSFunction IsWindowReady;
+  late final WF0<bool> IsWindowReady;
   /// Check if window is currently fullscreen
-  late final JSFunction IsWindowFullscreen;
+  late final WF0<bool> IsWindowFullscreen;
   /// Check if window is currently hidden
-  late final JSFunction IsWindowHidden;
+  late final WF0<bool> IsWindowHidden;
   /// Check if window is currently minimized
-  late final JSFunction IsWindowMinimized;
+  late final WF0<bool> IsWindowMinimized;
   /// Check if window is currently maximized
-  late final JSFunction IsWindowMaximized;
+  late final WF0<bool> IsWindowMaximized;
   /// Check if window is currently focused
-  late final JSFunction IsWindowFocused;
+  late final WF0<bool> IsWindowFocused;
   /// Check if window has been resized last frame
-  late final JSFunction IsWindowResized;
+  late final WF0<bool> IsWindowResized;
   /// Check if one specific window flag is enabled
-  late final JSFunction IsWindowState;
+  late final WF1<bool> IsWindowState;
   /// Set window configuration state using flags
-  late final JSFunction SetWindowState;
+  late final WF1<void> SetWindowState;
   /// Clear window configuration state flags
-  late final JSFunction ClearWindowState;
+  late final WF1<void> ClearWindowState;
   /// Toggle window state: fullscreen/windowed, resizes monitor to match window resolution
-  late final JSFunction ToggleFullscreen;
+  late final WF0<void> ToggleFullscreen;
   /// Toggle window state: borderless windowed, resizes window to match monitor resolution
-  late final JSFunction ToggleBorderlessWindowed;
+  late final WF0<void> ToggleBorderlessWindowed;
   /// Set window state: maximized, if [ConfigFlags.FLAG_WINDOW_RESIZABLE]
-  late final JSFunction MaximizeWindow;
+  late final WF0<void> MaximizeWindow;
   /// Set window state: minimized, if [ConfigFlags.FLAG_WINDOW_RESIZABLE]
-  late final JSFunction MinimizeWindow;
+  late final WF0<void> MinimizeWindow;
   /// Set window state: not minimized/maximized
-  late final JSFunction RestoreWindow;
+  late final WF0<void> RestoreWindow;
   /// Set icon for window (single image, RGBA 32bit)
-  late final JSFunction SetWindowIcon;
+  late final WF1<void> SetWindowIcon;
   /// Set icon for window (multiple images, RGBA 32bit)
-  late final JSFunction SetWindowIcons;
+  late final WF2<void> SetWindowIcons;
   /// Set title for window
-  late final JSFunction SetWindowTitle;
+  late final WF1<void> SetWindowTitle;
   /// Set window position on screen
-  late final JSFunction SetWindowPosition;
+  late final WF2<void> SetWindowPosition;
   /// Set monitor for the current window
-  late final JSFunction SetWindowMonitor;
+  late final WF1<void> SetWindowMonitor;
   /// Set window minimum dimensions (for [ConfigFlags.FLAG_WINDOW_RESIZABLE])
-  late final JSFunction SetWindowMinSize;
+  late final WF2<void> SetWindowMinSize;
   /// Set window maximum dimensions (for [ConfigFlags.FLAG_WINDOW_RESIZABLE])
-  late final JSFunction SetWindowMaxSize;
+  late final WF2<void> SetWindowMaxSize;
   /// Set window dimensions
-  late final JSFunction SetWindowSize;
+  late final WF2<void> SetWindowSize;
   /// Set window opacity [0.0..1.0]
-  late final JSFunction SetWindowOpacity;
+  late final WF1<void> SetWindowOpacity;
   /// Set window focused
-  late final JSFunction SetWindowFocused;
+  late final WF0<void> SetWindowFocused;
   /// Get native window handle
-  late final JSFunction GetWindowHandle;
+  late final WF0<WasmMemoryPointer<RVoid>> GetWindowHandle;
   /// Get current screen width
-  late final JSFunction GetScreenWidth;
+  late final WF0<int> GetScreenWidth;
   /// Get current screen height
-  late final JSFunction GetScreenHeight;
+  late final WF0<int> GetScreenHeight;
   /// Get current render width (it considers HiDPI)
-  late final JSFunction GetRenderWidth;
+  late final WF0<int> GetRenderWidth;
   /// Get current render height (it considers HiDPI)
-  late final JSFunction GetRenderHeight;
+  late final WF0<int> GetRenderHeight;
   /// Get number of connected monitors
   /// 
   /// **[!] Not implemented on WASM**
-  late final JSFunction GetMonitorCount;
+  late final WF0<int> GetMonitorCount;
   /// Get current monitor where window is placed
   /// 
   /// **[!] Not implemented on WASM**
-  late final JSFunction GetCurrentMonitor;
+  late final WF0<int> GetCurrentMonitor;
   /// Get specified monitor position
   /// 
   /// **[!] Not implemented on WASM**
-  late final JSFunction GetMonitorPosition;
+  late final WF2<void> GetMonitorPosition;
   /// Get specified monitor width (current video mode used by monitor)
-  late final JSFunction GetMonitorWidth;
+  late final WF1<int> GetMonitorWidth;
   /// Get specified monitor height (current video mode used by monitor)
-  late final JSFunction GetMonitorHeight;
+  late final WF1<int> GetMonitorHeight;
   /// Get specified monitor physical width in millimetres
   /// 
   /// **[!] Not implemented on WASM**
-  late final JSFunction GetMonitorPhysicalWidth;
+  late final WF1<int> GetMonitorPhysicalWidth;
   /// Get specified monitor physical height in millimetres
   /// 
   /// **[!] Not implemented on WASM**
-  late final JSFunction GetMonitorPhysicalHeight;
+  late final WF1<int> GetMonitorPhysicalHeight;
   /// Get specified monitor refresh rate
   /// 
   /// **[!] Not implemented on WASM**
-  late final JSFunction GetMonitorRefreshRate;
+  late final WF1<int> GetMonitorRefreshRate;
   /// Get window position XY on monitor
-  late final JSFunction GetWindowPosition;
+  late final WF1<void> GetWindowPosition;
   /// Get window scale DPI factor
-  late final JSFunction GetWindowScaleDPI;
+  late final WF1<void> GetWindowScaleDPI;
   /// Get the human-readable, UTF-8 encoded name of the specified monitor
   /// 
   /// **[!] Not implemented on WASM**
-  late final JSFunction GetMonitorName;
+  late final WF1<WasmMemoryPointer<RChar>> GetMonitorName;
   /// Set clipboard text content
-  late final JSFunction SetClipboardText;
+  late final WF1<void> SetClipboardText;
   /// Get clipboard text content
-  late final JSFunction GetClipboardText;
+  late final WF0<WasmMemoryPointer<RChar>> GetClipboardText;
   /// Get clipboard image content
-  late final JSFunction GetClipboardImage;
+  late final WF1<void> GetClipboardImage;
   /// Enable waiting for events on EndDrawing(), no automatic event polling
-  late final JSFunction EnableEventWaiting;
+  late final WF0<void> EnableEventWaiting;
   /// Disable waiting for events on EndDrawing(), automatic events polling
-  late final JSFunction DisableEventWaiting;
+  late final WF0<void> DisableEventWaiting;
   /// Shows cursor
-  late final JSFunction ShowCursor;
+  late final WF0<void> ShowCursor;
   /// Hides cursor
-  late final JSFunction HideCursor;
+  late final WF0<void> HideCursor;
   /// Check if cursor is not visible
-  late final JSFunction IsCursorHidden;
+  late final WF0<bool> IsCursorHidden;
   /// Enables cursor (unlock cursor)
-  late final JSFunction EnableCursor;
+  late final WF0<void> EnableCursor;
   /// Disables cursor (lock cursor)
-  late final JSFunction DisableCursor;
+  late final WF0<void> DisableCursor;
   /// Check if cursor is on the screen
-  late final JSFunction IsCursorOnScreen;
+  late final WF0<bool> IsCursorOnScreen;
   /// Set background color (framebuffer clear color)
-  late final JSFunction ClearBackground;
+  late final WF1<void> ClearBackground;
   /// Setup canvas (framebuffer) to start drawing
-  late final JSFunction BeginDrawing;
+  late final WF0<void> BeginDrawing;
   /// End canvas drawing and swap buffers (double buffering)
-  late final JSFunction EndDrawing;
+  late final WF0<void> EndDrawing;
   /// Begin 2D mode with custom camera (2D)
-  late final JSFunction BeginMode2D;
+  late final WF1<void> BeginMode2D;
   /// Ends 2D mode with custom camera
-  late final JSFunction EndMode2D;
+  late final WF0<void> EndMode2D;
   /// Begin 3D mode with custom camera (3D)
-  late final JSFunction BeginMode3D;
+  late final WF1<void> BeginMode3D;
   /// Ends 3D mode and returns to default 2D orthographic mode
-  late final JSFunction EndMode3D;
+  late final WF0<void> EndMode3D;
   /// Begin drawing to render texture
-  late final JSFunction BeginTextureMode;
+  late final WF1<void> BeginTextureMode;
   /// Ends drawing to render texture
-  late final JSFunction EndTextureMode;
+  late final WF0<void> EndTextureMode;
   /// Begin custom shader drawing
-  late final JSFunction BeginShaderMode;
+  late final WF1<void> BeginShaderMode;
   /// End custom shader drawing (use default shader)
-  late final JSFunction EndShaderMode;
+  late final WF0<void> EndShaderMode;
   /// Begin blending mode (alpha, additive, multiplied, subtract, custom)
-  late final JSFunction BeginBlendMode;
+  late final WF1<void> BeginBlendMode;
   /// End blending mode (reset to default: alpha blending)
-  late final JSFunction EndBlendMode;
+  late final WF0<void> EndBlendMode;
   /// Begin scissor mode (define screen area for following drawing)
-  late final JSFunction BeginScissorMode;
+  late final WF4<void> BeginScissorMode;
   /// End scissor mode
-  late final JSFunction EndScissorMode;
+  late final WF0<void> EndScissorMode;
   /// Begin stereo rendering (requires VR simulator)
-  late final JSFunction BeginVrStereoMode;
+  late final WF1<void> BeginVrStereoMode;
   /// End stereo rendering (requires VR simulator)
-  late final JSFunction EndVrStereoMode;
+  late final WF0<void> EndVrStereoMode;
   /// Load VR stereo config for VR simulator device parameters
-  late final JSFunction LoadVrStereoConfig;
+  late final WF2<void> LoadVrStereoConfig;
   /// Unload VR stereo config
-  late final JSFunction UnloadVrStereoConfig;
+  late final WF1<void> UnloadVrStereoConfig;
   /// Load shader from files and bind default locations
-  late final JSFunction LoadShader;
+  late final WF3<void> LoadShader;
   /// Load shader from code strings and bind default locations
-  late final JSFunction LoadShaderFromMemory;
+  late final WF3<void> LoadShaderFromMemory;
   /// Check if a shader is valid (loaded on GPU)
-  late final JSFunction IsShaderValid;
+  late final WF1<bool> IsShaderValid;
   /// Get shader uniform location
-  late final JSFunction GetShaderLocation;
+  late final WF2<int> GetShaderLocation;
   /// Get shader attribute location
-  late final JSFunction GetShaderLocationAttrib;
+  late final WF2<int> GetShaderLocationAttrib;
   /// Set shader uniform value
-  late final JSFunction SetShaderValue;
+  late final WF4<void> SetShaderValue;
   /// Set shader uniform value vector
-  late final JSFunction SetShaderValueV;
+  late final WF5<void> SetShaderValueV;
   /// Set shader uniform value (matrix 4x4)
-  late final JSFunction SetShaderValueMatrix;
+  late final WF3<void> SetShaderValueMatrix;
   /// Set shader uniform value for texture (sampler2d)
-  late final JSFunction SetShaderValueTexture;
+  late final WF3<void> SetShaderValueTexture;
   /// Unload shader from GPU memory (VRAM)
-  late final JSFunction UnloadShader;
+  late final WF1<void> UnloadShader;
   /// Get a ray trace from screen position (i.e mouse)
-  late final JSFunction GetScreenToWorldRay;
+  late final WF3<void> GetScreenToWorldRay;
   /// Get a ray trace from screen position (i.e mouse) in a viewport
-  late final JSFunction GetScreenToWorldRayEx;
+  late final WF5<void> GetScreenToWorldRayEx;
   /// Get the screen space position for a 3d world space position
-  late final JSFunction GetWorldToScreen;
+  late final WF3<void> GetWorldToScreen;
   /// Get size position for a 3d world space position
-  late final JSFunction GetWorldToScreenEx;
+  late final WF5<void> GetWorldToScreenEx;
   /// Get the screen space position for a 2d camera world space position
-  late final JSFunction GetWorldToScreen2D;
+  late final WF3<void> GetWorldToScreen2D;
   /// Get the world space position for a 2d camera screen space position
-  late final JSFunction GetScreenToWorld2D;
+  late final WF3<void> GetScreenToWorld2D;
   /// Get camera transform matrix (view matrix)
-  late final JSFunction GetCameraMatrix;
+  late final WF2<void> GetCameraMatrix;
   /// Get camera 2d transform matrix
-  late final JSFunction GetCameraMatrix2D;
+  late final WF2<void> GetCameraMatrix2D;
   /// Set target FPS (maximum)
-  late final JSFunction SetTargetFPS;
+  late final WF1<void> SetTargetFPS;
   /// Get time in seconds for last frame drawn (delta time)
-  late final JSFunction GetFrameTime;
+  late final WF0<double> GetFrameTime;
   /// Get elapsed time in seconds since InitWindow()
-  late final JSFunction GetTime;
+  late final WF0<double> GetTime;
   /// Get current FPS
-  late final JSFunction GetFPS;
+  late final WF0<int> GetFPS;
   /// Swap back buffer with front buffer (screen drawing)
-  late final JSFunction SwapScreenBuffer;
+  late final WF0<void> SwapScreenBuffer;
   /// Register all input events
-  late final JSFunction PollInputEvents;
+  late final WF0<void> PollInputEvents;
   /// Wait for some time (halt program execution)
-  late final JSFunction WaitTime;
+  late final WF1<void> WaitTime;
   /// Set the seed for the random number generator
-  late final JSFunction SetRandomSeed;
+  late final WF1<void> SetRandomSeed;
   /// Get a random value between min and max (both included)
-  late final JSFunction GetRandomValue;
+  late final WF2<int> GetRandomValue;
   /// Load random values sequence, no values repeated, min and max included
-  late final JSFunction LoadRandomSequence;
+  late final WF3<WasmMemoryPointer<RInt>> LoadRandomSequence;
   /// Unload random values sequence
-  late final JSFunction UnloadRandomSequence;
+  late final WF1<void> UnloadRandomSequence;
   /// Takes a screenshot of current screen (filename extension defines format)
-  late final JSFunction TakeScreenshot;
+  late final WF1<void> TakeScreenshot;
   /// Setup init configuration flags (view [ConfigFlags])
-  late final JSFunction SetConfigFlags;
+  late final WF1<void> SetConfigFlags;
   /// Open URL with default system browser (if available)
-  late final JSFunction OpenURL;
+  late final WF1<void> OpenURL;
   /// Show trace log messages (LOG_DEBUG, LOG_INFO, LOG_WARNING, LOG_ERROR...)
-  late final JSFunction TraceLog;
+  late final WF2<void> TraceLog;
   /// Set the current threshold (minimum) log level
-  late final JSFunction SetTraceLogLevel;
+  late final WF1<void> SetTraceLogLevel;
   /// Set custom trace log
-  late final JSFunction SetTraceLogCallback;
+  late final WF1<void> SetTraceLogCallback;
   /// Set custom file binary data loader
-  late final JSFunction SetLoadFileDataCallback;
+  late final WF1<void> SetLoadFileDataCallback;
   /// Set custom file binary data saver
-  late final JSFunction SetSaveFileDataCallback;
+  late final WF1<void> SetSaveFileDataCallback;
   /// Set custom file text data loader
-  late final JSFunction SetLoadFileTextCallback;
+  late final WF1<void> SetLoadFileTextCallback;
   /// Set custom file text data saver
-  late final JSFunction SetSaveFileTextCallback;
+  late final WF1<void> SetSaveFileTextCallback;
   /// Load file data as byte array (read)
-  late final JSFunction LoadFileData;
+  late final WF2<WasmMemoryPointer<RUnsignedChar>> LoadFileData;
   /// Unload file data allocated by LoadFileData()
-  late final JSFunction UnloadFileData;
+  late final WF1<void> UnloadFileData;
   /// Save data to file from byte array (write), returns true on success
-  late final JSFunction SaveFileData;
+  late final WF3<bool> SaveFileData;
   /// Export data to code (.h), returns true on success
-  late final JSFunction ExportDataAsCode;
+  late final WF3<bool> ExportDataAsCode;
   /// Load text data from file (read)
-  late final JSFunction LoadFileText;
+  late final WF1<WasmMemoryPointer<RChar>> LoadFileText;
   /// Unload file text data allocated by LoadFileText()
-  late final JSFunction UnloadFileText;
+  late final WF1<void> UnloadFileText;
   /// Save text data to file (write), returns true on success
-  late final JSFunction SaveFileText;
+  late final WF2<bool> SaveFileText;
   /// Rename file (if exists)
-  late final JSFunction FileRename;
+  late final WF2<int> FileRename;
   /// Remove file (if exists)
-  late final JSFunction FileRemove;
+  late final WF1<int> FileRemove;
   /// Copy file from one path to another, dstPath created if it doesn't exist
-  late final JSFunction FileCopy;
+  late final WF2<int> FileCopy;
   /// Move file from one directory to another, dstPath created if it doesn't exist
-  late final JSFunction FileMove;
+  late final WF2<int> FileMove;
   /// Replace text in an existing file
-  late final JSFunction FileTextReplace;
+  late final WF3<int> FileTextReplace;
   /// Find text in existing file
-  late final JSFunction FileTextFindIndex;
+  late final WF2<int> FileTextFindIndex;
   /// Check if file exists
-  late final JSFunction FileExists;
+  late final WF1<bool> FileExists;
   /// Check if a directory path exists
-  late final JSFunction DirectoryExists;
+  late final WF1<bool> DirectoryExists;
   /// Check file extension (including point: .png, .wav)
-  late final JSFunction IsFileExtension;
+  late final WF2<bool> IsFileExtension;
   /// Get file length in bytes
-  late final JSFunction GetFileLength;
+  late final WF1<int> GetFileLength;
   /// Get extension for a filename (includes dot: '.png')
-  late final JSFunction GetFileExtension;
+  late final WF1<WasmMemoryPointer<RChar>> GetFileExtension;
   /// Get filename for a path string
-  late final JSFunction GetFileName;
+  late final WF1<WasmMemoryPointer<RChar>> GetFileName;
   /// Get filename without extension
-  late final JSFunction GetFileNameWithoutExt;
+  late final WF1<WasmMemoryPointer<RChar>> GetFileNameWithoutExt;
   /// Get the file count in a directory
-  late final JSFunction GetDirectoryFileCount;
+  late final WF1<int> GetDirectoryFileCount;
   /// Get the file count in a directory with extension filtering and recursive directory scan.
   /// 
   /// Use 'DIR' in the filter string to include directories in the result
-  late final JSFunction GetDirectoryFileCountEx;
+  late final WF3<int> GetDirectoryFileCountEx;
   /// Get full path for a given fileName with path
-  late final JSFunction GetDirectoryPath;
+  late final WF1<WasmMemoryPointer<RChar>> GetDirectoryPath;
   /// Get previous directory path for a given path
-  late final JSFunction GetPrevDirectoryPath;
+  late final WF1<WasmMemoryPointer<RChar>> GetPrevDirectoryPath;
   /// Get current working directory
-  late final JSFunction GetWorkingDirectory;
+  late final WF0<WasmMemoryPointer<RChar>> GetWorkingDirectory;
   /// Get the directory of the running application
-  late final JSFunction GetApplicationDirectory;
+  late final WF0<WasmMemoryPointer<RChar>> GetApplicationDirectory;
   /// Create directories (including full path requested), returns 0 on success
-  late final JSFunction MakeDirectory;
+  late final WF1<int> MakeDirectory;
   /// Change working directory, return true on success
-  late final JSFunction ChangeDirectory;
+  late final WF1<bool> ChangeDirectory;
   /// Check if a given path is a file or a directory
-  late final JSFunction IsPathFile;
+  late final WF1<bool> IsPathFile;
   /// Check if fileName is valid for the platform/OS
-  late final JSFunction IsFileNameValid;
+  late final WF1<bool> IsFileNameValid;
   /// Load directory filepaths
-  late final JSFunction LoadDirectoryFiles;
+  late final WF2<void> LoadDirectoryFiles;
   /// Load directory filepaths with extension filtering and recursive directory scan.
   /// 
   /// Use 'DIR' in the filter string to include directories in the result
-  late final JSFunction LoadDirectoryFilesEx;
+  late final WF4<void> LoadDirectoryFilesEx;
   /// Unload filepaths
-  late final JSFunction UnloadDirectoryFiles;
+  late final WF1<void> UnloadDirectoryFiles;
   /// Check if a file has been dropped into window
-  late final JSFunction IsFileDropped;
+  late final WF0<bool> IsFileDropped;
   /// Load dropped filepaths
-  late final JSFunction LoadDroppedFiles;
+  late final WF1<void> LoadDroppedFiles;
   /// Unload dropped filepaths
-  late final JSFunction UnloadDroppedFiles;
+  late final WF1<void> UnloadDroppedFiles;
   /// Get file modification time (last write time)
-  late final JSFunction GetFileModTime;
+  late final WF1<int> GetFileModTime;
   /// Compress data (DEFLATE algorithm)
-  late final JSFunction CompressData;
+  late final WF3<WasmMemoryPointer<RUnsignedChar>> CompressData;
   /// Decompress data (DEFLATE algorithm)
-  late final JSFunction DecompressData;
+  late final WF3<WasmMemoryPointer<RUnsignedChar>> DecompressData;
   /// Encode data to Base64 string
-  late final JSFunction EncodeDataBase64;
+  late final WF3<WasmMemoryPointer<RChar>> EncodeDataBase64;
   /// Decode Base64 string data
-  late final JSFunction DecodeDataBase64;
+  late final WF2<WasmMemoryPointer<RUnsignedChar>> DecodeDataBase64;
   /// Compute CRC32 hash code
-  late final JSFunction ComputeCRC32;
+  late final WF2<int> ComputeCRC32;
   /// Compute MD5 hash code
-  late final JSFunction ComputeMD5;
+  late final WF2<WasmMemoryPointer<RUnsignedInt>> ComputeMD5;
   /// Compute SHA1 hash code
-  late final JSFunction ComputeSHA1;
+  late final WF2<WasmMemoryPointer<RUnsignedInt>> ComputeSHA1;
   /// Compute SHA256 hash code
-  late final JSFunction ComputeSHA256;
+  late final WF2<WasmMemoryPointer<RUnsignedInt>> ComputeSHA256;
   /// Load automation events list from file, NULL for empty list
-  late final JSFunction LoadAutomationEventList;
+  late final WF2<void> LoadAutomationEventList;
   /// Unload automation events list from file
-  late final JSFunction UnloadAutomationEventList;
+  late final WF1<void> UnloadAutomationEventList;
   /// Export automation events list as text file
-  late final JSFunction ExportAutomationEventList;
+  late final WF2<bool> ExportAutomationEventList;
   /// Set automation event list to record to
-  late final JSFunction SetAutomationEventList;
+  late final WF1<void> SetAutomationEventList;
   /// Set automation event internal base frame to start recording
-  late final JSFunction SetAutomationEventBaseFrame;
+  late final WF1<void> SetAutomationEventBaseFrame;
   /// Start recording automation events (AutomationEventList must be set)
-  late final JSFunction StartAutomationEventRecording;
+  late final WF0<void> StartAutomationEventRecording;
   /// Stop recording automation events
-  late final JSFunction StopAutomationEventRecording;
+  late final WF0<void> StopAutomationEventRecording;
   /// Play a recorded automation event
-  late final JSFunction PlayAutomationEvent;
+  late final WF1<void> PlayAutomationEvent;
   /// Check if a key has been pressed once
-  late final JSFunction IsKeyPressed;
+  late final WF1<bool> IsKeyPressed;
   /// Check if a key has been pressed again
-  late final JSFunction IsKeyPressedRepeat;
+  late final WF1<bool> IsKeyPressedRepeat;
   /// Check if a key is being pressed
-  late final JSFunction IsKeyDown;
+  late final WF1<bool> IsKeyDown;
   /// Check if a key has been released once
-  late final JSFunction IsKeyReleased;
+  late final WF1<bool> IsKeyReleased;
   /// Check if a key is NOT being pressed
-  late final JSFunction IsKeyUp;
+  late final WF1<bool> IsKeyUp;
   /// Get name of a QWERTY key on the current keyboard layout (eg returns string 'q' for KEY_A on an AZERTY keyboard)
   /// 
   /// **[!] Not implemented on WASM**
-  late final JSFunction GetKeyName;
+  late final WF1<WasmMemoryPointer<RChar>> GetKeyName;
   /// Get key pressed (keycode), call it multiple times for keys queued, returns 0 when the queue is empty
-  late final JSFunction GetKeyPressed;
+  late final WF0<int> GetKeyPressed;
   /// Get char pressed (unicode), call it multiple times for chars queued, returns 0 when the queue is empty
-  late final JSFunction GetCharPressed;
+  late final WF0<int> GetCharPressed;
   /// Set a custom key to exit program (default is ESC)
-  late final JSFunction SetExitKey;
+  late final WF1<void> SetExitKey;
   /// Check if a gamepad is available
-  late final JSFunction IsGamepadAvailable;
+  late final WF1<bool> IsGamepadAvailable;
   /// Get gamepad internal name id
-  late final JSFunction GetGamepadName;
+  late final WF1<WasmMemoryPointer<RChar>> GetGamepadName;
   /// Check if a gamepad button has been pressed once
-  late final JSFunction IsGamepadButtonPressed;
+  late final WF2<bool> IsGamepadButtonPressed;
   /// Check if a gamepad button is being pressed
-  late final JSFunction IsGamepadButtonDown;
+  late final WF2<bool> IsGamepadButtonDown;
   /// Check if a gamepad button has been released once
-  late final JSFunction IsGamepadButtonReleased;
+  late final WF2<bool> IsGamepadButtonReleased;
   /// Check if a gamepad button is NOT being pressed
-  late final JSFunction IsGamepadButtonUp;
+  late final WF2<bool> IsGamepadButtonUp;
   /// Get the last gamepad button pressed
-  late final JSFunction GetGamepadButtonPressed;
+  late final WF0<int> GetGamepadButtonPressed;
   /// Get gamepad axis count for a gamepad
-  late final JSFunction GetGamepadAxisCount;
+  late final WF1<int> GetGamepadAxisCount;
   /// Get axis movement value for a gamepad axis
-  late final JSFunction GetGamepadAxisMovement;
+  late final WF2<double> GetGamepadAxisMovement;
   /// Set internal gamepad mappings (SDL_GameControllerDB)
-  late final JSFunction SetGamepadMappings;
+  late final WF1<int> SetGamepadMappings;
   /// Set gamepad vibration for both motors (duration in seconds)
-  late final JSFunction SetGamepadVibration;
+  late final WF4<void> SetGamepadVibration;
   /// Check if a mouse button has been pressed once
-  late final JSFunction IsMouseButtonPressed;
+  late final WF1<bool> IsMouseButtonPressed;
   /// Check if a mouse button is being pressed
-  late final JSFunction IsMouseButtonDown;
+  late final WF1<bool> IsMouseButtonDown;
   /// Check if a mouse button has been released once
-  late final JSFunction IsMouseButtonReleased;
+  late final WF1<bool> IsMouseButtonReleased;
   /// Check if a mouse button is NOT being pressed
-  late final JSFunction IsMouseButtonUp;
+  late final WF1<bool> IsMouseButtonUp;
   /// Get mouse position X
-  late final JSFunction GetMouseX;
+  late final WF0<int> GetMouseX;
   /// Get mouse position Y
-  late final JSFunction GetMouseY;
+  late final WF0<int> GetMouseY;
   /// Get mouse position XY
-  late final JSFunction GetMousePosition;
+  late final WF1<void> GetMousePosition;
   /// Get mouse delta between frames
-  late final JSFunction GetMouseDelta;
+  late final WF1<void> GetMouseDelta;
   /// Set mouse position XY
-  late final JSFunction SetMousePosition;
+  late final WF2<void> SetMousePosition;
   /// Set mouse offset
-  late final JSFunction SetMouseOffset;
+  late final WF2<void> SetMouseOffset;
   /// Set mouse scaling
-  late final JSFunction SetMouseScale;
+  late final WF2<void> SetMouseScale;
   /// Get mouse wheel movement for X or Y, whichever is larger
-  late final JSFunction GetMouseWheelMove;
+  late final WF0<double> GetMouseWheelMove;
   /// Get mouse wheel movement for both X and Y
-  late final JSFunction GetMouseWheelMoveV;
+  late final WF1<void> GetMouseWheelMoveV;
   /// Set mouse cursor
-  late final JSFunction SetMouseCursor;
+  late final WF1<void> SetMouseCursor;
   /// Get touch position X for touch point 0 (relative to screen size)
-  late final JSFunction GetTouchX;
+  late final WF0<int> GetTouchX;
   /// Get touch position Y for touch point 0 (relative to screen size)
-  late final JSFunction GetTouchY;
+  late final WF0<int> GetTouchY;
   /// Get touch position XY for a touch point index (relative to screen size)
-  late final JSFunction GetTouchPosition;
+  late final WF2<void> GetTouchPosition;
   /// Get touch point identifier for given index
-  late final JSFunction GetTouchPointId;
+  late final WF1<int> GetTouchPointId;
   /// Get number of touch points
-  late final JSFunction GetTouchPointCount;
+  late final WF0<int> GetTouchPointCount;
   /// Enable a set of gestures using flags [Gesture]
-  late final JSFunction SetGesturesEnabled;
+  late final WF1<void> SetGesturesEnabled;
   /// Check if a gesture have been detected
-  late final JSFunction IsGestureDetected;
+  late final WF1<bool> IsGestureDetected;
   /// Get latest detected gesture
-  late final JSFunction GetGestureDetected;
+  late final WF0<int> GetGestureDetected;
   /// Get gesture hold time in seconds
-  late final JSFunction GetGestureHoldDuration;
+  late final WF0<double> GetGestureHoldDuration;
   /// Get gesture drag vector
-  late final JSFunction GetGestureDragVector;
+  late final WF1<void> GetGestureDragVector;
   /// Get gesture drag angle
-  late final JSFunction GetGestureDragAngle;
+  late final WF0<double> GetGestureDragAngle;
   /// Get gesture pinch delta
-  late final JSFunction GetGesturePinchVector;
+  late final WF1<void> GetGesturePinchVector;
   /// Get gesture pinch angle
-  late final JSFunction GetGesturePinchAngle;
+  late final WF0<double> GetGesturePinchAngle;
   /// Process gesture event and translate it into gestures
-  late final JSFunction ProcessGestureEvent;
+  late final WF1<void> ProcessGestureEvent;
   /// Update gestures detected (must be called every frame)
-  late final JSFunction UpdateGestures;
+  late final WF0<void> UpdateGestures;
   /// Update camera position for selected mode
-  late final JSFunction UpdateCamera;
+  late final WF2<void> UpdateCamera;
   /// Update camera movement/rotation
-  late final JSFunction UpdateCameraPro;
+  late final WF4<void> UpdateCameraPro;
   /// Set texture and rectangle to be used on shapes drawing
-  late final JSFunction SetShapesTexture;
+  late final WF2<void> SetShapesTexture;
   /// Get texture that is used for shapes drawing
-  late final JSFunction GetShapesTexture;
+  late final WF1<void> GetShapesTexture;
   /// Get texture source rectangle that is used for shapes drawing
-  late final JSFunction GetShapesTextureRectangle;
+  late final WF1<void> GetShapesTextureRectangle;
   /// Draw a pixel using geometry [Can be slow, use with care]
-  late final JSFunction DrawPixel;
+  late final WF3<void> DrawPixel;
   /// Draw a pixel using geometry (Vector version) [Can be slow, use with care]
-  late final JSFunction DrawPixelV;
+  late final WF2<void> DrawPixelV;
   /// Draw a line
-  late final JSFunction DrawLine;
+  late final WF5<void> DrawLine;
   /// Draw a line (using gl lines)
-  late final JSFunction DrawLineV;
+  late final WF3<void> DrawLineV;
   /// Draw a line (using triangles/quads)
-  late final JSFunction DrawLineEx;
+  late final WF4<void> DrawLineEx;
   /// Draw lines sequence (using gl lines)
-  late final JSFunction DrawLineStrip;
+  late final WF3<void> DrawLineStrip;
   /// Draw line segment cubic-bezier in-out interpolation
-  late final JSFunction DrawLineBezier;
+  late final WF4<void> DrawLineBezier;
   /// Draw a dashed line
-  late final JSFunction DrawLineDashed;
+  late final WF5<void> DrawLineDashed;
   /// Draw a color-filled circle
-  late final JSFunction DrawCircle;
+  late final WF4<void> DrawCircle;
   /// Draw a piece of a circle
-  late final JSFunction DrawCircleSector;
+  late final WF6<void> DrawCircleSector;
   /// Draw circle sector outline
-  late final JSFunction DrawCircleSectorLines;
+  late final WF6<void> DrawCircleSectorLines;
   /// Draw a gradient-filled circle
-  late final JSFunction DrawCircleGradient;
+  late final WF4<void> DrawCircleGradient;
   /// Draw a color-filled circle (Vector version)
-  late final JSFunction DrawCircleV;
+  late final WF3<void> DrawCircleV;
   /// Draw circle outline
-  late final JSFunction DrawCircleLines;
+  late final WF4<void> DrawCircleLines;
   /// Draw circle outline (Vector version)
-  late final JSFunction DrawCircleLinesV;
+  late final WF3<void> DrawCircleLinesV;
   /// Draw ellipse
-  late final JSFunction DrawEllipse;
+  late final WF5<void> DrawEllipse;
   /// Draw ellipse (Vector version)
-  late final JSFunction DrawEllipseV;
+  late final WF4<void> DrawEllipseV;
   /// Draw ellipse outline
-  late final JSFunction DrawEllipseLines;
+  late final WF5<void> DrawEllipseLines;
   /// Draw ellipse outline (Vector version)
-  late final JSFunction DrawEllipseLinesV;
+  late final WF4<void> DrawEllipseLinesV;
   /// Draw ring
-  late final JSFunction DrawRing;
+  late final WF7<void> DrawRing;
   /// Draw ring outline
-  late final JSFunction DrawRingLines;
+  late final WF7<void> DrawRingLines;
   /// Draw a color-filled rectangle
-  late final JSFunction DrawRectangle;
+  late final WF5<void> DrawRectangle;
   /// Draw a color-filled rectangle (Vector version)
-  late final JSFunction DrawRectangleV;
+  late final WF3<void> DrawRectangleV;
   /// Draw a color-filled rectangle
-  late final JSFunction DrawRectangleRec;
+  late final WF2<void> DrawRectangleRec;
   /// Draw a color-filled rectangle with pro parameters
-  late final JSFunction DrawRectanglePro;
+  late final WF4<void> DrawRectanglePro;
   /// Draw a vertical-gradient-filled rectangle
-  late final JSFunction DrawRectangleGradientV;
+  late final WF6<void> DrawRectangleGradientV;
   /// Draw a horizontal-gradient-filled rectangle
-  late final JSFunction DrawRectangleGradientH;
+  late final WF6<void> DrawRectangleGradientH;
   /// Draw a gradient-filled rectangle with custom vertex colors
-  late final JSFunction DrawRectangleGradientEx;
+  late final WF5<void> DrawRectangleGradientEx;
   /// Draw rectangle outline
-  late final JSFunction DrawRectangleLines;
+  late final WF5<void> DrawRectangleLines;
   /// Draw rectangle outline with extended parameters
-  late final JSFunction DrawRectangleLinesEx;
+  late final WF3<void> DrawRectangleLinesEx;
   /// Draw rectangle with rounded edges
-  late final JSFunction DrawRectangleRounded;
+  late final WF4<void> DrawRectangleRounded;
   /// Draw rectangle lines with rounded edges
-  late final JSFunction DrawRectangleRoundedLines;
+  late final WF4<void> DrawRectangleRoundedLines;
   /// Draw rectangle with rounded edges outline
-  late final JSFunction DrawRectangleRoundedLinesEx;
+  late final WF5<void> DrawRectangleRoundedLinesEx;
   /// Draw a color-filled triangle (vertex in counter-clockwise order!)
-  late final JSFunction DrawTriangle;
+  late final WF4<void> DrawTriangle;
   /// Draw triangle outline (vertex in counter-clockwise order!)
-  late final JSFunction DrawTriangleLines;
+  late final WF4<void> DrawTriangleLines;
   /// Draw a triangle fan defined by points (first vertex is the center)
-  late final JSFunction DrawTriangleFan;
+  late final WF3<void> DrawTriangleFan;
   /// Draw a triangle strip defined by points
-  late final JSFunction DrawTriangleStrip;
+  late final WF3<void> DrawTriangleStrip;
   /// Draw a regular polygon (Vector version)
-  late final JSFunction DrawPoly;
+  late final WF5<void> DrawPoly;
   /// Draw a polygon outline of n sides
-  late final JSFunction DrawPolyLines;
+  late final WF5<void> DrawPolyLines;
   /// Draw a polygon outline of n sides with extended parameters
-  late final JSFunction DrawPolyLinesEx;
+  late final WF6<void> DrawPolyLinesEx;
   /// Draw spline: Linear, minimum 2 points
-  late final JSFunction DrawSplineLinear;
+  late final WF4<void> DrawSplineLinear;
   /// Draw spline: B-Spline, minimum 4 points
-  late final JSFunction DrawSplineBasis;
+  late final WF4<void> DrawSplineBasis;
   /// Draw spline: Catmull-Rom, minimum 4 points
-  late final JSFunction DrawSplineCatmullRom;
+  late final WF4<void> DrawSplineCatmullRom;
   /// Draw spline: Quadratic Bezier, minimum 3 points (1 control point): [p1, c2, p3, c4...]
-  late final JSFunction DrawSplineBezierQuadratic;
+  late final WF4<void> DrawSplineBezierQuadratic;
   /// Draw spline: Cubic Bezier, minimum 4 points (2 control points): [p1, c2, c3, p4, c5, c6...]
-  late final JSFunction DrawSplineBezierCubic;
+  late final WF4<void> DrawSplineBezierCubic;
   /// Draw spline segment: Linear, 2 points
-  late final JSFunction DrawSplineSegmentLinear;
+  late final WF4<void> DrawSplineSegmentLinear;
   /// Draw spline segment: B-Spline, 4 points
-  late final JSFunction DrawSplineSegmentBasis;
+  late final WF6<void> DrawSplineSegmentBasis;
   /// Draw spline segment: Catmull-Rom, 4 points
-  late final JSFunction DrawSplineSegmentCatmullRom;
+  late final WF6<void> DrawSplineSegmentCatmullRom;
   /// Draw spline segment: Quadratic Bezier, 2 points, 1 control point
-  late final JSFunction DrawSplineSegmentBezierQuadratic;
+  late final WF5<void> DrawSplineSegmentBezierQuadratic;
   /// Draw spline segment: Cubic Bezier, 2 points, 2 control points
-  late final JSFunction DrawSplineSegmentBezierCubic;
+  late final WF6<void> DrawSplineSegmentBezierCubic;
   /// Get (evaluate) spline point: Linear
-  late final JSFunction GetSplinePointLinear;
+  late final WF4<void> GetSplinePointLinear;
   /// Get (evaluate) spline point: B-Spline
-  late final JSFunction GetSplinePointBasis;
+  late final WF6<void> GetSplinePointBasis;
   /// Get (evaluate) spline point: Catmull-Rom
-  late final JSFunction GetSplinePointCatmullRom;
+  late final WF6<void> GetSplinePointCatmullRom;
   /// Get (evaluate) spline point: Quadratic Bezier
-  late final JSFunction GetSplinePointBezierQuad;
+  late final WF5<void> GetSplinePointBezierQuad;
   /// Get (evaluate) spline point: Cubic Bezier
-  late final JSFunction GetSplinePointBezierCubic;
+  late final WF6<void> GetSplinePointBezierCubic;
   /// Check collision between two rectangles
-  late final JSFunction CheckCollisionRecs;
+  late final WF2<bool> CheckCollisionRecs;
   /// Check collision between two circles
-  late final JSFunction CheckCollisionCircles;
+  late final WF4<bool> CheckCollisionCircles;
   /// Check collision between circle and rectangle
-  late final JSFunction CheckCollisionCircleRec;
+  late final WF3<bool> CheckCollisionCircleRec;
   /// Check if circle collides with a line created betweeen two points [p1] and [p2]
-  late final JSFunction CheckCollisionCircleLine;
+  late final WF4<bool> CheckCollisionCircleLine;
   /// Check if point is inside rectangle
-  late final JSFunction CheckCollisionPointRec;
+  late final WF2<bool> CheckCollisionPointRec;
   /// Check if point is inside circle
-  late final JSFunction CheckCollisionPointCircle;
+  late final WF3<bool> CheckCollisionPointCircle;
   /// Check if point is inside a triangle
-  late final JSFunction CheckCollisionPointTriangle;
+  late final WF4<bool> CheckCollisionPointTriangle;
   /// Check if point belongs to line created between two points [p1] and [p2] with defined margin in pixels [threshold]
-  late final JSFunction CheckCollisionPointLine;
+  late final WF4<bool> CheckCollisionPointLine;
   /// Check if point is within a polygon described by array of vertices
-  late final JSFunction CheckCollisionPointPoly;
+  late final WF3<bool> CheckCollisionPointPoly;
   /// Check the collision between two lines defined by two points each, returns collision point by reference
-  late final JSFunction CheckCollisionLines;
+  late final WF5<bool> CheckCollisionLines;
   /// Get collision rectangle for two rectangles collision
-  late final JSFunction GetCollisionRec;
+  late final WF3<void> GetCollisionRec;
   /// Load image from file into CPU memory (RAM)
-  late final JSFunction LoadImage;
+  late final WF2<void> LoadImage;
   /// Load image from RAW file data
-  late final JSFunction LoadImageRaw;
+  late final WF6<void> LoadImageRaw;
   /// Load image sequence from file (frames appended to image.data)
-  late final JSFunction LoadImageAnim;
+  late final WF3<void> LoadImageAnim;
   /// Load image sequence from memory buffer
-  late final JSFunction LoadImageAnimFromMemory;
+  late final WF5<void> LoadImageAnimFromMemory;
   /// Load image from memory buffer, fileType refers to extension: i.e. '.png'
-  late final JSFunction LoadImageFromMemory;
+  late final WF4<void> LoadImageFromMemory;
   /// Load image from GPU texture data
-  late final JSFunction LoadImageFromTexture;
+  late final WF2<void> LoadImageFromTexture;
   /// Load image from screen buffer and (screenshot)
-  late final JSFunction LoadImageFromScreen;
+  late final WF1<void> LoadImageFromScreen;
   /// Check if an image is valid (data and parameters)
-  late final JSFunction IsImageValid;
+  late final WF1<bool> IsImageValid;
   /// Unload image from CPU memory (RAM)
-  late final JSFunction UnloadImage;
+  late final WF1<void> UnloadImage;
   /// Export image data to file, returns true on success
-  late final JSFunction ExportImage;
+  late final WF2<bool> ExportImage;
   /// Export image to memory buffer
-  late final JSFunction ExportImageToMemory;
+  late final WF3<WasmMemoryPointer<RUnsignedChar>> ExportImageToMemory;
   /// Export image as code file defining an array of bytes, returns true on success
-  late final JSFunction ExportImageAsCode;
+  late final WF2<bool> ExportImageAsCode;
   /// Generate image: plain color
-  late final JSFunction GenImageColor;
+  late final WF4<void> GenImageColor;
   /// Generate image: linear gradient, direction in degrees [0..360], 0=Vertical gradient
-  late final JSFunction GenImageGradientLinear;
+  late final WF6<void> GenImageGradientLinear;
   /// Generate image: radial gradient
-  late final JSFunction GenImageGradientRadial;
+  late final WF6<void> GenImageGradientRadial;
   /// Generate image: square gradient
-  late final JSFunction GenImageGradientSquare;
+  late final WF6<void> GenImageGradientSquare;
   /// Generate image: checked
-  late final JSFunction GenImageChecked;
+  late final WF7<void> GenImageChecked;
   /// Generate image: white noise
-  late final JSFunction GenImageWhiteNoise;
+  late final WF4<void> GenImageWhiteNoise;
   /// Generate image: perlin noise
-  late final JSFunction GenImagePerlinNoise;
+  late final WF6<void> GenImagePerlinNoise;
   /// Generate image: cellular algorithm, bigger tileSize means bigger cells
-  late final JSFunction GenImageCellular;
+  late final WF4<void> GenImageCellular;
   /// Generate image: grayscale image from text data
-  late final JSFunction GenImageText;
+  late final WF4<void> GenImageText;
   /// Create an image duplicate (useful for transformations)
-  late final JSFunction ImageCopy;
+  late final WF2<void> ImageCopy;
   /// Create an image from another image piece
-  late final JSFunction ImageFromImage;
+  late final WF3<void> ImageFromImage;
   /// Create an image from a selected channel of another image (GRAYSCALE)
-  late final JSFunction ImageFromChannel;
+  late final WF3<void> ImageFromChannel;
   /// Create an image from text (default font)
-  late final JSFunction ImageText;
+  late final WF4<void> ImageText;
   /// Create an image from text (custom sprite font)
-  late final JSFunction ImageTextEx;
+  late final WF6<void> ImageTextEx;
   /// Convert image data to desired format
-  late final JSFunction ImageFormat;
+  late final WF2<void> ImageFormat;
   /// Convert image to POT (power-of-two)
-  late final JSFunction ImageToPOT;
+  late final WF2<void> ImageToPOT;
   /// Crop an image to a defined rectangle
-  late final JSFunction ImageCrop;
+  late final WF2<void> ImageCrop;
   /// Crop image depending on alpha value
-  late final JSFunction ImageAlphaCrop;
+  late final WF2<void> ImageAlphaCrop;
   /// Clear alpha channel to desired color
-  late final JSFunction ImageAlphaClear;
+  late final WF3<void> ImageAlphaClear;
   /// Apply alpha mask to image
-  late final JSFunction ImageAlphaMask;
+  late final WF2<void> ImageAlphaMask;
   /// Premultiply alpha channel
-  late final JSFunction ImageAlphaPremultiply;
+  late final WF1<void> ImageAlphaPremultiply;
   /// Apply Gaussian blur using a box blur approximation
-  late final JSFunction ImageBlurGaussian;
+  late final WF2<void> ImageBlurGaussian;
   /// Apply custom square convolution kernel to image
-  late final JSFunction ImageKernelConvolution;
+  late final WF3<void> ImageKernelConvolution;
   /// Resize image (Bicubic scaling algorithm)
-  late final JSFunction ImageResize;
+  late final WF3<void> ImageResize;
   /// Resize image (Nearest-Neighbor scaling algorithm)
-  late final JSFunction ImageResizeNN;
+  late final WF3<void> ImageResizeNN;
   /// Resize canvas and fill with color
-  late final JSFunction ImageResizeCanvas;
+  late final WF6<void> ImageResizeCanvas;
   /// Compute all mipmap levels for a provided image
-  late final JSFunction ImageMipmaps;
+  late final WF1<void> ImageMipmaps;
   /// Dither image data to 16bpp or lower (Floyd-Steinberg dithering)
-  late final JSFunction ImageDither;
+  late final WF5<void> ImageDither;
   /// Flip image vertically
-  late final JSFunction ImageFlipVertical;
+  late final WF1<void> ImageFlipVertical;
   /// Flip image horizontally
-  late final JSFunction ImageFlipHorizontal;
+  late final WF1<void> ImageFlipHorizontal;
   /// Rotate image by input angle in degrees (-359 to 359)
-  late final JSFunction ImageRotate;
+  late final WF2<void> ImageRotate;
   /// Rotate image clockwise 90deg
-  late final JSFunction ImageRotateCW;
+  late final WF1<void> ImageRotateCW;
   /// Rotate image counter-clockwise 90deg
-  late final JSFunction ImageRotateCCW;
+  late final WF1<void> ImageRotateCCW;
   /// Modify image color: tint
-  late final JSFunction ImageColorTint;
+  late final WF2<void> ImageColorTint;
   /// Modify image color: invert
-  late final JSFunction ImageColorInvert;
+  late final WF1<void> ImageColorInvert;
   /// Modify image color: grayscale
-  late final JSFunction ImageColorGrayscale;
+  late final WF1<void> ImageColorGrayscale;
   /// Modify image color: contrast (-100 to 100)
-  late final JSFunction ImageColorContrast;
+  late final WF2<void> ImageColorContrast;
   /// Modify image color: brightness (-255 to 255)
-  late final JSFunction ImageColorBrightness;
+  late final WF2<void> ImageColorBrightness;
   /// Modify image color: replace color
-  late final JSFunction ImageColorReplace;
+  late final WF3<void> ImageColorReplace;
   /// Load color data from image as a Color array (RGBA - 32bit)
-  late final JSFunction LoadImageColors;
+  late final WF1<StructPointer<ColorD>> LoadImageColors;
   /// Load colors palette from image as a Color array (RGBA - 32bit)
-  late final JSFunction LoadImagePalette;
+  late final WF3<StructPointer<ColorD>> LoadImagePalette;
   /// Unload color data loaded with LoadImageColors()
-  late final JSFunction UnloadImageColors;
+  late final WF1<void> UnloadImageColors;
   /// Unload colors palette loaded with LoadImagePalette()
-  late final JSFunction UnloadImagePalette;
+  late final WF1<void> UnloadImagePalette;
   /// Get image alpha border rectangle
-  late final JSFunction GetImageAlphaBorder;
+  late final WF3<void> GetImageAlphaBorder;
   /// Get image pixel color at (x, y) position
-  late final JSFunction GetImageColor;
+  late final WF4<void> GetImageColor;
   /// Clear image background with given color
-  late final JSFunction ImageClearBackground;
+  late final WF2<void> ImageClearBackground;
   /// Draw pixel within an image
-  late final JSFunction ImageDrawPixel;
+  late final WF4<void> ImageDrawPixel;
   /// Draw pixel within an image (Vector version)
-  late final JSFunction ImageDrawPixelV;
+  late final WF3<void> ImageDrawPixelV;
   /// Draw line within an image
-  late final JSFunction ImageDrawLine;
+  late final WF6<void> ImageDrawLine;
   /// Draw line within an image (Vector version)
-  late final JSFunction ImageDrawLineV;
+  late final WF4<void> ImageDrawLineV;
   /// Draw a line defining thickness within an image
-  late final JSFunction ImageDrawLineEx;
+  late final WF5<void> ImageDrawLineEx;
   /// Draw a filled circle within an image
-  late final JSFunction ImageDrawCircle;
+  late final WF5<void> ImageDrawCircle;
   /// Draw a filled circle within an image (Vector version)
-  late final JSFunction ImageDrawCircleV;
+  late final WF4<void> ImageDrawCircleV;
   /// Draw circle outline within an image
-  late final JSFunction ImageDrawCircleLines;
+  late final WF5<void> ImageDrawCircleLines;
   /// Draw circle outline within an image (Vector version)
-  late final JSFunction ImageDrawCircleLinesV;
+  late final WF4<void> ImageDrawCircleLinesV;
   /// Draw rectangle within an image
-  late final JSFunction ImageDrawRectangle;
+  late final WF6<void> ImageDrawRectangle;
   /// Draw rectangle within an image (Vector version)
-  late final JSFunction ImageDrawRectangleV;
+  late final WF4<void> ImageDrawRectangleV;
   /// Draw rectangle within an image
-  late final JSFunction ImageDrawRectangleRec;
+  late final WF3<void> ImageDrawRectangleRec;
   /// Draw rectangle lines within an image
-  late final JSFunction ImageDrawRectangleLines;
+  late final WF4<void> ImageDrawRectangleLines;
   /// Draw triangle within an image
-  late final JSFunction ImageDrawTriangle;
+  late final WF5<void> ImageDrawTriangle;
   /// Draw triangle with interpolated colors within an image
-  late final JSFunction ImageDrawTriangleEx;
+  late final WF7<void> ImageDrawTriangleEx;
   /// Draw triangle outline within an image
-  late final JSFunction ImageDrawTriangleLines;
+  late final WF5<void> ImageDrawTriangleLines;
   /// Draw a triangle fan defined by points within an image (first vertex is the center)
-  late final JSFunction ImageDrawTriangleFan;
+  late final WF4<void> ImageDrawTriangleFan;
   /// Draw a triangle strip defined by points within an image
-  late final JSFunction ImageDrawTriangleStrip;
+  late final WF4<void> ImageDrawTriangleStrip;
   /// Draw a source image within a destination image (tint applied to source)
-  late final JSFunction ImageDraw;
+  late final WF5<void> ImageDraw;
   /// Draw text (using default font) within an image (destination)
-  late final JSFunction ImageDrawText;
+  late final WF6<void> ImageDrawText;
   /// Draw text (custom sprite font) within an image (destination)
-  late final JSFunction ImageDrawTextEx;
+  late final WF7<void> ImageDrawTextEx;
   /// Load texture from file into GPU memory (VRAM)
-  late final JSFunction LoadTexture;
+  late final WF2<void> LoadTexture;
   /// Load texture from image data
-  late final JSFunction LoadTextureFromImage;
+  late final WF2<void> LoadTextureFromImage;
   /// Load cubemap from image, multiple image cubemap layouts supported
-  late final JSFunction LoadTextureCubemap;
+  late final WF3<void> LoadTextureCubemap;
   /// Load texture for rendering (framebuffer)
-  late final JSFunction LoadRenderTexture;
+  late final WF3<void> LoadRenderTexture;
   /// Check if a texture is valid (loaded in GPU)
-  late final JSFunction IsTextureValid;
+  late final WF1<bool> IsTextureValid;
   /// Unload texture from GPU memory (VRAM)
-  late final JSFunction UnloadTexture;
+  late final WF1<void> UnloadTexture;
   /// Check if a render texture is valid (loaded in GPU)
-  late final JSFunction IsRenderTextureValid;
+  late final WF1<bool> IsRenderTextureValid;
   /// Unload render texture from GPU memory (VRAM)
-  late final JSFunction UnloadRenderTexture;
+  late final WF1<void> UnloadRenderTexture;
   /// Update GPU texture with new data
-  late final JSFunction UpdateTexture;
+  late final WF2<void> UpdateTexture;
   /// Update GPU texture rectangle with new data
-  late final JSFunction UpdateTextureRec;
+  late final WF3<void> UpdateTextureRec;
   /// Generate GPU mipmaps for a texture
-  late final JSFunction GenTextureMipmaps;
+  late final WF1<void> GenTextureMipmaps;
   /// Set texture scaling filter mode
-  late final JSFunction SetTextureFilter;
+  late final WF2<void> SetTextureFilter;
   /// Set texture wrapping mode
-  late final JSFunction SetTextureWrap;
+  late final WF2<void> SetTextureWrap;
   /// Draw a Texture2D
-  late final JSFunction DrawTexture;
+  late final WF4<void> DrawTexture;
   /// Draw a Texture2D with position defined as Vector2
-  late final JSFunction DrawTextureV;
+  late final WF3<void> DrawTextureV;
   /// Draw a Texture2D with extended parameters
-  late final JSFunction DrawTextureEx;
+  late final WF5<void> DrawTextureEx;
   /// Draw a part of a texture defined by a rectangle
-  late final JSFunction DrawTextureRec;
+  late final WF4<void> DrawTextureRec;
   /// Draw a part of a texture defined by a rectangle with 'pro' parameters
-  late final JSFunction DrawTexturePro;
+  late final WF6<void> DrawTexturePro;
   /// Draws a texture (or part of it) that stretches or shrinks nicely
-  late final JSFunction DrawTextureNPatch;
+  late final WF6<void> DrawTextureNPatch;
   /// Check if two colors are equal
-  late final JSFunction ColorIsEqual;
+  late final WF2<bool> ColorIsEqual;
   /// Get color with alpha applied, alpha goes from 0.0 to 1.0
-  late final JSFunction Fade;
+  late final WF3<void> Fade;
   /// Get hexadecimal value for a Color (0xRRGGBBAA)
-  late final JSFunction ColorToInt;
+  late final WF1<int> ColorToInt;
   /// Get Color normalized as float [0..1]
-  late final JSFunction ColorNormalize;
+  late final WF2<void> ColorNormalize;
   /// Get Color from normalized values [0..1]
-  late final JSFunction ColorFromNormalized;
+  late final WF2<void> ColorFromNormalized;
   /// Get HSV values for a Color, hue [0..360], saturation/value [0..1]
-  late final JSFunction ColorToHSV;
+  late final WF2<void> ColorToHSV;
   /// Get a Color from HSV values, hue [0..360], saturation/value [0..1]
-  late final JSFunction ColorFromHSV;
+  late final WF4<void> ColorFromHSV;
   /// Get color multiplied with another color
-  late final JSFunction ColorTint;
+  late final WF3<void> ColorTint;
   /// Get color with brightness correction, brightness factor goes from -1.0 to 1.0
-  late final JSFunction ColorBrightness;
+  late final WF3<void> ColorBrightness;
   /// Get color with contrast correction, contrast values between -1.0 and 1.0
-  late final JSFunction ColorContrast;
+  late final WF3<void> ColorContrast;
   /// Get color with alpha applied, alpha goes from 0.0 to 1.0
-  late final JSFunction ColorAlpha;
+  late final WF3<void> ColorAlpha;
   /// Get src alpha-blended into dst color with tint
-  late final JSFunction ColorAlphaBlend;
+  late final WF4<void> ColorAlphaBlend;
   /// Get color lerp interpolation between two colors, factor [0.0..1.0]
-  late final JSFunction ColorLerp;
+  late final WF4<void> ColorLerp;
   /// Get Color structure from hexadecimal value
-  late final JSFunction GetColor;
+  late final WF2<void> GetColor;
   /// Get Color from a source pixel pointer of certain format
-  late final JSFunction GetPixelColor;
+  late final WF3<void> GetPixelColor;
   /// Set color formatted into destination pixel pointer
-  late final JSFunction SetPixelColor;
+  late final WF3<void> SetPixelColor;
   /// Get pixel data size in bytes for certain format
-  late final JSFunction GetPixelDataSize;
+  late final WF3<int> GetPixelDataSize;
   /// Get the default Font
-  late final JSFunction GetFontDefault;
+  late final WF1<void> GetFontDefault;
   /// Load font from file into GPU memory (VRAM)
-  late final JSFunction LoadFont;
+  late final WF2<void> LoadFont;
   /// Load font from file with extended parameters, use NULL for codepoints and 0 for codepointCount to load the default character set, font size is provided in pixels height
-  late final JSFunction LoadFontEx;
+  late final WF5<void> LoadFontEx;
   /// Load font from Image (XNA style)
-  late final JSFunction LoadFontFromImage;
+  late final WF4<void> LoadFontFromImage;
   /// Load font from memory buffer, fileType refers to extension: i.e. '.ttf'
-  late final JSFunction LoadFontFromMemory;
+  late final WF7<void> LoadFontFromMemory;
   /// Check if a font is valid (font data loaded, WARNING: GPU texture not checked)
-  late final JSFunction IsFontValid;
+  late final WF1<bool> IsFontValid;
   /// Load font data for further use
-  late final JSFunction LoadFontData;
+  late final WF7<StructPointer<GlyphInfoD>> LoadFontData;
   /// Generate image font atlas using chars info
-  late final JSFunction GenImageFontAtlas;
+  late final WF7<void> GenImageFontAtlas;
   /// Unload font chars info data (RAM)
-  late final JSFunction UnloadFontData;
+  late final WF2<void> UnloadFontData;
   /// Unload font from GPU memory (VRAM)
-  late final JSFunction UnloadFont;
+  late final WF1<void> UnloadFont;
   /// Export font as code file, returns true on success
-  late final JSFunction ExportFontAsCode;
+  late final WF2<bool> ExportFontAsCode;
   /// Draw current FPS
-  late final JSFunction DrawFPS;
+  late final WF2<void> DrawFPS;
   /// Draw text (using default font)
-  late final JSFunction DrawText;
+  late final WF5<void> DrawText;
   /// Draw text using font and additional parameters
-  late final JSFunction DrawTextEx;
+  late final WF6<void> DrawTextEx;
   /// Draw text using Font and pro parameters (rotation)
-  late final JSFunction DrawTextPro;
+  late final WF8<void> DrawTextPro;
   /// Draw one character (codepoint)
-  late final JSFunction DrawTextCodepoint;
+  late final WF5<void> DrawTextCodepoint;
   /// Draw multiple character (codepoint)
-  late final JSFunction DrawTextCodepoints;
+  late final WF7<void> DrawTextCodepoints;
   /// Set vertical line spacing when drawing with line-breaks
-  late final JSFunction SetTextLineSpacing;
+  late final WF1<void> SetTextLineSpacing;
   /// Measure string width for default font
-  late final JSFunction MeasureText;
+  late final WF2<int> MeasureText;
   /// Measure string size for Font
-  late final JSFunction MeasureTextEx;
+  late final WF5<void> MeasureTextEx;
   /// Measure string size for an existing array of codepoints for Font
-  late final JSFunction MeasureTextCodepoints;
+  late final WF6<void> MeasureTextCodepoints;
   /// Get glyph index position in font for a codepoint (unicode character), fallback to '?' if not found
-  late final JSFunction GetGlyphIndex;
+  late final WF2<int> GetGlyphIndex;
   /// Get glyph font info data for a codepoint (unicode character), fallback to '?' if not found
-  late final JSFunction GetGlyphInfo;
+  late final WF3<void> GetGlyphInfo;
   /// Get glyph rectangle in font atlas for a codepoint (unicode character), fallback to '?' if not found
-  late final JSFunction GetGlyphAtlasRec;
+  late final WF3<void> GetGlyphAtlasRec;
   /// Load UTF-8 text encoded from codepoints array
-  late final JSFunction LoadUTF8;
+  late final WF2<WasmMemoryPointer<RChar>> LoadUTF8;
   /// Unload UTF-8 text encoded from codepoints array
-  late final JSFunction UnloadUTF8;
+  late final WF1<void> UnloadUTF8;
   /// Load all codepoints from a UTF-8 text string, codepoints count returned by parameter
-  late final JSFunction LoadCodepoints;
+  late final WF2<WasmMemoryPointer<RInt>> LoadCodepoints;
   /// Unload codepoints data from memory
-  late final JSFunction UnloadCodepoints;
+  late final WF1<void> UnloadCodepoints;
   /// Get total number of codepoints in a UTF-8 encoded string
-  late final JSFunction GetCodepointCount;
+  late final WF1<int> GetCodepointCount;
   /// Get next codepoint in a UTF-8 encoded string, 0x3f('?') is returned on failure
-  late final JSFunction GetCodepoint;
+  late final WF2<int> GetCodepoint;
   /// Get next codepoint in a UTF-8 encoded string, 0x3f('?') is returned on failure
-  late final JSFunction GetCodepointNext;
+  late final WF2<int> GetCodepointNext;
   /// Get previous codepoint in a UTF-8 encoded string, 0x3f('?') is returned on failure
-  late final JSFunction GetCodepointPrevious;
+  late final WF2<int> GetCodepointPrevious;
   /// Encode one codepoint into UTF-8 byte array (array length returned as parameter)
-  late final JSFunction CodepointToUTF8;
+  late final WF2<WasmMemoryPointer<RChar>> CodepointToUTF8;
   /// Load text as separate lines ('\n')
-  late final JSFunction LoadTextLines;
+  late final WF2<WasmMemoryPointer<RPointer<RChar>>> LoadTextLines;
   /// Unload text lines
-  late final JSFunction UnloadTextLines;
+  late final WF2<void> UnloadTextLines;
   /// Copy one string to another, returns bytes copied
-  late final JSFunction TextCopy;
+  late final WF2<int> TextCopy;
   /// Check if two text string are equal
-  late final JSFunction TextIsEqual;
+  late final WF2<bool> TextIsEqual;
   /// Get text length
-  late final JSFunction TextLength;
+  late final WF1<int> TextLength;
   /// Text formatting with variables (sprintf() style)
-  late final JSFunction TextFormat;
+  late final WF1<WasmMemoryPointer<RChar>> TextFormat;
   /// Get a piece of a text string
-  late final JSFunction TextSubtext;
+  late final WF3<WasmMemoryPointer<RChar>> TextSubtext;
   /// Remove text spaces, concat words
-  late final JSFunction TextRemoveSpaces;
+  late final WF1<WasmMemoryPointer<RChar>> TextRemoveSpaces;
   /// Get text between two strings
-  late final JSFunction GetTextBetween;
+  late final WF3<WasmMemoryPointer<RChar>> GetTextBetween;
   /// Replace text string with new string
-  late final JSFunction TextReplace;
+  late final WF3<WasmMemoryPointer<RChar>> TextReplace;
   /// Replace text string with new string, memory must be freed
-  late final JSFunction TextReplaceAlloc;
+  late final WF3<WasmMemoryPointer<RChar>> TextReplaceAlloc;
   /// Replace text between two specific strings
-  late final JSFunction TextReplaceBetween;
+  late final WF4<WasmMemoryPointer<RChar>> TextReplaceBetween;
   /// Replace text between two specific strings, memory must be freed
-  late final JSFunction TextReplaceBetweenAlloc;
+  late final WF4<WasmMemoryPointer<RChar>> TextReplaceBetweenAlloc;
   /// Insert text in a defined byte position
-  late final JSFunction TextInsert;
+  late final WF3<WasmMemoryPointer<RChar>> TextInsert;
   /// Insert text in a defined byte position, memory must be freed
-  late final JSFunction TextInsertAlloc;
+  late final WF3<WasmMemoryPointer<RChar>> TextInsertAlloc;
   /// Join text strings with delimiter ([delimiter] is expected to be length of 1)
-  late final JSFunction TextJoin;
+  late final WF3<WasmMemoryPointer<RChar>> TextJoin;
   /// Split text into multiple strings
-  late final JSFunction TextSplit;
+  late final WF3<WasmMemoryPointer<RPointer<RChar>>> TextSplit;
   /// Append text at specific position and move cursor
-  late final JSFunction TextAppend;
+  late final WF3<void> TextAppend;
   /// Find first text occurrence within a string, -1 if not found
-  late final JSFunction TextFindIndex;
+  late final WF2<int> TextFindIndex;
   /// Get upper case version of provided string
-  late final JSFunction TextToUpper;
+  late final WF1<WasmMemoryPointer<RChar>> TextToUpper;
   /// Get lower case version of provided string
-  late final JSFunction TextToLower;
+  late final WF1<WasmMemoryPointer<RChar>> TextToLower;
   /// Get Pascal case notation version of provided string
-  late final JSFunction TextToPascal;
+  late final WF1<WasmMemoryPointer<RChar>> TextToPascal;
   /// Get Snake case notation version of provided string
-  late final JSFunction TextToSnake;
+  late final WF1<WasmMemoryPointer<RChar>> TextToSnake;
   /// Get Camel case notation version of provided string
-  late final JSFunction TextToCamel;
+  late final WF1<WasmMemoryPointer<RChar>> TextToCamel;
   /// Get integer value from text
-  late final JSFunction TextToInteger;
+  late final WF1<int> TextToInteger;
   /// Get float value from text
-  late final JSFunction TextToFloat;
+  late final WF1<double> TextToFloat;
   /// Draw a line in 3D world space
-  late final JSFunction DrawLine3D;
+  late final WF3<void> DrawLine3D;
   /// Draw a point in 3D space, actually a small line
-  late final JSFunction DrawPoint3D;
+  late final WF2<void> DrawPoint3D;
   /// Draw a circle in 3D world space
-  late final JSFunction DrawCircle3D;
+  late final WF5<void> DrawCircle3D;
   /// Draw a color-filled triangle (vertex in counter-clockwise order!)
-  late final JSFunction DrawTriangle3D;
+  late final WF4<void> DrawTriangle3D;
   /// Draw a triangle strip defined by points
-  late final JSFunction DrawTriangleStrip3D;
+  late final WF3<void> DrawTriangleStrip3D;
   /// Draw cube
-  late final JSFunction DrawCube;
+  late final WF5<void> DrawCube;
   /// Draw cube (Vector version)
-  late final JSFunction DrawCubeV;
+  late final WF3<void> DrawCubeV;
   /// Draw cube wires
-  late final JSFunction DrawCubeWires;
+  late final WF5<void> DrawCubeWires;
   /// Draw cube wires (Vector version)
-  late final JSFunction DrawCubeWiresV;
+  late final WF3<void> DrawCubeWiresV;
   /// Draw sphere
-  late final JSFunction DrawSphere;
+  late final WF3<void> DrawSphere;
   /// Draw sphere with extended parameters
-  late final JSFunction DrawSphereEx;
+  late final WF5<void> DrawSphereEx;
   /// Draw sphere wires
-  late final JSFunction DrawSphereWires;
+  late final WF5<void> DrawSphereWires;
   /// Draw a cylinder/cone
-  late final JSFunction DrawCylinder;
+  late final WF6<void> DrawCylinder;
   /// Draw a cylinder with base at startPos and top at endPos
-  late final JSFunction DrawCylinderEx;
+  late final WF6<void> DrawCylinderEx;
   /// Draw a cylinder/cone wires
-  late final JSFunction DrawCylinderWires;
+  late final WF6<void> DrawCylinderWires;
   /// Draw a cylinder wires with base at startPos and top at endPos
-  late final JSFunction DrawCylinderWiresEx;
+  late final WF6<void> DrawCylinderWiresEx;
   /// Draw a capsule with the center of its sphere caps at startPos and endPos
-  late final JSFunction DrawCapsule;
+  late final WF6<void> DrawCapsule;
   /// Draw capsule wireframe with the center of its sphere caps at startPos and endPos
-  late final JSFunction DrawCapsuleWires;
+  late final WF6<void> DrawCapsuleWires;
   /// Draw a plane XZ
-  late final JSFunction DrawPlane;
+  late final WF3<void> DrawPlane;
   /// Draw a ray line
-  late final JSFunction DrawRay;
+  late final WF2<void> DrawRay;
   /// Draw a grid (centered at (0, 0, 0))
-  late final JSFunction DrawGrid;
+  late final WF2<void> DrawGrid;
   /// Load model from files (meshes and materials)
-  late final JSFunction LoadModel;
+  late final WF2<void> LoadModel;
   /// Load model from generated mesh (default material)
-  late final JSFunction LoadModelFromMesh;
+  late final WF2<void> LoadModelFromMesh;
   /// Check if a model is valid (loaded in GPU, VAO/VBOs)
-  late final JSFunction IsModelValid;
+  late final WF1<bool> IsModelValid;
   /// Unload model (including meshes) from memory (RAM and/or VRAM)
-  late final JSFunction UnloadModel;
+  late final WF1<void> UnloadModel;
   /// Compute model bounding box limits (considers all meshes)
-  late final JSFunction GetModelBoundingBox;
+  late final WF2<void> GetModelBoundingBox;
   /// Draw a model (with texture if set)
-  late final JSFunction DrawModel;
+  late final WF4<void> DrawModel;
   /// Draw a model with extended parameters
-  late final JSFunction DrawModelEx;
+  late final WF6<void> DrawModelEx;
   /// Draw a model wires (with texture if set)
-  late final JSFunction DrawModelWires;
+  late final WF4<void> DrawModelWires;
   /// Draw a model wires (with texture if set) with extended parameters
-  late final JSFunction DrawModelWiresEx;
+  late final WF6<void> DrawModelWiresEx;
   /// Draw bounding box (wires)
-  late final JSFunction DrawBoundingBox;
+  late final WF2<void> DrawBoundingBox;
   /// Draw a billboard texture
-  late final JSFunction DrawBillboard;
+  late final WF5<void> DrawBillboard;
   /// Draw a billboard texture defined by source
-  late final JSFunction DrawBillboardRec;
+  late final WF6<void> DrawBillboardRec;
   /// Draw a billboard texture defined by source and rotation
-  late final JSFunction DrawBillboardPro;
+  late final WF9<void> DrawBillboardPro;
   /// Upload mesh vertex data in GPU and provide VAO/VBO ids
-  late final JSFunction UploadMesh;
+  late final WF2<void> UploadMesh;
   /// Update mesh vertex data in GPU for a specific buffer index
-  late final JSFunction UpdateMeshBuffer;
+  late final WF5<void> UpdateMeshBuffer;
   /// Unload mesh data from CPU and GPU
-  late final JSFunction UnloadMesh;
+  late final WF1<void> UnloadMesh;
   /// Draw a 3d mesh with material and transform
-  late final JSFunction DrawMesh;
+  late final WF3<void> DrawMesh;
   /// Draw multiple mesh instances with material and different transforms
-  late final JSFunction DrawMeshInstanced;
+  late final WF4<void> DrawMeshInstanced;
   /// Compute mesh bounding box limits
-  late final JSFunction GetMeshBoundingBox;
+  late final WF2<void> GetMeshBoundingBox;
   /// Compute mesh tangents
-  late final JSFunction GenMeshTangents;
+  late final WF1<void> GenMeshTangents;
   /// Export mesh data to file, returns true on success
-  late final JSFunction ExportMesh;
+  late final WF2<bool> ExportMesh;
   /// Export mesh as code file (.h) defining multiple arrays of vertex attributes
-  late final JSFunction ExportMeshAsCode;
+  late final WF2<bool> ExportMeshAsCode;
   /// Generate polygonal mesh
-  late final JSFunction GenMeshPoly;
+  late final WF3<void> GenMeshPoly;
   /// Generate plane mesh (with subdivisions)
-  late final JSFunction GenMeshPlane;
+  late final WF5<void> GenMeshPlane;
   /// Generate cuboid mesh
-  late final JSFunction GenMeshCube;
+  late final WF4<void> GenMeshCube;
   /// Generate sphere mesh (standard sphere)
-  late final JSFunction GenMeshSphere;
+  late final WF4<void> GenMeshSphere;
   /// Generate half-sphere mesh (no bottom cap)
-  late final JSFunction GenMeshHemiSphere;
+  late final WF4<void> GenMeshHemiSphere;
   /// Generate cylinder mesh
-  late final JSFunction GenMeshCylinder;
+  late final WF4<void> GenMeshCylinder;
   /// Generate cone/pyramid mesh
-  late final JSFunction GenMeshCone;
+  late final WF4<void> GenMeshCone;
   /// Generate torus mesh
-  late final JSFunction GenMeshTorus;
+  late final WF5<void> GenMeshTorus;
   /// Generate trefoil knot mesh
-  late final JSFunction GenMeshKnot;
+  late final WF5<void> GenMeshKnot;
   /// Generate heightmap mesh from image data
-  late final JSFunction GenMeshHeightmap;
+  late final WF3<void> GenMeshHeightmap;
   /// Generate cubes-based map mesh from image data
-  late final JSFunction GenMeshCubicmap;
+  late final WF3<void> GenMeshCubicmap;
   /// Load materials from model file
-  late final JSFunction LoadMaterials;
+  late final WF2<StructPointer<MaterialD>> LoadMaterials;
   /// Load default material (Supports: DIFFUSE, SPECULAR, NORMAL maps)
-  late final JSFunction LoadMaterialDefault;
+  late final WF1<void> LoadMaterialDefault;
   /// Check if a material is valid (shader assigned, map textures loaded in GPU)
-  late final JSFunction IsMaterialValid;
+  late final WF1<bool> IsMaterialValid;
   /// Unload material from GPU memory (VRAM)
-  late final JSFunction UnloadMaterial;
+  late final WF1<void> UnloadMaterial;
   /// Set texture for a material map type (MATERIAL_MAP_DIFFUSE, MATERIAL_MAP_SPECULAR...)
-  late final JSFunction SetMaterialTexture;
+  late final WF3<void> SetMaterialTexture;
   /// Set material for a mesh
-  late final JSFunction SetModelMeshMaterial;
+  late final WF3<void> SetModelMeshMaterial;
   /// Load model animations from file
-  late final JSFunction LoadModelAnimations;
+  late final WF2<StructPointer<ModelAnimationD>> LoadModelAnimations;
   /// Update model animation pose (CPU)
-  late final JSFunction UpdateModelAnimation;
+  late final WF3<void> UpdateModelAnimation;
   /// Update model animation data (vertex buffers / bone matrices) for a specific pose,
   /// defined by two different animations at specific frames blended together
-  late final JSFunction UpdateModelAnimationEx;
+  late final WF6<void> UpdateModelAnimationEx;
   /// Unload animation array data
-  late final JSFunction UnloadModelAnimations;
+  late final WF2<void> UnloadModelAnimations;
   /// Check model animation skeleton match
-  late final JSFunction IsModelAnimationValid;
+  late final WF2<bool> IsModelAnimationValid;
   /// Check collision between two spheres
-  late final JSFunction CheckCollisionSpheres;
+  late final WF4<bool> CheckCollisionSpheres;
   /// Check collision between two bounding boxes
-  late final JSFunction CheckCollisionBoxes;
+  late final WF2<bool> CheckCollisionBoxes;
   /// Check collision between box and sphere
-  late final JSFunction CheckCollisionBoxSphere;
+  late final WF3<bool> CheckCollisionBoxSphere;
   /// Get collision info between ray and sphere
-  late final JSFunction GetRayCollisionSphere;
+  late final WF4<void> GetRayCollisionSphere;
   /// Get collision info between ray and box
-  late final JSFunction GetRayCollisionBox;
+  late final WF3<void> GetRayCollisionBox;
   /// Get collision info between ray and mesh
-  late final JSFunction GetRayCollisionMesh;
+  late final WF4<void> GetRayCollisionMesh;
   /// Get collision info between ray and triangle
-  late final JSFunction GetRayCollisionTriangle;
+  late final WF5<void> GetRayCollisionTriangle;
   /// Get collision info between ray and quad
-  late final JSFunction GetRayCollisionQuad;
+  late final WF6<void> GetRayCollisionQuad;
 
   RaylibCore(super.rl) {
-    InitWindow                       = _module.dwrap('InitWindow',                       n3, rv);
-    CloseWindow                      = _module.dwrap('CloseWindow',                      n0, rv);
-    WindowShouldClose                = _module.dwrap('WindowShouldClose',                n0, rn);
-    IsWindowReady                    = _module.dwrap('IsWindowReady',                    n0, rn);
-    IsWindowFullscreen               = _module.dwrap('IsWindowFullscreen',               n0, rn);
-    IsWindowHidden                   = _module.dwrap('IsWindowHidden',                   n0, rn);
-    IsWindowMinimized                = _module.dwrap('IsWindowMinimized',                n0, rn);
-    IsWindowMaximized                = _module.dwrap('IsWindowMaximized',                n0, rn);
-    IsWindowFocused                  = _module.dwrap('IsWindowFocused',                  n0, rn);
-    IsWindowResized                  = _module.dwrap('IsWindowResized',                  n0, rn);
-    IsWindowState                    = _module.dwrap('IsWindowState',                    n1, rn);
-    SetWindowState                   = _module.dwrap('SetWindowState',                   n1, rv);
-    ClearWindowState                 = _module.dwrap('ClearWindowState',                 n1, rv);
-    ToggleFullscreen                 = _module.dwrap('ToggleFullscreen',                 n0, rv);
-    ToggleBorderlessWindowed         = _module.dwrap('ToggleBorderlessWindowed',         n0, rv);
-    MaximizeWindow                   = _module.dwrap('MaximizeWindow',                   n0, rv);
-    MinimizeWindow                   = _module.dwrap('MinimizeWindow',                   n0, rv);
-    RestoreWindow                    = _module.dwrap('RestoreWindow',                    n0, rv);
-    SetWindowIcon                    = _module.dwrap('SetWindowIcon',                    n1, rv);
-    SetWindowIcons                   = _module.dwrap('SetWindowIcons',                   n2, rv);
-    SetWindowTitle                   = _module.dwrap('SetWindowTitle',                   n1, rv);
-    SetWindowPosition                = _module.dwrap('SetWindowPosition',                n2, rv);
-    SetWindowMonitor                 = _module.dwrap('SetWindowMonitor',                 n1, rv);
-    SetWindowMinSize                 = _module.dwrap('SetWindowMinSize',                 n2, rv);
-    SetWindowMaxSize                 = _module.dwrap('SetWindowMaxSize',                 n2, rv);
-    SetWindowSize                    = _module.dwrap('SetWindowSize',                    n2, rv);
-    SetWindowOpacity                 = _module.dwrap('SetWindowOpacity',                 n1, rv);
-    SetWindowFocused                 = _module.dwrap('SetWindowFocused',                 n0, rv);
-    GetWindowHandle                  = _module.dwrap('GetWindowHandle',                  n0, rn);
-    GetScreenWidth                   = _module.dwrap('GetScreenWidth',                   n0, rn);
-    GetScreenHeight                  = _module.dwrap('GetScreenHeight',                  n0, rn);
-    GetRenderWidth                   = _module.dwrap('GetRenderWidth',                   n0, rn);
-    GetRenderHeight                  = _module.dwrap('GetRenderHeight',                  n0, rn);
-    GetMonitorCount                  = _module.dwrap('GetMonitorCount',                  n0, rn);
-    GetCurrentMonitor                = _module.dwrap('GetCurrentMonitor',                n0, rn);
-    GetMonitorPosition               = _module.dwrap('GetMonitorPosition',               n2, rv);
-    GetMonitorWidth                  = _module.dwrap('GetMonitorWidth',                  n1, rn);
-    GetMonitorHeight                 = _module.dwrap('GetMonitorHeight',                 n1, rn);
-    GetMonitorPhysicalWidth          = _module.dwrap('GetMonitorPhysicalWidth',          n1, rn);
-    GetMonitorPhysicalHeight         = _module.dwrap('GetMonitorPhysicalHeight',         n1, rn);
-    GetMonitorRefreshRate            = _module.dwrap('GetMonitorRefreshRate',            n1, rn);
-    GetWindowPosition                = _module.dwrap('GetWindowPosition',                n1, rv);
-    GetWindowScaleDPI                = _module.dwrap('GetWindowScaleDPI',                n1, rv);
-    GetMonitorName                   = _module.dwrap('GetMonitorName',                   n1, rn);
-    SetClipboardText                 = _module.dwrap('SetClipboardText',                 n1, rv);
-    GetClipboardText                 = _module.dwrap('GetClipboardText',                 n0, rn);
-    GetClipboardImage                = _module.dwrap('GetClipboardImage',                n1, rv);
-    EnableEventWaiting               = _module.dwrap('EnableEventWaiting',               n0, rv);
-    DisableEventWaiting              = _module.dwrap('DisableEventWaiting',              n0, rv);
-    ShowCursor                       = _module.dwrap('ShowCursor',                       n0, rv);
-    HideCursor                       = _module.dwrap('HideCursor',                       n0, rv);
-    IsCursorHidden                   = _module.dwrap('IsCursorHidden',                   n0, rn);
-    EnableCursor                     = _module.dwrap('EnableCursor',                     n0, rv);
-    DisableCursor                    = _module.dwrap('DisableCursor',                    n0, rv);
-    IsCursorOnScreen                 = _module.dwrap('IsCursorOnScreen',                 n0, rn);
-    ClearBackground                  = _module.dwrap('ClearBackground',                  n1, rv);
-    BeginDrawing                     = _module.dwrap('BeginDrawing',                     n0, rv);
-    EndDrawing                       = _module.dwrap('EndDrawing',                       n0, rv);
-    BeginMode2D                      = _module.dwrap('BeginMode2D',                      n1, rv);
-    EndMode2D                        = _module.dwrap('EndMode2D',                        n0, rv);
-    BeginMode3D                      = _module.dwrap('BeginMode3D',                      n1, rv);
-    EndMode3D                        = _module.dwrap('EndMode3D',                        n0, rv);
-    BeginTextureMode                 = _module.dwrap('BeginTextureMode',                 n1, rv);
-    EndTextureMode                   = _module.dwrap('EndTextureMode',                   n0, rv);
-    BeginShaderMode                  = _module.dwrap('BeginShaderMode',                  n1, rv);
-    EndShaderMode                    = _module.dwrap('EndShaderMode',                    n0, rv);
-    BeginBlendMode                   = _module.dwrap('BeginBlendMode',                   n1, rv);
-    EndBlendMode                     = _module.dwrap('EndBlendMode',                     n0, rv);
-    BeginScissorMode                 = _module.dwrap('BeginScissorMode',                 n4, rv);
-    EndScissorMode                   = _module.dwrap('EndScissorMode',                   n0, rv);
-    BeginVrStereoMode                = _module.dwrap('BeginVrStereoMode',                n1, rv);
-    EndVrStereoMode                  = _module.dwrap('EndVrStereoMode',                  n0, rv);
-    LoadVrStereoConfig               = _module.dwrap('LoadVrStereoConfig',               n2, rv);
-    UnloadVrStereoConfig             = _module.dwrap('UnloadVrStereoConfig',             n1, rv);
-    LoadShader                       = _module.dwrap('LoadShader',                       n3, rv);
-    LoadShaderFromMemory             = _module.dwrap('LoadShaderFromMemory',             n3, rv);
-    IsShaderValid                    = _module.dwrap('IsShaderValid',                    n1, rn);
-    GetShaderLocation                = _module.dwrap('GetShaderLocation',                n2, rn);
-    GetShaderLocationAttrib          = _module.dwrap('GetShaderLocationAttrib',          n2, rn);
-    SetShaderValue                   = _module.dwrap('SetShaderValue',                   n4, rv);
-    SetShaderValueV                  = _module.dwrap('SetShaderValueV',                  n5, rv);
-    SetShaderValueMatrix             = _module.dwrap('SetShaderValueMatrix',             n3, rv);
-    SetShaderValueTexture            = _module.dwrap('SetShaderValueTexture',            n3, rv);
-    UnloadShader                     = _module.dwrap('UnloadShader',                     n1, rv);
-    GetScreenToWorldRay              = _module.dwrap('GetScreenToWorldRay',              n3, rv);
-    GetScreenToWorldRayEx            = _module.dwrap('GetScreenToWorldRayEx',            n5, rv);
-    GetWorldToScreen                 = _module.dwrap('GetWorldToScreen',                 n3, rv);
-    GetWorldToScreenEx               = _module.dwrap('GetWorldToScreenEx',               n5, rv);
-    GetWorldToScreen2D               = _module.dwrap('GetWorldToScreen2D',               n3, rv);
-    GetScreenToWorld2D               = _module.dwrap('GetScreenToWorld2D',               n3, rv);
-    GetCameraMatrix                  = _module.dwrap('GetCameraMatrix',                  n2, rv);
-    GetCameraMatrix2D                = _module.dwrap('GetCameraMatrix2D',                n2, rv);
-    SetTargetFPS                     = _module.dwrap('SetTargetFPS',                     n1, rv);
-    GetFrameTime                     = _module.dwrap('GetFrameTime',                     n0, rn);
-    GetTime                          = _module.dwrap('GetTime',                          n0, rn);
-    GetFPS                           = _module.dwrap('GetFPS',                           n0, rn);
-    SwapScreenBuffer                 = _module.dwrap('SwapScreenBuffer',                 n0, rv);
-    PollInputEvents                  = _module.dwrap('PollInputEvents',                  n0, rv);
-    WaitTime                         = _module.dwrap('WaitTime',                         n1, rv);
-    SetRandomSeed                    = _module.dwrap('SetRandomSeed',                    n1, rv);
-    GetRandomValue                   = _module.dwrap('GetRandomValue',                   n2, rn);
-    LoadRandomSequence               = _module.dwrap('LoadRandomSequence',               n3, rn);
-    UnloadRandomSequence             = _module.dwrap('UnloadRandomSequence',             n1, rv);
-    TakeScreenshot                   = _module.dwrap('TakeScreenshot',                   n1, rv);
-    SetConfigFlags                   = _module.dwrap('SetConfigFlags',                   n1, rv);
-    OpenURL                          = _module.dwrap('OpenURL',                          n1, rv);
-    TraceLog                         = _module.dwrap('TraceLog',                         n2, rv);
-    SetTraceLogLevel                 = _module.dwrap('SetTraceLogLevel',                 n1, rv);
-    SetTraceLogCallback              = _module.dwrap('SetTraceLogCallback',              n1, rv);
-    SetLoadFileDataCallback          = _module.dwrap('SetLoadFileDataCallback',          n1, rv);
-    SetSaveFileDataCallback          = _module.dwrap('SetSaveFileDataCallback',          n1, rv);
-    SetLoadFileTextCallback          = _module.dwrap('SetLoadFileTextCallback',          n1, rv);
-    SetSaveFileTextCallback          = _module.dwrap('SetSaveFileTextCallback',          n1, rv);
-    LoadFileData                     = _module.dwrap('LoadFileData',                     n2, rn);
-    UnloadFileData                   = _module.dwrap('UnloadFileData',                   n1, rv);
-    SaveFileData                     = _module.dwrap('SaveFileData',                     n3, rn);
-    ExportDataAsCode                 = _module.dwrap('ExportDataAsCode',                 n3, rn);
-    LoadFileText                     = _module.dwrap('LoadFileText',                     n1, rn);
-    UnloadFileText                   = _module.dwrap('UnloadFileText',                   n1, rv);
-    SaveFileText                     = _module.dwrap('SaveFileText',                     n2, rn);
-    FileRename                       = _module.dwrap('FileRename',                       n2, rn);
-    FileRemove                       = _module.dwrap('FileRemove',                       n1, rn);
-    FileCopy                         = _module.dwrap('FileCopy',                         n2, rn);
-    FileMove                         = _module.dwrap('FileMove',                         n2, rn);
-    FileTextReplace                  = _module.dwrap('FileTextReplace',                  n3, rn);
-    FileTextFindIndex                = _module.dwrap('FileTextFindIndex',                n2, rn);
-    FileExists                       = _module.dwrap('FileExists',                       n1, rn);
-    DirectoryExists                  = _module.dwrap('DirectoryExists',                  n1, rn);
-    IsFileExtension                  = _module.dwrap('IsFileExtension',                  n2, rn);
-    GetFileLength                    = _module.dwrap('GetFileLength',                    n1, rn);
-    GetFileExtension                 = _module.dwrap('GetFileExtension',                 n1, rn);
-    GetFileName                      = _module.dwrap('GetFileName',                      n1, rn);
-    GetFileNameWithoutExt            = _module.dwrap('GetFileNameWithoutExt',            n1, rn);
-    GetDirectoryFileCount            = _module.dwrap('GetDirectoryFileCount',            n1, rn);
-    GetDirectoryFileCountEx          = _module.dwrap('GetDirectoryFileCountEx',          n3, rn);
-    GetDirectoryPath                 = _module.dwrap('GetDirectoryPath',                 n1, rn);
-    GetPrevDirectoryPath             = _module.dwrap('GetPrevDirectoryPath',             n1, rn);
-    GetWorkingDirectory              = _module.dwrap('GetWorkingDirectory',              n0, rn);
-    GetApplicationDirectory          = _module.dwrap('GetApplicationDirectory',          n0, rn);
-    MakeDirectory                    = _module.dwrap('MakeDirectory',                    n1, rn);
-    ChangeDirectory                  = _module.dwrap('ChangeDirectory',                  n1, rn);
-    IsPathFile                       = _module.dwrap('IsPathFile',                       n1, rn);
-    IsFileNameValid                  = _module.dwrap('IsFileNameValid',                  n1, rn);
-    LoadDirectoryFiles               = _module.dwrap('LoadDirectoryFiles',               n2, rv);
-    LoadDirectoryFilesEx             = _module.dwrap('LoadDirectoryFilesEx',             n4, rv);
-    UnloadDirectoryFiles             = _module.dwrap('UnloadDirectoryFiles',             n1, rv);
-    IsFileDropped                    = _module.dwrap('IsFileDropped',                    n0, rn);
-    LoadDroppedFiles                 = _module.dwrap('LoadDroppedFiles',                 n1, rv);
-    UnloadDroppedFiles               = _module.dwrap('UnloadDroppedFiles',               n1, rv);
-    GetFileModTime                   = _module.dwrap('GetFileModTime',                   n1, rn);
-    CompressData                     = _module.dwrap('CompressData',                     n3, rn);
-    DecompressData                   = _module.dwrap('DecompressData',                   n3, rn);
-    EncodeDataBase64                 = _module.dwrap('EncodeDataBase64',                 n3, rn);
-    DecodeDataBase64                 = _module.dwrap('DecodeDataBase64',                 n2, rn);
-    ComputeCRC32                     = _module.dwrap('ComputeCRC32',                     n2, rn);
-    ComputeMD5                       = _module.dwrap('ComputeMD5',                       n2, rn);
-    ComputeSHA1                      = _module.dwrap('ComputeSHA1',                      n2, rn);
-    ComputeSHA256                    = _module.dwrap('ComputeSHA256',                    n2, rn);
-    LoadAutomationEventList          = _module.dwrap('LoadAutomationEventList',          n2, rv);
-    UnloadAutomationEventList        = _module.dwrap('UnloadAutomationEventList',        n1, rv);
-    ExportAutomationEventList        = _module.dwrap('ExportAutomationEventList',        n2, rn);
-    SetAutomationEventList           = _module.dwrap('SetAutomationEventList',           n1, rv);
-    SetAutomationEventBaseFrame      = _module.dwrap('SetAutomationEventBaseFrame',      n1, rv);
-    StartAutomationEventRecording    = _module.dwrap('StartAutomationEventRecording',    n0, rv);
-    StopAutomationEventRecording     = _module.dwrap('StopAutomationEventRecording',     n0, rv);
-    PlayAutomationEvent              = _module.dwrap('PlayAutomationEvent',              n1, rv);
-    IsKeyPressed                     = _module.dwrap('IsKeyPressed',                     n1, rn);
-    IsKeyPressedRepeat               = _module.dwrap('IsKeyPressedRepeat',               n1, rn);
-    IsKeyDown                        = _module.dwrap('IsKeyDown',                        n1, rn);
-    IsKeyReleased                    = _module.dwrap('IsKeyReleased',                    n1, rn);
-    IsKeyUp                          = _module.dwrap('IsKeyUp',                          n1, rn);
-    GetKeyName                       = _module.dwrap('GetKeyName',                       n1, rn);
-    GetKeyPressed                    = _module.dwrap('GetKeyPressed',                    n0, rn);
-    GetCharPressed                   = _module.dwrap('GetCharPressed',                   n0, rn);
-    SetExitKey                       = _module.dwrap('SetExitKey',                       n1, rv);
-    IsGamepadAvailable               = _module.dwrap('IsGamepadAvailable',               n1, rn);
-    GetGamepadName                   = _module.dwrap('GetGamepadName',                   n1, rn);
-    IsGamepadButtonPressed           = _module.dwrap('IsGamepadButtonPressed',           n2, rn);
-    IsGamepadButtonDown              = _module.dwrap('IsGamepadButtonDown',              n2, rn);
-    IsGamepadButtonReleased          = _module.dwrap('IsGamepadButtonReleased',          n2, rn);
-    IsGamepadButtonUp                = _module.dwrap('IsGamepadButtonUp',                n2, rn);
-    GetGamepadButtonPressed          = _module.dwrap('GetGamepadButtonPressed',          n0, rn);
-    GetGamepadAxisCount              = _module.dwrap('GetGamepadAxisCount',              n1, rn);
-    GetGamepadAxisMovement           = _module.dwrap('GetGamepadAxisMovement',           n2, rn);
-    SetGamepadMappings               = _module.dwrap('SetGamepadMappings',               n1, rn);
-    SetGamepadVibration              = _module.dwrap('SetGamepadVibration',              n4, rv);
-    IsMouseButtonPressed             = _module.dwrap('IsMouseButtonPressed',             n1, rn);
-    IsMouseButtonDown                = _module.dwrap('IsMouseButtonDown',                n1, rn);
-    IsMouseButtonReleased            = _module.dwrap('IsMouseButtonReleased',            n1, rn);
-    IsMouseButtonUp                  = _module.dwrap('IsMouseButtonUp',                  n1, rn);
-    GetMouseX                        = _module.dwrap('GetMouseX',                        n0, rn);
-    GetMouseY                        = _module.dwrap('GetMouseY',                        n0, rn);
-    GetMousePosition                 = _module.dwrap('GetMousePosition',                 n1, rv);
-    GetMouseDelta                    = _module.dwrap('GetMouseDelta',                    n1, rv);
-    SetMousePosition                 = _module.dwrap('SetMousePosition',                 n2, rv);
-    SetMouseOffset                   = _module.dwrap('SetMouseOffset',                   n2, rv);
-    SetMouseScale                    = _module.dwrap('SetMouseScale',                    n2, rv);
-    GetMouseWheelMove                = _module.dwrap('GetMouseWheelMove',                n0, rn);
-    GetMouseWheelMoveV               = _module.dwrap('GetMouseWheelMoveV',               n1, rv);
-    SetMouseCursor                   = _module.dwrap('SetMouseCursor',                   n1, rv);
-    GetTouchX                        = _module.dwrap('GetTouchX',                        n0, rn);
-    GetTouchY                        = _module.dwrap('GetTouchY',                        n0, rn);
-    GetTouchPosition                 = _module.dwrap('GetTouchPosition',                 n2, rv);
-    GetTouchPointId                  = _module.dwrap('GetTouchPointId',                  n1, rn);
-    GetTouchPointCount               = _module.dwrap('GetTouchPointCount',               n0, rn);
-    SetGesturesEnabled               = _module.dwrap('SetGesturesEnabled',               n1, rv);
-    IsGestureDetected                = _module.dwrap('IsGestureDetected',                n1, rn);
-    GetGestureDetected               = _module.dwrap('GetGestureDetected',               n0, rn);
-    GetGestureHoldDuration           = _module.dwrap('GetGestureHoldDuration',           n0, rn);
-    GetGestureDragVector             = _module.dwrap('GetGestureDragVector',             n1, rv);
-    GetGestureDragAngle              = _module.dwrap('GetGestureDragAngle',              n0, rn);
-    GetGesturePinchVector            = _module.dwrap('GetGesturePinchVector',            n1, rv);
-    GetGesturePinchAngle             = _module.dwrap('GetGesturePinchAngle',             n0, rn);
-    ProcessGestureEvent              = _module.dwrap('ProcessGestureEvent',              n1, rv);
-    UpdateGestures                   = _module.dwrap('UpdateGestures',                   n0, rv);
-    UpdateCamera                     = _module.dwrap('UpdateCamera',                     n2, rv);
-    UpdateCameraPro                  = _module.dwrap('UpdateCameraPro',                  n4, rv);
-    SetShapesTexture                 = _module.dwrap('SetShapesTexture',                 n2, rv);
-    GetShapesTexture                 = _module.dwrap('GetShapesTexture',                 n1, rv);
-    GetShapesTextureRectangle        = _module.dwrap('GetShapesTextureRectangle',        n1, rv);
-    DrawPixel                        = _module.dwrap('DrawPixel',                        n3, rv);
-    DrawPixelV                       = _module.dwrap('DrawPixelV',                       n2, rv);
-    DrawLine                         = _module.dwrap('DrawLine',                         n5, rv);
-    DrawLineV                        = _module.dwrap('DrawLineV',                        n3, rv);
-    DrawLineEx                       = _module.dwrap('DrawLineEx',                       n4, rv);
-    DrawLineStrip                    = _module.dwrap('DrawLineStrip',                    n3, rv);
-    DrawLineBezier                   = _module.dwrap('DrawLineBezier',                   n4, rv);
-    DrawLineDashed                   = _module.dwrap('DrawLineDashed',                   n5, rv);
-    DrawCircle                       = _module.dwrap('DrawCircle',                       n4, rv);
-    DrawCircleSector                 = _module.dwrap('DrawCircleSector',                 n6, rv);
-    DrawCircleSectorLines            = _module.dwrap('DrawCircleSectorLines',            n6, rv);
-    DrawCircleGradient               = _module.dwrap('DrawCircleGradient',               n4, rv);
-    DrawCircleV                      = _module.dwrap('DrawCircleV',                      n3, rv);
-    DrawCircleLines                  = _module.dwrap('DrawCircleLines',                  n4, rv);
-    DrawCircleLinesV                 = _module.dwrap('DrawCircleLinesV',                 n3, rv);
-    DrawEllipse                      = _module.dwrap('DrawEllipse',                      n5, rv);
-    DrawEllipseV                     = _module.dwrap('DrawEllipseV',                     n4, rv);
-    DrawEllipseLines                 = _module.dwrap('DrawEllipseLines',                 n5, rv);
-    DrawEllipseLinesV                = _module.dwrap('DrawEllipseLinesV',                n4, rv);
-    DrawRing                         = _module.dwrap('DrawRing',                         n7, rv);
-    DrawRingLines                    = _module.dwrap('DrawRingLines',                    n7, rv);
-    DrawRectangle                    = _module.dwrap('DrawRectangle',                    n5, rv);
-    DrawRectangleV                   = _module.dwrap('DrawRectangleV',                   n3, rv);
-    DrawRectangleRec                 = _module.dwrap('DrawRectangleRec',                 n2, rv);
-    DrawRectanglePro                 = _module.dwrap('DrawRectanglePro',                 n4, rv);
-    DrawRectangleGradientV           = _module.dwrap('DrawRectangleGradientV',           n6, rv);
-    DrawRectangleGradientH           = _module.dwrap('DrawRectangleGradientH',           n6, rv);
-    DrawRectangleGradientEx          = _module.dwrap('DrawRectangleGradientEx',          n5, rv);
-    DrawRectangleLines               = _module.dwrap('DrawRectangleLines',               n5, rv);
-    DrawRectangleLinesEx             = _module.dwrap('DrawRectangleLinesEx',             n3, rv);
-    DrawRectangleRounded             = _module.dwrap('DrawRectangleRounded',             n4, rv);
-    DrawRectangleRoundedLines        = _module.dwrap('DrawRectangleRoundedLines',        n4, rv);
-    DrawRectangleRoundedLinesEx      = _module.dwrap('DrawRectangleRoundedLinesEx',      n5, rv);
-    DrawTriangle                     = _module.dwrap('DrawTriangle',                     n4, rv);
-    DrawTriangleLines                = _module.dwrap('DrawTriangleLines',                n4, rv);
-    DrawTriangleFan                  = _module.dwrap('DrawTriangleFan',                  n3, rv);
-    DrawTriangleStrip                = _module.dwrap('DrawTriangleStrip',                n3, rv);
-    DrawPoly                         = _module.dwrap('DrawPoly',                         n5, rv);
-    DrawPolyLines                    = _module.dwrap('DrawPolyLines',                    n5, rv);
-    DrawPolyLinesEx                  = _module.dwrap('DrawPolyLinesEx',                  n6, rv);
-    DrawSplineLinear                 = _module.dwrap('DrawSplineLinear',                 n4, rv);
-    DrawSplineBasis                  = _module.dwrap('DrawSplineBasis',                  n4, rv);
-    DrawSplineCatmullRom             = _module.dwrap('DrawSplineCatmullRom',             n4, rv);
-    DrawSplineBezierQuadratic        = _module.dwrap('DrawSplineBezierQuadratic',        n4, rv);
-    DrawSplineBezierCubic            = _module.dwrap('DrawSplineBezierCubic',            n4, rv);
-    DrawSplineSegmentLinear          = _module.dwrap('DrawSplineSegmentLinear',          n4, rv);
-    DrawSplineSegmentBasis           = _module.dwrap('DrawSplineSegmentBasis',           n6, rv);
-    DrawSplineSegmentCatmullRom      = _module.dwrap('DrawSplineSegmentCatmullRom',      n6, rv);
-    DrawSplineSegmentBezierQuadratic = _module.dwrap('DrawSplineSegmentBezierQuadratic', n5, rv);
-    DrawSplineSegmentBezierCubic     = _module.dwrap('DrawSplineSegmentBezierCubic',     n6, rv);
-    GetSplinePointLinear             = _module.dwrap('GetSplinePointLinear',             n4, rv);
-    GetSplinePointBasis              = _module.dwrap('GetSplinePointBasis',              n6, rv);
-    GetSplinePointCatmullRom         = _module.dwrap('GetSplinePointCatmullRom',         n6, rv);
-    GetSplinePointBezierQuad         = _module.dwrap('GetSplinePointBezierQuad',         n5, rv);
-    GetSplinePointBezierCubic        = _module.dwrap('GetSplinePointBezierCubic',        n6, rv);
-    CheckCollisionRecs               = _module.dwrap('CheckCollisionRecs',               n2, rn);
-    CheckCollisionCircles            = _module.dwrap('CheckCollisionCircles',            n4, rn);
-    CheckCollisionCircleRec          = _module.dwrap('CheckCollisionCircleRec',          n3, rn);
-    CheckCollisionCircleLine         = _module.dwrap('CheckCollisionCircleLine',         n4, rn);
-    CheckCollisionPointRec           = _module.dwrap('CheckCollisionPointRec',           n2, rn);
-    CheckCollisionPointCircle        = _module.dwrap('CheckCollisionPointCircle',        n3, rn);
-    CheckCollisionPointTriangle      = _module.dwrap('CheckCollisionPointTriangle',      n4, rn);
-    CheckCollisionPointLine          = _module.dwrap('CheckCollisionPointLine',          n4, rn);
-    CheckCollisionPointPoly          = _module.dwrap('CheckCollisionPointPoly',          n3, rn);
-    CheckCollisionLines              = _module.dwrap('CheckCollisionLines',              n5, rn);
-    GetCollisionRec                  = _module.dwrap('GetCollisionRec',                  n3, rv);
-    LoadImage                        = _module.dwrap('LoadImage',                        n2, rv);
-    LoadImageRaw                     = _module.dwrap('LoadImageRaw',                     n6, rv);
-    LoadImageAnim                    = _module.dwrap('LoadImageAnim',                    n3, rv);
-    LoadImageAnimFromMemory          = _module.dwrap('LoadImageAnimFromMemory',          n5, rv);
-    LoadImageFromMemory              = _module.dwrap('LoadImageFromMemory',              n4, rv);
-    LoadImageFromTexture             = _module.dwrap('LoadImageFromTexture',             n2, rv);
-    LoadImageFromScreen              = _module.dwrap('LoadImageFromScreen',              n1, rv);
-    IsImageValid                     = _module.dwrap('IsImageValid',                     n1, rn);
-    UnloadImage                      = _module.dwrap('UnloadImage',                      n1, rv);
-    ExportImage                      = _module.dwrap('ExportImage',                      n2, rn);
-    ExportImageToMemory              = _module.dwrap('ExportImageToMemory',              n3, rn);
-    ExportImageAsCode                = _module.dwrap('ExportImageAsCode',                n2, rn);
-    GenImageColor                    = _module.dwrap('GenImageColor',                    n4, rv);
-    GenImageGradientLinear           = _module.dwrap('GenImageGradientLinear',           n6, rv);
-    GenImageGradientRadial           = _module.dwrap('GenImageGradientRadial',           n6, rv);
-    GenImageGradientSquare           = _module.dwrap('GenImageGradientSquare',           n6, rv);
-    GenImageChecked                  = _module.dwrap('GenImageChecked',                  n7, rv);
-    GenImageWhiteNoise               = _module.dwrap('GenImageWhiteNoise',               n4, rv);
-    GenImagePerlinNoise              = _module.dwrap('GenImagePerlinNoise',              n6, rv);
-    GenImageCellular                 = _module.dwrap('GenImageCellular',                 n4, rv);
-    GenImageText                     = _module.dwrap('GenImageText',                     n4, rv);
-    ImageCopy                        = _module.dwrap('ImageCopy',                        n2, rv);
-    ImageFromImage                   = _module.dwrap('ImageFromImage',                   n3, rv);
-    ImageFromChannel                 = _module.dwrap('ImageFromChannel',                 n3, rv);
-    ImageText                        = _module.dwrap('ImageText',                        n4, rv);
-    ImageTextEx                      = _module.dwrap('ImageTextEx',                      n6, rv);
-    ImageFormat                      = _module.dwrap('ImageFormat',                      n2, rv);
-    ImageToPOT                       = _module.dwrap('ImageToPOT',                       n2, rv);
-    ImageCrop                        = _module.dwrap('ImageCrop',                        n2, rv);
-    ImageAlphaCrop                   = _module.dwrap('ImageAlphaCrop',                   n2, rv);
-    ImageAlphaClear                  = _module.dwrap('ImageAlphaClear',                  n3, rv);
-    ImageAlphaMask                   = _module.dwrap('ImageAlphaMask',                   n2, rv);
-    ImageAlphaPremultiply            = _module.dwrap('ImageAlphaPremultiply',            n1, rv);
-    ImageBlurGaussian                = _module.dwrap('ImageBlurGaussian',                n2, rv);
-    ImageKernelConvolution           = _module.dwrap('ImageKernelConvolution',           n3, rv);
-    ImageResize                      = _module.dwrap('ImageResize',                      n3, rv);
-    ImageResizeNN                    = _module.dwrap('ImageResizeNN',                    n3, rv);
-    ImageResizeCanvas                = _module.dwrap('ImageResizeCanvas',                n6, rv);
-    ImageMipmaps                     = _module.dwrap('ImageMipmaps',                     n1, rv);
-    ImageDither                      = _module.dwrap('ImageDither',                      n5, rv);
-    ImageFlipVertical                = _module.dwrap('ImageFlipVertical',                n1, rv);
-    ImageFlipHorizontal              = _module.dwrap('ImageFlipHorizontal',              n1, rv);
-    ImageRotate                      = _module.dwrap('ImageRotate',                      n2, rv);
-    ImageRotateCW                    = _module.dwrap('ImageRotateCW',                    n1, rv);
-    ImageRotateCCW                   = _module.dwrap('ImageRotateCCW',                   n1, rv);
-    ImageColorTint                   = _module.dwrap('ImageColorTint',                   n2, rv);
-    ImageColorInvert                 = _module.dwrap('ImageColorInvert',                 n1, rv);
-    ImageColorGrayscale              = _module.dwrap('ImageColorGrayscale',              n1, rv);
-    ImageColorContrast               = _module.dwrap('ImageColorContrast',               n2, rv);
-    ImageColorBrightness             = _module.dwrap('ImageColorBrightness',             n2, rv);
-    ImageColorReplace                = _module.dwrap('ImageColorReplace',                n3, rv);
-    LoadImageColors                  = _module.dwrap('LoadImageColors',                  n1, rn);
-    LoadImagePalette                 = _module.dwrap('LoadImagePalette',                 n3, rn);
-    UnloadImageColors                = _module.dwrap('UnloadImageColors',                n1, rv);
-    UnloadImagePalette               = _module.dwrap('UnloadImagePalette',               n1, rv);
-    GetImageAlphaBorder              = _module.dwrap('GetImageAlphaBorder',              n3, rv);
-    GetImageColor                    = _module.dwrap('GetImageColor',                    n4, rv);
-    ImageClearBackground             = _module.dwrap('ImageClearBackground',             n2, rv);
-    ImageDrawPixel                   = _module.dwrap('ImageDrawPixel',                   n4, rv);
-    ImageDrawPixelV                  = _module.dwrap('ImageDrawPixelV',                  n3, rv);
-    ImageDrawLine                    = _module.dwrap('ImageDrawLine',                    n6, rv);
-    ImageDrawLineV                   = _module.dwrap('ImageDrawLineV',                   n4, rv);
-    ImageDrawLineEx                  = _module.dwrap('ImageDrawLineEx',                  n5, rv);
-    ImageDrawCircle                  = _module.dwrap('ImageDrawCircle',                  n5, rv);
-    ImageDrawCircleV                 = _module.dwrap('ImageDrawCircleV',                 n4, rv);
-    ImageDrawCircleLines             = _module.dwrap('ImageDrawCircleLines',             n5, rv);
-    ImageDrawCircleLinesV            = _module.dwrap('ImageDrawCircleLinesV',            n4, rv);
-    ImageDrawRectangle               = _module.dwrap('ImageDrawRectangle',               n6, rv);
-    ImageDrawRectangleV              = _module.dwrap('ImageDrawRectangleV',              n4, rv);
-    ImageDrawRectangleRec            = _module.dwrap('ImageDrawRectangleRec',            n3, rv);
-    ImageDrawRectangleLines          = _module.dwrap('ImageDrawRectangleLines',          n4, rv);
-    ImageDrawTriangle                = _module.dwrap('ImageDrawTriangle',                n5, rv);
-    ImageDrawTriangleEx              = _module.dwrap('ImageDrawTriangleEx',              n7, rv);
-    ImageDrawTriangleLines           = _module.dwrap('ImageDrawTriangleLines',           n5, rv);
-    ImageDrawTriangleFan             = _module.dwrap('ImageDrawTriangleFan',             n4, rv);
-    ImageDrawTriangleStrip           = _module.dwrap('ImageDrawTriangleStrip',           n4, rv);
-    ImageDraw                        = _module.dwrap('ImageDraw',                        n5, rv);
-    ImageDrawText                    = _module.dwrap('ImageDrawText',                    n6, rv);
-    ImageDrawTextEx                  = _module.dwrap('ImageDrawTextEx',                  n7, rv);
-    LoadTexture                      = _module.dwrap('LoadTexture',                      n2, rv);
-    LoadTextureFromImage             = _module.dwrap('LoadTextureFromImage',             n2, rv);
-    LoadTextureCubemap               = _module.dwrap('LoadTextureCubemap',               n3, rv);
-    LoadRenderTexture                = _module.dwrap('LoadRenderTexture',                n3, rv);
-    IsTextureValid                   = _module.dwrap('IsTextureValid',                   n1, rn);
-    UnloadTexture                    = _module.dwrap('UnloadTexture',                    n1, rv);
-    IsRenderTextureValid             = _module.dwrap('IsRenderTextureValid',             n1, rn);
-    UnloadRenderTexture              = _module.dwrap('UnloadRenderTexture',              n1, rv);
-    UpdateTexture                    = _module.dwrap('UpdateTexture',                    n2, rv);
-    UpdateTextureRec                 = _module.dwrap('UpdateTextureRec',                 n3, rv);
-    GenTextureMipmaps                = _module.dwrap('GenTextureMipmaps',                n1, rv);
-    SetTextureFilter                 = _module.dwrap('SetTextureFilter',                 n2, rv);
-    SetTextureWrap                   = _module.dwrap('SetTextureWrap',                   n2, rv);
-    DrawTexture                      = _module.dwrap('DrawTexture',                      n4, rv);
-    DrawTextureV                     = _module.dwrap('DrawTextureV',                     n3, rv);
-    DrawTextureEx                    = _module.dwrap('DrawTextureEx',                    n5, rv);
-    DrawTextureRec                   = _module.dwrap('DrawTextureRec',                   n4, rv);
-    DrawTexturePro                   = _module.dwrap('DrawTexturePro',                   n6, rv);
-    DrawTextureNPatch                = _module.dwrap('DrawTextureNPatch',                n6, rv);
-    ColorIsEqual                     = _module.dwrap('ColorIsEqual',                     n2, rn);
-    Fade                             = _module.dwrap('Fade',                             n3, rv);
-    ColorToInt                       = _module.dwrap('ColorToInt',                       n1, rn);
-    ColorNormalize                   = _module.dwrap('ColorNormalize',                   n2, rv);
-    ColorFromNormalized              = _module.dwrap('ColorFromNormalized',              n2, rv);
-    ColorToHSV                       = _module.dwrap('ColorToHSV',                       n2, rv);
-    ColorFromHSV                     = _module.dwrap('ColorFromHSV',                     n4, rv);
-    ColorTint                        = _module.dwrap('ColorTint',                        n3, rv);
-    ColorBrightness                  = _module.dwrap('ColorBrightness',                  n3, rv);
-    ColorContrast                    = _module.dwrap('ColorContrast',                    n3, rv);
-    ColorAlpha                       = _module.dwrap('ColorAlpha',                       n3, rv);
-    ColorAlphaBlend                  = _module.dwrap('ColorAlphaBlend',                  n4, rv);
-    ColorLerp                        = _module.dwrap('ColorLerp',                        n4, rv);
-    GetColor                         = _module.dwrap('GetColor',                         n2, rv);
-    GetPixelColor                    = _module.dwrap('GetPixelColor',                    n3, rv);
-    SetPixelColor                    = _module.dwrap('SetPixelColor',                    n3, rv);
-    GetPixelDataSize                 = _module.dwrap('GetPixelDataSize',                 n3, rn);
-    GetFontDefault                   = _module.dwrap('GetFontDefault',                   n1, rv);
-    LoadFont                         = _module.dwrap('LoadFont',                         n2, rv);
-    LoadFontEx                       = _module.dwrap('LoadFontEx',                       n5, rv);
-    LoadFontFromImage                = _module.dwrap('LoadFontFromImage',                n4, rv);
-    LoadFontFromMemory               = _module.dwrap('LoadFontFromMemory',               n7, rv);
-    IsFontValid                      = _module.dwrap('IsFontValid',                      n1, rn);
-    LoadFontData                     = _module.dwrap('LoadFontData',                     n7, rn);
-    GenImageFontAtlas                = _module.dwrap('GenImageFontAtlas',                n7, rv);
-    UnloadFontData                   = _module.dwrap('UnloadFontData',                   n2, rv);
-    UnloadFont                       = _module.dwrap('UnloadFont',                       n1, rv);
-    ExportFontAsCode                 = _module.dwrap('ExportFontAsCode',                 n2, rn);
-    DrawFPS                          = _module.dwrap('DrawFPS',                          n2, rv);
-    DrawText                         = _module.dwrap('DrawText',                         n5, rv);
-    DrawTextEx                       = _module.dwrap('DrawTextEx',                       n6, rv);
-    DrawTextPro                      = _module.dwrap('DrawTextPro',                      n8, rv);
-    DrawTextCodepoint                = _module.dwrap('DrawTextCodepoint',                n5, rv);
-    DrawTextCodepoints               = _module.dwrap('DrawTextCodepoints',               n7, rv);
-    SetTextLineSpacing               = _module.dwrap('SetTextLineSpacing',               n1, rv);
-    MeasureText                      = _module.dwrap('MeasureText',                      n2, rn);
-    MeasureTextEx                    = _module.dwrap('MeasureTextEx',                    n5, rv);
-    MeasureTextCodepoints            = _module.dwrap('MeasureTextCodepoints',            n6, rv);
-    GetGlyphIndex                    = _module.dwrap('GetGlyphIndex',                    n2, rn);
-    GetGlyphInfo                     = _module.dwrap('GetGlyphInfo',                     n3, rv);
-    GetGlyphAtlasRec                 = _module.dwrap('GetGlyphAtlasRec',                 n3, rv);
-    LoadUTF8                         = _module.dwrap('LoadUTF8',                         n2, rn);
-    UnloadUTF8                       = _module.dwrap('UnloadUTF8',                       n1, rv);
-    LoadCodepoints                   = _module.dwrap('LoadCodepoints',                   n2, rn);
-    UnloadCodepoints                 = _module.dwrap('UnloadCodepoints',                 n1, rv);
-    GetCodepointCount                = _module.dwrap('GetCodepointCount',                n1, rn);
-    GetCodepoint                     = _module.dwrap('GetCodepoint',                     n2, rn);
-    GetCodepointNext                 = _module.dwrap('GetCodepointNext',                 n2, rn);
-    GetCodepointPrevious             = _module.dwrap('GetCodepointPrevious',             n2, rn);
-    CodepointToUTF8                  = _module.dwrap('CodepointToUTF8',                  n2, rn);
-    LoadTextLines                    = _module.dwrap('LoadTextLines',                    n2, rn);
-    UnloadTextLines                  = _module.dwrap('UnloadTextLines',                  n2, rv);
-    TextCopy                         = _module.dwrap('TextCopy',                         n2, rn);
-    TextIsEqual                      = _module.dwrap('TextIsEqual',                      n2, rn);
-    TextLength                       = _module.dwrap('TextLength',                       n1, rn);
-    TextFormat                       = _module.dwrap('TextFormat',                       n1, rn);
-    TextSubtext                      = _module.dwrap('TextSubtext',                      n3, rn);
-    TextRemoveSpaces                 = _module.dwrap('TextRemoveSpaces',                 n1, rn);
-    GetTextBetween                   = _module.dwrap('GetTextBetween',                   n3, rn);
-    TextReplace                      = _module.dwrap('TextReplace',                      n3, rn);
-    TextReplaceAlloc                 = _module.dwrap('TextReplaceAlloc',                 n3, rn);
-    TextReplaceBetween               = _module.dwrap('TextReplaceBetween',               n4, rn);
-    TextReplaceBetweenAlloc          = _module.dwrap('TextReplaceBetweenAlloc',          n4, rn);
-    TextInsert                       = _module.dwrap('TextInsert',                       n3, rn);
-    TextInsertAlloc                  = _module.dwrap('TextInsertAlloc',                  n3, rn);
-    TextJoin                         = _module.dwrap('TextJoin',                         n3, rn);
-    TextSplit                        = _module.dwrap('TextSplit',                        n3, rn);
-    TextAppend                       = _module.dwrap('TextAppend',                       n3, rv);
-    TextFindIndex                    = _module.dwrap('TextFindIndex',                    n2, rn);
-    TextToUpper                      = _module.dwrap('TextToUpper',                      n1, rn);
-    TextToLower                      = _module.dwrap('TextToLower',                      n1, rn);
-    TextToPascal                     = _module.dwrap('TextToPascal',                     n1, rn);
-    TextToSnake                      = _module.dwrap('TextToSnake',                      n1, rn);
-    TextToCamel                      = _module.dwrap('TextToCamel',                      n1, rn);
-    TextToInteger                    = _module.dwrap('TextToInteger',                    n1, rn);
-    TextToFloat                      = _module.dwrap('TextToFloat',                      n1, rn);
-    DrawLine3D                       = _module.dwrap('DrawLine3D',                       n3, rv);
-    DrawPoint3D                      = _module.dwrap('DrawPoint3D',                      n2, rv);
-    DrawCircle3D                     = _module.dwrap('DrawCircle3D',                     n5, rv);
-    DrawTriangle3D                   = _module.dwrap('DrawTriangle3D',                   n4, rv);
-    DrawTriangleStrip3D              = _module.dwrap('DrawTriangleStrip3D',              n3, rv);
-    DrawCube                         = _module.dwrap('DrawCube',                         n5, rv);
-    DrawCubeV                        = _module.dwrap('DrawCubeV',                        n3, rv);
-    DrawCubeWires                    = _module.dwrap('DrawCubeWires',                    n5, rv);
-    DrawCubeWiresV                   = _module.dwrap('DrawCubeWiresV',                   n3, rv);
-    DrawSphere                       = _module.dwrap('DrawSphere',                       n3, rv);
-    DrawSphereEx                     = _module.dwrap('DrawSphereEx',                     n5, rv);
-    DrawSphereWires                  = _module.dwrap('DrawSphereWires',                  n5, rv);
-    DrawCylinder                     = _module.dwrap('DrawCylinder',                     n6, rv);
-    DrawCylinderEx                   = _module.dwrap('DrawCylinderEx',                   n6, rv);
-    DrawCylinderWires                = _module.dwrap('DrawCylinderWires',                n6, rv);
-    DrawCylinderWiresEx              = _module.dwrap('DrawCylinderWiresEx',              n6, rv);
-    DrawCapsule                      = _module.dwrap('DrawCapsule',                      n6, rv);
-    DrawCapsuleWires                 = _module.dwrap('DrawCapsuleWires',                 n6, rv);
-    DrawPlane                        = _module.dwrap('DrawPlane',                        n3, rv);
-    DrawRay                          = _module.dwrap('DrawRay',                          n2, rv);
-    DrawGrid                         = _module.dwrap('DrawGrid',                         n2, rv);
-    LoadModel                        = _module.dwrap('LoadModel',                        n2, rv);
-    LoadModelFromMesh                = _module.dwrap('LoadModelFromMesh',                n2, rv);
-    IsModelValid                     = _module.dwrap('IsModelValid',                     n1, rn);
-    UnloadModel                      = _module.dwrap('UnloadModel',                      n1, rv);
-    GetModelBoundingBox              = _module.dwrap('GetModelBoundingBox',              n2, rv);
-    DrawModel                        = _module.dwrap('DrawModel',                        n4, rv);
-    DrawModelEx                      = _module.dwrap('DrawModelEx',                      n6, rv);
-    DrawModelWires                   = _module.dwrap('DrawModelWires',                   n4, rv);
-    DrawModelWiresEx                 = _module.dwrap('DrawModelWiresEx',                 n6, rv);
-    DrawBoundingBox                  = _module.dwrap('DrawBoundingBox',                  n2, rv);
-    DrawBillboard                    = _module.dwrap('DrawBillboard',                    n5, rv);
-    DrawBillboardRec                 = _module.dwrap('DrawBillboardRec',                 n6, rv);
-    UploadMesh                       = _module.dwrap('UploadMesh',                       n2, rv);
-    UpdateMeshBuffer                 = _module.dwrap('UpdateMeshBuffer',                 n5, rv);
-    UnloadMesh                       = _module.dwrap('UnloadMesh',                       n1, rv);
-    DrawMesh                         = _module.dwrap('DrawMesh',                         n3, rv);
-    DrawMeshInstanced                = _module.dwrap('DrawMeshInstanced',                n4, rv);
-    GetMeshBoundingBox               = _module.dwrap('GetMeshBoundingBox',               n2, rv);
-    GenMeshTangents                  = _module.dwrap('GenMeshTangents',                  n1, rv);
-    ExportMesh                       = _module.dwrap('ExportMesh',                       n2, rn);
-    ExportMeshAsCode                 = _module.dwrap('ExportMeshAsCode',                 n2, rn);
-    GenMeshPoly                      = _module.dwrap('GenMeshPoly',                      n3, rv);
-    GenMeshPlane                     = _module.dwrap('GenMeshPlane',                     n5, rv);
-    GenMeshCube                      = _module.dwrap('GenMeshCube',                      n4, rv);
-    GenMeshSphere                    = _module.dwrap('GenMeshSphere',                    n4, rv);
-    GenMeshHemiSphere                = _module.dwrap('GenMeshHemiSphere',                n4, rv);
-    GenMeshCylinder                  = _module.dwrap('GenMeshCylinder',                  n4, rv);
-    GenMeshCone                      = _module.dwrap('GenMeshCone',                      n4, rv);
-    GenMeshTorus                     = _module.dwrap('GenMeshTorus',                     n5, rv);
-    GenMeshKnot                      = _module.dwrap('GenMeshKnot',                      n5, rv);
-    GenMeshHeightmap                 = _module.dwrap('GenMeshHeightmap',                 n3, rv);
-    GenMeshCubicmap                  = _module.dwrap('GenMeshCubicmap',                  n3, rv);
-    LoadMaterials                    = _module.dwrap('LoadMaterials',                    n2, rn);
-    LoadMaterialDefault              = _module.dwrap('LoadMaterialDefault',              n1, rv);
-    IsMaterialValid                  = _module.dwrap('IsMaterialValid',                  n1, rn);
-    UnloadMaterial                   = _module.dwrap('UnloadMaterial',                   n1, rv);
-    SetMaterialTexture               = _module.dwrap('SetMaterialTexture',               n3, rv);
-    SetModelMeshMaterial             = _module.dwrap('SetModelMeshMaterial',             n3, rv);
-    LoadModelAnimations              = _module.dwrap('LoadModelAnimations',              n2, rn);
-    UpdateModelAnimation             = _module.dwrap('UpdateModelAnimation',             n3, rv);
-    UpdateModelAnimationEx           = _module.dwrap('UpdateModelAnimationEx',           n6, rv);
-    UnloadModelAnimations            = _module.dwrap('UnloadModelAnimations',            n2, rv);
-    IsModelAnimationValid            = _module.dwrap('IsModelAnimationValid',            n2, rn);
-    CheckCollisionSpheres            = _module.dwrap('CheckCollisionSpheres',            n4, rn);
-    CheckCollisionBoxes              = _module.dwrap('CheckCollisionBoxes',              n2, rn);
-    CheckCollisionBoxSphere          = _module.dwrap('CheckCollisionBoxSphere',          n3, rn);
-    GetRayCollisionSphere            = _module.dwrap('GetRayCollisionSphere',            n4, rv);
-    GetRayCollisionBox               = _module.dwrap('GetRayCollisionBox',               n3, rv);
-    GetRayCollisionMesh              = _module.dwrap('GetRayCollisionMesh',              n4, rv);
-    GetRayCollisionTriangle          = _module.dwrap('GetRayCollisionTriangle',          n5, rv);
-    GetRayCollisionQuad              = _module.dwrap('GetRayCollisionQuad',              n6, rv);
+    InitWindow                       = dwrap3('InitWindow');
+    CloseWindow                      = dwrap0('CloseWindow');
+    WindowShouldClose                = dwrap0('WindowShouldClose');
+    IsWindowReady                    = dwrap0('IsWindowReady');
+    IsWindowFullscreen               = dwrap0('IsWindowFullscreen');
+    IsWindowHidden                   = dwrap0('IsWindowHidden');
+    IsWindowMinimized                = dwrap0('IsWindowMinimized');
+    IsWindowMaximized                = dwrap0('IsWindowMaximized');
+    IsWindowFocused                  = dwrap0('IsWindowFocused');
+    IsWindowResized                  = dwrap0('IsWindowResized');
+    IsWindowState                    = dwrap1('IsWindowState');
+    SetWindowState                   = dwrap1('SetWindowState');
+    ClearWindowState                 = dwrap1('ClearWindowState');
+    ToggleFullscreen                 = dwrap0('ToggleFullscreen');
+    ToggleBorderlessWindowed         = dwrap0('ToggleBorderlessWindowed');
+    MaximizeWindow                   = dwrap0('MaximizeWindow');
+    MinimizeWindow                   = dwrap0('MinimizeWindow');
+    RestoreWindow                    = dwrap0('RestoreWindow');
+    SetWindowIcon                    = dwrap1('SetWindowIcon');
+    SetWindowIcons                   = dwrap2('SetWindowIcons');
+    SetWindowTitle                   = dwrap1('SetWindowTitle');
+    SetWindowPosition                = dwrap2('SetWindowPosition');
+    SetWindowMonitor                 = dwrap1('SetWindowMonitor');
+    SetWindowMinSize                 = dwrap2('SetWindowMinSize');
+    SetWindowMaxSize                 = dwrap2('SetWindowMaxSize');
+    SetWindowSize                    = dwrap2('SetWindowSize');
+    SetWindowOpacity                 = dwrap1('SetWindowOpacity');
+    SetWindowFocused                 = dwrap0('SetWindowFocused');
+    GetWindowHandle                  = pwrap0('GetWindowHandle');
+    GetScreenWidth                   = dwrap0('GetScreenWidth');
+    GetScreenHeight                  = dwrap0('GetScreenHeight');
+    GetRenderWidth                   = dwrap0('GetRenderWidth');
+    GetRenderHeight                  = dwrap0('GetRenderHeight');
+    GetMonitorCount                  = dwrap0('GetMonitorCount');
+    GetCurrentMonitor                = dwrap0('GetCurrentMonitor');
+    GetMonitorPosition               = swrap1('GetMonitorPosition');
+    GetMonitorWidth                  = dwrap1('GetMonitorWidth');
+    GetMonitorHeight                 = dwrap1('GetMonitorHeight');
+    GetMonitorPhysicalWidth          = dwrap1('GetMonitorPhysicalWidth');
+    GetMonitorPhysicalHeight         = dwrap1('GetMonitorPhysicalHeight');
+    GetMonitorRefreshRate            = dwrap1('GetMonitorRefreshRate');
+    GetWindowPosition                = swrap0('GetWindowPosition');
+    GetWindowScaleDPI                = swrap0('GetWindowScaleDPI');
+    GetMonitorName                   = pwrap1('GetMonitorName');
+    SetClipboardText                 = dwrap1('SetClipboardText');
+    GetClipboardText                 = pwrap0('GetClipboardText');
+    GetClipboardImage                = swrap0('GetClipboardImage');
+    EnableEventWaiting               = dwrap0('EnableEventWaiting');
+    DisableEventWaiting              = dwrap0('DisableEventWaiting');
+    ShowCursor                       = dwrap0('ShowCursor');
+    HideCursor                       = dwrap0('HideCursor');
+    IsCursorHidden                   = dwrap0('IsCursorHidden');
+    EnableCursor                     = dwrap0('EnableCursor');
+    DisableCursor                    = dwrap0('DisableCursor');
+    IsCursorOnScreen                 = dwrap0('IsCursorOnScreen');
+    ClearBackground                  = dwrap1('ClearBackground');
+    BeginDrawing                     = dwrap0('BeginDrawing');
+    EndDrawing                       = dwrap0('EndDrawing');
+    BeginMode2D                      = dwrap1('BeginMode2D');
+    EndMode2D                        = dwrap0('EndMode2D');
+    BeginMode3D                      = dwrap1('BeginMode3D');
+    EndMode3D                        = dwrap0('EndMode3D');
+    BeginTextureMode                 = dwrap1('BeginTextureMode');
+    EndTextureMode                   = dwrap0('EndTextureMode');
+    BeginShaderMode                  = dwrap1('BeginShaderMode');
+    EndShaderMode                    = dwrap0('EndShaderMode');
+    BeginBlendMode                   = dwrap1('BeginBlendMode');
+    EndBlendMode                     = dwrap0('EndBlendMode');
+    BeginScissorMode                 = dwrap4('BeginScissorMode');
+    EndScissorMode                   = dwrap0('EndScissorMode');
+    BeginVrStereoMode                = dwrap1('BeginVrStereoMode');
+    EndVrStereoMode                  = dwrap0('EndVrStereoMode');
+    LoadVrStereoConfig               = swrap1('LoadVrStereoConfig');
+    UnloadVrStereoConfig             = dwrap1('UnloadVrStereoConfig');
+    LoadShader                       = swrap2('LoadShader');
+    LoadShaderFromMemory             = swrap2('LoadShaderFromMemory');
+    IsShaderValid                    = dwrap1('IsShaderValid');
+    GetShaderLocation                = dwrap2('GetShaderLocation');
+    GetShaderLocationAttrib          = dwrap2('GetShaderLocationAttrib');
+    SetShaderValue                   = dwrap4('SetShaderValue');
+    SetShaderValueV                  = dwrap5('SetShaderValueV');
+    SetShaderValueMatrix             = dwrap3('SetShaderValueMatrix');
+    SetShaderValueTexture            = dwrap3('SetShaderValueTexture');
+    UnloadShader                     = dwrap1('UnloadShader');
+    GetScreenToWorldRay              = swrap2('GetScreenToWorldRay');
+    GetScreenToWorldRayEx            = swrap4('GetScreenToWorldRayEx');
+    GetWorldToScreen                 = swrap2('GetWorldToScreen');
+    GetWorldToScreenEx               = swrap4('GetWorldToScreenEx');
+    GetWorldToScreen2D               = swrap2('GetWorldToScreen2D');
+    GetScreenToWorld2D               = swrap2('GetScreenToWorld2D');
+    GetCameraMatrix                  = swrap1('GetCameraMatrix');
+    GetCameraMatrix2D                = swrap1('GetCameraMatrix2D');
+    SetTargetFPS                     = dwrap1('SetTargetFPS');
+    GetFrameTime                     = dwrap0('GetFrameTime');
+    GetTime                          = dwrap0('GetTime');
+    GetFPS                           = dwrap0('GetFPS');
+    SwapScreenBuffer                 = dwrap0('SwapScreenBuffer');
+    PollInputEvents                  = dwrap0('PollInputEvents');
+    WaitTime                         = dwrap1('WaitTime');
+    SetRandomSeed                    = dwrap1('SetRandomSeed');
+    GetRandomValue                   = dwrap2('GetRandomValue');
+    LoadRandomSequence               = pwrap3('LoadRandomSequence');
+    UnloadRandomSequence             = dwrap1('UnloadRandomSequence');
+    TakeScreenshot                   = dwrap1('TakeScreenshot');
+    SetConfigFlags                   = dwrap1('SetConfigFlags');
+    OpenURL                          = dwrap1('OpenURL');
+    TraceLog                         = dwrap2('TraceLog');
+    SetTraceLogLevel                 = dwrap1('SetTraceLogLevel');
+    SetTraceLogCallback              = dwrap1('SetTraceLogCallback');
+    SetLoadFileDataCallback          = dwrap1('SetLoadFileDataCallback');
+    SetSaveFileDataCallback          = dwrap1('SetSaveFileDataCallback');
+    SetLoadFileTextCallback          = dwrap1('SetLoadFileTextCallback');
+    SetSaveFileTextCallback          = dwrap1('SetSaveFileTextCallback');
+    LoadFileData                     = pwrap2('LoadFileData');
+    UnloadFileData                   = dwrap1('UnloadFileData');
+    SaveFileData                     = dwrap3('SaveFileData');
+    ExportDataAsCode                 = dwrap3('ExportDataAsCode');
+    LoadFileText                     = pwrap1('LoadFileText');
+    UnloadFileText                   = dwrap1('UnloadFileText');
+    SaveFileText                     = dwrap2('SaveFileText');
+    FileRename                       = dwrap2('FileRename');
+    FileRemove                       = dwrap1('FileRemove');
+    FileCopy                         = dwrap2('FileCopy');
+    FileMove                         = dwrap2('FileMove');
+    FileTextReplace                  = dwrap3('FileTextReplace');
+    FileTextFindIndex                = dwrap2('FileTextFindIndex');
+    FileExists                       = dwrap1('FileExists');
+    DirectoryExists                  = dwrap1('DirectoryExists');
+    IsFileExtension                  = dwrap2('IsFileExtension');
+    GetFileLength                    = dwrap1('GetFileLength');
+    GetFileExtension                 = pwrap1('GetFileExtension');
+    GetFileName                      = pwrap1('GetFileName');
+    GetFileNameWithoutExt            = pwrap1('GetFileNameWithoutExt');
+    GetDirectoryFileCount            = dwrap1('GetDirectoryFileCount');
+    GetDirectoryFileCountEx          = dwrap3('GetDirectoryFileCountEx');
+    GetDirectoryPath                 = pwrap1('GetDirectoryPath');
+    GetPrevDirectoryPath             = pwrap1('GetPrevDirectoryPath');
+    GetWorkingDirectory              = pwrap0('GetWorkingDirectory');
+    GetApplicationDirectory          = pwrap0('GetApplicationDirectory');
+    MakeDirectory                    = dwrap1('MakeDirectory');
+    ChangeDirectory                  = dwrap1('ChangeDirectory');
+    IsPathFile                       = dwrap1('IsPathFile');
+    IsFileNameValid                  = dwrap1('IsFileNameValid');
+    LoadDirectoryFiles               = swrap1('LoadDirectoryFiles');
+    LoadDirectoryFilesEx             = swrap3('LoadDirectoryFilesEx');
+    UnloadDirectoryFiles             = dwrap1('UnloadDirectoryFiles');
+    IsFileDropped                    = dwrap0('IsFileDropped');
+    LoadDroppedFiles                 = swrap0('LoadDroppedFiles');
+    UnloadDroppedFiles               = dwrap1('UnloadDroppedFiles');
+    GetFileModTime                   = dwrap1('GetFileModTime');
+    CompressData                     = pwrap3('CompressData');
+    DecompressData                   = pwrap3('DecompressData');
+    EncodeDataBase64                 = pwrap3('EncodeDataBase64');
+    DecodeDataBase64                 = pwrap2('DecodeDataBase64');
+    ComputeCRC32                     = dwrap2('ComputeCRC32');
+    ComputeMD5                       = pwrap2('ComputeMD5');
+    ComputeSHA1                      = pwrap2('ComputeSHA1');
+    ComputeSHA256                    = pwrap2('ComputeSHA256');
+    LoadAutomationEventList          = swrap1('LoadAutomationEventList');
+    UnloadAutomationEventList        = dwrap1('UnloadAutomationEventList');
+    ExportAutomationEventList        = dwrap2('ExportAutomationEventList');
+    SetAutomationEventList           = dwrap1('SetAutomationEventList');
+    SetAutomationEventBaseFrame      = dwrap1('SetAutomationEventBaseFrame');
+    StartAutomationEventRecording    = dwrap0('StartAutomationEventRecording');
+    StopAutomationEventRecording     = dwrap0('StopAutomationEventRecording');
+    PlayAutomationEvent              = dwrap1('PlayAutomationEvent');
+    IsKeyPressed                     = dwrap1('IsKeyPressed');
+    IsKeyPressedRepeat               = dwrap1('IsKeyPressedRepeat');
+    IsKeyDown                        = dwrap1('IsKeyDown');
+    IsKeyReleased                    = dwrap1('IsKeyReleased');
+    IsKeyUp                          = dwrap1('IsKeyUp');
+    GetKeyName                       = pwrap1('GetKeyName');
+    GetKeyPressed                    = dwrap0('GetKeyPressed');
+    GetCharPressed                   = dwrap0('GetCharPressed');
+    SetExitKey                       = dwrap1('SetExitKey');
+    IsGamepadAvailable               = dwrap1('IsGamepadAvailable');
+    GetGamepadName                   = pwrap1('GetGamepadName');
+    IsGamepadButtonPressed           = dwrap2('IsGamepadButtonPressed');
+    IsGamepadButtonDown              = dwrap2('IsGamepadButtonDown');
+    IsGamepadButtonReleased          = dwrap2('IsGamepadButtonReleased');
+    IsGamepadButtonUp                = dwrap2('IsGamepadButtonUp');
+    GetGamepadButtonPressed          = dwrap0('GetGamepadButtonPressed');
+    GetGamepadAxisCount              = dwrap1('GetGamepadAxisCount');
+    GetGamepadAxisMovement           = dwrap2('GetGamepadAxisMovement');
+    SetGamepadMappings               = dwrap1('SetGamepadMappings');
+    SetGamepadVibration              = dwrap4('SetGamepadVibration');
+    IsMouseButtonPressed             = dwrap1('IsMouseButtonPressed');
+    IsMouseButtonDown                = dwrap1('IsMouseButtonDown');
+    IsMouseButtonReleased            = dwrap1('IsMouseButtonReleased');
+    IsMouseButtonUp                  = dwrap1('IsMouseButtonUp');
+    GetMouseX                        = dwrap0('GetMouseX');
+    GetMouseY                        = dwrap0('GetMouseY');
+    GetMousePosition                 = swrap0('GetMousePosition');
+    GetMouseDelta                    = swrap0('GetMouseDelta');
+    SetMousePosition                 = dwrap2('SetMousePosition');
+    SetMouseOffset                   = dwrap2('SetMouseOffset');
+    SetMouseScale                    = dwrap2('SetMouseScale');
+    GetMouseWheelMove                = dwrap0('GetMouseWheelMove');
+    GetMouseWheelMoveV               = swrap0('GetMouseWheelMoveV');
+    SetMouseCursor                   = dwrap1('SetMouseCursor');
+    GetTouchX                        = dwrap0('GetTouchX');
+    GetTouchY                        = dwrap0('GetTouchY');
+    GetTouchPosition                 = swrap1('GetTouchPosition');
+    GetTouchPointId                  = dwrap1('GetTouchPointId');
+    GetTouchPointCount               = dwrap0('GetTouchPointCount');
+    SetGesturesEnabled               = dwrap1('SetGesturesEnabled');
+    IsGestureDetected                = dwrap1('IsGestureDetected');
+    GetGestureDetected               = dwrap0('GetGestureDetected');
+    GetGestureHoldDuration           = dwrap0('GetGestureHoldDuration');
+    GetGestureDragVector             = swrap0('GetGestureDragVector');
+    GetGestureDragAngle              = dwrap0('GetGestureDragAngle');
+    GetGesturePinchVector            = swrap0('GetGesturePinchVector');
+    GetGesturePinchAngle             = dwrap0('GetGesturePinchAngle');
+    ProcessGestureEvent              = dwrap1('ProcessGestureEvent');
+    UpdateGestures                   = dwrap0('UpdateGestures');
+    UpdateCamera                     = dwrap2('UpdateCamera');
+    UpdateCameraPro                  = dwrap4('UpdateCameraPro');
+    SetShapesTexture                 = dwrap2('SetShapesTexture');
+    GetShapesTexture                 = swrap0('GetShapesTexture');
+    GetShapesTextureRectangle        = swrap0('GetShapesTextureRectangle');
+    DrawPixel                        = dwrap3('DrawPixel');
+    DrawPixelV                       = dwrap2('DrawPixelV');
+    DrawLine                         = dwrap5('DrawLine');
+    DrawLineV                        = dwrap3('DrawLineV');
+    DrawLineEx                       = dwrap4('DrawLineEx');
+    DrawLineStrip                    = dwrap3('DrawLineStrip');
+    DrawLineBezier                   = dwrap4('DrawLineBezier');
+    DrawLineDashed                   = dwrap5('DrawLineDashed');
+    DrawCircle                       = dwrap4('DrawCircle');
+    DrawCircleSector                 = dwrap6('DrawCircleSector');
+    DrawCircleSectorLines            = dwrap6('DrawCircleSectorLines');
+    DrawCircleGradient               = dwrap4('DrawCircleGradient');
+    DrawCircleV                      = dwrap3('DrawCircleV');
+    DrawCircleLines                  = dwrap4('DrawCircleLines');
+    DrawCircleLinesV                 = dwrap3('DrawCircleLinesV');
+    DrawEllipse                      = dwrap5('DrawEllipse');
+    DrawEllipseV                     = dwrap4('DrawEllipseV');
+    DrawEllipseLines                 = dwrap5('DrawEllipseLines');
+    DrawEllipseLinesV                = dwrap4('DrawEllipseLinesV');
+    DrawRing                         = dwrap7('DrawRing');
+    DrawRingLines                    = dwrap7('DrawRingLines');
+    DrawRectangle                    = dwrap5('DrawRectangle');
+    DrawRectangleV                   = dwrap3('DrawRectangleV');
+    DrawRectangleRec                 = dwrap2('DrawRectangleRec');
+    DrawRectanglePro                 = dwrap4('DrawRectanglePro');
+    DrawRectangleGradientV           = dwrap6('DrawRectangleGradientV');
+    DrawRectangleGradientH           = dwrap6('DrawRectangleGradientH');
+    DrawRectangleGradientEx          = dwrap5('DrawRectangleGradientEx');
+    DrawRectangleLines               = dwrap5('DrawRectangleLines');
+    DrawRectangleLinesEx             = dwrap3('DrawRectangleLinesEx');
+    DrawRectangleRounded             = dwrap4('DrawRectangleRounded');
+    DrawRectangleRoundedLines        = dwrap4('DrawRectangleRoundedLines');
+    DrawRectangleRoundedLinesEx      = dwrap5('DrawRectangleRoundedLinesEx');
+    DrawTriangle                     = dwrap4('DrawTriangle');
+    DrawTriangleLines                = dwrap4('DrawTriangleLines');
+    DrawTriangleFan                  = dwrap3('DrawTriangleFan');
+    DrawTriangleStrip                = dwrap3('DrawTriangleStrip');
+    DrawPoly                         = dwrap5('DrawPoly');
+    DrawPolyLines                    = dwrap5('DrawPolyLines');
+    DrawPolyLinesEx                  = dwrap6('DrawPolyLinesEx');
+    DrawSplineLinear                 = dwrap4('DrawSplineLinear');
+    DrawSplineBasis                  = dwrap4('DrawSplineBasis');
+    DrawSplineCatmullRom             = dwrap4('DrawSplineCatmullRom');
+    DrawSplineBezierQuadratic        = dwrap4('DrawSplineBezierQuadratic');
+    DrawSplineBezierCubic            = dwrap4('DrawSplineBezierCubic');
+    DrawSplineSegmentLinear          = dwrap4('DrawSplineSegmentLinear');
+    DrawSplineSegmentBasis           = dwrap6('DrawSplineSegmentBasis');
+    DrawSplineSegmentCatmullRom      = dwrap6('DrawSplineSegmentCatmullRom');
+    DrawSplineSegmentBezierQuadratic = dwrap5('DrawSplineSegmentBezierQuadratic');
+    DrawSplineSegmentBezierCubic     = dwrap6('DrawSplineSegmentBezierCubic');
+    GetSplinePointLinear             = swrap3('GetSplinePointLinear');
+    GetSplinePointBasis              = swrap5('GetSplinePointBasis');
+    GetSplinePointCatmullRom         = swrap5('GetSplinePointCatmullRom');
+    GetSplinePointBezierQuad         = swrap4('GetSplinePointBezierQuad');
+    GetSplinePointBezierCubic        = swrap5('GetSplinePointBezierCubic');
+    CheckCollisionRecs               = dwrap2('CheckCollisionRecs');
+    CheckCollisionCircles            = dwrap4('CheckCollisionCircles');
+    CheckCollisionCircleRec          = dwrap3('CheckCollisionCircleRec');
+    CheckCollisionCircleLine         = dwrap4('CheckCollisionCircleLine');
+    CheckCollisionPointRec           = dwrap2('CheckCollisionPointRec');
+    CheckCollisionPointCircle        = dwrap3('CheckCollisionPointCircle');
+    CheckCollisionPointTriangle      = dwrap4('CheckCollisionPointTriangle');
+    CheckCollisionPointLine          = dwrap4('CheckCollisionPointLine');
+    CheckCollisionPointPoly          = dwrap3('CheckCollisionPointPoly');
+    CheckCollisionLines              = dwrap5('CheckCollisionLines');
+    GetCollisionRec                  = swrap2('GetCollisionRec');
+    LoadImage                        = swrap1('LoadImage');
+    LoadImageRaw                     = swrap5('LoadImageRaw');
+    LoadImageAnim                    = swrap2('LoadImageAnim');
+    LoadImageAnimFromMemory          = swrap4('LoadImageAnimFromMemory');
+    LoadImageFromMemory              = swrap3('LoadImageFromMemory');
+    LoadImageFromTexture             = swrap1('LoadImageFromTexture');
+    LoadImageFromScreen              = swrap0('LoadImageFromScreen');
+    IsImageValid                     = dwrap1('IsImageValid');
+    UnloadImage                      = dwrap1('UnloadImage');
+    ExportImage                      = dwrap2('ExportImage');
+    ExportImageToMemory              = pwrap3('ExportImageToMemory');
+    ExportImageAsCode                = dwrap2('ExportImageAsCode');
+    GenImageColor                    = swrap3('GenImageColor');
+    GenImageGradientLinear           = swrap5('GenImageGradientLinear');
+    GenImageGradientRadial           = swrap5('GenImageGradientRadial');
+    GenImageGradientSquare           = swrap5('GenImageGradientSquare');
+    GenImageChecked                  = swrap6('GenImageChecked');
+    GenImageWhiteNoise               = swrap3('GenImageWhiteNoise');
+    GenImagePerlinNoise              = swrap5('GenImagePerlinNoise');
+    GenImageCellular                 = swrap3('GenImageCellular');
+    GenImageText                     = swrap3('GenImageText');
+    ImageCopy                        = swrap1('ImageCopy');
+    ImageFromImage                   = swrap2('ImageFromImage');
+    ImageFromChannel                 = swrap2('ImageFromChannel');
+    ImageText                        = swrap3('ImageText');
+    ImageTextEx                      = swrap5('ImageTextEx');
+    ImageFormat                      = dwrap2('ImageFormat');
+    ImageToPOT                       = dwrap2('ImageToPOT');
+    ImageCrop                        = dwrap2('ImageCrop');
+    ImageAlphaCrop                   = dwrap2('ImageAlphaCrop');
+    ImageAlphaClear                  = dwrap3('ImageAlphaClear');
+    ImageAlphaMask                   = dwrap2('ImageAlphaMask');
+    ImageAlphaPremultiply            = dwrap1('ImageAlphaPremultiply');
+    ImageBlurGaussian                = dwrap2('ImageBlurGaussian');
+    ImageKernelConvolution           = dwrap3('ImageKernelConvolution');
+    ImageResize                      = dwrap3('ImageResize');
+    ImageResizeNN                    = dwrap3('ImageResizeNN');
+    ImageResizeCanvas                = dwrap6('ImageResizeCanvas');
+    ImageMipmaps                     = dwrap1('ImageMipmaps');
+    ImageDither                      = dwrap5('ImageDither');
+    ImageFlipVertical                = dwrap1('ImageFlipVertical');
+    ImageFlipHorizontal              = dwrap1('ImageFlipHorizontal');
+    ImageRotate                      = dwrap2('ImageRotate');
+    ImageRotateCW                    = dwrap1('ImageRotateCW');
+    ImageRotateCCW                   = dwrap1('ImageRotateCCW');
+    ImageColorTint                   = dwrap2('ImageColorTint');
+    ImageColorInvert                 = dwrap1('ImageColorInvert');
+    ImageColorGrayscale              = dwrap1('ImageColorGrayscale');
+    ImageColorContrast               = dwrap2('ImageColorContrast');
+    ImageColorBrightness             = dwrap2('ImageColorBrightness');
+    ImageColorReplace                = dwrap3('ImageColorReplace');
+    LoadImageColors                  = qwrap1('LoadImageColors', ColorD.pointer);
+    LoadImagePalette                 = qwrap3('LoadImagePalette', ColorD.pointer);
+    UnloadImageColors                = dwrap1('UnloadImageColors');
+    UnloadImagePalette               = dwrap1('UnloadImagePalette');
+    GetImageAlphaBorder              = swrap2('GetImageAlphaBorder');
+    GetImageColor                    = swrap3('GetImageColor');
+    ImageClearBackground             = dwrap2('ImageClearBackground');
+    ImageDrawPixel                   = dwrap4('ImageDrawPixel');
+    ImageDrawPixelV                  = dwrap3('ImageDrawPixelV');
+    ImageDrawLine                    = dwrap6('ImageDrawLine');
+    ImageDrawLineV                   = dwrap4('ImageDrawLineV');
+    ImageDrawLineEx                  = dwrap5('ImageDrawLineEx');
+    ImageDrawCircle                  = dwrap5('ImageDrawCircle');
+    ImageDrawCircleV                 = dwrap4('ImageDrawCircleV');
+    ImageDrawCircleLines             = dwrap5('ImageDrawCircleLines');
+    ImageDrawCircleLinesV            = dwrap4('ImageDrawCircleLinesV');
+    ImageDrawRectangle               = dwrap6('ImageDrawRectangle');
+    ImageDrawRectangleV              = dwrap4('ImageDrawRectangleV');
+    ImageDrawRectangleRec            = dwrap3('ImageDrawRectangleRec');
+    ImageDrawRectangleLines          = dwrap4('ImageDrawRectangleLines');
+    ImageDrawTriangle                = dwrap5('ImageDrawTriangle');
+    ImageDrawTriangleEx              = dwrap7('ImageDrawTriangleEx');
+    ImageDrawTriangleLines           = dwrap5('ImageDrawTriangleLines');
+    ImageDrawTriangleFan             = dwrap4('ImageDrawTriangleFan');
+    ImageDrawTriangleStrip           = dwrap4('ImageDrawTriangleStrip');
+    ImageDraw                        = dwrap5('ImageDraw');
+    ImageDrawText                    = dwrap6('ImageDrawText');
+    ImageDrawTextEx                  = dwrap7('ImageDrawTextEx');
+    LoadTexture                      = swrap1('LoadTexture');
+    LoadTextureFromImage             = swrap1('LoadTextureFromImage');
+    LoadTextureCubemap               = swrap2('LoadTextureCubemap');
+    LoadRenderTexture                = swrap2('LoadRenderTexture');
+    IsTextureValid                   = dwrap1('IsTextureValid');
+    UnloadTexture                    = dwrap1('UnloadTexture');
+    IsRenderTextureValid             = dwrap1('IsRenderTextureValid');
+    UnloadRenderTexture              = dwrap1('UnloadRenderTexture');
+    UpdateTexture                    = dwrap2('UpdateTexture');
+    UpdateTextureRec                 = dwrap3('UpdateTextureRec');
+    GenTextureMipmaps                = dwrap1('GenTextureMipmaps');
+    SetTextureFilter                 = dwrap2('SetTextureFilter');
+    SetTextureWrap                   = dwrap2('SetTextureWrap');
+    DrawTexture                      = dwrap4('DrawTexture');
+    DrawTextureV                     = dwrap3('DrawTextureV');
+    DrawTextureEx                    = dwrap5('DrawTextureEx');
+    DrawTextureRec                   = dwrap4('DrawTextureRec');
+    DrawTexturePro                   = dwrap6('DrawTexturePro');
+    DrawTextureNPatch                = dwrap6('DrawTextureNPatch');
+    ColorIsEqual                     = dwrap2('ColorIsEqual');
+    Fade                             = swrap2('Fade');
+    ColorToInt                       = dwrap1('ColorToInt');
+    ColorNormalize                   = swrap1('ColorNormalize');
+    ColorFromNormalized              = swrap1('ColorFromNormalized');
+    ColorToHSV                       = swrap1('ColorToHSV');
+    ColorFromHSV                     = swrap3('ColorFromHSV');
+    ColorTint                        = swrap2('ColorTint');
+    ColorBrightness                  = swrap2('ColorBrightness');
+    ColorContrast                    = swrap2('ColorContrast');
+    ColorAlpha                       = swrap2('ColorAlpha');
+    ColorAlphaBlend                  = swrap3('ColorAlphaBlend');
+    ColorLerp                        = swrap3('ColorLerp');
+    GetColor                         = swrap1('GetColor');
+    GetPixelColor                    = swrap2('GetPixelColor');
+    SetPixelColor                    = dwrap3('SetPixelColor');
+    GetPixelDataSize                 = dwrap3('GetPixelDataSize');
+    GetFontDefault                   = swrap0('GetFontDefault');
+    LoadFont                         = swrap1('LoadFont');
+    LoadFontEx                       = swrap4('LoadFontEx');
+    LoadFontFromImage                = swrap3('LoadFontFromImage');
+    LoadFontFromMemory               = swrap6('LoadFontFromMemory');
+    IsFontValid                      = dwrap1('IsFontValid');
+    LoadFontData                     = qwrap7('LoadFontData', GlyphInfoD.pointer);
+    GenImageFontAtlas                = swrap6('GenImageFontAtlas');
+    UnloadFontData                   = dwrap2('UnloadFontData');
+    UnloadFont                       = dwrap1('UnloadFont');
+    ExportFontAsCode                 = dwrap2('ExportFontAsCode');
+    DrawFPS                          = dwrap2('DrawFPS');
+    DrawText                         = dwrap5('DrawText');
+    DrawTextEx                       = dwrap6('DrawTextEx');
+    DrawTextPro                      = dwrap8('DrawTextPro');
+    DrawTextCodepoint                = dwrap5('DrawTextCodepoint');
+    DrawTextCodepoints               = dwrap7('DrawTextCodepoints');
+    SetTextLineSpacing               = dwrap1('SetTextLineSpacing');
+    MeasureText                      = dwrap2('MeasureText');
+    MeasureTextEx                    = swrap4('MeasureTextEx');
+    MeasureTextCodepoints            = swrap5('MeasureTextCodepoints');
+    GetGlyphIndex                    = dwrap2('GetGlyphIndex');
+    GetGlyphInfo                     = swrap2('GetGlyphInfo');
+    GetGlyphAtlasRec                 = swrap2('GetGlyphAtlasRec');
+    LoadUTF8                         = pwrap2('LoadUTF8');
+    UnloadUTF8                       = dwrap1('UnloadUTF8');
+    LoadCodepoints                   = pwrap2('LoadCodepoints');
+    UnloadCodepoints                 = dwrap1('UnloadCodepoints');
+    GetCodepointCount                = dwrap1('GetCodepointCount');
+    GetCodepoint                     = dwrap2('GetCodepoint');
+    GetCodepointNext                 = dwrap2('GetCodepointNext');
+    GetCodepointPrevious             = dwrap2('GetCodepointPrevious');
+    CodepointToUTF8                  = pwrap2('CodepointToUTF8');
+    LoadTextLines                    = pwrap2('LoadTextLines');
+    UnloadTextLines                  = dwrap2('UnloadTextLines');
+    TextCopy                         = dwrap2('TextCopy');
+    TextIsEqual                      = dwrap2('TextIsEqual');
+    TextLength                       = dwrap1('TextLength');
+    TextFormat                       = pwrap1('TextFormat');
+    TextSubtext                      = pwrap3('TextSubtext');
+    TextRemoveSpaces                 = pwrap1('TextRemoveSpaces');
+    GetTextBetween                   = pwrap3('GetTextBetween');
+    TextReplace                      = pwrap3('TextReplace');
+    TextReplaceAlloc                 = pwrap3('TextReplaceAlloc');
+    TextReplaceBetween               = pwrap4('TextReplaceBetween');
+    TextReplaceBetweenAlloc          = pwrap4('TextReplaceBetweenAlloc');
+    TextInsert                       = pwrap3('TextInsert');
+    TextInsertAlloc                  = pwrap3('TextInsertAlloc');
+    TextJoin                         = pwrap3('TextJoin');
+    TextSplit                        = pwrap3('TextSplit');
+    TextAppend                       = dwrap3('TextAppend');
+    TextFindIndex                    = dwrap2('TextFindIndex');
+    TextToUpper                      = pwrap1('TextToUpper');
+    TextToLower                      = pwrap1('TextToLower');
+    TextToPascal                     = pwrap1('TextToPascal');
+    TextToSnake                      = pwrap1('TextToSnake');
+    TextToCamel                      = pwrap1('TextToCamel');
+    TextToInteger                    = dwrap1('TextToInteger');
+    TextToFloat                      = dwrap1('TextToFloat');
+    DrawLine3D                       = dwrap3('DrawLine3D');
+    DrawPoint3D                      = dwrap2('DrawPoint3D');
+    DrawCircle3D                     = dwrap5('DrawCircle3D');
+    DrawTriangle3D                   = dwrap4('DrawTriangle3D');
+    DrawTriangleStrip3D              = dwrap3('DrawTriangleStrip3D');
+    DrawCube                         = dwrap5('DrawCube');
+    DrawCubeV                        = dwrap3('DrawCubeV');
+    DrawCubeWires                    = dwrap5('DrawCubeWires');
+    DrawCubeWiresV                   = dwrap3('DrawCubeWiresV');
+    DrawSphere                       = dwrap3('DrawSphere');
+    DrawSphereEx                     = dwrap5('DrawSphereEx');
+    DrawSphereWires                  = dwrap5('DrawSphereWires');
+    DrawCylinder                     = dwrap6('DrawCylinder');
+    DrawCylinderEx                   = dwrap6('DrawCylinderEx');
+    DrawCylinderWires                = dwrap6('DrawCylinderWires');
+    DrawCylinderWiresEx              = dwrap6('DrawCylinderWiresEx');
+    DrawCapsule                      = dwrap6('DrawCapsule');
+    DrawCapsuleWires                 = dwrap6('DrawCapsuleWires');
+    DrawPlane                        = dwrap3('DrawPlane');
+    DrawRay                          = dwrap2('DrawRay');
+    DrawGrid                         = dwrap2('DrawGrid');
+    LoadModel                        = swrap1('LoadModel');
+    LoadModelFromMesh                = swrap1('LoadModelFromMesh');
+    IsModelValid                     = dwrap1('IsModelValid');
+    UnloadModel                      = dwrap1('UnloadModel');
+    GetModelBoundingBox              = swrap1('GetModelBoundingBox');
+    DrawModel                        = dwrap4('DrawModel');
+    DrawModelEx                      = dwrap6('DrawModelEx');
+    DrawModelWires                   = dwrap4('DrawModelWires');
+    DrawModelWiresEx                 = dwrap6('DrawModelWiresEx');
+    DrawBoundingBox                  = dwrap2('DrawBoundingBox');
+    DrawBillboard                    = dwrap5('DrawBillboard');
+    DrawBillboardRec                 = dwrap6('DrawBillboardRec');
+    DrawBillboardPro                 = dwrap9('DrawBillboardPro');
+    UploadMesh                       = dwrap2('UploadMesh');
+    UpdateMeshBuffer                 = dwrap5('UpdateMeshBuffer');
+    UnloadMesh                       = dwrap1('UnloadMesh');
+    DrawMesh                         = dwrap3('DrawMesh');
+    DrawMeshInstanced                = dwrap4('DrawMeshInstanced');
+    GetMeshBoundingBox               = swrap1('GetMeshBoundingBox');
+    GenMeshTangents                  = dwrap1('GenMeshTangents');
+    ExportMesh                       = dwrap2('ExportMesh');
+    ExportMeshAsCode                 = dwrap2('ExportMeshAsCode');
+    GenMeshPoly                      = swrap2('GenMeshPoly');
+    GenMeshPlane                     = swrap4('GenMeshPlane');
+    GenMeshCube                      = swrap3('GenMeshCube');
+    GenMeshSphere                    = swrap3('GenMeshSphere');
+    GenMeshHemiSphere                = swrap3('GenMeshHemiSphere');
+    GenMeshCylinder                  = swrap3('GenMeshCylinder');
+    GenMeshCone                      = swrap3('GenMeshCone');
+    GenMeshTorus                     = swrap4('GenMeshTorus');
+    GenMeshKnot                      = swrap4('GenMeshKnot');
+    GenMeshHeightmap                 = swrap2('GenMeshHeightmap');
+    GenMeshCubicmap                  = swrap2('GenMeshCubicmap');
+    LoadMaterials                    = qwrap2('LoadMaterials', MaterialD.pointer);
+    LoadMaterialDefault              = swrap0('LoadMaterialDefault');
+    IsMaterialValid                  = dwrap1('IsMaterialValid');
+    UnloadMaterial                   = dwrap1('UnloadMaterial');
+    SetMaterialTexture               = dwrap3('SetMaterialTexture');
+    SetModelMeshMaterial             = dwrap3('SetModelMeshMaterial');
+    LoadModelAnimations              = qwrap2('LoadModelAnimations', ModelAnimationD.pointer);
+    UpdateModelAnimation             = dwrap3('UpdateModelAnimation');
+    UpdateModelAnimationEx           = dwrap6('UpdateModelAnimationEx');
+    UnloadModelAnimations            = dwrap2('UnloadModelAnimations');
+    IsModelAnimationValid            = dwrap2('IsModelAnimationValid');
+    CheckCollisionSpheres            = dwrap4('CheckCollisionSpheres');
+    CheckCollisionBoxes              = dwrap2('CheckCollisionBoxes');
+    CheckCollisionBoxSphere          = dwrap3('CheckCollisionBoxSphere');
+    GetRayCollisionSphere            = swrap3('GetRayCollisionSphere');
+    GetRayCollisionBox               = swrap2('GetRayCollisionBox');
+    GetRayCollisionMesh              = swrap3('GetRayCollisionMesh');
+    GetRayCollisionTriangle          = swrap4('GetRayCollisionTriangle');
+    GetRayCollisionQuad              = swrap5('GetRayCollisionQuad');
   }
 }

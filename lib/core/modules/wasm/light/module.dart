@@ -2,12 +2,12 @@ part of '../../../raylib_dartified_web.dart';
 
 class RaylibLight extends RaylibModuleWasm with RaylibLightModuleExtras<Raylib> {
   /// Create a light and get its shader locations
-  late final JSFunction CreateLight;
+  late final WF6<void> CreateLight;
   /// Send light properties to shader
-  late final JSFunction UpdateLightValues;
+  late final WF2<void> UpdateLightValues;
 
   RaylibLight(super.rl) {
-    CreateLight       = _module.dwrap('CreateLight',       n6, rv);
-    UpdateLightValues = _module.dwrap('UpdateLightValues', n2, rv);
+    CreateLight       = swrap5('CreateLight');
+    UpdateLightValues = dwrap2('UpdateLightValues');
   }
 }

@@ -15,22 +15,22 @@ class RaylibLightFlat extends RaylibLightFlatModule<Raylib> {
     ShaderD shader,
   ) => rl.Temp.Light$.RefCapture(
     RaylibCaptureIds.CreateLight,
-    (p) => _wasm.CreateLight.run([
+    (p) => _wasm.CreateLight(
       p.toJS,
       type.toJS,
       rl.Temp.Vector3$.Ref1(position).toJS,
       rl.Temp.Vector3$.Ref2(target).toJS,
       rl.Temp.Color$.Ref1(color).toJS,
       rl.Temp.Shader$.Ref1(shader).toJS,
-    ]),
+    ),
   );
 
   @override
   void UpdateLightValues(
     ShaderD shader,
     LightD light,
-  ) => _wasm.UpdateLightValues.run([
+  ) => _wasm.UpdateLightValues(
     rl.Temp.Shader$.Ref1(shader).toJS,
     rl.Temp.Light$.Ref1(light).toJS,
-  ]);
+  );
 }
