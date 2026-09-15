@@ -9,7 +9,7 @@ class RaylibCameraFlat extends RaylibCameraFlatModule<Raylib> {
   @override
   Vector3D GetCameraForward(
     StructPointer<Camera3DD> camera,
-  ) => rl.Temp.Vector3$.Extract1(
+  ) => $.Vector3$.Extract1(
     (p) => _wasm.GetCameraForward(
       p.toJS,
       camera.toJS,
@@ -19,7 +19,7 @@ class RaylibCameraFlat extends RaylibCameraFlatModule<Raylib> {
   @override
   Vector3D GetCameraUp(
     StructPointer<Camera3DD> camera,
-  ) => rl.Temp.Vector3$.Extract1(
+  ) => $.Vector3$.Extract1(
     (p) => _wasm.GetCameraUp(
       p.toJS,
       camera.toJS,
@@ -29,7 +29,7 @@ class RaylibCameraFlat extends RaylibCameraFlatModule<Raylib> {
   @override
   Vector3D GetCameraRight(
     StructPointer<Camera3DD> camera,
-  ) => rl.Temp.Vector3$.Extract1(
+  ) => $.Vector3$.Extract1(
     (p) => _wasm.GetCameraRight(
       p.toJS,
       camera.toJS,
@@ -114,7 +114,7 @@ class RaylibCameraFlat extends RaylibCameraFlatModule<Raylib> {
   @override
   MatrixD GetCameraViewMatrix(
     StructPointer<Camera3DD> camera,
-  ) => rl.Temp.Matrix$.Extract1(
+  ) => $.Matrix$.Extract1(
     (p) => _wasm.GetCameraViewMatrix(
       p.toJS,
       camera.toJS,
@@ -125,7 +125,7 @@ class RaylibCameraFlat extends RaylibCameraFlatModule<Raylib> {
   MatrixD GetCameraProjectionMatrix(
     StructPointer<Camera3DD> camera,
     double aspect,
-  ) => rl.Temp.Matrix$.Extract1(
+  ) => $.Matrix$.Extract1(
     (p) => _wasm.GetCameraProjectionMatrix(
       p.toJS,
       camera.toJS,

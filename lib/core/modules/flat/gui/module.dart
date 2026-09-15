@@ -42,11 +42,11 @@ class RaylibGuiFlat extends RaylibGuiFlatModule<Raylib> {
   void GuiSetFont(
     FontD font,
   ) => _wasm.GuiSetFont(
-    rl.Temp.Font$.Ref1(font).toJS,
+    $.Font$.Ref1(font).toJS,
   );
 
   @override
-  FontD GuiGetFont() => rl.Temp.Font$.RefCaptureCached(
+  FontD GuiGetFont() => $.Font$.RefCaptureCached(
     RaylibCaptureIds.GuiGetFont,
     (p) => _wasm.GuiGetFont(
       p.toJS,
@@ -156,7 +156,7 @@ class RaylibGuiFlat extends RaylibGuiFlatModule<Raylib> {
     posX.toJS,
     posY.toJS,
     pixelSize.toJS,
-    rl.Temp.Color$.Ref1(color).toJS,
+    $.Color$.Ref1(color).toJS,
   );
 
   @override
@@ -171,7 +171,7 @@ class RaylibGuiFlat extends RaylibGuiFlatModule<Raylib> {
     RectangleD bounds,
     MemoryPointer<RChar> title,
   ) => _wasm.GuiWindowBox(
-    rl.Temp.Rectangle$.Ref1(bounds).toJS,
+    $.Rectangle$.Ref1(bounds).toJS,
     title.toJS,
   );
 
@@ -180,7 +180,7 @@ class RaylibGuiFlat extends RaylibGuiFlatModule<Raylib> {
     RectangleD bounds,
     MemoryPointer<RChar> text,
   ) => _wasm.GuiGroupBox(
-    rl.Temp.Rectangle$.Ref1(bounds).toJS,
+    $.Rectangle$.Ref1(bounds).toJS,
     text.toJS,
   );
 
@@ -189,7 +189,7 @@ class RaylibGuiFlat extends RaylibGuiFlatModule<Raylib> {
     RectangleD bounds,
     MemoryPointer<RChar> text,
   ) => _wasm.GuiLine(
-    rl.Temp.Rectangle$.Ref1(bounds).toJS,
+    $.Rectangle$.Ref1(bounds).toJS,
     text.toJS,
   );
 
@@ -198,7 +198,7 @@ class RaylibGuiFlat extends RaylibGuiFlatModule<Raylib> {
     RectangleD bounds,
     MemoryPointer<RChar> text,
   ) => _wasm.GuiPanel(
-    rl.Temp.Rectangle$.Ref1(bounds).toJS,
+    $.Rectangle$.Ref1(bounds).toJS,
     text.toJS,
   );
 
@@ -210,9 +210,9 @@ class RaylibGuiFlat extends RaylibGuiFlatModule<Raylib> {
     StructPointer<Vector2D> scroll,
     StructPointer<RectangleD> view,
   ) => _wasm.GuiScrollPanel(
-    rl.Temp.Rectangle$.Ref1(bounds).toJS,
+    $.Rectangle$.Ref1(bounds).toJS,
     text.toJS,
-    rl.Temp.Rectangle$.Ref2(content).toJS,
+    $.Rectangle$.Ref2(content).toJS,
     scroll.toJS,
     view.toJS,
   );
@@ -222,7 +222,7 @@ class RaylibGuiFlat extends RaylibGuiFlatModule<Raylib> {
     RectangleD bounds,
     MemoryPointer<RChar> text,
   ) => _wasm.GuiLabel(
-    rl.Temp.Rectangle$.Ref1(bounds).toJS,
+    $.Rectangle$.Ref1(bounds).toJS,
     text.toJS,
   );
 
@@ -231,7 +231,7 @@ class RaylibGuiFlat extends RaylibGuiFlatModule<Raylib> {
     RectangleD bounds,
     MemoryPointer<RChar> text,
   ) => _wasm.GuiButton(
-    rl.Temp.Rectangle$.Ref1(bounds).toJS,
+    $.Rectangle$.Ref1(bounds).toJS,
     text.toJS,
   );
 
@@ -240,7 +240,7 @@ class RaylibGuiFlat extends RaylibGuiFlatModule<Raylib> {
     RectangleD bounds,
     MemoryPointer<RChar> text,
   ) => _wasm.GuiLabelButton(
-    rl.Temp.Rectangle$.Ref1(bounds).toJS,
+    $.Rectangle$.Ref1(bounds).toJS,
     text.toJS,
   );
 
@@ -250,7 +250,7 @@ class RaylibGuiFlat extends RaylibGuiFlatModule<Raylib> {
     MemoryPointer<RChar> text,
     MemoryPointer<RBool> active,
   ) => _wasm.GuiToggle(
-    rl.Temp.Rectangle$.Ref1(bounds).toJS,
+    $.Rectangle$.Ref1(bounds).toJS,
     text.toJS,
     active.toJS,
   );
@@ -261,7 +261,7 @@ class RaylibGuiFlat extends RaylibGuiFlatModule<Raylib> {
     MemoryPointer<RChar> text,
     MemoryPointer<RInt> active,
   ) => _wasm.GuiToggleGroup(
-    rl.Temp.Rectangle$.Ref1(bounds).toJS,
+    $.Rectangle$.Ref1(bounds).toJS,
     text.toJS,
     active.toJS,
   );
@@ -272,7 +272,7 @@ class RaylibGuiFlat extends RaylibGuiFlatModule<Raylib> {
     MemoryPointer<RChar> text,
     MemoryPointer<RInt> active,
   ) => _wasm.GuiToggleSlider(
-    rl.Temp.Rectangle$.Ref1(bounds).toJS,
+    $.Rectangle$.Ref1(bounds).toJS,
     text.toJS,
     active.toJS,
   );
@@ -283,7 +283,7 @@ class RaylibGuiFlat extends RaylibGuiFlatModule<Raylib> {
     MemoryPointer<RChar> text,
     MemoryPointer<RBool> checked,
   ) => _wasm.GuiCheckBox(
-    rl.Temp.Rectangle$.Ref1(bounds).toJS,
+    $.Rectangle$.Ref1(bounds).toJS,
     text.toJS,
     checked.toJS,
   );
@@ -294,7 +294,7 @@ class RaylibGuiFlat extends RaylibGuiFlatModule<Raylib> {
     MemoryPointer<RChar> text,
     MemoryPointer<RInt> active,
   ) => _wasm.GuiComboBox(
-    rl.Temp.Rectangle$.Ref1(bounds).toJS,
+    $.Rectangle$.Ref1(bounds).toJS,
     text.toJS,
     active.toJS,
   );
@@ -306,7 +306,7 @@ class RaylibGuiFlat extends RaylibGuiFlatModule<Raylib> {
     MemoryPointer<RInt> active,
     bool editMode,
   ) => _wasm.GuiDropdownBox(
-    rl.Temp.Rectangle$.Ref1(bounds).toJS,
+    $.Rectangle$.Ref1(bounds).toJS,
     text.toJS,
     active.toJS,
     editMode.toJS,
@@ -321,7 +321,7 @@ class RaylibGuiFlat extends RaylibGuiFlatModule<Raylib> {
     int maxValue,
     bool editMode,
   ) => _wasm.GuiSpinner(
-    rl.Temp.Rectangle$.Ref1(bounds).toJS,
+    $.Rectangle$.Ref1(bounds).toJS,
     text.toJS,
     value.toJS,
     minValue.toJS,
@@ -338,7 +338,7 @@ class RaylibGuiFlat extends RaylibGuiFlatModule<Raylib> {
     int maxValue,
     bool editMode,
   ) => _wasm.GuiValueBox(
-    rl.Temp.Rectangle$.Ref1(bounds).toJS,
+    $.Rectangle$.Ref1(bounds).toJS,
     text.toJS,
     value.toJS,
     minValue.toJS,
@@ -354,7 +354,7 @@ class RaylibGuiFlat extends RaylibGuiFlatModule<Raylib> {
     MemoryPointer<RFloat> value,
     bool editMode,
   ) => _wasm.GuiValueBoxFloat(
-    rl.Temp.Rectangle$.Ref1(bounds).toJS,
+    $.Rectangle$.Ref1(bounds).toJS,
     text.toJS,
     textValue.toJS,
     value.toJS,
@@ -368,7 +368,7 @@ class RaylibGuiFlat extends RaylibGuiFlatModule<Raylib> {
     int textSize,
     bool editMode,
   ) => _wasm.GuiTextBox(
-    rl.Temp.Rectangle$.Ref1(bounds).toJS,
+    $.Rectangle$.Ref1(bounds).toJS,
     text.toJS,
     textSize.toJS,
     editMode.toJS,
@@ -383,7 +383,7 @@ class RaylibGuiFlat extends RaylibGuiFlatModule<Raylib> {
     double minValue,
     double maxValue,
   ) => _wasm.GuiSlider(
-    rl.Temp.Rectangle$.Ref1(bounds).toJS,
+    $.Rectangle$.Ref1(bounds).toJS,
     textLeft.toJS,
     textRight.toJS,
     value.toJS,
@@ -400,7 +400,7 @@ class RaylibGuiFlat extends RaylibGuiFlatModule<Raylib> {
     double minValue,
     double maxValue,
   ) => _wasm.GuiSliderBar(
-    rl.Temp.Rectangle$.Ref1(bounds).toJS,
+    $.Rectangle$.Ref1(bounds).toJS,
     textLeft.toJS,
     textRight.toJS,
     value.toJS,
@@ -417,7 +417,7 @@ class RaylibGuiFlat extends RaylibGuiFlatModule<Raylib> {
     double minValue,
     double maxValue,
   ) => _wasm.GuiProgressBar(
-    rl.Temp.Rectangle$.Ref1(bounds).toJS,
+    $.Rectangle$.Ref1(bounds).toJS,
     textLeft.toJS,
     textRight.toJS,
     value.toJS,
@@ -430,7 +430,7 @@ class RaylibGuiFlat extends RaylibGuiFlatModule<Raylib> {
     RectangleD bounds,
     MemoryPointer<RChar> text,
   ) => _wasm.GuiStatusBar(
-    rl.Temp.Rectangle$.Ref1(bounds).toJS,
+    $.Rectangle$.Ref1(bounds).toJS,
     text.toJS,
   );
 
@@ -439,7 +439,7 @@ class RaylibGuiFlat extends RaylibGuiFlatModule<Raylib> {
     RectangleD bounds,
     MemoryPointer<RChar> text,
   ) => _wasm.GuiDummyRec(
-    rl.Temp.Rectangle$.Ref1(bounds).toJS,
+    $.Rectangle$.Ref1(bounds).toJS,
     text.toJS,
   );
 
@@ -451,7 +451,7 @@ class RaylibGuiFlat extends RaylibGuiFlatModule<Raylib> {
     int subdivs,
     StructPointer<Vector2D> mouseCell,
   ) => _wasm.GuiGrid(
-    rl.Temp.Rectangle$.Ref1(bounds).toJS,
+    $.Rectangle$.Ref1(bounds).toJS,
     text.toJS,
     spacing.toJS,
     subdivs.toJS,
@@ -465,7 +465,7 @@ class RaylibGuiFlat extends RaylibGuiFlatModule<Raylib> {
     MemoryPointer<RInt> scrollIndex,
     MemoryPointer<RInt> active,
   ) => _wasm.GuiListView(
-    rl.Temp.Rectangle$.Ref1(bounds).toJS,
+    $.Rectangle$.Ref1(bounds).toJS,
     text.toJS,
     scrollIndex.toJS,
     active.toJS,
@@ -480,7 +480,7 @@ class RaylibGuiFlat extends RaylibGuiFlatModule<Raylib> {
     MemoryPointer<RInt> active,
     MemoryPointer<RInt> focus,
   ) => _wasm.GuiListViewEx(
-    rl.Temp.Rectangle$.Ref1(bounds).toJS,
+    $.Rectangle$.Ref1(bounds).toJS,
     text.toJS,
     count.toJS,
     scrollIndex.toJS,
@@ -495,7 +495,7 @@ class RaylibGuiFlat extends RaylibGuiFlatModule<Raylib> {
     MemoryPointer<RInt> hscroll,
     MemoryPointer<RInt> active,
   ) => _wasm.GuiTabBar(
-    rl.Temp.Rectangle$.Ref1(bounds).toJS,
+    $.Rectangle$.Ref1(bounds).toJS,
     text.toJS,
     hscroll.toJS,
     active.toJS,
@@ -510,7 +510,7 @@ class RaylibGuiFlat extends RaylibGuiFlatModule<Raylib> {
     MemoryPointer<RInt> active,
     MemoryPointer<RInt> focus,
   ) => _wasm.GuiTabBarEx(
-    rl.Temp.Rectangle$.Ref1(bounds).toJS,
+    $.Rectangle$.Ref1(bounds).toJS,
     text.toJS,
     count.toJS,
     hscroll.toJS,
@@ -526,7 +526,7 @@ class RaylibGuiFlat extends RaylibGuiFlatModule<Raylib> {
     MemoryPointer<RChar> btnText,
     MemoryPointer<RInt> btnActive,
   ) => _wasm.GuiMessageBox(
-    rl.Temp.Rectangle$.Ref1(bounds).toJS,
+    $.Rectangle$.Ref1(bounds).toJS,
     title.toJS,
     message.toJS,
     btnText.toJS,
@@ -544,7 +544,7 @@ class RaylibGuiFlat extends RaylibGuiFlatModule<Raylib> {
     MemoryPointer<RInt> btnActive,
     MemoryPointer<RBool> secretViewActive,
   ) => _wasm.GuiTextInputBox(
-    rl.Temp.Rectangle$.Ref1(bounds).toJS,
+    $.Rectangle$.Ref1(bounds).toJS,
     title.toJS,
     message.toJS,
     text.toJS,
@@ -560,7 +560,7 @@ class RaylibGuiFlat extends RaylibGuiFlatModule<Raylib> {
     MemoryPointer<RChar> text,
     StructPointer<ColorD> color,
   ) => _wasm.GuiColorPicker(
-    rl.Temp.Rectangle$.Ref1(bounds).toJS,
+    $.Rectangle$.Ref1(bounds).toJS,
     text.toJS,
     color.toJS,
   );
@@ -571,7 +571,7 @@ class RaylibGuiFlat extends RaylibGuiFlatModule<Raylib> {
     MemoryPointer<RChar> text,
     StructPointer<ColorD> color,
   ) => _wasm.GuiColorPanel(
-    rl.Temp.Rectangle$.Ref1(bounds).toJS,
+    $.Rectangle$.Ref1(bounds).toJS,
     text.toJS,
     color.toJS,
   );
@@ -582,7 +582,7 @@ class RaylibGuiFlat extends RaylibGuiFlatModule<Raylib> {
     MemoryPointer<RChar> text,
     MemoryPointer<RFloat> alpha,
   ) => _wasm.GuiColorBarAlpha(
-    rl.Temp.Rectangle$.Ref1(bounds).toJS,
+    $.Rectangle$.Ref1(bounds).toJS,
     text.toJS,
     alpha.toJS,
   );
@@ -593,7 +593,7 @@ class RaylibGuiFlat extends RaylibGuiFlatModule<Raylib> {
     MemoryPointer<RChar> text,
     MemoryPointer<RFloat> value,
   ) => _wasm.GuiColorBarHue(
-    rl.Temp.Rectangle$.Ref1(bounds).toJS,
+    $.Rectangle$.Ref1(bounds).toJS,
     text.toJS,
     value.toJS,
   );
@@ -604,7 +604,7 @@ class RaylibGuiFlat extends RaylibGuiFlatModule<Raylib> {
     MemoryPointer<RChar> text,
     StructPointer<Vector3D> colorHsv,
   ) => _wasm.GuiColorPickerHSV(
-    rl.Temp.Rectangle$.Ref1(bounds).toJS,
+    $.Rectangle$.Ref1(bounds).toJS,
     text.toJS,
     colorHsv.toJS,
   );
@@ -615,7 +615,7 @@ class RaylibGuiFlat extends RaylibGuiFlatModule<Raylib> {
     MemoryPointer<RChar> text,
     StructPointer<Vector3D> colorHsv,
   ) => _wasm.GuiColorPanelHSV(
-    rl.Temp.Rectangle$.Ref1(bounds).toJS,
+    $.Rectangle$.Ref1(bounds).toJS,
     text.toJS,
     colorHsv.toJS,
   );
