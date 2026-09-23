@@ -1,8 +1,8 @@
 part of '../../../raylib_dartified_web.dart';
 
-class RaylibGuiFlat extends RaylibGuiFlatModule<Raylib> {
+class RaylibGuiFlatWeb extends RaylibGuiFlat<Raylib> {
 
-  RaylibGuiFlat(super.rl);
+  RaylibGuiFlatWeb(super.rl);
 
   RaylibGui get _wasm => rl.module();
 

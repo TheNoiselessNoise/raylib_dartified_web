@@ -1,8 +1,8 @@
 part of '../../../raylib_dartified_web.dart';
 
-class RaylibCameraFlat extends RaylibCameraFlatModule<Raylib> {
+class RaylibCameraFlatWeb extends RaylibCameraFlat<Raylib> {
 
-  RaylibCameraFlat(super.rl);
+  RaylibCameraFlatWeb(super.rl);
 
   RaylibCamera get _wasm => rl.module();
 

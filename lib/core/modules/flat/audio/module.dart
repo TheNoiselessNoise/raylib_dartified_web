@@ -1,8 +1,8 @@
 part of '../../../raylib_dartified_web.dart';
 
-class RaylibAudioFlat extends RaylibAudioFlatModule<Raylib> {
+class RaylibAudioFlatWeb extends RaylibAudioFlat<Raylib> {
 
-  RaylibAudioFlat(super.rl);
+  RaylibAudioFlatWeb(super.rl);
 
   RaylibAudio get _wasm => rl.module();
 

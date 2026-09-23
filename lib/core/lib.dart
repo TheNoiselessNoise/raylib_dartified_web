@@ -70,41 +70,41 @@ class Raylib extends RaylibBase {
   void _init() {
     // extensions
     registerModule(RaylibMatrixExt(this));
-    registerModule<RaylibMatrixFlatExt>(RaylibMatrixExtFlat(this));
+    registerModule<RaylibMatrixFlatExt>(RaylibMatrixExtFlatWeb(this));
 
     registerModule(RaylibQuaternionExt(this));
-    registerModule<RaylibQuaternionFlatExt>(RaylibQuaternionExtFlat(this));
+    registerModule<RaylibQuaternionFlatExt>(RaylibQuaternionExtFlatWeb(this));
 
     registerModule(RaylibVector2Ext(this));
-    registerModule<RaylibVector2FlatExt>(RaylibVector2ExtFlat(this));
+    registerModule<RaylibVector2FlatExt>(RaylibVector2ExtFlatWeb(this));
 
     registerModule(RaylibVector3Ext(this));
-    registerModule<RaylibVector3FlatExt>(RaylibVector3ExtFlat(this));
+    registerModule<RaylibVector3FlatExt>(RaylibVector3ExtFlatWeb(this));
 
     registerModule(RaylibVector4Ext(this));
-    registerModule<RaylibVector4FlatExt>(RaylibVector4ExtFlat(this));
+    registerModule<RaylibVector4FlatExt>(RaylibVector4ExtFlatWeb(this));
 
     // modules
     registerModule(RaylibAudio(this));
-    registerModule<RaylibAudioFlatModule>(RaylibAudioFlat(this));
+    registerModule<RaylibAudioFlat>(RaylibAudioFlatWeb(this));
 
     registerModule(RaylibCamera(this));
-    registerModule<RaylibCameraFlatModule>(RaylibCameraFlat(this));
+    registerModule<RaylibCameraFlat>(RaylibCameraFlatWeb(this));
     
     registerModule(RaylibCore(this));
-    registerModule<RaylibCoreFlatModule>(RaylibCoreFlat(this));
+    registerModule<RaylibCoreFlat>(RaylibCoreFlatWeb(this));
     
     registerModule(RaylibGui(this));
-    registerModule<RaylibGuiFlatModule>(RaylibGuiFlat(this));
+    registerModule<RaylibGuiFlat>(RaylibGuiFlatWeb(this));
 
     registerModule(RaylibLight(this));
-    registerModule<RaylibLightFlatModule>(RaylibLightFlat(this));
+    registerModule<RaylibLightFlat>(RaylibLightFlatWeb(this));
 
     registerModule(RaylibMsfGif(this));
-    registerModule<RaylibMsfGifFlatModule>(RaylibMsfGifFlat(this));
+    registerModule<RaylibMsfGifFlat>(RaylibMsfGifFlatWeb(this));
     
     registerModule(RaylibRlgl(this));
-    registerModule<RaylibRlglFlatModule>(RaylibRlglFlat(this));
+    registerModule<RaylibRlglFlat>(RaylibRlglFlatWeb(this));
   }
 
   bool _canceled = false;

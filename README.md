@@ -11,6 +11,7 @@ This project exposes raylib in an idiomatic Dart API targeting the browser via W
 ## Contents
 - [Version 6.0](#version-60)
 - [Platform Support](#platform-support)
+- [Build](#build)
 - [API Tiers](#api-tiers)
   - [Dart API](#dart-api)
   - [Flat API](#flat-api---backend-agnostic-low-level-api)
@@ -41,6 +42,31 @@ was previously duplicated per-backend code.
 Web only. Requires a browser with WebAssembly and WebGL support, all modern browsers SHOULD qualify.
 
 > For native platforms (Linux, Windows, etc.), see [`raylib_dartified`](https://pub.dev/packages/raylib_dartified).
+
+# Build
+
+### Prerequisites
+
+- [Emscripten (emsdk)](https://emscripten.org/docs/getting_started/downloads.html) installed and sourced
+- `git`, `cmake`, and `dart` on your PATH
+
+### First-time setup
+
+Downloads and builds raylib and setups everything for WASM via emscripten:
+
+```sh
+dart run raylib_dartified_web:setup
+```
+
+This only needs to run once.
+
+### Building your project
+
+```sh
+dart run raylib_dartified_web:build --entry=lib/main.dart
+```
+
+Output is written to `build/` in your current directory.
 
 # API Tiers
 

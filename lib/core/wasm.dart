@@ -6,9 +6,6 @@ class WasmMemoryPointer<X extends RType> extends MemoryPointer<X> {
   WasmMemoryPointer(this._addr);
 
   @override
-  WasmMemoryPointer<Y> cast<Y extends RType>() => .new(_addr);
-
-  @override
   bool get isNull => isFreed || _addr == 0;
 
   @override

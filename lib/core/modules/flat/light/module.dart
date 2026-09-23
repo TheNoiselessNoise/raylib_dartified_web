@@ -1,8 +1,8 @@
 part of '../../../raylib_dartified_web.dart';
 
-class RaylibLightFlat extends RaylibLightFlatModule<Raylib> {
+class RaylibLightFlatWeb extends RaylibLightFlat<Raylib> {
 
-  RaylibLightFlat(super.rl);
+  RaylibLightFlatWeb(super.rl);
 
   RaylibLight get _wasm => rl.module();
 

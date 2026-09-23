@@ -1,8 +1,8 @@
 part of '../../../raylib_dartified_web.dart';
 
-class RaylibMsfGifFlat extends RaylibMsfGifFlatModule<Raylib> {
+class RaylibMsfGifFlatWeb extends RaylibMsfGifFlat<Raylib> {
 
-  RaylibMsfGifFlat(super.rl);
+  RaylibMsfGifFlatWeb(super.rl);
 
   RaylibMsfGif get _wasm => rl.module();
 

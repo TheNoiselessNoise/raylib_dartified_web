@@ -1,3 +1,8 @@
+## 6.0.1
+
+- [BREAKING] Comply with `raylib_dartified_base` module naming.
+- Update README.md
+
 ## 6.0.0
 
 - [BREAKING] Migrated to `raylib_dartified_base` 6.0.0's unified contract: implements `WasmMemoryPointer` as `MemoryPointer`, adopts `StructLayout`-based struct definitions and unified allocators

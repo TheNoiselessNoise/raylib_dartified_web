@@ -1,8 +1,8 @@
 part of '../../../raylib_dartified_web.dart';
 
-class RaylibCoreFlat extends RaylibCoreFlatModule<Raylib> {
+class RaylibCoreFlatWeb extends RaylibCoreFlat<Raylib> {
 
-  RaylibCoreFlat(super.rl);
+  RaylibCoreFlatWeb(super.rl);
 
   RaylibCore get _wasm => rl.module();
 
