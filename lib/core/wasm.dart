@@ -6,6 +6,9 @@ class WasmMemoryPointer<X extends RType> extends MemoryPointer<X> {
   WasmMemoryPointer(this._addr);
 
   @override
+  WasmMemoryPointer<Y> cast<Y extends RType>() => .new(_addr);
+
+  @override
   bool get isNull => isFreed || _addr == 0;
 
   @override
@@ -96,6 +99,10 @@ class WasmMemoryPointer<X extends RType> extends MemoryPointer<X> {
   @override int readUnsignedInt([int byteOffset = 0]) { MemoryDebug.checkPointer(this, 'readUnsignedInt', byteOffset); final value = WasmMemory.readUnsignedInt(_addr, byteOffset); MemoryTrace.checkRead(_addr + byteOffset, 'UnsignedInt', value); return value; }
   @override double readFloat([int byteOffset = 0]) { MemoryDebug.checkPointer(this, 'readFloat', byteOffset); final value = WasmMemory.readFloat(_addr, byteOffset); MemoryTrace.checkRead(_addr + byteOffset, 'Float', value); return value; }
   @override double readDouble([int byteOffset = 0]) { MemoryDebug.checkPointer(this, 'readDouble', byteOffset); final value = WasmMemory.readDouble(_addr, byteOffset); MemoryTrace.checkRead(_addr + byteOffset, 'Double', value); return value; }
+  @override int readLong([int byteOffset = 0]) { MemoryDebug.checkPointer(this, 'readLong', byteOffset); final value = WasmMemory.readLong(byteOffset); MemoryTrace.checkRead(_addr + byteOffset, 'Long', value); return value; }
+  @override int readUnsignedLong([int byteOffset = 0]) { MemoryDebug.checkPointer(this, 'readUnsignedLong', byteOffset); final value = WasmMemory.readUnsignedLong(byteOffset); MemoryTrace.checkRead(_addr + byteOffset, 'UnsignedLong', value); return value; }
+  @override int readLongLong([int byteOffset = 0]) { MemoryDebug.checkPointer(this, 'readLongLong', byteOffset); final value = WasmMemory.readLongLong(byteOffset); MemoryTrace.checkRead(_addr + byteOffset, 'LongLong', value); return value; }
+  @override int readUnsignedLongLong([int byteOffset = 0]) { MemoryDebug.checkPointer(this, 'readUnsignedLongLong', byteOffset); final value = WasmMemory.readUnsignedLongLong(byteOffset); MemoryTrace.checkRead(_addr + byteOffset, 'UnsignedLongLong', value); return value; }
 
   @override void writeSize(int value, [int byteOffset = 0]) { MemoryDebug.checkPointer(this, 'writeSize', value, byteOffset); WasmMemory.writeSize(_addr, value, byteOffset); MemoryTrace.checkWrite(_addr + byteOffset, 'Size', value); }
   @override void writeBool(bool value, [int byteOffset = 0]) { MemoryDebug.checkPointer(this, 'writeBool', value, byteOffset); WasmMemory.writeBool(_addr, value, byteOffset); MemoryTrace.checkWrite(_addr + byteOffset, 'Bool', value); }
@@ -117,6 +124,10 @@ class WasmMemoryPointer<X extends RType> extends MemoryPointer<X> {
   @override void writeUnsignedInt(int value, [int byteOffset = 0]) { MemoryDebug.checkPointer(this, 'writeUnsignedInt', value, byteOffset); WasmMemory.writeUnsignedInt(_addr, value, byteOffset); MemoryTrace.checkWrite(_addr + byteOffset, 'UnsignedInt', value); }
   @override void writeFloat(double value, [int byteOffset = 0]) { MemoryDebug.checkPointer(this, 'writeFloat', value, byteOffset); WasmMemory.writeFloat(_addr, value, byteOffset); MemoryTrace.checkWrite(_addr + byteOffset, 'Float', value); }
   @override void writeDouble(double value, [int byteOffset = 0]) { MemoryDebug.checkPointer(this, 'writeDouble', value, byteOffset); WasmMemory.writeDouble(_addr, value, byteOffset); MemoryTrace.checkWrite(_addr + byteOffset, 'Double', value); }
+  @override void writeLong(int value, [int byteOffset = 0]) { MemoryDebug.checkPointer(this, 'writeLong', value, byteOffset); WasmMemory.writeLong(_addr, value, byteOffset); MemoryTrace.checkWrite(_addr + byteOffset, 'Long', value); }
+  @override void writeUnsignedLong(int value, [int byteOffset = 0]) { MemoryDebug.checkPointer(this, 'writeUnsignedLong', value, byteOffset); WasmMemory.writeUnsignedLong(_addr, value, byteOffset); MemoryTrace.checkWrite(_addr + byteOffset, 'UnsignedLong', value); }
+  @override void writeLongLong(int value, [int byteOffset = 0]) { MemoryDebug.checkPointer(this, 'writeLongLong', value, byteOffset); WasmMemory.writeLongLong(_addr, value, byteOffset); MemoryTrace.checkWrite(_addr + byteOffset, 'LongLong', value); }
+  @override void writeUnsignedLongLong(int value, [int byteOffset = 0]) { MemoryDebug.checkPointer(this, 'writeUnsignedLongLong', value, byteOffset); WasmMemory.writeUnsignedLongLong(_addr, value, byteOffset); MemoryTrace.checkWrite(_addr + byteOffset, 'UnsignedLongLong', value); }
 }
 
 extension MemoryPointerAsWasmPointer on MemoryPointer {
@@ -160,6 +171,17 @@ class WasmTypes {
   static final Short = Int16, UnsignedShort = Uint16;
   static final Int = Int32, UnsignedInt = Uint32;
   static final Float = Float32, Double = Float64;
+
+  static final Long          = RType.isNative32Bit ? Int32  : Int64;
+  static final UnsignedLong  = RType.isNative32Bit ? Uint32 : Uint64;
+  static final LongLong         = Int64;
+  static final UnsignedLongLong = Uint64;
+
+  static final Size     = RType.isNative32Bit ? Uint32 : Uint64;
+  static final Ssize    = RType.isNative32Bit ? Int32  : Int64;
+  static final UintPtr  = Size;
+  static final IntPtr   = Ssize;
+  static final PtrDiff  = Ssize;
 }
 
 class WasmSize {
@@ -199,13 +221,17 @@ class WasmMemory {
   static Float64List get heapF64 => .view(_heapf64.buffer.toDart);
 
   static void write<T extends Object>(WasmType<T> t, int ptr, T value, [int offset = 0])
-    => t.heap()[(ptr + offset) >> t.shift] = value;
+    => t.heap()[(ptr + offset) >>> t.shift] = value;
 
   static T read<T extends Object>(WasmType<T> t, int ptr, [int offset = 0])
-    => t.heap()[(ptr + offset) >> t.shift];
+    => t.heap()[(ptr + offset) >>> t.shift];
 
   static int readPtr(int ptr, [int offset = 0]) => readUint32(ptr, offset);
   static int readSize(int ptr, [int offset = 0]) => RType.isNative32Bit ? readUint32(ptr, offset) : readUint64(ptr, offset);
+  static int readSsize(int ptr, [int offset = 0]) => read(WasmTypes.Ssize, ptr, offset);
+  static int readIntPtr(int ptr, [int offset = 0]) => read(WasmTypes.IntPtr, ptr, offset);
+  static int readUintPtr(int ptr, [int offset = 0]) => read(WasmTypes.UintPtr, ptr, offset);
+  static int readPtrDiff(int ptr, [int offset = 0]) => read(WasmTypes.PtrDiff, ptr, offset);
   static bool readBool(int ptr, [int offset = 0]) => read<int>(WasmTypes.Uint8, ptr, offset) != 0;
   static int readInt8(int ptr, [int offset = 0]) => read(WasmTypes.Int8, ptr, offset);
   static int readUint8(int ptr, [int offset = 0]) => read(WasmTypes.Uint8, ptr, offset);
@@ -225,9 +251,17 @@ class WasmMemory {
   static int readUnsignedInt(int ptr, [int offset = 0]) => read(WasmTypes.UnsignedInt, ptr, offset);
   static double readFloat(int ptr, [int offset = 0]) => read(WasmTypes.Float, ptr, offset);
   static double readDouble(int ptr, [int offset = 0]) => read(WasmTypes.Double, ptr, offset);
+  static int readLong(int ptr, [int offset = 0]) => read(WasmTypes.Long, ptr, offset);
+  static int readUnsignedLong(int ptr, [int offset = 0]) => read(WasmTypes.UnsignedLong, ptr, offset);
+  static int readLongLong(int ptr, [int offset = 0]) => read(WasmTypes.LongLong, ptr, offset);
+  static int readUnsignedLongLong(int ptr, [int offset = 0]) => read(WasmTypes.UnsignedLongLong, ptr, offset);
 
   static void writePtr(int ptr, int value, [int offset = 0]) => writeUint32(ptr, value, offset);
   static void writeSize(int ptr, int value, [int offset = 0]) => RType.isNative32Bit ? writeUint32(ptr, value, offset) : writeUint64(ptr, value, offset);
+  static void writeSsize(int ptr, int value, [int offset = 0]) => write(WasmTypes.Ssize, ptr, value, offset);
+  static void writeIntPtr(int ptr, int value, [int offset = 0]) => write(WasmTypes.IntPtr, ptr, value, offset);
+  static void writeUintPtr(int ptr, int value, [int offset = 0]) => write(WasmTypes.UintPtr, ptr, value, offset);
+  static void writePtrDiff(int ptr, int value, [int offset = 0]) => write(WasmTypes.PtrDiff, ptr, value, offset);
   static void writeBool(int ptr, bool value, [int offset = 0]) => write<int>(WasmTypes.Uint8, ptr, value ? 1 : 0, offset);
   static void writeInt8(int ptr, int value, [int offset = 0]) => write(WasmTypes.Int8, ptr, value, offset);
   static void writeUint8(int ptr, int value, [int offset = 0]) => write(WasmTypes.Uint8, ptr, value, offset);
@@ -247,6 +281,10 @@ class WasmMemory {
   static void writeUnsignedInt(int ptr, int value, [int offset = 0]) => write(WasmTypes.UnsignedInt, ptr, value, offset);
   static void writeFloat(int ptr, double value, [int offset = 0]) => write(WasmTypes.Float, ptr, value, offset);
   static void writeDouble(int ptr, double value, [int offset = 0]) => write(WasmTypes.Double, ptr, value, offset);
+  static void writeLong(int ptr, int value, [int offset = 0]) => write(WasmTypes.Long, ptr, value, offset);
+  static void writeUnsignedLong(int ptr, int value, [int offset = 0]) => write(WasmTypes.UnsignedLong, ptr, value, offset);
+  static void writeLongLong(int ptr, int value, [int offset = 0]) => write(WasmTypes.LongLong, ptr, value, offset);
+  static void writeUnsignedLongLong(int ptr, int value, [int offset = 0]) => write(WasmTypes.UnsignedLongLong, ptr, value, offset);
 
   static int malloc(int size)
     => _module._malloc(size);

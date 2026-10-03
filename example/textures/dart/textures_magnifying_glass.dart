@@ -20,7 +20,7 @@ void main() => Raylib((rl) {
 
   final magnifiedWorld = LoadRenderTexture(256, 256);
 
-  final camera = Camera2DD(
+  final camera = Camera2D(
     zoom: 2,
     offset: .vec2(128, 128),
   );

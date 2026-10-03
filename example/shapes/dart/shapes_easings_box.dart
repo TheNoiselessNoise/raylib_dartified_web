@@ -9,7 +9,7 @@ void main() => Raylib((rl) {
   InitWindow(screenWidth, screenHeight, "shapes_easings_box");
   SetTargetFPS(60);
 
-  late RectangleD rec;
+  late Rectangle rec;
   late double rotation;
   late double alpha;
   late int state;

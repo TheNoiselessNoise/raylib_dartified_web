@@ -9,7 +9,7 @@ void main() => Raylib((rl) {
   InitWindow(screenWidth, screenHeight, "core_input_keys");
   SetTargetFPS(60);
 
-  final Vector2D ballPosition = .vec2(screenWidth/2, screenHeight/2);
+  final Vector2 ballPosition = .vec2(screenWidth/2, screenHeight/2);
 
   rl.setMainLoop(() {
     if (IsKeyDown(.KEY_RIGHT)) ballPosition.x += 2.0;

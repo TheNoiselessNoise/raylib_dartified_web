@@ -696,9 +696,9 @@ class RaylibCore extends RaylibModuleWasm {
   /// Modify image color: replace color
   late final WF3<void> ImageColorReplace;
   /// Load color data from image as a Color array (RGBA - 32bit)
-  late final WF1<StructPointer<ColorD>> LoadImageColors;
+  late final WF1<StructPointer<Color>> LoadImageColors;
   /// Load colors palette from image as a Color array (RGBA - 32bit)
-  late final WF3<StructPointer<ColorD>> LoadImagePalette;
+  late final WF3<StructPointer<Color>> LoadImagePalette;
   /// Unload color data loaded with LoadImageColors()
   late final WF1<void> UnloadImageColors;
   /// Unload colors palette loaded with LoadImagePalette()
@@ -836,7 +836,7 @@ class RaylibCore extends RaylibModuleWasm {
   /// Check if a font is valid (font data loaded, WARNING: GPU texture not checked)
   late final WF1<bool> IsFontValid;
   /// Load font data for further use
-  late final WF7<StructPointer<GlyphInfoD>> LoadFontData;
+  late final WF7<StructPointer<GlyphInfo>> LoadFontData;
   /// Generate image font atlas using chars info
   late final WF7<void> GenImageFontAtlas;
   /// Unload font chars info data (RAM)
@@ -1050,7 +1050,7 @@ class RaylibCore extends RaylibModuleWasm {
   /// Generate cubes-based map mesh from image data
   late final WF3<void> GenMeshCubicmap;
   /// Load materials from model file
-  late final WF2<StructPointer<MaterialD>> LoadMaterials;
+  late final WF2<StructPointer<Material>> LoadMaterials;
   /// Load default material (Supports: DIFFUSE, SPECULAR, NORMAL maps)
   late final WF1<void> LoadMaterialDefault;
   /// Check if a material is valid (shader assigned, map textures loaded in GPU)
@@ -1062,7 +1062,7 @@ class RaylibCore extends RaylibModuleWasm {
   /// Set material for a mesh
   late final WF3<void> SetModelMeshMaterial;
   /// Load model animations from file
-  late final WF2<StructPointer<ModelAnimationD>> LoadModelAnimations;
+  late final WF2<StructPointer<ModelAnimation>> LoadModelAnimations;
   /// Update model animation pose (CPU)
   late final WF3<void> UpdateModelAnimation;
   /// Update model animation data (vertex buffers / bone matrices) for a specific pose,

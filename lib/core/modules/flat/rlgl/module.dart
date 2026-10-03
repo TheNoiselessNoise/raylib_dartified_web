@@ -616,10 +616,10 @@ class RaylibRlglFlatWeb extends RaylibRlglFlat<Raylib> {
   WasmMemoryPointer<RInt> rlGetShaderLocsDefault() => _wasm.rlGetShaderLocsDefault();
 
   @override
-  RlRenderBatchD rlLoadRenderBatch(
+  RlRenderBatch rlLoadRenderBatch(
     int numBuffers,
     int bufferElements,
-  ) => $.RlRenderBatch$.RefCapture(
+  ) => RlRenderBatch$.RefCapture(
     RaylibCaptureIds.rlLoadRenderBatch,
     (p) => _wasm.rlLoadRenderBatch(
       p.toJS,
@@ -630,21 +630,21 @@ class RaylibRlglFlatWeb extends RaylibRlglFlat<Raylib> {
 
   @override
   void rlUnloadRenderBatch(
-    RlRenderBatchD batch,
+    RlRenderBatch batch,
   ) => _wasm.rlUnloadRenderBatch(
-    $.RlRenderBatch$.Ref1(batch).toJS,
+    RlRenderBatch$.Ref1(batch).toJS,
   );
 
   @override
   void rlDrawRenderBatch(
-    StructPointer<RlRenderBatchD> batch,
+    StructPointer<RlRenderBatch> batch,
   ) => _wasm.rlDrawRenderBatch(
     batch.toJS,
   );
 
   @override
   void rlSetRenderBatchActive(
-    StructPointer<RlRenderBatchD> batch,
+    StructPointer<RlRenderBatch> batch,
   ) => _wasm.rlSetRenderBatchActive(
     batch.toJS,
   );
@@ -1076,16 +1076,16 @@ class RaylibRlglFlatWeb extends RaylibRlglFlat<Raylib> {
   @override
   void rlSetUniformMatrix(
     int locIndex,
-    MatrixD mat,
+    Matrix mat,
   ) => _wasm.rlSetUniformMatrix(
     locIndex.toJS,
-    $.Matrix$.Ref1(mat).toJS,
+    Matrix$.Ref1(mat).toJS,
   );
 
   @override
   void rlSetUniformMatrices(
     int locIndex,
-    StructPointer<MatrixD> mat,
+    StructPointer<Matrix> mat,
     int count,
   ) => _wasm.rlSetUniformMatrices(
     locIndex.toJS,
@@ -1211,30 +1211,30 @@ class RaylibRlglFlatWeb extends RaylibRlglFlat<Raylib> {
   );
 
   @override
-  MatrixD rlGetMatrixModelview() => $.Matrix$.Extract1(
+  Matrix rlGetMatrixModelview() => Matrix$.Extract1(
     (p) => _wasm.rlGetMatrixModelview(
       p.toJS,
     ),
   );
 
   @override
-  MatrixD rlGetMatrixProjection() => $.Matrix$.Extract1(
+  Matrix rlGetMatrixProjection() => Matrix$.Extract1(
     (p) => _wasm.rlGetMatrixProjection(
       p.toJS,
     ),
   );
 
   @override
-  MatrixD rlGetMatrixTransform() => $.Matrix$.Extract1(
+  Matrix rlGetMatrixTransform() => Matrix$.Extract1(
     (p) => _wasm.rlGetMatrixTransform(
       p.toJS,
     ),
   );
 
   @override
-  MatrixD rlGetMatrixProjectionStereo(
+  Matrix rlGetMatrixProjectionStereo(
     int eye,
-  ) => $.Matrix$.Extract1(
+  ) => Matrix$.Extract1(
     (p) => _wasm.rlGetMatrixProjectionStereo(
       p.toJS,
       eye.toJS,
@@ -1242,9 +1242,9 @@ class RaylibRlglFlatWeb extends RaylibRlglFlat<Raylib> {
   );
 
   @override
-  MatrixD rlGetMatrixViewOffsetStereo(
+  Matrix rlGetMatrixViewOffsetStereo(
     int eye,
-  ) => $.Matrix$.Extract1(
+  ) => Matrix$.Extract1(
     (p) => _wasm.rlGetMatrixViewOffsetStereo(
       p.toJS,
       eye.toJS,
@@ -1253,34 +1253,34 @@ class RaylibRlglFlatWeb extends RaylibRlglFlat<Raylib> {
 
   @override
   void rlSetMatrixProjection(
-    MatrixD proj,
+    Matrix proj,
   ) => _wasm.rlSetMatrixProjection(
-    $.Matrix$.Ref1(proj).toJS,
+    Matrix$.Ref1(proj).toJS,
   );
 
   @override
   void rlSetMatrixModelview(
-    MatrixD view,
+    Matrix view,
   ) => _wasm.rlSetMatrixModelview(
-    $.Matrix$.Ref1(view).toJS,
+    Matrix$.Ref1(view).toJS,
   );
 
   @override
   void rlSetMatrixProjectionStereo(
-    MatrixD right,
-    MatrixD left,
+    Matrix right,
+    Matrix left,
   ) => _wasm.rlSetMatrixProjectionStereo(
-    $.Matrix$.Ref1(right).toJS,
-    $.Matrix$.Ref2(left).toJS,
+    Matrix$.Ref1(right).toJS,
+    Matrix$.Ref2(left).toJS,
   );
 
   @override
   void rlSetMatrixViewOffsetStereo(
-    MatrixD right,
-    MatrixD left,
+    Matrix right,
+    Matrix left,
   ) => _wasm.rlSetMatrixViewOffsetStereo(
-    $.Matrix$.Ref1(right).toJS,
-    $.Matrix$.Ref2(left).toJS,
+    Matrix$.Ref1(right).toJS,
+    Matrix$.Ref2(left).toJS,
   );
 
   @override

@@ -9,20 +9,20 @@ const int screenWidth = 800;
 const int screenHeight = 450;
 const double LETTER_BOUNDRY_SIZE = 0.25;
 const int TEXT_MAX_LAYERS = 32;
-ColorD LETTER_BOUNDRY_COLOR = .VIOLET;
+Color LETTER_BOUNDRY_COLOR = .VIOLET;
 
 bool SHOW_LETTER_BOUNDRY = false;
 bool SHOW_TEXT_BOUNDRY = false;
 
 class WaveTextConfig {
-  Vector3D waveRange;
-  Vector3D waveSpeed;
-  Vector3D waveOffset;
+  Vector3 waveRange;
+  Vector3 waveSpeed;
+  Vector3 waveOffset;
 
   WaveTextConfig({
-    Vector3D? waveRange,
-    Vector3D? waveSpeed,
-    Vector3D? waveOffset,
+    Vector3? waveRange,
+    Vector3? waveSpeed,
+    Vector3? waveOffset,
   }) :
     waveRange = waveRange ?? .zero(),
     waveSpeed = waveSpeed ?? .zero(),
@@ -35,7 +35,7 @@ void main() => Raylib((rl) {
   SetTargetFPS(60);
   DisableCursor();
 
-  final camera = Camera3DD(
+  final camera = Camera3D(
     position: .vec3(-10.0, 15.0, -10.0),
     target: .vec3(0.0, 0.0, 0.0),
     up: .vec3(0.0, 1.0, 0.0),
@@ -47,8 +47,8 @@ void main() => Raylib((rl) {
   bool multicolor = false;
   CameraMode cameraMode = .CAMERA_ORBITAL;
 
-  final Vector3D cubePosition = .vec3(0.0, 1.0, 0.0);
-  final Vector3D cubeSize = .vec3(2.0, 2.0, 2.0);
+  final Vector3 cubePosition = .vec3(0.0, 1.0, 0.0);
+  final Vector3 cubeSize = .vec3(2.0, 2.0, 2.0);
 
   var font = GetFontDefault();
   double fontSize = 8.0;
@@ -57,7 +57,7 @@ void main() => Raylib((rl) {
 
   // Set the text (using markdown!)
   String text = "Hello ~~World~~ in 3D!";
-  Vector3D tbox = .zero();
+  Vector3 tbox = .zero();
   int layers = 1;
   int quads = 0;
   double layerDistance = 0.01;
@@ -70,15 +70,15 @@ void main() => Raylib((rl) {
 
   double time = 0.0;
 
-  ColorD light = .MAROON;
-  ColorD dark = .RED;
+  Color light = .MAROON;
+  Color dark = .RED;
 
   final alphaDiscard = LoadShader(
     null,
     "../resources/shaders/glsl$GLSL_VERSION/alpha_discard.fs",
   );
 
-  final List<ColorD> multi = .generate(TEXT_MAX_LAYERS, (_) => .WHITE);
+  final List<Color> multi = .generate(TEXT_MAX_LAYERS, (_) => .WHITE);
 
   rl.setMainLoop(() {
     UpdateCamera(camera, cameraMode);
@@ -127,13 +127,13 @@ void main() => Raylib((rl) {
 
     if (IsMouseButtonPressed(.MOUSE_BUTTON_LEFT))
     {
-      final Vector2D center = .vec2(
+      final Vector2 center = .vec2(
         GetScreenWidth() / 2,
         GetScreenHeight() / 2,
       );
       final ray = GetScreenToWorldRay(center, camera);
 
-      final BoundingBoxD bbox = .bbox(
+      final BoundingBox bbox = .bbox(
         .vec3(
           cubePosition.x - cubeSize.x/2,
           cubePosition.y - cubeSize.y/2,
@@ -219,7 +219,7 @@ void main() => Raylib((rl) {
             {
               var clr = light;
               if (multicolor) clr = multi[i];
-              final Vector3D pos = .vec3(-tbox.x/2.0, layerDistance*i, -4.5);
+              final Vector3 pos = .vec3(-tbox.x/2.0, layerDistance*i, -4.5);
               DrawTextWave3D(font, text, pos, fontSize, fontSpacing, lineSpacing, true, wcfg, time, clr);
             }
 
@@ -239,7 +239,7 @@ void main() => Raylib((rl) {
             String opt = "< SIZE: ${fontSize.f1} >";
             quads += opt.length;
             var m = MeasureText3D(font, opt, 8.0, 1.0, 0.0);
-            Vector3D pos = .vec3(-m.x/2.0, 0.01, 2.0);
+            Vector3 pos = .vec3(-m.x/2.0, 0.01, 2.0);
             DrawText3D(font, opt, pos, 8.0, 1.0, 0.0, false, .BLUE);
             pos.z += 0.5 + m.z;
 
@@ -366,12 +366,12 @@ void main() => Raylib((rl) {
 });
 
 void DrawTextCodepoint3D(
-  FontD font,
+  Font font,
   int codepoint,
-  Vector3D position,
+  Vector3 position,
   double fontSize,
   bool backface,
-  ColorD tint,
+  Color tint,
 ) {
   int index = GetGlyphIndex(font, codepoint);
   double scale = fontSize/font.baseSize;
@@ -379,7 +379,7 @@ void DrawTextCodepoint3D(
   position.x += (font.glyphs[index].offsetX - font.glyphPadding)/font.baseSize*scale;
   position.z += (font.glyphs[index].offsetY - font.glyphPadding)/font.baseSize*scale;
 
-  final RectangleD srcRec = .rect(
+  final Rectangle srcRec = .rect(
     font.recs[index].x - font.glyphPadding,
     font.recs[index].y - font.glyphPadding,
     font.recs[index].width + 2.0*font.glyphPadding,
@@ -439,14 +439,14 @@ void DrawTextCodepoint3D(
 }
 
 void DrawText3D(
-  FontD font,
+  Font font,
   String text,
-  Vector3D position,
+  Vector3 position,
   double fontSize,
   double fontSpacing,
   double lineSpacing,
   bool backface,
-  ColorD tint,
+  Color tint,
 ) {
   double textOffsetY = 0.0;
   double textOffsetX = 0.0;
@@ -469,7 +469,7 @@ void DrawText3D(
     {
       if ((codepoint != ' '.ch) && (codepoint != '\t'.ch))
       {
-        final Vector3D pos = .vec3(
+        final Vector3 pos = .vec3(
           position.x + textOffsetX,
           position.y,
           position.z + textOffsetY,
@@ -488,8 +488,8 @@ void DrawText3D(
   }
 }
 
-Vector3D MeasureText3D(
-  FontD font,
+Vector3 MeasureText3D(
+  Font font,
   String text,
   double fontSize,
   double fontSpacing,
@@ -546,16 +546,16 @@ Vector3D MeasureText3D(
 }
 
 void DrawTextWave3D(
-  FontD font,
+  Font font,
   String text,
-  Vector3D position,
+  Vector3 position,
   double fontSize,
   double fontSpacing,
   double lineSpacing,
   bool backface,
   WaveTextConfig config,
   double time,
-  ColorD tint
+  Color tint
 ) {
   double textOffsetY = 0.0;
   double textOffsetX = 0.0;
@@ -597,7 +597,7 @@ void DrawTextWave3D(
           position.z += math.sin(time*config.waveSpeed.z-k*config.waveOffset.z)*config.waveRange.z;
         }
 
-        final Vector3D pos = .vec3(
+        final Vector3 pos = .vec3(
           position.x + textOffsetX,
           position.y,
           position.z + textOffsetY
@@ -617,8 +617,8 @@ void DrawTextWave3D(
   }
 }
 
-Vector3D MeasureTextWave3D(
-  FontD font,
+Vector3 MeasureTextWave3D(
+  Font font,
   String text,
   double fontSize,
   double fontSpacing,
@@ -684,7 +684,7 @@ Vector3D MeasureTextWave3D(
   );
 }
 
-ColorD GenerateRandomColor(double s, double v)
+Color GenerateRandomColor(double s, double v)
 {
   const double Phi = 0.618033988749895; // Golden ratio conjugate
   double h = GetRandomValue(0, 360).toDouble();

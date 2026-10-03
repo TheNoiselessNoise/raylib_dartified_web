@@ -21,7 +21,7 @@ void main() => Raylib((rl) {
   InitWindow(screenWidth, screenHeight, "core_viewport_scaling");
   SetTargetFPS(60);
 
-  List<Vector2D> resolutionList = [
+  List<Vector2> resolutionList = [
     .vec2(64, 64),
     .vec2(256, 240),
     .vec2(320, 180),
@@ -32,17 +32,17 @@ void main() => Raylib((rl) {
   int gameWidth = 64;
   int gameHeight = 64;
 
-  RenderTextureD target = .zero();
-  final RectangleD sourceRect = .zero();
-  final RectangleD destRect = .zero();
+  RenderTexture target = .zero();
+  final Rectangle sourceRect = .zero();
+  final Rectangle destRect = .zero();
 
   ViewportType viewportType = .KEEP_ASPECT_INTEGER;
   (screenWidth, screenHeight, target) = ResizeRenderSize(viewportType, gameWidth, gameHeight, sourceRect, destRect, target);
 
-  final RectangleD decreaseResolutionButton = .rect(200, 30, 10, 10);
-  final RectangleD increaseResolutionButton = .rect(215, 30, 10, 10);
-  final RectangleD decreaseTypeButton = .rect(200, 45, 10, 10);
-  final RectangleD increaseTypeButton = .rect(215, 45, 10, 10);
+  final Rectangle decreaseResolutionButton = .rect(200, 30, 10, 10);
+  final Rectangle increaseResolutionButton = .rect(215, 30, 10, 10);
+  final Rectangle decreaseTypeButton = .rect(200, 45, 10, 10);
+  final Rectangle increaseTypeButton = .rect(215, 45, 10, 10);
 
   rl.setMainLoop(() {
     if (IsWindowResized()) (screenWidth, screenHeight, target) = ResizeRenderSize(viewportType, gameWidth, gameHeight, sourceRect, destRect, target);
@@ -91,7 +91,7 @@ void main() => Raylib((rl) {
 
       DrawTexturePro(target.texture, sourceRect, destRect, .zero(), 0.0, WHITE);
 
-      final RectangleD infoRect = .rect(5, 5, 330, 105);
+      final Rectangle infoRect = .rect(5, 5, 330, 105);
       DrawRectangleRec(infoRect, Fade(LIGHTGRAY, 0.7));
       DrawRectangleLinesEx(infoRect, 1, BLUE);
 
@@ -99,7 +99,7 @@ void main() => Raylib((rl) {
       DrawText("Game Resolution: $gameWidth x $gameHeight", 15, 30, 10, BLACK);
 
       DrawText("Type: ${viewportType.name}", 15, 45, 10, BLACK);
-      final Vector2D scaleRatio = .vec2(destRect.width/sourceRect.width, -destRect.height/sourceRect.height);
+      final Vector2 scaleRatio = .vec2(destRect.width/sourceRect.width, -destRect.height/sourceRect.height);
       if (scaleRatio.x < 0.001 || scaleRatio.y < 0.001) DrawText("Scale ratio: INVALID", 15, 60, 10, BLACK);
       else DrawText("Scale ratio: ${scaleRatio.x.f2} x ${scaleRatio.y.f2}", 15, 60, 10, BLACK);
 
@@ -119,7 +119,7 @@ void main() => Raylib((rl) {
   });
 });
 
-void KeepAspectCenteredInteger(int screenWidth, int screenHeight, int gameWidth, int gameHeight, RectangleD sourceRect, RectangleD destRect)
+void KeepAspectCenteredInteger(int screenWidth, int screenHeight, int gameWidth, int gameHeight, Rectangle sourceRect, Rectangle destRect)
 {
   sourceRect.x = 0.0;
   sourceRect.y = gameHeight.toDouble();
@@ -136,7 +136,7 @@ void KeepAspectCenteredInteger(int screenWidth, int screenHeight, int gameWidth,
   destRect.height = gameHeight*resizeRatio;
 }
 
-void KeepHeightCenteredInteger(int screenWidth, int screenHeight, int gameWidth, int gameHeight, RectangleD sourceRect, RectangleD destRect)
+void KeepHeightCenteredInteger(int screenWidth, int screenHeight, int gameWidth, int gameHeight, Rectangle sourceRect, Rectangle destRect)
 {
   final resizeRatio = screenHeight/gameHeight;
   sourceRect.x = 0.0;
@@ -150,7 +150,7 @@ void KeepHeightCenteredInteger(int screenWidth, int screenHeight, int gameWidth,
   destRect.height = gameHeight*resizeRatio;
 }
 
-void KeepWidthCenteredInteger(int screenWidth, int screenHeight, int gameWidth, int gameHeight, RectangleD sourceRect, RectangleD destRect)
+void KeepWidthCenteredInteger(int screenWidth, int screenHeight, int gameWidth, int gameHeight, Rectangle sourceRect, Rectangle destRect)
 {
   final resizeRatio = screenWidth/gameWidth;
   sourceRect.x = 0.0;
@@ -166,7 +166,7 @@ void KeepWidthCenteredInteger(int screenWidth, int screenHeight, int gameWidth, 
   sourceRect.height *= -1.0;
 }
 
-void KeepAspectCentered(int screenWidth, int screenHeight, int gameWidth, int gameHeight, RectangleD sourceRect, RectangleD destRect)
+void KeepAspectCentered(int screenWidth, int screenHeight, int gameWidth, int gameHeight, Rectangle sourceRect, Rectangle destRect)
 {
   sourceRect.x = 0.0;
   sourceRect.y = gameHeight.toDouble();
@@ -183,7 +183,7 @@ void KeepAspectCentered(int screenWidth, int screenHeight, int gameWidth, int ga
   destRect.height = gameHeight*resizeRatio;
 }
 
-void KeepHeightCentered(int screenWidth, int screenHeight, int gameWidth, int gameHeight, RectangleD sourceRect, RectangleD destRect)
+void KeepHeightCentered(int screenWidth, int screenHeight, int gameWidth, int gameHeight, Rectangle sourceRect, Rectangle destRect)
 {
   final resizeRatio = screenHeight/gameHeight;
   sourceRect.x = 0.0;
@@ -197,7 +197,7 @@ void KeepHeightCentered(int screenWidth, int screenHeight, int gameWidth, int ga
   destRect.height = gameHeight*resizeRatio;
 }
 
-void KeepWidthCentered(int screenWidth, int screenHeight, int gameWidth, int gameHeight, RectangleD sourceRect, RectangleD destRect)
+void KeepWidthCentered(int screenWidth, int screenHeight, int gameWidth, int gameHeight, Rectangle sourceRect, Rectangle destRect)
 {
   final resizeRatio = screenWidth/gameWidth;
   sourceRect.x = 0.0;
@@ -213,13 +213,13 @@ void KeepWidthCentered(int screenWidth, int screenHeight, int gameWidth, int gam
   sourceRect.height *= -1.0;
 }
 
-(int screenWidth, int screenHeight, RenderTextureD target) ResizeRenderSize(
+(int screenWidth, int screenHeight, RenderTexture target) ResizeRenderSize(
   ViewportType viewportType,
   int gameWidth,
   int gameHeight,
-  RectangleD sourceRect,
-  RectangleD destRect,
-  RenderTextureD target
+  Rectangle sourceRect,
+  Rectangle destRect,
+  RenderTexture target
 ) {
   final screenWidth = GetScreenWidth();
   final screenHeight = GetScreenHeight();
@@ -241,9 +241,9 @@ void KeepWidthCentered(int screenWidth, int screenHeight, int gameWidth, int gam
   return (screenWidth, screenHeight, newTarget);
 }
 
-Vector2D Screen2RenderTexturePosition(Vector2D point, RectangleD textureRect, RectangleD scaledRect)
+Vector2 Screen2RenderTexturePosition(Vector2 point, Rectangle textureRect, Rectangle scaledRect)
 {
-  final Vector2D relativePosition = .vec2(point.x - scaledRect.x, point.y - scaledRect.y);
-  final Vector2D ratio = .vec2(textureRect.width/scaledRect.width, -textureRect.height/scaledRect.height);
+  final Vector2 relativePosition = .vec2(point.x - scaledRect.x, point.y - scaledRect.y);
+  final Vector2 ratio = .vec2(textureRect.width/scaledRect.width, -textureRect.height/scaledRect.height);
   return .vec2(relativePosition.x*ratio.x, relativePosition.y*ratio.x);
 }

@@ -14,7 +14,7 @@ void main() => Raylib((rl) {
   InitAudioDevice();
 
   int currentSound = 0;
-  final soundArray = <SoundD>[ LoadSound("../resources/sound.wav") ];
+  final soundArray = <Sound>[ LoadSound("../resources/sound.wav") ];
   for (int i = 1; i < MAX_SOUNDS; i++) {
     soundArray.add(LoadSoundAlias(soundArray[0]));
   }

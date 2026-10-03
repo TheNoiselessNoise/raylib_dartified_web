@@ -34,7 +34,7 @@ void main() => Raylib((rl) {
   assert(fontPaths.length == messages.length);
   assert(fontPaths.length == spacings.length);
 
-  final List<ColorD> colors = [
+  final List<Color> colors = [
     .MAROON, .ORANGE, .DARKGREEN, .DARKBLUE,
     .DARKPURPLE, .LIME, .GOLD, .RED
   ];
@@ -45,7 +45,7 @@ void main() => Raylib((rl) {
   
   final fonts = fontPaths.map((path) => LoadFont(path)).toList();
 
-  final positions = <Vector2D>[];
+  final positions = <Vector2>[];
   for (int i = 0; i < fontPaths.length; i++) {
     final fontSize = MeasureTextEx(
       fonts[i],

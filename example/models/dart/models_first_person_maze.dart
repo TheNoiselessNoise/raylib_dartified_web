@@ -11,10 +11,10 @@ void main() => Raylib((rl) {
   SetTargetFPS(60);
   DisableCursor();
 
-  final Vector3D mapPosition = .vec3(-16.0, 0.0, -8.0);
-  Vector3D oldCamPos = .zero();
+  final Vector3 mapPosition = .vec3(-16.0, 0.0, -8.0);
+  Vector3 oldCamPos = .zero();
 
-  final camera = Camera3DD(
+  final camera = Camera3D(
     position: .vec3(0.2, 0.4, 0.2),
     target: .vec3(0.185, 0.4, 0.0),
     up: .vec3(0, 1, 0),
@@ -39,7 +39,7 @@ void main() => Raylib((rl) {
 
     UpdateCamera(camera, .CAMERA_FIRST_PERSON);
 
-    final Vector2D playerPos = .vec2(camera.position.x, camera.position.z);
+    final Vector2 playerPos = .vec2(camera.position.x, camera.position.z);
     double playerRadius = 0.1;
 
     int playerCellX = (playerPos.x - mapPosition.x + 0.5).toInt();

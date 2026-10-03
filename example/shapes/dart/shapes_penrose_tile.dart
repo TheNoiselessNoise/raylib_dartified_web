@@ -9,7 +9,7 @@ const int STR_MAX_SIZE = 10000;
 const int TURTLE_STACK_MAX_SIZE = 50;
 
 class TurtleState {
-  Vector2D origin = .zero();
+  Vector2 origin = .zero();
   double angle = 0;
 }
 
@@ -132,7 +132,7 @@ void BuildProductionStep(PenroseLSystem ls)
 
 void DrawPenroseLSystem(PenroseLSystem ls)
 {
-  final Vector2D screenCenter = .vec2(
+  final Vector2 screenCenter = .vec2(
     GetScreenWidth()/2.0,
     GetScreenHeight()/2.0
   );

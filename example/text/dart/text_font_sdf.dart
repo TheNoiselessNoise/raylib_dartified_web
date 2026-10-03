@@ -15,7 +15,7 @@ void main() => Raylib((rl) {
 
   final fileData = LoadFileData("../resources/anonymous_pro_bold.ttf");
 
-  final fontDefault = FontD(
+  final fontDefault = Font(
     baseSize: 16,
     glyphCount: 95,
   );
@@ -25,7 +25,7 @@ void main() => Raylib((rl) {
   fontDefault.texture = LoadTextureFromImage(fontDefaultAtlas);
   UnloadImage(fontDefaultAtlas);
 
-  final fontSDF = FontD(
+  final fontSDF = Font(
     baseSize: 16,
     glyphCount: 95,
   );
@@ -41,8 +41,8 @@ void main() => Raylib((rl) {
   );
   SetTextureFilter(fontSDF.texture, .TEXTURE_FILTER_BILINEAR);
 
-  final Vector2D fontPosition = .vec2(40, screenHeight/2.0 - 50);
-  Vector2D textSize = .vec2(0.0, 0.0);
+  final Vector2 fontPosition = .vec2(40, screenHeight/2.0 - 50);
+  Vector2 textSize = .vec2(0.0, 0.0);
   double fontSize = 16.0;
   int currentFont = 0;
 

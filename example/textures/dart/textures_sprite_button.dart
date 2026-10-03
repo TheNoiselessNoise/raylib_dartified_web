@@ -17,11 +17,11 @@ void main() => Raylib((rl) {
   final button = LoadTexture("../resources/button.png");
 
   final frameHeight = button.height/NUM_FRAMES;
-  final RectangleD sourceRec = .rect(
+  final Rectangle sourceRec = .rect(
     0, 0, button.width, frameHeight
   );
 
-  final RectangleD btnBounds = .rect(
+  final Rectangle btnBounds = .rect(
     screenWidth/2.0 - button.width/2.0,
     screenHeight/2.0 - button.height/NUM_FRAMES/2.0,
     button.width,
@@ -31,7 +31,7 @@ void main() => Raylib((rl) {
   int btnState = 0;
   bool btnAction = false;
 
-  Vector2D mousePoint = .zero();
+  Vector2 mousePoint = .zero();
 
   rl.setMainLoop(() {
     mousePoint = GetMousePosition();

@@ -40,13 +40,13 @@ class RaylibGuiFlatWeb extends RaylibGuiFlat<Raylib> {
 
   @override
   void GuiSetFont(
-    FontD font,
+    Font font,
   ) => _wasm.GuiSetFont(
-    $.Font$.Ref1(font).toJS,
+    Font$.Ref1(font).toJS,
   );
 
   @override
-  FontD GuiGetFont() => $.Font$.RefCaptureCached(
+  Font GuiGetFont() => Font$.RefCaptureCached(
     RaylibCaptureIds.GuiGetFont,
     (p) => _wasm.GuiGetFont(
       p.toJS,
@@ -150,13 +150,13 @@ class RaylibGuiFlatWeb extends RaylibGuiFlat<Raylib> {
     int posX,
     int posY,
     int pixelSize,
-    ColorD color,
+    Color color,
   ) => _wasm.GuiDrawIcon(
     iconId.toJS,
     posX.toJS,
     posY.toJS,
     pixelSize.toJS,
-    $.Color$.Ref1(color).toJS,
+    Color$.Ref1(color).toJS,
   );
 
   @override
@@ -168,145 +168,145 @@ class RaylibGuiFlatWeb extends RaylibGuiFlat<Raylib> {
 
   @override
   int GuiWindowBox(
-    RectangleD bounds,
+    Rectangle bounds,
     MemoryPointer<RChar> title,
   ) => _wasm.GuiWindowBox(
-    $.Rectangle$.Ref1(bounds).toJS,
+    Rectangle$.Ref1(bounds).toJS,
     title.toJS,
   );
 
   @override
   int GuiGroupBox(
-    RectangleD bounds,
+    Rectangle bounds,
     MemoryPointer<RChar> text,
   ) => _wasm.GuiGroupBox(
-    $.Rectangle$.Ref1(bounds).toJS,
+    Rectangle$.Ref1(bounds).toJS,
     text.toJS,
   );
 
   @override
   int GuiLine(
-    RectangleD bounds,
+    Rectangle bounds,
     MemoryPointer<RChar> text,
   ) => _wasm.GuiLine(
-    $.Rectangle$.Ref1(bounds).toJS,
+    Rectangle$.Ref1(bounds).toJS,
     text.toJS,
   );
 
   @override
   int GuiPanel(
-    RectangleD bounds,
+    Rectangle bounds,
     MemoryPointer<RChar> text,
   ) => _wasm.GuiPanel(
-    $.Rectangle$.Ref1(bounds).toJS,
+    Rectangle$.Ref1(bounds).toJS,
     text.toJS,
   );
 
   @override
   int GuiScrollPanel(
-    RectangleD bounds,
+    Rectangle bounds,
     MemoryPointer<RChar> text,
-    RectangleD content,
-    StructPointer<Vector2D> scroll,
-    StructPointer<RectangleD> view,
+    Rectangle content,
+    StructPointer<Vector2> scroll,
+    StructPointer<Rectangle> view,
   ) => _wasm.GuiScrollPanel(
-    $.Rectangle$.Ref1(bounds).toJS,
+    Rectangle$.Ref1(bounds).toJS,
     text.toJS,
-    $.Rectangle$.Ref2(content).toJS,
+    Rectangle$.Ref2(content).toJS,
     scroll.toJS,
     view.toJS,
   );
 
   @override
   int GuiLabel(
-    RectangleD bounds,
+    Rectangle bounds,
     MemoryPointer<RChar> text,
   ) => _wasm.GuiLabel(
-    $.Rectangle$.Ref1(bounds).toJS,
+    Rectangle$.Ref1(bounds).toJS,
     text.toJS,
   );
 
   @override
   int GuiButton(
-    RectangleD bounds,
+    Rectangle bounds,
     MemoryPointer<RChar> text,
   ) => _wasm.GuiButton(
-    $.Rectangle$.Ref1(bounds).toJS,
+    Rectangle$.Ref1(bounds).toJS,
     text.toJS,
   );
 
   @override
   int GuiLabelButton(
-    RectangleD bounds,
+    Rectangle bounds,
     MemoryPointer<RChar> text,
   ) => _wasm.GuiLabelButton(
-    $.Rectangle$.Ref1(bounds).toJS,
+    Rectangle$.Ref1(bounds).toJS,
     text.toJS,
   );
 
   @override
   int GuiToggle(
-    RectangleD bounds,
+    Rectangle bounds,
     MemoryPointer<RChar> text,
     MemoryPointer<RBool> active,
   ) => _wasm.GuiToggle(
-    $.Rectangle$.Ref1(bounds).toJS,
+    Rectangle$.Ref1(bounds).toJS,
     text.toJS,
     active.toJS,
   );
 
   @override
   int GuiToggleGroup(
-    RectangleD bounds,
+    Rectangle bounds,
     MemoryPointer<RChar> text,
     MemoryPointer<RInt> active,
   ) => _wasm.GuiToggleGroup(
-    $.Rectangle$.Ref1(bounds).toJS,
+    Rectangle$.Ref1(bounds).toJS,
     text.toJS,
     active.toJS,
   );
 
   @override
   int GuiToggleSlider(
-    RectangleD bounds,
+    Rectangle bounds,
     MemoryPointer<RChar> text,
     MemoryPointer<RInt> active,
   ) => _wasm.GuiToggleSlider(
-    $.Rectangle$.Ref1(bounds).toJS,
+    Rectangle$.Ref1(bounds).toJS,
     text.toJS,
     active.toJS,
   );
 
   @override
   int GuiCheckBox(
-    RectangleD bounds,
+    Rectangle bounds,
     MemoryPointer<RChar> text,
     MemoryPointer<RBool> checked,
   ) => _wasm.GuiCheckBox(
-    $.Rectangle$.Ref1(bounds).toJS,
+    Rectangle$.Ref1(bounds).toJS,
     text.toJS,
     checked.toJS,
   );
 
   @override
   int GuiComboBox(
-    RectangleD bounds,
+    Rectangle bounds,
     MemoryPointer<RChar> text,
     MemoryPointer<RInt> active,
   ) => _wasm.GuiComboBox(
-    $.Rectangle$.Ref1(bounds).toJS,
+    Rectangle$.Ref1(bounds).toJS,
     text.toJS,
     active.toJS,
   );
 
   @override
   int GuiDropdownBox(
-    RectangleD bounds,
+    Rectangle bounds,
     MemoryPointer<RChar> text,
     MemoryPointer<RInt> active,
     bool editMode,
   ) => _wasm.GuiDropdownBox(
-    $.Rectangle$.Ref1(bounds).toJS,
+    Rectangle$.Ref1(bounds).toJS,
     text.toJS,
     active.toJS,
     editMode.toJS,
@@ -314,14 +314,14 @@ class RaylibGuiFlatWeb extends RaylibGuiFlat<Raylib> {
 
   @override
   int GuiSpinner(
-    RectangleD bounds,
+    Rectangle bounds,
     MemoryPointer<RChar> text,
     MemoryPointer<RInt> value,
     int minValue,
     int maxValue,
     bool editMode,
   ) => _wasm.GuiSpinner(
-    $.Rectangle$.Ref1(bounds).toJS,
+    Rectangle$.Ref1(bounds).toJS,
     text.toJS,
     value.toJS,
     minValue.toJS,
@@ -331,14 +331,14 @@ class RaylibGuiFlatWeb extends RaylibGuiFlat<Raylib> {
 
   @override
   int GuiValueBox(
-    RectangleD bounds,
+    Rectangle bounds,
     MemoryPointer<RChar> text,
     MemoryPointer<RInt> value,
     int minValue,
     int maxValue,
     bool editMode,
   ) => _wasm.GuiValueBox(
-    $.Rectangle$.Ref1(bounds).toJS,
+    Rectangle$.Ref1(bounds).toJS,
     text.toJS,
     value.toJS,
     minValue.toJS,
@@ -348,13 +348,13 @@ class RaylibGuiFlatWeb extends RaylibGuiFlat<Raylib> {
 
   @override
   int GuiValueBoxFloat(
-    RectangleD bounds,
+    Rectangle bounds,
     MemoryPointer<RChar> text,
     MemoryPointer<RChar> textValue,
     MemoryPointer<RFloat> value,
     bool editMode,
   ) => _wasm.GuiValueBoxFloat(
-    $.Rectangle$.Ref1(bounds).toJS,
+    Rectangle$.Ref1(bounds).toJS,
     text.toJS,
     textValue.toJS,
     value.toJS,
@@ -363,12 +363,12 @@ class RaylibGuiFlatWeb extends RaylibGuiFlat<Raylib> {
 
   @override
   int GuiTextBox(
-    RectangleD bounds,
+    Rectangle bounds,
     MemoryPointer<RChar> text,
     int textSize,
     bool editMode,
   ) => _wasm.GuiTextBox(
-    $.Rectangle$.Ref1(bounds).toJS,
+    Rectangle$.Ref1(bounds).toJS,
     text.toJS,
     textSize.toJS,
     editMode.toJS,
@@ -376,14 +376,14 @@ class RaylibGuiFlatWeb extends RaylibGuiFlat<Raylib> {
 
   @override
   int GuiSlider(
-    RectangleD bounds,
+    Rectangle bounds,
     MemoryPointer<RChar> textLeft,
     MemoryPointer<RChar> textRight,
     MemoryPointer<RFloat> value,
     double minValue,
     double maxValue,
   ) => _wasm.GuiSlider(
-    $.Rectangle$.Ref1(bounds).toJS,
+    Rectangle$.Ref1(bounds).toJS,
     textLeft.toJS,
     textRight.toJS,
     value.toJS,
@@ -393,14 +393,14 @@ class RaylibGuiFlatWeb extends RaylibGuiFlat<Raylib> {
 
   @override
   int GuiSliderBar(
-    RectangleD bounds,
+    Rectangle bounds,
     MemoryPointer<RChar> textLeft,
     MemoryPointer<RChar> textRight,
     MemoryPointer<RFloat> value,
     double minValue,
     double maxValue,
   ) => _wasm.GuiSliderBar(
-    $.Rectangle$.Ref1(bounds).toJS,
+    Rectangle$.Ref1(bounds).toJS,
     textLeft.toJS,
     textRight.toJS,
     value.toJS,
@@ -410,14 +410,14 @@ class RaylibGuiFlatWeb extends RaylibGuiFlat<Raylib> {
 
   @override
   int GuiProgressBar(
-    RectangleD bounds,
+    Rectangle bounds,
     MemoryPointer<RChar> textLeft,
     MemoryPointer<RChar> textRight,
     MemoryPointer<RFloat> value,
     double minValue,
     double maxValue,
   ) => _wasm.GuiProgressBar(
-    $.Rectangle$.Ref1(bounds).toJS,
+    Rectangle$.Ref1(bounds).toJS,
     textLeft.toJS,
     textRight.toJS,
     value.toJS,
@@ -427,31 +427,31 @@ class RaylibGuiFlatWeb extends RaylibGuiFlat<Raylib> {
 
   @override
   int GuiStatusBar(
-    RectangleD bounds,
+    Rectangle bounds,
     MemoryPointer<RChar> text,
   ) => _wasm.GuiStatusBar(
-    $.Rectangle$.Ref1(bounds).toJS,
+    Rectangle$.Ref1(bounds).toJS,
     text.toJS,
   );
 
   @override
   int GuiDummyRec(
-    RectangleD bounds,
+    Rectangle bounds,
     MemoryPointer<RChar> text,
   ) => _wasm.GuiDummyRec(
-    $.Rectangle$.Ref1(bounds).toJS,
+    Rectangle$.Ref1(bounds).toJS,
     text.toJS,
   );
 
   @override
   int GuiGrid(
-    RectangleD bounds,
+    Rectangle bounds,
     MemoryPointer<RChar> text,
     double spacing,
     int subdivs,
-    StructPointer<Vector2D> mouseCell,
+    StructPointer<Vector2> mouseCell,
   ) => _wasm.GuiGrid(
-    $.Rectangle$.Ref1(bounds).toJS,
+    Rectangle$.Ref1(bounds).toJS,
     text.toJS,
     spacing.toJS,
     subdivs.toJS,
@@ -460,12 +460,12 @@ class RaylibGuiFlatWeb extends RaylibGuiFlat<Raylib> {
 
   @override
   int GuiListView(
-    RectangleD bounds,
+    Rectangle bounds,
     MemoryPointer<RChar> text,
     MemoryPointer<RInt> scrollIndex,
     MemoryPointer<RInt> active,
   ) => _wasm.GuiListView(
-    $.Rectangle$.Ref1(bounds).toJS,
+    Rectangle$.Ref1(bounds).toJS,
     text.toJS,
     scrollIndex.toJS,
     active.toJS,
@@ -473,14 +473,14 @@ class RaylibGuiFlatWeb extends RaylibGuiFlat<Raylib> {
 
   @override
   int GuiListViewEx(
-    RectangleD bounds,
+    Rectangle bounds,
     MemoryPointer<RPointer<RChar>> text,
     int count,
     MemoryPointer<RInt> scrollIndex,
     MemoryPointer<RInt> active,
     MemoryPointer<RInt> focus,
   ) => _wasm.GuiListViewEx(
-    $.Rectangle$.Ref1(bounds).toJS,
+    Rectangle$.Ref1(bounds).toJS,
     text.toJS,
     count.toJS,
     scrollIndex.toJS,
@@ -490,12 +490,12 @@ class RaylibGuiFlatWeb extends RaylibGuiFlat<Raylib> {
 
   @override
   int GuiTabBar(
-    RectangleD bounds,
+    Rectangle bounds,
     MemoryPointer<RChar> text,
     MemoryPointer<RInt> hscroll,
     MemoryPointer<RInt> active,
   ) => _wasm.GuiTabBar(
-    $.Rectangle$.Ref1(bounds).toJS,
+    Rectangle$.Ref1(bounds).toJS,
     text.toJS,
     hscroll.toJS,
     active.toJS,
@@ -503,14 +503,14 @@ class RaylibGuiFlatWeb extends RaylibGuiFlat<Raylib> {
 
   @override
   int GuiTabBarEx(
-    RectangleD bounds,
+    Rectangle bounds,
     MemoryPointer<RPointer<RChar>> text,
     int count,
     MemoryPointer<RInt> hscroll,
     MemoryPointer<RInt> active,
     MemoryPointer<RInt> focus,
   ) => _wasm.GuiTabBarEx(
-    $.Rectangle$.Ref1(bounds).toJS,
+    Rectangle$.Ref1(bounds).toJS,
     text.toJS,
     count.toJS,
     hscroll.toJS,
@@ -520,13 +520,13 @@ class RaylibGuiFlatWeb extends RaylibGuiFlat<Raylib> {
 
   @override
   int GuiMessageBox(
-    RectangleD bounds,
+    Rectangle bounds,
     MemoryPointer<RChar> title,
     MemoryPointer<RChar> message,
     MemoryPointer<RChar> btnText,
     MemoryPointer<RInt> btnActive,
   ) => _wasm.GuiMessageBox(
-    $.Rectangle$.Ref1(bounds).toJS,
+    Rectangle$.Ref1(bounds).toJS,
     title.toJS,
     message.toJS,
     btnText.toJS,
@@ -535,7 +535,7 @@ class RaylibGuiFlatWeb extends RaylibGuiFlat<Raylib> {
 
   @override
   int GuiTextInputBox(
-    RectangleD bounds,
+    Rectangle bounds,
     MemoryPointer<RChar> title,
     MemoryPointer<RChar> message,
     MemoryPointer<RChar> text,
@@ -544,7 +544,7 @@ class RaylibGuiFlatWeb extends RaylibGuiFlat<Raylib> {
     MemoryPointer<RInt> btnActive,
     MemoryPointer<RBool> secretViewActive,
   ) => _wasm.GuiTextInputBox(
-    $.Rectangle$.Ref1(bounds).toJS,
+    Rectangle$.Ref1(bounds).toJS,
     title.toJS,
     message.toJS,
     text.toJS,
@@ -556,66 +556,66 @@ class RaylibGuiFlatWeb extends RaylibGuiFlat<Raylib> {
 
   @override
   int GuiColorPicker(
-    RectangleD bounds,
+    Rectangle bounds,
     MemoryPointer<RChar> text,
-    StructPointer<ColorD> color,
+    StructPointer<Color> color,
   ) => _wasm.GuiColorPicker(
-    $.Rectangle$.Ref1(bounds).toJS,
+    Rectangle$.Ref1(bounds).toJS,
     text.toJS,
     color.toJS,
   );
 
   @override
   int GuiColorPanel(
-    RectangleD bounds,
+    Rectangle bounds,
     MemoryPointer<RChar> text,
-    StructPointer<ColorD> color,
+    StructPointer<Color> color,
   ) => _wasm.GuiColorPanel(
-    $.Rectangle$.Ref1(bounds).toJS,
+    Rectangle$.Ref1(bounds).toJS,
     text.toJS,
     color.toJS,
   );
 
   @override
   int GuiColorBarAlpha(
-    RectangleD bounds,
+    Rectangle bounds,
     MemoryPointer<RChar> text,
     MemoryPointer<RFloat> alpha,
   ) => _wasm.GuiColorBarAlpha(
-    $.Rectangle$.Ref1(bounds).toJS,
+    Rectangle$.Ref1(bounds).toJS,
     text.toJS,
     alpha.toJS,
   );
 
   @override
   int GuiColorBarHue(
-    RectangleD bounds,
+    Rectangle bounds,
     MemoryPointer<RChar> text,
     MemoryPointer<RFloat> value,
   ) => _wasm.GuiColorBarHue(
-    $.Rectangle$.Ref1(bounds).toJS,
+    Rectangle$.Ref1(bounds).toJS,
     text.toJS,
     value.toJS,
   );
 
   @override
   int GuiColorPickerHSV(
-    RectangleD bounds,
+    Rectangle bounds,
     MemoryPointer<RChar> text,
-    StructPointer<Vector3D> colorHsv,
+    StructPointer<Vector3> colorHsv,
   ) => _wasm.GuiColorPickerHSV(
-    $.Rectangle$.Ref1(bounds).toJS,
+    Rectangle$.Ref1(bounds).toJS,
     text.toJS,
     colorHsv.toJS,
   );
 
   @override
   int GuiColorPanelHSV(
-    RectangleD bounds,
+    Rectangle bounds,
     MemoryPointer<RChar> text,
-    StructPointer<Vector3D> colorHsv,
+    StructPointer<Vector3> colorHsv,
   ) => _wasm.GuiColorPanelHSV(
-    $.Rectangle$.Ref1(bounds).toJS,
+    Rectangle$.Ref1(bounds).toJS,
     text.toJS,
     colorHsv.toJS,
   );

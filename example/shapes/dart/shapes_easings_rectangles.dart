@@ -14,7 +14,7 @@ void main() => Raylib((rl) {
   InitWindow(screenWidth, screenHeight, "shapes_easings_rectangles");
   SetTargetFPS(60);
 
-  final List<RectangleD> recs = .generate(MAX_RECS_X*MAX_RECS_Y, (_) => .zero());
+  final List<Rectangle> recs = .generate(MAX_RECS_X*MAX_RECS_Y, (_) => .zero());
 
   for (int y = 0; y < MAX_RECS_Y; y++)
   {

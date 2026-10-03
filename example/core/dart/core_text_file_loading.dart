@@ -10,7 +10,7 @@ void main() => Raylib((rl) {
   InitWindow(screenWidth, screenHeight, "core_text_file_loading");
   SetTargetFPS(60);
 
-  final cam = Camera2DD(
+  final cam = Camera2D(
     zoom: 1,
   );
 
@@ -64,7 +64,7 @@ void main() => Raylib((rl) {
     textHeight += (size.y + 10).toInt();
   }
 
-  final RectangleD scrollBar = .rect(
+  final Rectangle scrollBar = .rect(
     screenWidth - 5,
     0,
     5,
@@ -89,7 +89,7 @@ void main() => Raylib((rl) {
       BeginMode2D(cam);
         for (int i = 0, t = textTop; i < lines.length; i++)
         {
-          late Vector2D size;
+          late Vector2 size;
           if(lines[i].isNotEmpty){
             size = MeasureTextEx( GetFontDefault(), lines[i], fontSize.toDouble(), 2);
           }else{

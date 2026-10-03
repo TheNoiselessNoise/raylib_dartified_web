@@ -12,7 +12,7 @@ void main() => Raylib((rl) {
   InitWindow(screenWidth, screenHeight, "shaders_basic_lighting");
   SetTargetFPS(60);
 
-  final camera = Camera3DD(
+  final camera = Camera3D(
     position: .vec3(2, 4, 6),
     target: .vec3(0, 0.5, 0),
     up: .vec3(0, 1, 0),
@@ -34,7 +34,7 @@ void main() => Raylib((rl) {
     .SHADER_UNIFORM_VEC4,
   );
 
-  final lights = <LightD>[];
+  final lights = <Light>[];
 
   lights.add(CreateLight(.LIGHT_POINT,
     .vec3(-2, 1, -2), .zero(), .YELLOW, shader,

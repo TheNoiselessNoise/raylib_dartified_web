@@ -10,8 +10,8 @@ void main() => Raylib((rl) {
   InitWindow(screenWidth, screenHeight, "shapes_rectangle_scaling");
   SetTargetFPS(60);
 
-  final RectangleD rec = .rect(100, 100, 200, 80);
-  Vector2D mousePosition = .zero();
+  final Rectangle rec = .rect(100, 100, 200, 80);
+  Vector2 mousePosition = .zero();
 
   bool mouseScaleReady = false;
   bool mouseScaleMode = false;

@@ -9,7 +9,7 @@ void main() => Raylib((rl) {
   InitWindow(screenWidth, screenHeight, "shapes_circle_sector_drawing");
   SetTargetFPS(60);
   
-  final Vector2D center = .vec2(
+  final Vector2 center = .vec2(
     (GetScreenWidth() - 300)/2.0,
     GetScreenHeight()/2.0
   );

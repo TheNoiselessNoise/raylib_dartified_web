@@ -44,17 +44,17 @@ void main() => Raylib((rl) {
   UnloadImage(imageBlue);
   UnloadImage(backgroundImage);
 
-  final RectangleD fudesumiRec = .rect(0, 0, fudesumiImage.width, fudesumiImage.height);
-  final RectangleD fudesumiPos = .rect(50, 10, fudesumiImage.width*0.8, fudesumiImage.height*0.8);
-  final RectangleD redPos = .rect(410, 10, fudesumiPos.width / 2, fudesumiPos.height / 2 );
-  final RectangleD greenPos = .rect(600, 10, fudesumiPos.width / 2, fudesumiPos.height / 2 );
-  final RectangleD bluePos = .rect(410, 230, fudesumiPos.width / 2, fudesumiPos.height / 2 );
-  final RectangleD alphaPos = .rect(600, 230, fudesumiPos.width / 2, fudesumiPos.height / 2 );
+  final Rectangle fudesumiRec = .rect(0, 0, fudesumiImage.width, fudesumiImage.height);
+  final Rectangle fudesumiPos = .rect(50, 10, fudesumiImage.width*0.8, fudesumiImage.height*0.8);
+  final Rectangle redPos = .rect(410, 10, fudesumiPos.width / 2, fudesumiPos.height / 2 );
+  final Rectangle greenPos = .rect(600, 10, fudesumiPos.width / 2, fudesumiPos.height / 2 );
+  final Rectangle bluePos = .rect(410, 230, fudesumiPos.width / 2, fudesumiPos.height / 2 );
+  final Rectangle alphaPos = .rect(600, 230, fudesumiPos.width / 2, fudesumiPos.height / 2 );
 
   rl.setMainLoop(() {
     BeginDrawing();
 
-      final Vector2D origin = .zero();
+      final Vector2 origin = .zero();
 
       DrawTexture(backgroundTexture, 0, 0, .WHITE);
       DrawTexturePro(fudesumiTexture, fudesumiRec, fudesumiPos, origin, 0, .WHITE);

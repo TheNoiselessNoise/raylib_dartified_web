@@ -22,7 +22,7 @@ class Point {
 
 class PlayerState {
   Point cell = .new();
-  ColorD color = .zero();
+  Color color = .zero();
 
   bool equals(PlayerState other) {
     return
@@ -52,7 +52,7 @@ void main() => Raylib((rl) {
   int firstUndoIndex = 0;
   int lastUndoIndex = 0;
   int undoFrameCounter = 0;
-  final Vector2D undoInfoPos = .vec2(110, 400);
+  final Vector2 undoInfoPos = .vec2(110, 400);
 
   PlayerState player = .new();
   player.cell.set(10, 10);
@@ -61,7 +61,7 @@ void main() => Raylib((rl) {
   final List<PlayerState> states = .generate(MAX_UNDO_STATES, (_) => .new());
   for (int i = 0; i < MAX_UNDO_STATES; i++) states[i] = player.copy();
 
-  final Vector2D gridPosition = .vec2(40, 60);
+  final Vector2 gridPosition = .vec2(40, 60);
 
   rl.setMainLoop(() {
     if (IsKeyPressed(.KEY_RIGHT)) player.cell.x++;
@@ -193,7 +193,7 @@ void main() => Raylib((rl) {
   });
 });
 
-void DrawUndoBuffer(Vector2D position, int firstUndoIndex, int lastUndoIndex, int currentUndoIndex, int slotSize)
+void DrawUndoBuffer(Vector2 position, int firstUndoIndex, int lastUndoIndex, int currentUndoIndex, int slotSize)
 {
   DrawRectangle(position.x + 8 + slotSize*currentUndoIndex, position.y - 10, 8, 8, RED);
   DrawRectangleLines(position.x + 2 + slotSize*firstUndoIndex, position.y + 27, 8, 8, BLACK);

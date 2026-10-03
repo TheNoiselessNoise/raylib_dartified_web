@@ -10,7 +10,7 @@ void main() => Raylib((rl) {
   InitWindow(screenWidth, screenHeight, "shapes_mouse_trail");
   SetTargetFPS(60);
 
-  final List<Vector2D> trailPositions = .generate(MAX_TRAIL_LENGTH, (_) => .zero());
+  final List<Vector2> trailPositions = .generate(MAX_TRAIL_LENGTH, (_) => .zero());
 
   rl.setMainLoop(() {
     final mousePosition = GetMousePosition();

@@ -53,8 +53,8 @@ void main() => Raylib((rl) {
 
   updateShaderValues();
 
-  final ColorD lineColor = .color(218, 218, 218, 255);
-  final ColorD rectColor = .color(232, 232, 232, 255);
+  final Color lineColor = .color(218, 218, 218, 255);
+  final Color rectColor = .color(232, 232, 232, 255);
 
   rl.setMainLoop(() {
     if (IsKeyPressed(.KEY_ONE)) imageIndex = 0;

@@ -18,7 +18,7 @@ void main() => Raylib((rl) {
   double lengthScaler = 0.1;
   double totalM = m1 + m2;
 
-  Vector2D previousPosition = CalculateDoublePendulumEndPoint(l1, theta1, l2, theta2);
+  Vector2 previousPosition = CalculateDoublePendulumEndPoint(l1, theta1, l2, theta2);
   previousPosition.x += screenWidth/2;
   previousPosition.y += screenHeight/2 - 100;
 
@@ -113,12 +113,12 @@ void main() => Raylib((rl) {
   });
 });
 
-Vector2D CalculatePendulumEndPoint(double l, double theta)
+Vector2 CalculatePendulumEndPoint(double l, double theta)
 {
   return .vec2(10*l*math.sin(theta), 10*l*math.cos(theta));
 }
 
-Vector2D CalculateDoublePendulumEndPoint(double l1, double theta1, double l2, double theta2)
+Vector2 CalculateDoublePendulumEndPoint(double l1, double theta1, double l2, double theta2)
 {
   final endpoint1 = CalculatePendulumEndPoint(l1, theta1);
   final endpoint2 = CalculatePendulumEndPoint(l2, theta2);

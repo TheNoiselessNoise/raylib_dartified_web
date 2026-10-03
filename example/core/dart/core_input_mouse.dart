@@ -9,8 +9,8 @@ void main() => Raylib((rl) {
   InitWindow(screenWidth, screenHeight, "core_input_mouse");
   SetTargetFPS(60);
 
-  Vector2D ballPosition = .vec2(-100.0, -100.0);
-  ColorD ballColor = DARKBLUE;
+  Vector2 ballPosition = .vec2(-100.0, -100.0);
+  Color ballColor = DARKBLUE;
 
   rl.setMainLoop(() {
     if (IsKeyPressed(.KEY_H))

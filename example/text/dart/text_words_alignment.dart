@@ -45,7 +45,7 @@ void main() => Raylib((rl) {
   InitWindow(screenWidth, screenHeight, "text_words_alignment");
   SetTargetFPS(60);
 
-  final RectangleD textContainerRect = .rect(
+  final Rectangle textContainerRect = .rect(
     screenWidth/2-screenWidth/4,
     screenHeight/2-screenHeight/3,
     screenWidth/2,

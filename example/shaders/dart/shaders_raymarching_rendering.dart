@@ -13,7 +13,7 @@ void main() => Raylib((rl) {
   SetTargetFPS(60);
   DisableCursor();
 
-  final camera = Camera3DD(
+  final camera = Camera3D(
     position: .vec3(2.5, 2.5, 3.0),
     target: .vec3(0.0, 0.0, 0.7),
     up: .vec3(0, 1, 0),

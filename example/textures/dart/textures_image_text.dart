@@ -27,7 +27,7 @@ void main() => Raylib((rl) {
   final texture = LoadTextureFromImage(parrots);
   UnloadImage(parrots);
 
-  final Vector2D position = .vec2(
+  final Vector2 position = .vec2(
     screenWidth/2 - texture.width/2,
     screenHeight/2 - texture.height/2 - 20
   );

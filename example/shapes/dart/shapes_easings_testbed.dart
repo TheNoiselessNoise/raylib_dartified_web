@@ -83,7 +83,7 @@ void main() => Raylib((rl) {
     .EASING_NONE: (a, b, c, d) => b.toDouble(),
   };
 
-  final Vector2D ballPosition = .vec2(100.0, 100.0);
+  final Vector2 ballPosition = .vec2(100.0, 100.0);
 
   double t = 0.0;
   double d = 300.0;
@@ -94,7 +94,7 @@ void main() => Raylib((rl) {
   EasingTypes easingY = .EASING_NONE;
 
   // NOTE: not part of the original example
-  final tail = <Vector2D>[];
+  final tail = <Vector2>[];
   // ---------
 
   rl.setMainLoop(() {

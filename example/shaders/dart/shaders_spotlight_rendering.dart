@@ -11,8 +11,8 @@ const int MAX_SPOTS = 3;
 const int MAX_STARS = 400;
 
 class Spot {
-  Vector2D position;
-  Vector2D speed;
+  Vector2 position;
+  Vector2 speed;
   double inner;
   double radius;
 
@@ -21,8 +21,8 @@ class Spot {
   int radiusLoc;
 
   Spot({
-    Vector2D? position,
-    Vector2D? speed,
+    Vector2? position,
+    Vector2? speed,
     this.inner = 0,
     this.radius = 0,
 
@@ -35,12 +35,12 @@ class Spot {
 }
 
 class Star {
-  Vector2D position;
-  Vector2D speed;
+  Vector2 position;
+  Vector2 speed;
 
   Star({
-    Vector2D? position,
-    Vector2D? speed,
+    Vector2? position,
+    Vector2? speed,
   }) :
     position = position ?? .zero(),
     speed = speed ?? .zero();

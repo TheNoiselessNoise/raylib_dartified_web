@@ -26,9 +26,9 @@ class RaylibAudioFlatWeb extends RaylibAudioFlat<Raylib> {
   double GetMasterVolume() => _wasm.GetMasterVolume();
   
   @override
-  WaveD LoadWave(
+  Wave LoadWave(
     MemoryPointer<RChar> fileName,
-  ) => $.Wave$.RefCapture(
+  ) => Wave$.RefCapture(
     RaylibCaptureIds.LoadWave,
     (p) => _wasm.LoadWave(
       p.toJS,
@@ -37,11 +37,11 @@ class RaylibAudioFlatWeb extends RaylibAudioFlat<Raylib> {
   );
   
   @override
-  WaveD LoadWaveFromMemory(
+  Wave LoadWaveFromMemory(
     MemoryPointer<RChar> fileType,
     MemoryPointer<RUnsignedChar> fileData,
     int dataSize,
-  ) => $.Wave$.RefCapture(
+  ) => Wave$.RefCapture(
     RaylibCaptureIds.LoadWaveFromMemory,
     (p) => _wasm.LoadWaveFromMemory(
       p.toJS,
@@ -53,15 +53,15 @@ class RaylibAudioFlatWeb extends RaylibAudioFlat<Raylib> {
   
   @override
   bool IsWaveValid(
-    WaveD wave,
+    Wave wave,
   ) => _wasm.IsWaveValid(
-    $.Wave$.Ref1(wave).toJS,
+    Wave$.Ref1(wave).toJS,
   );
   
   @override
-  SoundD LoadSound(
+  Sound LoadSound(
     MemoryPointer<RChar> fileName,
-  ) => $.Sound$.RefCapture(
+  ) => Sound$.RefCapture(
     RaylibCaptureIds.LoadSound,
     (p) => _wasm.LoadSound(
       p.toJS,
@@ -70,160 +70,160 @@ class RaylibAudioFlatWeb extends RaylibAudioFlat<Raylib> {
   );
   
   @override
-  SoundD LoadSoundFromWave(
-    WaveD wave,
-  ) => $.Sound$.RefCapture(
+  Sound LoadSoundFromWave(
+    Wave wave,
+  ) => Sound$.RefCapture(
     RaylibCaptureIds.LoadSoundFromWave,
     (p) => _wasm.LoadSoundFromWave(
       p.toJS,
-      $.Wave$.Ref1(wave).toJS,
+      Wave$.Ref1(wave).toJS,
     ),
   );
   
   @override
-  SoundD LoadSoundAlias(
-    SoundD source,
-  ) => $.Sound$.RefCapture(
+  Sound LoadSoundAlias(
+    Sound source,
+  ) => Sound$.RefCapture(
     RaylibCaptureIds.LoadSoundAlias,
     (p) => _wasm.LoadSoundAlias(
       p.toJS,
-      $.Sound$.Ref1(source).toJS,
+      Sound$.Ref1(source).toJS,
     ),
   );
   
   @override
   bool IsSoundValid(
-    SoundD sound,
+    Sound sound,
   ) => _wasm.IsSoundValid(
-    $.Sound$.Ref1(sound).toJS,
+    Sound$.Ref1(sound).toJS,
   );
   
   @override
   void UpdateSound(
-    SoundD sound,
+    Sound sound,
     MemoryPointer<RVoid> data,
     int sampleCount,
   ) => _wasm.UpdateSound(
-    $.Sound$.Ref1(sound).toJS,
+    Sound$.Ref1(sound).toJS,
     data.toJS,
     sampleCount.toJS,
   );
   
   @override
   void UnloadWave(
-    WaveD wave,
+    Wave wave,
   ) => _wasm.UnloadWave(
-    $.Wave$.Ref1(wave).toJS,
+    Wave$.Ref1(wave).toJS,
   );
   
   @override
   void UnloadSound(
-    SoundD sound,
+    Sound sound,
   ) => _wasm.UnloadSound(
-    $.Sound$.Ref1(sound).toJS,
+    Sound$.Ref1(sound).toJS,
   );
   
   @override
   void UnloadSoundAlias(
-    SoundD alias,
+    Sound alias,
   ) => _wasm.UnloadSoundAlias(
-    $.Sound$.Ref1(alias).toJS,
+    Sound$.Ref1(alias).toJS,
   );
   
   @override
   bool ExportWave(
-    WaveD wave,
+    Wave wave,
     MemoryPointer<RChar> fileName,
   ) => _wasm.ExportWave(
-    $.Wave$.Ref1(wave).toJS,
+    Wave$.Ref1(wave).toJS,
     fileName.toJS,
   );
   
   @override
   bool ExportWaveAsCode(
-    WaveD wave,
+    Wave wave,
     MemoryPointer<RChar> fileName,
   ) => _wasm.ExportWaveAsCode(
-    $.Wave$.Ref1(wave).toJS,
+    Wave$.Ref1(wave).toJS,
     fileName.toJS,
   );
   
   @override
   void PlaySound(
-    SoundD sound,
+    Sound sound,
   ) => _wasm.PlaySound(
-    $.Sound$.Ref1(sound).toJS,
+    Sound$.Ref1(sound).toJS,
   );
   
   @override
   void StopSound(
-    SoundD sound,
+    Sound sound,
   ) => _wasm.StopSound(
-    $.Sound$.Ref1(sound).toJS,
+    Sound$.Ref1(sound).toJS,
   );
   
   @override
   void PauseSound(
-    SoundD sound,
+    Sound sound,
   ) => _wasm.PauseSound(
-    $.Sound$.Ref1(sound).toJS,
+    Sound$.Ref1(sound).toJS,
   );
   
   @override
   void ResumeSound(
-    SoundD sound,
+    Sound sound,
   ) => _wasm.ResumeSound(
-    $.Sound$.Ref1(sound).toJS,
+    Sound$.Ref1(sound).toJS,
   );
   
   @override
   bool IsSoundPlaying(
-    SoundD sound,
+    Sound sound,
   ) => _wasm.IsSoundPlaying(
-    $.Sound$.Ref1(sound).toJS,
+    Sound$.Ref1(sound).toJS,
   );
   
   @override
   void SetSoundVolume(
-    SoundD sound,
+    Sound sound,
     double volume,
   ) => _wasm.SetSoundVolume(
-    $.Sound$.Ref1(sound).toJS,
+    Sound$.Ref1(sound).toJS,
     volume.toJS,
   );
   
   @override
   void SetSoundPitch(
-    SoundD sound,
+    Sound sound,
     double pitch,
   ) => _wasm.SetSoundPitch(
-    $.Sound$.Ref1(sound).toJS,
+    Sound$.Ref1(sound).toJS,
     pitch.toJS,
   );
   
   @override
   void SetSoundPan(
-    SoundD sound,
+    Sound sound,
     double pan,
   ) => _wasm.SetSoundPan(
-    $.Sound$.Ref1(sound).toJS,
+    Sound$.Ref1(sound).toJS,
     pan.toJS,
   );
   
   @override
-  WaveD WaveCopy(
-    WaveD wave,
-  ) => $.Wave$.RefCapture(
+  Wave WaveCopy(
+    Wave wave,
+  ) => Wave$.RefCapture(
     RaylibCaptureIds.WaveCopy,
     (p) => _wasm.WaveCopy(
       p.toJS,
-      $.Wave$.Ref1(wave).toJS,
+      Wave$.Ref1(wave).toJS,
     ),
   );
   
   @override
   void WaveCrop(
-    StructPointer<WaveD> wave,
+    StructPointer<Wave> wave,
     int initFrame,
     int finalFrame,
   ) => _wasm.WaveCrop(
@@ -234,7 +234,7 @@ class RaylibAudioFlatWeb extends RaylibAudioFlat<Raylib> {
   
   @override
   void WaveFormat(
-    StructPointer<WaveD> wave,
+    StructPointer<Wave> wave,
     int sampleRate,
     int sampleSize,
     int channels,
@@ -247,9 +247,9 @@ class RaylibAudioFlatWeb extends RaylibAudioFlat<Raylib> {
   
   @override
   WasmMemoryPointer<RFloat32> LoadWaveSamples(
-    WaveD wave,
+    Wave wave,
   ) => _wasm.LoadWaveSamples(
-    $.Wave$.Ref1(wave).toJS,
+    Wave$.Ref1(wave).toJS,
   );
   
   @override
@@ -260,9 +260,9 @@ class RaylibAudioFlatWeb extends RaylibAudioFlat<Raylib> {
   );
   
   @override
-  MusicD LoadMusicStream(
+  Music LoadMusicStream(
     MemoryPointer<RChar> fileName,
-  ) => $.Music$.RefCapture(
+  ) => Music$.RefCapture(
     RaylibCaptureIds.LoadMusicStream,
     (p) => _wasm.LoadMusicStream(
       p.toJS,
@@ -271,11 +271,11 @@ class RaylibAudioFlatWeb extends RaylibAudioFlat<Raylib> {
   );
   
   @override
-  MusicD LoadMusicStreamFromMemory(
+  Music LoadMusicStreamFromMemory(
     MemoryPointer<RChar> fileType,
     MemoryPointer<RUnsignedChar> data,
     int dataSize,
-  ) => $.Music$.RefCapture(
+  ) => Music$.RefCapture(
     RaylibCaptureIds.LoadMusicStreamFromMemory,
     (p) => _wasm.LoadMusicStreamFromMemory(
       p.toJS,
@@ -287,116 +287,116 @@ class RaylibAudioFlatWeb extends RaylibAudioFlat<Raylib> {
   
   @override
   bool IsMusicValid(
-    MusicD music,
+    Music music,
   ) => _wasm.IsMusicValid(
-    $.Music$.Ref1(music).toJS,
+    Music$.Ref1(music).toJS,
   );
   
   @override
   void UnloadMusicStream(
-    MusicD music,
+    Music music,
   ) => _wasm.UnloadMusicStream(
-    $.Music$.Ref1(music).toJS,
+    Music$.Ref1(music).toJS,
   );
   
   @override
   void PlayMusicStream(
-    MusicD music,
+    Music music,
   ) => _wasm.PlayMusicStream(
-    $.Music$.Ref1(music).toJS,
+    Music$.Ref1(music).toJS,
   );
   
   @override
   bool IsMusicStreamPlaying(
-    MusicD music,
+    Music music,
   ) => _wasm.IsMusicStreamPlaying(
-    $.Music$.Ref1(music).toJS,
+    Music$.Ref1(music).toJS,
   );
   
   @override
   void UpdateMusicStream(
-    MusicD music,
+    Music music,
   ) => _wasm.UpdateMusicStream(
-    $.Music$.Ref1(music).toJS,
+    Music$.Ref1(music).toJS,
   );
   
   @override
   void StopMusicStream(
-    MusicD music,
+    Music music,
   ) => _wasm.StopMusicStream(
-    $.Music$.Ref1(music).toJS,
+    Music$.Ref1(music).toJS,
   );
   
   @override
   void PauseMusicStream(
-    MusicD music,
+    Music music,
   ) => _wasm.PauseMusicStream(
-    $.Music$.Ref1(music).toJS,
+    Music$.Ref1(music).toJS,
   );
   
   @override
   void ResumeMusicStream(
-    MusicD music,
+    Music music,
   ) => _wasm.ResumeMusicStream(
-    $.Music$.Ref1(music).toJS,
+    Music$.Ref1(music).toJS,
   );
   
   @override
   void SeekMusicStream(
-    MusicD music,
+    Music music,
     double position,
   ) => _wasm.SeekMusicStream(
-    $.Music$.Ref1(music).toJS,
+    Music$.Ref1(music).toJS,
     position.toJS,
   );
   
   @override
   void SetMusicVolume(
-    MusicD music,
+    Music music,
     double volume,
   ) => _wasm.SetMusicVolume(
-    $.Music$.Ref1(music).toJS,
+    Music$.Ref1(music).toJS,
     volume.toJS,
   );
   
   @override
   void SetMusicPitch(
-    MusicD music,
+    Music music,
     double pitch,
   ) => _wasm.SetMusicPitch(
-    $.Music$.Ref1(music).toJS,
+    Music$.Ref1(music).toJS,
     pitch.toJS,
   );
   
   @override
   void SetMusicPan(
-    MusicD music,
+    Music music,
     double pan,
   ) => _wasm.SetMusicPan(
-    $.Music$.Ref1(music).toJS,
+    Music$.Ref1(music).toJS,
     pan.toJS,
   );
   
   @override
   double GetMusicTimeLength(
-    MusicD music,
+    Music music,
   ) => _wasm.GetMusicTimeLength(
-    $.Music$.Ref1(music).toJS,
+    Music$.Ref1(music).toJS,
   );
   
   @override
   double GetMusicTimePlayed(
-    MusicD music,
+    Music music,
   ) => _wasm.GetMusicTimePlayed(
-    $.Music$.Ref1(music).toJS,
+    Music$.Ref1(music).toJS,
   );
   
   @override
-  AudioStreamD LoadAudioStream(
+  AudioStream LoadAudioStream(
     int sampleRate,
     int sampleSize,
     int channels
-  ) => $.AudioStream$.RefCapture(
+  ) => AudioStream$.RefCapture(
     RaylibCaptureIds.LoadAudioStream,
     (p) => _wasm.LoadAudioStream(
       p.toJS,
@@ -408,95 +408,95 @@ class RaylibAudioFlatWeb extends RaylibAudioFlat<Raylib> {
   
   @override
   bool IsAudioStreamValid(
-    AudioStreamD stream,
+    AudioStream stream,
   ) => _wasm.IsAudioStreamValid(
-    $.AudioStream$.Ref1(stream).toJS,
+    AudioStream$.Ref1(stream).toJS,
   );
   
   @override
   void UnloadAudioStream(
-    AudioStreamD stream,
+    AudioStream stream,
   ) => _wasm.IsAudioStreamValid(
-    $.AudioStream$.Ref1(stream).toJS,
+    AudioStream$.Ref1(stream).toJS,
   );
   
   @override
   void UpdateAudioStream(
-    AudioStreamD stream,
+    AudioStream stream,
     MemoryPointer<RVoid> data,
     int frameCount,
   ) => _wasm.UpdateAudioStream(
-    $.AudioStream$.Ref1(stream).toJS,
+    AudioStream$.Ref1(stream).toJS,
     data.toJS,
     frameCount.toJS,
   );
   
   @override
   bool IsAudioStreamProcessed(
-    AudioStreamD stream,
+    AudioStream stream,
   ) => _wasm.IsAudioStreamProcessed(
-    $.AudioStream$.Ref1(stream).toJS,
+    AudioStream$.Ref1(stream).toJS,
   );
   
   @override
   void PlayAudioStream(
-    AudioStreamD stream,
+    AudioStream stream,
   ) => _wasm.PlayAudioStream(
-    $.AudioStream$.Ref1(stream).toJS,
+    AudioStream$.Ref1(stream).toJS,
   );
   
   @override
   void PauseAudioStream(
-    AudioStreamD stream,
+    AudioStream stream,
   ) => _wasm.PauseAudioStream(
-    $.AudioStream$.Ref1(stream).toJS,
+    AudioStream$.Ref1(stream).toJS,
   );
   
   @override
   void ResumeAudioStream(
-    AudioStreamD stream,
+    AudioStream stream,
   ) => _wasm.ResumeAudioStream(
-    $.AudioStream$.Ref1(stream).toJS,
+    AudioStream$.Ref1(stream).toJS,
   );
   
   @override
   bool IsAudioStreamPlaying(
-    AudioStreamD stream,
+    AudioStream stream,
   ) => _wasm.IsAudioStreamPlaying(
-    $.AudioStream$.Ref1(stream).toJS,
+    AudioStream$.Ref1(stream).toJS,
   );
   
   @override
   void StopAudioStream(
-    AudioStreamD stream,
+    AudioStream stream,
   ) => _wasm.StopAudioStream(
-    $.AudioStream$.Ref1(stream).toJS,
+    AudioStream$.Ref1(stream).toJS,
   );
   
   @override
   void SetAudioStreamVolume(
-    AudioStreamD stream,
+    AudioStream stream,
     double volume,
   ) => _wasm.SetAudioStreamVolume(
-    $.AudioStream$.Ref1(stream).toJS,
+    AudioStream$.Ref1(stream).toJS,
     volume.toJS,
   );
   
   @override
   void SetAudioStreamPitch(
-    AudioStreamD stream,
+    AudioStream stream,
     double pitch,
   ) => _wasm.SetAudioStreamPitch(
-    $.AudioStream$.Ref1(stream).toJS,
+    AudioStream$.Ref1(stream).toJS,
     pitch.toJS,
   );
   
   @override
   void SetAudioStreamPan(
-    AudioStreamD stream,
+    AudioStream stream,
     double pan,
   ) => _wasm.SetAudioStreamPan(
-    $.AudioStream$.Ref1(stream).toJS,
+    AudioStream$.Ref1(stream).toJS,
     pan.toJS,
   );
   
@@ -509,28 +509,28 @@ class RaylibAudioFlatWeb extends RaylibAudioFlat<Raylib> {
   
   @override
   void SetAudioStreamCallback(
-    AudioStreamD stream,
+    AudioStream stream,
     MemoryPointer<RFunction> callback, // AudioCallback
   ) => _wasm.SetAudioStreamCallback(
-    $.AudioStream$.Ref1(stream).toJS,
+    AudioStream$.Ref1(stream).toJS,
     callback.toJS,
   );
   
   @override
   void AttachAudioStreamProcessor(
-    AudioStreamD stream,
+    AudioStream stream,
     MemoryPointer<RFunction> processor, // AudioCallback
   ) => _wasm.AttachAudioStreamProcessor(
-    $.AudioStream$.Ref1(stream).toJS,
+    AudioStream$.Ref1(stream).toJS,
     processor.toJS,
   );
   
   @override
   void DetachAudioStreamProcessor(
-    AudioStreamD stream,
+    AudioStream stream,
     MemoryPointer<RFunction> processor, // AudioCallback
   ) => _wasm.DetachAudioStreamProcessor(
-    $.AudioStream$.Ref1(stream).toJS,
+    AudioStream$.Ref1(stream).toJS,
     processor.toJS,
   );
   

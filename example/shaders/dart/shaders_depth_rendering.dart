@@ -12,7 +12,7 @@ void main() => Raylib((rl) {
   SetTargetFPS(60);
   DisableCursor();
 
-  final camera = Camera3DD(
+  final camera = Camera3D(
     position: .vec3(4.0, 1.0, 5.0),
     target: .vec3(0.0, 0.0, 0.0),
     up: .vec3(0, 1, 0),
@@ -64,9 +64,9 @@ void main() => Raylib((rl) {
   });
 });
 
-RenderTextureD LoadRenderTextureDepthTex(int width, int height)
+RenderTexture LoadRenderTextureDepthTex(int width, int height)
 {
-  final RenderTextureD target = .new();
+  final RenderTexture target = .new();
 
   target.id = rlLoadFramebuffer();
 
@@ -118,7 +118,7 @@ RenderTextureD LoadRenderTextureDepthTex(int width, int height)
   return target;
 }
 
-void UnloadRenderTextureDepthTex(RenderTextureD target)
+void UnloadRenderTextureDepthTex(RenderTexture target)
 {
   if (target.id > 0)
   {

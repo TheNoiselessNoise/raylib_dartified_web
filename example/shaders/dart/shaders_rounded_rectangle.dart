@@ -8,9 +8,9 @@ const int screenWidth = 800;
 const int screenHeight = 450;
 
 class RoundedRectangle {
-  Vector4D cornerRadius = .zero();
+  Vector4 cornerRadius = .zero();
   double shadowRadius = 0;
-  Vector2D shadowOffset = .zero();
+  Vector2 shadowOffset = .zero();
   double shadowScale = 0;
   double borderThickness = 0;
   int rectangleLoc = 0;
@@ -45,9 +45,9 @@ void main() => Raylib((rl) {
   // Update shader uniforms
   UpdateRoundedRectangle(roundedRectangle, shader);
 
-  final ColorD rectangleColor = .BLUE;
-  final ColorD shadowColor = .DARKBLUE;
-  final ColorD borderColor = .SKYBLUE;
+  final Color rectangleColor = .BLUE;
+  final Color shadowColor = .DARKBLUE;
+  final Color borderColor = .SKYBLUE;
 
   rl.setMainLoop(() {
     BeginDrawing();
@@ -55,7 +55,7 @@ void main() => Raylib((rl) {
       ClearBackground(.RAYWHITE);
 
       // Draw rectangle box with rounded corners using shader
-      RectangleD rec = .rect(50, 70, 110, 60);
+      Rectangle rec = .rect(50, 70, 110, 60);
       DrawRectangleLines(rec.x - 20, rec.y - 20, rec.width + 40, rec.height + 40, .DARKGRAY);
       DrawText("Rounded rectangle", rec.x - 20, rec.y - 35, 10, .DARKGRAY);
 
@@ -129,7 +129,7 @@ void main() => Raylib((rl) {
   });
 });
 
-RoundedRectangle CreateRoundedRectangle(Vector4D cornerRadius, double shadowRadius, Vector2D shadowOffset, double shadowScale, double borderThickness, ShaderD shader)
+RoundedRectangle CreateRoundedRectangle(Vector4 cornerRadius, double shadowRadius, Vector2 shadowOffset, double shadowScale, double borderThickness, Shader shader)
 {
   final RoundedRectangle rec = .new();
   rec.cornerRadius = cornerRadius;
@@ -153,7 +153,7 @@ RoundedRectangle CreateRoundedRectangle(Vector4D cornerRadius, double shadowRadi
   return rec;
 }
 
-void UpdateRoundedRectangle(RoundedRectangle rec, ShaderD shader)
+void UpdateRoundedRectangle(RoundedRectangle rec, Shader shader)
 {
   SetShaderValue(shader, rec.radiusLoc, rec.cornerRadius.toArray(), .SHADER_UNIFORM_VEC4);
   SetShaderValue(shader, rec.shadowRadiusLoc, [rec.shadowRadius], .SHADER_UNIFORM_FLOAT);

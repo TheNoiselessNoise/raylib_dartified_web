@@ -8,13 +8,13 @@ const int screenHeight = 450;
 const int MAX_BALLS = 5000;
 
 class Ball {
-  Vector2D pos;
-  Vector2D vel;
-  Vector2D ppos;
+  Vector2 pos;
+  Vector2 vel;
+  Vector2 ppos;
   double radius;
   double friction;
   double elasticity;
-  ColorD color;
+  Color color;
   bool grabbed;
 
   Ball({
@@ -58,7 +58,7 @@ void main() => Raylib((rl) {
   ];
 
   Ball? grabbedBall;
-  Vector2D pressOffset = .zero();
+  Vector2 pressOffset = .zero();
   double gravity = 100;
 
   rl.setMainLoop(() {

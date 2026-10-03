@@ -103,7 +103,7 @@ void main() => Raylib((rl) {
       zoom *= IsMouseButtonDown(.MOUSE_BUTTON_LEFT)? zoomSpeed : 1.0/zoomSpeed;
 
       final mousePos = GetMousePosition();
-      final Vector2D offsetVelocity = .vec2(
+      final Vector2 offsetVelocity = .vec2(
         (mousePos.x/screenWidth - 0.5)*offsetSpeedMul/zoom,
         (mousePos.y/screenHeight - 0.5)*offsetSpeedMul/zoom,
       );

@@ -12,7 +12,7 @@ void main() => Raylib((rl) {
   InitWindow(screenWidth, screenHeight, "models_point_rendering");
   SetTargetFPS(60);
 
-  final camera = Camera3DD(
+  final camera = Camera3D(
     position: .vec3(3, 3, 3),
     target: .vec3(0, 0, 0),
     up: .vec3(0, 1, 0),
@@ -20,12 +20,12 @@ void main() => Raylib((rl) {
     projection: .CAMERA_PERSPECTIVE,
   );
 
-  final Vector3D position = .zero();
+  final Vector3 position = .zero();
   bool useDrawModelPoints = true;
   bool numPointsChanged = false;
   int numPoints = 1000;
   
-  MeshD mesh = GenMeshPoints(numPoints);
+  Mesh mesh = GenMeshPoints(numPoints);
   var model = LoadModelFromMesh(mesh);
 
   rl.setMainLoop(() {
@@ -118,9 +118,9 @@ void main() => Raylib((rl) {
   });
 });
 
-MeshD GenMeshPoints(int numPoints)
+Mesh GenMeshPoints(int numPoints)
 {
-  final MeshD sourceMesh = .new();
+  final Mesh sourceMesh = .new();
   final vertices = <double>[];
   final colors = <int>[];
 
@@ -151,7 +151,7 @@ MeshD GenMeshPoints(int numPoints)
   return sourceMesh;
 }
 
-void DrawModelPoints(ModelD model, Vector3D position, double scale, ColorD tint)
+void DrawModelPoints(Model model, Vector3 position, double scale, Color tint)
 {
   rlEnablePointMode();
   rlDisableBackfaceCulling();

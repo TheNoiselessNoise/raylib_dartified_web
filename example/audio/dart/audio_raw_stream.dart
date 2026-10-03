@@ -42,11 +42,11 @@ void main() => Raylib((rl) {
 
   PlayAudioStream(stream);
 
-  Vector2D mousePosition = .vec2(-100.0, -100.0);
+  Vector2 mousePosition = .vec2(-100.0, -100.0);
 
   int waveLength = 1;
 
-  final Vector2D position = .vec2(0, 0);
+  final Vector2 position = .vec2(0, 0);
 
   rl.setMainLoop(() {
     mousePosition = GetMousePosition();

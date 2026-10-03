@@ -14,8 +14,8 @@ void main() => Raylib((rl) {
   double speed = 10.0/9.0;
   bool drawLines = true;
 
-  final stars = <Vector3D>[];
-  List<Vector2D> starsScreenPos = .generate(STAR_COUNT, (_) => .zero());
+  final stars = <Vector3>[];
+  List<Vector2> starsScreenPos = .generate(STAR_COUNT, (_) => .zero());
 
   for (int i = 0; i < STAR_COUNT; i++) {
     stars.add(.vec3(
@@ -56,7 +56,7 @@ void main() => Raylib((rl) {
 
       for (int i = 0; i < STAR_COUNT; i++)
       {
-        final Vector2D starScreenPos = starsScreenPos[i].copy();
+        final Vector2 starScreenPos = starsScreenPos[i].copy();
 
         if (drawLines)
         {
@@ -64,7 +64,7 @@ void main() => Raylib((rl) {
 
           if ((t - stars[i].z) > 1e-3)
           {
-            final Vector2D startPos = .vec2(
+            final Vector2 startPos = .vec2(
               screenWidth*0.5 + stars[i].x/t,
               screenHeight*0.5 + stars[i].y/t,
             );

@@ -16,7 +16,7 @@ void main() => Raylib((rl) {
 
   final sound = LoadSound("../resources/coin.wav");
 
-  final camera = Camera3DD(
+  final camera = Camera3D(
     position: .vec3(0, 5, 5),
     target: .vec3(0, 0, 0),
     up: .vec3(0, 1, 0),
@@ -29,7 +29,7 @@ void main() => Raylib((rl) {
 
     final th = GetTime().toDouble();
 
-    final Vector3D spherePos = .vec3(
+    final Vector3 spherePos = .vec3(
       5.0*math.cos(th),
       0.0,
       5.0*math.sin(th)
@@ -52,7 +52,7 @@ void main() => Raylib((rl) {
   });
 });
 
-void SetSoundPosition(Camera3DD listener, SoundD sound, Vector3D position, double maxDist)
+void SetSoundPosition(Camera3D listener, Sound sound, Vector3 position, double maxDist)
 {
   // Calculate direction vector and distance between listener and sound source
   final direction = position.sub(listener.position);

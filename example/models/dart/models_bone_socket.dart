@@ -15,7 +15,7 @@ void main() => Raylib((rl) {
   SetTargetFPS(60);
   DisableCursor();
 
-  final camera = Camera3DD(
+  final camera = Camera3D(
     position: .vec3(5.0, 5.0, 5.0),
     target: .vec3(0, 2, 0),
     up: .vec3(0, 1, 0),
@@ -24,7 +24,7 @@ void main() => Raylib((rl) {
   );
 
   final characterModel = LoadModel("../resources/models/gltf/greenman.glb");
-  final equipModel = <ModelD>[
+  final equipModel = <Model>[
     LoadModel("../resources/models/gltf/greenman_hat.glb"),
     LoadModel("../resources/models/gltf/greenman_sword.glb"),
     LoadModel("../resources/models/gltf/greenman_shield.glb"),
@@ -58,7 +58,7 @@ void main() => Raylib((rl) {
     }
   }
 
-  final Vector3D position = .zero();
+  final Vector3 position = .zero();
   int angle = 0;
 
   rl.setMainLoop(() {
@@ -83,7 +83,7 @@ void main() => Raylib((rl) {
       ClearBackground(.RAYWHITE);
 
       BeginMode3D(camera);
-        final QuaternionD characterRotate = .fromAxisAngle(.vec3(0.0, 1.0, 0.0), angle*rl.DEG2RAD);
+        final Quaternion characterRotate = .fromAxisAngle(.vec3(0.0, 1.0, 0.0), angle*rl.DEG2RAD);
         
         characterModel.transform = .fromQuaternion(characterRotate)
           .mul(.translateVector3(position));
@@ -100,7 +100,7 @@ void main() => Raylib((rl) {
           final outRotation = transform.rotation;
           
           final rotate = outRotation.mul(inRotation.invert());
-          final MatrixD matrixTransform = .fromQuaternion(rotate)
+          final Matrix matrixTransform = .fromQuaternion(rotate)
             .mul(.translateVector3(transform.translation))
             .mul(characterModel.transform);
           

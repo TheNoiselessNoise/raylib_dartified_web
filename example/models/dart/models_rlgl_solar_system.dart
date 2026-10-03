@@ -10,7 +10,7 @@ void main() => Raylib((rl) {
   InitWindow(screenWidth, screenHeight, "models_rlgl_solar_system");
   SetTargetFPS(60);
 
-  final camera = Camera3DD(
+  final camera = Camera3D(
     position: .vec3(16, 16, 16),
     target: .vec3(0, 0, 0),
     up: .vec3(0, 1, 0),
@@ -89,7 +89,7 @@ void main() => Raylib((rl) {
   });
 });
 
-void DrawSphereBasic(ColorD color) {
+void DrawSphereBasic(Color color) {
   int rings = 16;
   int slices = 16;
 

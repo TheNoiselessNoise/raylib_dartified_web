@@ -30,8 +30,8 @@ void main() => Raylib((rl) {
   SetActionsDefault();
   bool releaseAction = false;
 
-  final Vector2D position = .vec2(400.0, 200.0);
-  final Vector2D size = .vec2(40.0, 40.0);
+  final Vector2 position = .vec2(400.0, 200.0);
+  final Vector2 size = .vec2(40.0, 40.0);
 
   rl.setMainLoop(() {
     gamepadIndex = 0;

@@ -6,9 +6,9 @@ const int screenWidth = 800;
 const int screenHeight = 600;
 
 void main() => Raylib((rl) {
-  Vector2D mousePosition = .zero();
-  Vector2D windowPosition = .vec2(500, 200);
-  Vector2D panOffset = .zero();
+  Vector2 mousePosition = .zero();
+  Vector2 windowPosition = .vec2(500, 200);
+  Vector2 panOffset = .zero();
   bool dragWindow = false;
 
   SetConfigFlags([.FLAG_WINDOW_UNDECORATED]);

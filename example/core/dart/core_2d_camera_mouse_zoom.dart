@@ -10,7 +10,7 @@ void main() => Raylib((rl) {
   InitWindow(screenWidth, screenHeight, "core_2d_camera_mouse_zoom");
   SetTargetFPS(60);
 
-  final camera = Camera2DD(zoom: 1);
+  final camera = Camera2D(zoom: 1);
 
   int zoomMode = 0;
 

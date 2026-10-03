@@ -10,7 +10,7 @@ void main() => Raylib((rl) {
   SetTargetFPS(60);
   DisableCursor();
 
-  final camera = Camera3DD(
+  final camera = Camera3D(
     position: .vec3(5, 5, 5),
     target: .vec3(0, 0, 0),
     up: .vec3(0, 1, 0),
@@ -22,7 +22,7 @@ void main() => Raylib((rl) {
   final texture = LoadTextureFromImage(checked);
   UnloadImage(checked);
 
-  final models = <String, ModelD>{
+  final models = <String, Model>{
     "PLANE": LoadModelFromMesh(GenMeshPlane(2, 2, 4, 3)),
     "CUBE": LoadModelFromMesh(GenMeshCube(2.0, 1.0, 2.0)),
     "SPHERE": LoadModelFromMesh(GenMeshSphere(2, 32, 32)),
@@ -50,7 +50,7 @@ void main() => Raylib((rl) {
     model.materials[0].maps[rl.MATERIAL_MAP_DIFFUSE.value].texture = texture;
   }
 
-  final Vector3D position = .zero();
+  final Vector3 position = .zero();
 
   int currentModel = models.length - 1;
 
@@ -96,8 +96,8 @@ void main() => Raylib((rl) {
   });
 });
 
-MeshD GenMeshCustom() {
-  final mesh = MeshD();
+Mesh GenMeshCustom() {
+  final mesh = Mesh();
 
   mesh.triangleCount = 1;
   mesh.vertexCount = mesh.triangleCount*3;

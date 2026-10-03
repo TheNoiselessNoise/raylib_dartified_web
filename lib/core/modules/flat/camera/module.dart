@@ -7,9 +7,9 @@ class RaylibCameraFlatWeb extends RaylibCameraFlat<Raylib> {
   RaylibCamera get _wasm => rl.module();
 
   @override
-  Vector3D GetCameraForward(
-    StructPointer<Camera3DD> camera,
-  ) => $.Vector3$.Extract1(
+  Vector3 GetCameraForward(
+    StructPointer<Camera3D> camera,
+  ) => Vector3$.Extract1(
     (p) => _wasm.GetCameraForward(
       p.toJS,
       camera.toJS,
@@ -17,9 +17,9 @@ class RaylibCameraFlatWeb extends RaylibCameraFlat<Raylib> {
   );
 
   @override
-  Vector3D GetCameraUp(
-    StructPointer<Camera3DD> camera,
-  ) => $.Vector3$.Extract1(
+  Vector3 GetCameraUp(
+    StructPointer<Camera3D> camera,
+  ) => Vector3$.Extract1(
     (p) => _wasm.GetCameraUp(
       p.toJS,
       camera.toJS,
@@ -27,9 +27,9 @@ class RaylibCameraFlatWeb extends RaylibCameraFlat<Raylib> {
   );
 
   @override
-  Vector3D GetCameraRight(
-    StructPointer<Camera3DD> camera,
-  ) => $.Vector3$.Extract1(
+  Vector3 GetCameraRight(
+    StructPointer<Camera3D> camera,
+  ) => Vector3$.Extract1(
     (p) => _wasm.GetCameraRight(
       p.toJS,
       camera.toJS,
@@ -38,7 +38,7 @@ class RaylibCameraFlatWeb extends RaylibCameraFlat<Raylib> {
 
   @override
   void CameraMoveForward(
-    StructPointer<Camera3DD> camera,
+    StructPointer<Camera3D> camera,
     double distance,
     bool moveInWorldPlane,
   ) => _wasm.CameraMoveForward(
@@ -49,7 +49,7 @@ class RaylibCameraFlatWeb extends RaylibCameraFlat<Raylib> {
 
   @override
   void CameraMoveUp(
-    StructPointer<Camera3DD> camera,
+    StructPointer<Camera3D> camera,
     double distance,
   ) => _wasm.CameraMoveUp(
     camera.toJS,
@@ -58,7 +58,7 @@ class RaylibCameraFlatWeb extends RaylibCameraFlat<Raylib> {
 
   @override
   void CameraMoveRight(
-    StructPointer<Camera3DD> camera,
+    StructPointer<Camera3D> camera,
     double distance,
     bool moveInWorldPlane,
   ) => _wasm.CameraMoveRight(
@@ -69,7 +69,7 @@ class RaylibCameraFlatWeb extends RaylibCameraFlat<Raylib> {
 
   @override
   void CameraMoveToTarget(
-    StructPointer<Camera3DD> camera,
+    StructPointer<Camera3D> camera,
     double delta,
   ) => _wasm.CameraMoveToTarget(
     camera.toJS,
@@ -78,7 +78,7 @@ class RaylibCameraFlatWeb extends RaylibCameraFlat<Raylib> {
 
   @override
   void CameraYaw(
-    StructPointer<Camera3DD> camera,
+    StructPointer<Camera3D> camera,
     double angle,
     bool rotateAroundTarget,
   ) => _wasm.CameraYaw(
@@ -89,7 +89,7 @@ class RaylibCameraFlatWeb extends RaylibCameraFlat<Raylib> {
 
   @override
   void CameraPitch(
-    StructPointer<Camera3DD> camera,
+    StructPointer<Camera3D> camera,
     double angle,
     bool lockView,
     bool rotateAroundTarget,
@@ -104,7 +104,7 @@ class RaylibCameraFlatWeb extends RaylibCameraFlat<Raylib> {
 
   @override
   void CameraRoll(
-    StructPointer<Camera3DD> camera,
+    StructPointer<Camera3D> camera,
     double angle,
   ) => _wasm.CameraRoll(
     camera.toJS,
@@ -112,9 +112,9 @@ class RaylibCameraFlatWeb extends RaylibCameraFlat<Raylib> {
   );
 
   @override
-  MatrixD GetCameraViewMatrix(
-    StructPointer<Camera3DD> camera,
-  ) => $.Matrix$.Extract1(
+  Matrix GetCameraViewMatrix(
+    StructPointer<Camera3D> camera,
+  ) => Matrix$.Extract1(
     (p) => _wasm.GetCameraViewMatrix(
       p.toJS,
       camera.toJS,
@@ -122,10 +122,10 @@ class RaylibCameraFlatWeb extends RaylibCameraFlat<Raylib> {
   );
 
   @override
-  MatrixD GetCameraProjectionMatrix(
-    StructPointer<Camera3DD> camera,
+  Matrix GetCameraProjectionMatrix(
+    StructPointer<Camera3D> camera,
     double aspect,
-  ) => $.Matrix$.Extract1(
+  ) => Matrix$.Extract1(
     (p) => _wasm.GetCameraProjectionMatrix(
       p.toJS,
       camera.toJS,

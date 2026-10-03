@@ -12,7 +12,7 @@ void main() => Raylib((rl) {
   InitWindow(screenWidth, screenHeight, "shaders_normalmap_rendering");
   SetTargetFPS(60);
 
-  final camera = Camera3DD(
+  final camera = Camera3D(
     position: .vec3(0.0, 2.0, -4.0),
     target: .vec3(0.0, 0.0, 0.0),
     up: .vec3(0.0, 1.0, 0.0),
@@ -32,7 +32,7 @@ void main() => Raylib((rl) {
   // no need to get the location again if using that uniform name
   // shader.locs[ShaderLocationIndex.SHADER_LOC_MATRIX_MODEL.value] = GetShaderLocation(shader, "matModel");
 
-  Vector3D lightPosition = .vec3(0.0, 1.0, 0.0);
+  Vector3 lightPosition = .vec3(0.0, 1.0, 0.0);
   int lightPosLoc = GetShaderLocation(shader, "lightPos");
 
   final plane = LoadModel("../resources/models/plane.glb");
@@ -57,7 +57,7 @@ void main() => Raylib((rl) {
   int useNormalMapLoc = GetShaderLocation(shader, "useNormalMap");
 
   rl.setMainLoop(() {
-    Vector3D direction = .zero();
+    Vector3 direction = .zero();
 
     if (IsKeyDown(.KEY_W))
       direction = direction.add(.vec3(0.0, 0.0, 1.0));
@@ -102,7 +102,7 @@ void main() => Raylib((rl) {
 
       EndMode3D();
 
-      final ColorD textColor = useNormalMap ? .DARKGREEN : .RED;
+      final Color textColor = useNormalMap ? .DARKGREEN : .RED;
       final toggleStr = useNormalMap ? "On" : "Off";
       DrawText("Use key [N] to toggle normal map: $toggleStr", 10, 10, 10, textColor);
 

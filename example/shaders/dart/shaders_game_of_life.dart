@@ -13,7 +13,7 @@ const int MODE_DRAW = 2;
 
 class PresetPattern {
   String name;
-  Vector2D position;
+  Vector2 position;
 
   PresetPattern(this.name, double x, double y) : position = .vec2(x, y);
 }
@@ -31,9 +31,9 @@ void main() => Raylib((rl) {
 
   const int randomTiles = 8;
 
-  final RectangleD worldRectSource = .rect(0, 0, worldWidth, -worldHeight);
-  final RectangleD worldRectDest = .rect(0, 0, worldWidth, worldHeight);
-  final RectangleD textureOnScreen = .rect(0, 0, windowWidth, windowHeight);
+  final Rectangle worldRectSource = .rect(0, 0, worldWidth, -worldHeight);
+  final Rectangle worldRectDest = .rect(0, 0, worldWidth, worldHeight);
+  final Rectangle textureOnScreen = .rect(0, 0, windowWidth, windowHeight);
 
   final presetPatterns = <PresetPattern>[
     .new("Glider", 0.5, 0.5), .new("R-pentomino", 0.5, 0.5),
@@ -62,7 +62,7 @@ void main() => Raylib((rl) {
   );
 
   int resolutionLoc = GetShaderLocation(shdrGameOfLife, "resolution");
-  final Vector2D resolution = .vec2(worldWidth, worldHeight);
+  final Vector2 resolution = .vec2(worldWidth, worldHeight);
   SetShaderValue(
     shdrGameOfLife, resolutionLoc, resolution.toArray(),
     .SHADER_UNIFORM_VEC2,
@@ -89,11 +89,11 @@ void main() => Raylib((rl) {
   var currentWorld = world2;
   var previousWorld = world1;
 
-  ImageD? imageToDraw;
-  late ImageD pattern;
+  Image? imageToDraw;
+  late Image pattern;
 
   int firstColor = -1;
-  Vector2D prevMousePos = .zero();
+  Vector2 prevMousePos = .zero();
 
   void FreeImageToDraw() {
     if (imageToDraw != null) {

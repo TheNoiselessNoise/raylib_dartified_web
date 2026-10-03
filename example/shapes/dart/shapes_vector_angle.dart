@@ -9,9 +9,9 @@ void main() => Raylib((rl) {
   InitWindow(screenWidth, screenHeight, "shapes_vector_angle");
   SetTargetFPS(60);
 
-  Vector2D v0 = .vec2(screenWidth/2.0, screenHeight/2.0);
-  Vector2D v1 = v0.add(.vec2(100.0, 80.0));
-  Vector2D v2 = .zero();
+  Vector2 v0 = .vec2(screenWidth/2.0, screenHeight/2.0);
+  Vector2 v1 = v0.add(.vec2(100.0, 80.0));
+  Vector2 v2 = .zero();
 
   double angle = 0.0;
   bool angleMode = false;
@@ -31,8 +31,8 @@ void main() => Raylib((rl) {
 
     if (!angleMode)
     {
-      Vector2D v1Normal = v1.sub(v0).normalize();
-      Vector2D v2Normal = v2.sub(v0).normalize();
+      Vector2 v1Normal = v1.sub(v0).normalize();
+      Vector2 v2Normal = v2.sub(v0).normalize();
 
       angle = v1Normal.angle(v2Normal)*rl.RAD2DEG;
     }

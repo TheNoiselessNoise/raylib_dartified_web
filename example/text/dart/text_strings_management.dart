@@ -11,14 +11,14 @@ const int FONT_SIZE = 30;
 
 class TextParticle {
   String text = '';
-  RectangleD rect = .zero();
-  Vector2D vel = .zero();
-  Vector2D ppos = .zero();
+  Rectangle rect = .zero();
+  Vector2 vel = .zero();
+  Vector2 ppos = .zero();
   double padding = 0;
   double borderWidth = 0;
   double friction = 0;
   double elasticity = 0;
-  ColorD color = .zero();
+  Color color = .zero();
   bool grabbed = false;
 }
 
@@ -28,7 +28,7 @@ void main() => Raylib((rl) {
 
   final List<TextParticle> textParticles = [];
   TextParticle? grabbedTextParticle;
-  final Vector2D pressOffset = .zero();
+  final Vector2 pressOffset = .zero();
 
   PrepareFirstTextParticle("raylib => fun videogames programming!", textParticles);
 
@@ -208,7 +208,7 @@ void PrepareFirstTextParticle(String text, List<TextParticle> tps)
   );
 }
 
-void CreateTextParticle(List<TextParticle> tps, String text, double x, double y, ColorD color)
+void CreateTextParticle(List<TextParticle> tps, String text, double x, double y, Color color)
 {
   final TextParticle tp = .new();
 

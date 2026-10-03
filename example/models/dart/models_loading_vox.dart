@@ -11,7 +11,7 @@ void main() => Raylib((rl) {
   InitWindow(screenWidth, screenHeight, "models_loading_vox");
   SetTargetFPS(60);
 
-  final camera = Camera3DD(
+  final camera = Camera3D(
     position: .vec3(10, 10, 10),
     target: .vec3(0, 0, 0),
     up: .vec3(0, 1, 0),
@@ -27,7 +27,7 @@ void main() => Raylib((rl) {
   ];
   final int MAX_VOX_FILES = voxFileNames.length;
 
-  final models = <ModelD>[];
+  final models = <Model>[];
 
 	for (int i = 0; i < MAX_VOX_FILES; i++)
 	{
@@ -41,7 +41,7 @@ void main() => Raylib((rl) {
 
 		final bb = GetModelBoundingBox(models[i]);
 
-    final Vector3D center = .new(
+    final Vector3 center = .new(
       x: bb.min.x + (((bb.max.x - bb.min.x) / 2)),
 		  z: bb.min.z + (((bb.max.z - bb.min.z) / 2)),
     );
@@ -74,7 +74,7 @@ void main() => Raylib((rl) {
 		}
 	}
 
-  final lights = <LightD>[
+  final lights = <Light>[
     CreateLight(.LIGHT_POINT,
       .vec3(-20, 20, -20), .zero(), .GRAY, shader
     ),
@@ -89,8 +89,8 @@ void main() => Raylib((rl) {
     ),
   ];
 
-  final Vector3D modelpos = .zero();
-	final Vector3D camerarot = .zero();
+  final Vector3 modelpos = .zero();
+	final Vector3 camerarot = .zero();
 
   rl.setMainLoop(() {
     if (IsMouseButtonDown(.MOUSE_BUTTON_MIDDLE))

@@ -10,21 +10,21 @@ void main() => Raylib((rl) {
   InitWindow(screenWidth, screenHeight, "shapes_following_eyes");
   SetTargetFPS(60);
 
-  final Vector2D scleraLeftPosition = .vec2(
+  final Vector2 scleraLeftPosition = .vec2(
     GetScreenWidth()/2.0 - 100.0,
     GetScreenHeight()/2.0
   );
-  final Vector2D scleraRightPosition = .vec2(
+  final Vector2 scleraRightPosition = .vec2(
     GetScreenWidth()/2.0 + 100.0,
     GetScreenHeight()/2.0
   );
   double scleraRadius = 80;
 
-  Vector2D irisLeftPosition = .vec2(
+  Vector2 irisLeftPosition = .vec2(
     GetScreenWidth()/2.0 - 100.0,
     GetScreenHeight()/2.0
   );
-  Vector2D irisRightPosition = .vec2(
+  Vector2 irisRightPosition = .vec2(
     GetScreenWidth()/2.0 + 100.0,
     GetScreenHeight()/2.0
   );

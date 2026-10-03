@@ -10,7 +10,7 @@ void main() => Raylib((rl) {
   InitWindow(screenWidth, screenHeight, "shapes_rlgl_triangle");
   SetTargetFPS(60);
 
-  final startingPositions = <Vector2D>[
+  final startingPositions = <Vector2>[
     .vec2(400, 150),
     .vec2(300, 300),
     .vec2(500, 300),

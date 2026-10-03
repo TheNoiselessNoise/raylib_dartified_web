@@ -677,9 +677,9 @@ WF2<void> get ImageColorBrightness => _module.ImageColorBrightness;
 /// See [RaylibCore.ImageColorReplace].
 WF3<void> get ImageColorReplace => _module.ImageColorReplace;
 /// See [RaylibCore.LoadImageColors].
-WF1<StructPointer<ColorD>> get LoadImageColors => _module.LoadImageColors;
+WF1<StructPointer<Color>> get LoadImageColors => _module.LoadImageColors;
 /// See [RaylibCore.LoadImagePalette].
-WF3<StructPointer<ColorD>> get LoadImagePalette => _module.LoadImagePalette;
+WF3<StructPointer<Color>> get LoadImagePalette => _module.LoadImagePalette;
 /// See [RaylibCore.UnloadImageColors].
 WF1<void> get UnloadImageColors => _module.UnloadImageColors;
 /// See [RaylibCore.UnloadImagePalette].
@@ -817,7 +817,7 @@ WF7<void> get LoadFontFromMemory => _module.LoadFontFromMemory;
 /// See [RaylibCore.IsFontValid].
 WF1<bool> get IsFontValid => _module.IsFontValid;
 /// See [RaylibCore.LoadFontData].
-WF7<StructPointer<GlyphInfoD>> get LoadFontData => _module.LoadFontData;
+WF7<StructPointer<GlyphInfo>> get LoadFontData => _module.LoadFontData;
 /// See [RaylibCore.GenImageFontAtlas].
 WF7<void> get GenImageFontAtlas => _module.GenImageFontAtlas;
 /// See [RaylibCore.UnloadFontData].
@@ -1031,7 +1031,7 @@ WF3<void> get GenMeshHeightmap => _module.GenMeshHeightmap;
 /// See [RaylibCore.GenMeshCubicmap].
 WF3<void> get GenMeshCubicmap => _module.GenMeshCubicmap;
 /// See [RaylibCore.LoadMaterials].
-WF2<StructPointer<MaterialD>> get LoadMaterials => _module.LoadMaterials;
+WF2<StructPointer<Material>> get LoadMaterials => _module.LoadMaterials;
 /// See [RaylibCore.LoadMaterialDefault].
 WF1<void> get LoadMaterialDefault => _module.LoadMaterialDefault;
 /// See [RaylibCore.IsMaterialValid].
@@ -1043,7 +1043,7 @@ WF3<void> get SetMaterialTexture => _module.SetMaterialTexture;
 /// See [RaylibCore.SetModelMeshMaterial].
 WF3<void> get SetModelMeshMaterial => _module.SetModelMeshMaterial;
 /// See [RaylibCore.LoadModelAnimations].
-WF2<StructPointer<ModelAnimationD>> get LoadModelAnimations => _module.LoadModelAnimations;
+WF2<StructPointer<ModelAnimation>> get LoadModelAnimations => _module.LoadModelAnimations;
 /// See [RaylibCore.UpdateModelAnimation].
 WF3<void> get UpdateModelAnimation => _module.UpdateModelAnimation;
 /// See [RaylibCore.UpdateModelAnimationEx].

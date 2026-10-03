@@ -6,7 +6,7 @@ const int screenWidth = 800;
 const int screenHeight = 450;
 
 class MonitorInfo {
-  Vector2D position = .zero();
+  Vector2 position = .zero();
   String name = '';
   int width = 0;
   int height = 0;
@@ -76,7 +76,7 @@ void main() => Raylib((rl) {
       {
         final m = monitors[i];
 
-        final RectangleD rec = .rect(
+        final Rectangle rec = .rect(
           (m.position.x + monitorOffsetX)*monitorScale + 140,
           m.position.y*monitorScale + 80,
           m.width*monitorScale,

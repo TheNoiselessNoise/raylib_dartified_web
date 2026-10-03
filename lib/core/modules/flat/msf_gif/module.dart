@@ -14,7 +14,7 @@ class RaylibMsfGifFlatWeb extends RaylibMsfGifFlat<Raylib> {
 
   @override
   int msf_gif_begin(
-    StructPointer<MsfGifStateD> handle,
+    StructPointer<MsfGifState> handle,
     int width,
     int height,
   ) => _wasm.msf_gif_begin(
@@ -25,7 +25,7 @@ class RaylibMsfGifFlatWeb extends RaylibMsfGifFlat<Raylib> {
 
   @override
   int msf_gif_frame(
-    StructPointer<MsfGifStateD> handle,
+    StructPointer<MsfGifState> handle,
     MemoryPointer<RUint8> pixelData,
     int centiSecondsPerFame,
     int maxBitDepth,
@@ -39,9 +39,9 @@ class RaylibMsfGifFlatWeb extends RaylibMsfGifFlat<Raylib> {
   );
 
   @override
-  MsfGifResultD msf_gif_end(
-    StructPointer<MsfGifStateD> handle,
-  ) => $.MsfGifResult$.RefCapture(
+  MsfGifResult msf_gif_end(
+    StructPointer<MsfGifState> handle,
+  ) => MsfGifResult$.RefCapture(
     RaylibCaptureIds.msf_gif_end,
     (p) => _wasm.msf_gif_end(
       p.toJS,
@@ -51,7 +51,7 @@ class RaylibMsfGifFlatWeb extends RaylibMsfGifFlat<Raylib> {
 
   @override
   void msf_gif_free(
-    MsfGifResultD result,
+    MsfGifResult result,
   ) => disposeStructWithOpFreed(result, (ptr) {
     _wasm.msf_gif_free(
       ptr.toJS,
@@ -60,7 +60,7 @@ class RaylibMsfGifFlatWeb extends RaylibMsfGifFlat<Raylib> {
 
   @override
   int msf_gif_begin_to_file(
-    StructPointer<MsfGifStateD> handle,
+    StructPointer<MsfGifState> handle,
     int width,
     int height,
     MemoryPointer<RFunction> func,
@@ -75,7 +75,7 @@ class RaylibMsfGifFlatWeb extends RaylibMsfGifFlat<Raylib> {
 
   @override
   int msf_gif_frame_to_file(
-    StructPointer<MsfGifStateD> handle,
+    StructPointer<MsfGifState> handle,
     MemoryPointer<RUint8> pixelData,
     int centiSecondsPerFame,
     int maxBitDepth,
@@ -90,7 +90,7 @@ class RaylibMsfGifFlatWeb extends RaylibMsfGifFlat<Raylib> {
 
   @override
   int msf_gif_end_to_file(
-    StructPointer<MsfGifStateD> handle,
+    StructPointer<MsfGifState> handle,
   ) => _wasm.msf_gif_end_to_file(
     handle.toJS,
   );

@@ -12,7 +12,7 @@ void main() => Raylib((rl) {
 
   String name = '';
 
-  final RectangleD textBox = .rect(screenWidth/2.0 - 100, 180, 225, 50);
+  final Rectangle textBox = .rect(screenWidth/2.0 - 100, 180, 225, 50);
   bool mouseOnText = false;
 
   int framesCounter = 0;

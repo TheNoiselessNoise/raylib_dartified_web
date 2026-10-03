@@ -16,7 +16,7 @@ void main() => Raylib((rl) {
   int imageHeight = screenHeight~/SCALE_FACTOR;
   int flameWidth = screenWidth~/SCALE_FACTOR;
 
-  final List<ColorD> palette = .generate(MAX_COLORS, (_) => .zero());
+  final List<Color> palette = .generate(MAX_COLORS, (_) => .zero());
   final List<int> indexBuffer = .filled(imageWidth*imageWidth, 0);
   final List<int> flameRootBuffer = .filled(flameWidth, 0);
 

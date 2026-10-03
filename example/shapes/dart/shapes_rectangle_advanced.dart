@@ -14,7 +14,7 @@ void main() => Raylib((rl) {
   rl.setMainLoop(() {
     final width = GetScreenWidth()/2.0, height = GetScreenHeight()/6.0;
     
-    final RectangleD rec = .rect(
+    final Rectangle rec = .rect(
       GetScreenWidth() / 2.0 - width/2,
       GetScreenHeight() / 2.0 - 5*(height/2),
       width, height
@@ -41,12 +41,12 @@ void main() => Raylib((rl) {
 });
 
 void DrawRectangleRoundedGradientH(
-  RectangleD rec,
+  Rectangle rec,
   double roundnessLeft,
   double roundnessRight,
   int segments,
-  ColorD left,
-  ColorD right,
+  Color left,
+  Color right,
 ) {
   if ((roundnessLeft <= 0.0 && roundnessRight <= 0.0) || (rec.width < 1) || (rec.height < 1 ))
   {
@@ -69,7 +69,7 @@ void DrawRectangleRoundedGradientH(
   double stepLength = 90.0/segments;
 
   // Coordinates of the 12 points also apdated from `DrawRectangleRounded`
-  final point = <Vector2D>[
+  final point = <Vector2>[
     // PO, P1, P2
     .vec2(rec.x + radiusLeft, rec.y),
     .vec2(rec.x + rec.width - radiusRight, rec.y),
@@ -100,7 +100,7 @@ void DrawRectangleRoundedGradientH(
     rlBegin(.RL_QUADS);
       for (int k = 0; k < 4; ++k)
       {
-        late ColorD color;
+        late Color color;
         late double radius;
         if (k == 0) { color = left; radius = radiusLeft; }
         if (k == 1) { color = right; radius = radiusRight; }
@@ -230,7 +230,7 @@ void DrawRectangleRoundedGradientH(
 
       for (int k = 0; k < 4; ++k)
       {
-        late ColorD color;
+        late Color color;
         late double radius;
         if (k == 0) { color = left; radius = radiusLeft; }
         if (k == 1) { color = right; radius = radiusRight; }

@@ -10,7 +10,7 @@ void main() => Raylib((rl) {
   InitWindow(screenWidth, screenHeight, "models_textured_cube");
   SetTargetFPS(60);
 
-  final camera = Camera3DD(
+  final camera = Camera3D(
     position: .vec3(0, 10, 10),
     target: .vec3(0, 0, 0),
     up: .vec3(0, 1, 0),
@@ -43,12 +43,12 @@ void main() => Raylib((rl) {
 });
 
 void DrawCubeTexture(
-  TextureD texture,
-  Vector3D position,
+  Texture texture,
+  Vector3 position,
   double width,
   double height,
   double length,
-  ColorD color
+  Color color
 ) {
   final x = position.x;
   final y = position.y;
@@ -100,13 +100,13 @@ void DrawCubeTexture(
 }
 
 void DrawCubeTextureRec(
-  TextureD texture,
-  RectangleD source,
-  Vector3D position,
+  Texture texture,
+  Rectangle source,
+  Vector3 position,
   double width,
   double height,
   double length,
-  ColorD color
+  Color color
 ) {
   final x = position.x;
   final y = position.y;

@@ -6,6 +6,7 @@ import 'dart:js_interop';
 import 'dart:js_interop_unsafe';
 import 'dart:typed_data';
 import 'package:raylib_dartified_base/raylib_dartified_base.dart';
+import 'package:raylib_dartified_base/abbr/allocators.dart';
 
 part 'base.dart';
 part 'emscripten_helpers.dart';

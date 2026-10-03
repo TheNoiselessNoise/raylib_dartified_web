@@ -173,7 +173,7 @@ String GetKeyText(int key){
   }
 }
 
-void GuiKeyboardKey(RectangleD bounds, int key)
+void GuiKeyboardKey(Rectangle bounds, int key)
 {
   if (key == KeyboardKey.KEY_NULL.value) DrawRectangleLinesEx(bounds, 2.0, LIGHTGRAY);
   else
