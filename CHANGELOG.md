@@ -2,10 +2,6 @@
 
 - complements `raylib_dartified_base` version `6.0.3`
 
-## 6.0.2
-
-- complements `raylib_dartified_base` version `6.0.2`
-
 ## 6.0.1
 
 - [BREAKING] Comply with `raylib_dartified_base` module naming.
